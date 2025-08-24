@@ -1,0 +1,41 @@
+/* styles.css */
+
+body {
+    font-family: sans-serif;
+    background-color: #f0f2f6; /* Light gray background */
+    color: #303030; /* Dark gray text */
+}
+
+h1, h2, h3 {
+    color: #1f77b4; /* Blue color for headers */
+}
+
+/* Style for the dataframe tables */
+div.stDataFrame {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Style for map container */
+div.stAlert {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Custom styles for the legend table (adjust as needed) */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #1f77b4;
+    color: white;
+} 

@@ -1,0 +1,72 @@
+{% extends "admin/index.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h1>🏢 Smart Waste Management Dashboard</h1>
+    <p class="dashboard-subtitle">Comprehensive overview of your waste management operations</p>
+</div>
+
+<div class="dashboard-stats">
+    <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <h3>Total Users</h3>
+        <div class="number">{{ user_count|default:"0" }}</div>
+        <div class="label">Registered Users</div>
+        <div class="stat-trend positive">+12% this month</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon">🗑️</div>
+        <h3>Total Bins</h3>
+        <div class="number">{{ bin_count|default:"0" }}</div>
+        <div class="label">Waste Collection Bins</div>
+        <div class="stat-trend positive">+5% this week</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon">🚛</div>
+        <h3>Total Trucks</h3>
+        <div class="number">{{ truck_count|default:"0" }}</div>
+        <div class="label">Collection Vehicles</div>
+        <div class="stat-trend neutral">No change</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon">📍</div>
+        <h3>Dumping Spots</h3>
+        <div class="number">{{ dumping_spot_count|default:"0" }}</div>
+        <div class="label">Waste Disposal Sites</div>
+        <div class="stat-trend positive">+2 new sites</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <h3>Active Users</h3>
+        <div class="number">{{ active_user_count|default:"0" }}</div>
+        <div class="label">Currently Active</div>
+        <div class="stat-trend positive">+8% today</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon">🔧</div>
+        <h3>Roles</h3>
+        <div class="number">{{ role_count|default:"0" }}</div>
+        <div class="label">User Roles</div>
+        <div class="stat-trend neutral">Stable</div>
+    </div>
+</div>
+
+<div class="module quick-actions-module">
+    <h2>🚀 Quick Actions</h2>
+    <p class="module-description">Manage your waste management system efficiently</p>
+    <div class="user-actions">
+        <a href="{% url 'admin:core_role_add' %}" class="button">👥 Add New Role</a>
+        <a href="{% url 'admin:core_bin_add' %}" class="button">🗑️ Add New Bin</a>
+        <a href="{% url 'admin:core_truck_add' %}" class="button">🚛 Add New Truck</a>
+        <a href="{% url 'admin:core_dumpingspot_add' %}" class="button">📍 Add Dumping Spot</a>
+    </div>
+</div>
+
+{{ block.super }}
+{% endblock %}
