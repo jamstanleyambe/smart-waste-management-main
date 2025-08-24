@@ -418,6 +418,15 @@
         margin-right: auto !important;
     }
     
+    /* Dashboard Container */
+    .dashboard-container {
+        width: 100% !important;
+        max-width: 1200px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        box-sizing: border-box !important;
+    }
+    
     @media (min-width: 1600px) {
         .dashboard-stats {
             grid-template-columns: repeat(4, 1fr);
@@ -449,6 +458,10 @@
     }
     
     @media (max-width: 599px) {
+        .dashboard-container {
+            max-width: 95vw !important;
+        }
+        
         .dashboard-stats {
             grid-template-columns: 1fr;
             max-width: 95vw !important;
