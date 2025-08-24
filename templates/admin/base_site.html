@@ -155,6 +155,9 @@
         margin-bottom: 2.5rem;
         overflow: hidden;
         width: 100% !important;
+        max-width: 1200px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
         box-sizing: border-box !important;
         transition: all 0.3s ease;
     }
@@ -297,7 +300,9 @@
         gap: 2.5rem;
         margin: 3rem 0;
         width: 100% !important;
-        max-width: none !important;
+        max-width: 1200px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
         box-sizing: border-box !important;
         padding: 0 !important;
     }
@@ -408,6 +413,9 @@
     /* Better spacing for main content */
     .main {
         padding: 0 1.5rem;
+        max-width: 1200px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
     
     @media (min-width: 1600px) {
@@ -443,6 +451,7 @@
     @media (max-width: 599px) {
         .dashboard-stats {
             grid-template-columns: 1fr;
+            max-width: 95vw !important;
         }
         
         .app-list {
@@ -451,6 +460,18 @@
         }
         
         .quick-actions-module {
+            max-width: 95vw !important;
+        }
+        
+        .dashboard-header {
+            max-width: 95vw !important;
+        }
+        
+        .module {
+            max-width: 95vw !important;
+        }
+        
+        .main {
             max-width: 95vw !important;
         }
         
@@ -575,6 +596,9 @@
         color: white;
         box-shadow: var(--shadow-md);
         width: 100% !important;
+        max-width: 1200px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
         box-sizing: border-box !important;
     }
     
