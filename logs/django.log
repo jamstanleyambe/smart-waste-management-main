@@ -1,0 +1,260 @@
+INFO 2025-08-24 21:43:01,569 autoreload 23353 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 21:43:15,022 autoreload 23353 8486575872 /Applications/smart-waste-management/waste_management/settings.py changed, reloading.
+INFO 2025-08-24 21:43:15,334 autoreload 23434 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 21:43:53,344 autoreload 23434 8486575872 /Applications/smart-waste-management/core/serializers.py changed, reloading.
+INFO 2025-08-24 21:43:53,663 autoreload 23679 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 21:44:53,225 autoreload 23679 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-24 21:44:53,538 autoreload 24036 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 21:57:10,320 autoreload 24036 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-24 21:57:10,631 autoreload 28568 8486575872 Watching for file changes with StatReloader
+WARNING 2025-08-24 21:59:06,982 log 28568 6165704704 Forbidden: /api/bin-data/
+WARNING 2025-08-24 21:59:06,982 basehttp 28568 6165704704 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-24 21:59:06,984 log 28568 6165704704 Forbidden: /api/dumping-spots/
+WARNING 2025-08-24 21:59:06,984 basehttp 28568 6165704704 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-24 21:59:06,986 log 28568 6165704704 Forbidden: /api/trucks/
+WARNING 2025-08-24 21:59:06,986 basehttp 28568 6165704704 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-24 21:59:17,125 base 28568 6165704704 Session data corrupted
+INFO 2025-08-24 21:59:17,134 basehttp 28568 6165704704 "GET /admin/ HTTP/1.1" 302 0
+WARNING 2025-08-24 21:59:17,137 base 28568 6165704704 Session data corrupted
+INFO 2025-08-24 21:59:17,153 basehttp 28568 6165704704 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 25507
+WARNING 2025-08-24 21:59:38,523 base 28568 6165704704 Session data corrupted
+INFO 2025-08-24 21:59:38,660 basehttp 28568 6165704704 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-08-24 21:59:38,672 basehttp 28568 6165704704 "GET /admin/ HTTP/1.1" 200 33195
+INFO 2025-08-24 22:00:19,954 basehttp 28568 6165704704 "GET /admin/ HTTP/1.1" 200 33195
+INFO 2025-08-24 22:00:42,825 autoreload 30387 8486575872 Watching for file changes with StatReloader
+WARNING 2025-08-24 22:00:46,392 log 30387 6197932032 Forbidden: /api/bin-data/
+WARNING 2025-08-24 22:00:46,392 basehttp 30387 6197932032 "HEAD /api/bin-data/ HTTP/1.1" 403 0
+INFO 2025-08-24 22:00:51,000 basehttp 30387 6197932032 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-24 22:01:07,034 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 33195
+INFO 2025-08-24 22:03:09,151 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 33195
+INFO 2025-08-24 22:03:12,534 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 33195
+INFO 2025-08-24 22:04:11,202 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 33195
+INFO 2025-08-24 22:04:16,536 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 33195
+INFO 2025-08-24 22:04:30,210 basehttp 30387 6197932032 "GET /admin/core/truck/ HTTP/1.1" 200 37758
+INFO 2025-08-24 22:04:30,225 basehttp 30387 6197932032 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-24 22:04:36,881 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 33195
+INFO 2025-08-24 22:04:41,971 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 33195
+INFO 2025-08-24 22:04:42,796 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 33195
+INFO 2025-08-24 22:04:43,718 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 33195
+INFO 2025-08-24 22:04:50,154 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 33195
+INFO 2025-08-24 22:11:35,082 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 33195
+INFO 2025-08-24 22:11:36,768 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 33195
+INFO 2025-08-24 22:11:38,109 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 33195
+WARNING 2025-08-24 22:11:45,356 log 30387 6197932032 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-24 22:11:45,356 basehttp 30387 6197932032 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-24 22:13:23,204 basehttp 30387 6231584768 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-24 22:13:38,213 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 35239
+WARNING 2025-08-24 22:13:38,226 log 30387 6197932032 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-24 22:13:38,227 basehttp 30387 6197932032 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-24 22:19:26,684 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 35239
+INFO 2025-08-24 22:19:43,290 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 35239
+INFO 2025-08-24 22:20:10,938 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 35239
+INFO 2025-08-24 22:24:18,100 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 35239
+INFO 2025-08-24 22:25:55,880 basehttp 30387 6197932032 "GET /admin/ HTTP/1.1" 200 35239
+INFO 2025-08-24 22:26:04,624 autoreload 30387 8486575872 /Applications/smart-waste-management/waste_management/settings.py changed, reloading.
+INFO 2025-08-24 22:26:05,068 autoreload 39754 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 22:37:09,192 basehttp 39754 6190493696 "GET /admin/ HTTP/1.1" 200 35239
+INFO 2025-08-24 22:37:12,355 basehttp 39754 6190493696 "GET / HTTP/1.1" 200 4997
+INFO 2025-08-24 22:37:12,377 views 39754 6190493696 Bin data retrieved by user: admin
+INFO 2025-08-24 22:37:12,380 basehttp 39754 6190493696 "GET /api/bin-data/ HTTP/1.1" 200 10974
+INFO 2025-08-24 22:37:35,447 basehttp 39754 6190493696 "GET /admin/ HTTP/1.1" 200 35239
+INFO 2025-08-24 22:37:41,065 basehttp 39754 6190493696 "GET /admin/password_change/ HTTP/1.1" 200 33527
+INFO 2025-08-24 22:37:46,122 basehttp 39754 6190493696 "GET /admin/password_change/ HTTP/1.1" 200 33527
+INFO 2025-08-24 22:37:51,578 basehttp 39754 6190493696 "POST /admin/logout/ HTTP/1.1" 200 26946
+INFO 2025-08-24 22:37:54,448 basehttp 39754 6190493696 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-08-24 22:37:54,458 basehttp 39754 6190493696 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 27551
+INFO 2025-08-24 22:38:04,133 basehttp 39754 6190493696 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-08-24 22:38:04,139 basehttp 39754 6190493696 "GET /admin/ HTTP/1.1" 200 35239
+INFO 2025-08-24 22:38:08,323 basehttp 39754 6190493696 "GET /admin/ HTTP/1.1" 200 35239
+INFO 2025-08-24 22:38:16,628 basehttp 39754 6190493696 "GET /admin/ HTTP/1.1" 200 35239
+INFO 2025-08-24 22:42:27,676 basehttp 39754 6190493696 "GET /admin/ HTTP/1.1" 200 40208
+INFO 2025-08-24 22:42:57,087 basehttp 39754 6190493696 "GET /admin/ HTTP/1.1" 200 40208
+INFO 2025-08-24 22:43:02,151 basehttp 39754 6224146432 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-24 22:43:14,071 basehttp 39754 6190493696 "GET /admin/ HTTP/1.1" 200 40208
+INFO 2025-08-24 22:43:33,087 basehttp 39754 6190493696 "GET /admin/ HTTP/1.1" 200 40526
+INFO 2025-08-24 22:43:55,870 basehttp 39754 6190493696 "GET /admin/ HTTP/1.1" 200 41422
+INFO 2025-08-24 22:49:20,898 basehttp 39754 6207320064 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-24 22:49:31,744 basehttp 39754 6190493696 "GET /admin/ HTTP/1.1" 200 35965
+INFO 2025-08-24 22:49:40,038 basehttp 39754 6190493696 "GET /admin/auth/ HTTP/1.1" 200 33174
+INFO 2025-08-24 22:49:42,071 basehttp 39754 6190493696 "GET /admin/auth/ HTTP/1.1" 200 33174
+INFO 2025-08-24 22:49:42,953 basehttp 39754 6190493696 "GET /admin/auth/ HTTP/1.1" 200 33174
+INFO 2025-08-24 22:49:44,020 basehttp 39754 6190493696 "GET /admin/ HTTP/1.1" 200 35965
+INFO 2025-08-24 22:50:24,086 autoreload 39754 8486575872 /Applications/smart-waste-management/waste_management/settings.py changed, reloading.
+INFO 2025-08-24 22:50:24,427 autoreload 48849 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 22:50:53,221 autoreload 48849 8486575872 /Applications/smart-waste-management/waste_management/settings.py changed, reloading.
+INFO 2025-08-24 22:50:53,483 autoreload 49022 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 22:51:02,837 autoreload 49022 8486575872 /Applications/smart-waste-management/waste_management/settings.py changed, reloading.
+INFO 2025-08-24 22:51:03,092 autoreload 49097 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 22:51:14,510 autoreload 49097 8486575872 /Applications/smart-waste-management/waste_management/settings.py changed, reloading.
+INFO 2025-08-24 22:51:14,747 autoreload 49170 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 22:51:46,445 autoreload 49170 8486575872 /Applications/smart-waste-management/waste_management/settings.py changed, reloading.
+INFO 2025-08-24 22:51:46,710 autoreload 49379 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 22:53:04,821 basehttp 49379 6165950464 "GET /admin/ HTTP/1.1" 200 39130
+INFO 2025-08-24 22:53:11,596 basehttp 49379 6165950464 "GET /admin/ HTTP/1.1" 200 39130
+INFO 2025-08-24 22:53:19,641 autoreload 49379 8486575872 /Applications/smart-waste-management/core/urls.py changed, reloading.
+INFO 2025-08-24 22:53:19,989 autoreload 49968 8486575872 Watching for file changes with StatReloader
+ERROR 2025-08-24 22:53:21,616 log 49968 6196850688 Internal Server Error: /admin/axes/accessattempt/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: axes_accessattempt
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/options.py", line 2024, in changelist_view
+    cl = self.get_changelist_instance(request)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/options.py", line 867, in get_changelist_instance
+    return ChangeList(
+           ^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/views/main.py", line 146, in __init__
+    self.get_results(request)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/views/main.py", line 313, in get_results
+    result_count = paginator.count
+                   ^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/paginator.py", line 110, in count
+    return c()
+           ^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/sql/query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/sql/query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: axes_accessattempt
+ERROR 2025-08-24 22:53:21,620 basehttp 49968 6196850688 "GET /admin/axes/accessattempt/ HTTP/1.1" 500 202600
+INFO 2025-08-24 22:53:25,033 basehttp 49968 6196850688 "GET /admin/ HTTP/1.1" 200 39130
+INFO 2025-08-24 22:53:26,815 basehttp 49968 6196850688 "GET /admin/core/truck/ HTTP/1.1" 200 42963
+INFO 2025-08-24 22:53:26,830 basehttp 49968 6196850688 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-24 22:53:39,204 basehttp 49968 6196850688 "GET /admin/ HTTP/1.1" 200 39130
+INFO 2025-08-24 22:54:41,335 autoreload 49968 8486575872 /Applications/smart-waste-management/core/auth_backends.py changed, reloading.
+INFO 2025-08-24 22:54:41,614 autoreload 50487 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 22:54:52,079 autoreload 50487 8486575872 /Applications/smart-waste-management/core/auth_backends.py changed, reloading.
+INFO 2025-08-24 22:54:52,338 autoreload 50553 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 22:55:01,767 autoreload 50553 8486575872 /Applications/smart-waste-management/core/auth_backends.py changed, reloading.
+INFO 2025-08-24 22:55:02,009 autoreload 50616 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 23:05:32,616 basehttp 50616 6165262336 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:07:24,515 basehttp 50616 6165262336 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:07:37,015 basehttp 50616 6165262336 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:09:04,739 autoreload 50616 8486575872 /Applications/smart-waste-management/core/urls.py changed, reloading.
+INFO 2025-08-24 23:09:05,066 autoreload 55741 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 23:10:00,719 basehttp 55741 6133641216 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:11:16,977 basehttp 55741 6133641216 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:12:42,145 basehttp 55741 6133641216 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:12:47,753 basehttp 55741 6133641216 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:13:31,482 basehttp 55741 6133641216 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:20:40,411 basehttp 55741 6133641216 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:20:44,517 basehttp 55741 6133641216 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:20:46,622 basehttp 55741 6133641216 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:20:47,846 basehttp 55741 6133641216 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:20:48,908 basehttp 55741 6133641216 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:20:49,807 basehttp 55741 6133641216 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:20:50,587 basehttp 55741 6133641216 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:21:01,107 basehttp 55741 6133641216 "GET /admin/core/role/add/ HTTP/1.1" 200 41063
+INFO 2025-08-24 23:21:01,124 basehttp 55741 6133641216 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-24 23:21:14,509 basehttp 55741 6133641216 "POST /admin/core/role/add/ HTTP/1.1" 200 41452
+INFO 2025-08-24 23:21:14,523 basehttp 55741 6133641216 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-24 23:21:15,694 basehttp 55741 6133641216 "POST /admin/core/role/add/ HTTP/1.1" 200 41452
+INFO 2025-08-24 23:21:15,706 basehttp 55741 6133641216 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-24 23:21:16,633 basehttp 55741 6133641216 "POST /admin/core/role/add/ HTTP/1.1" 200 41452
+INFO 2025-08-24 23:21:16,646 basehttp 55741 6133641216 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-24 23:21:17,392 basehttp 55741 6133641216 "POST /admin/core/role/add/ HTTP/1.1" 200 41452
+INFO 2025-08-24 23:21:17,409 basehttp 55741 6133641216 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-24 23:21:19,275 basehttp 55741 6133641216 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:21:22,629 basehttp 55741 6133641216 "GET /admin/core/dumpingspot/add/ HTTP/1.1" 200 42907
+INFO 2025-08-24 23:21:22,642 basehttp 55741 6133641216 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-24 23:21:34,505 basehttp 55741 6133641216 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:21:36,653 basehttp 55741 6133641216 "GET /api/user-management/ HTTP/1.1" 200 36099
+INFO 2025-08-24 23:21:47,944 basehttp 55741 6133641216 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:22:40,243 autoreload 55741 8486575872 /Applications/smart-waste-management/waste_management/settings.py changed, reloading.
+INFO 2025-08-24 23:22:40,489 autoreload 60663 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 23:22:48,846 autoreload 60663 8486575872 /Applications/smart-waste-management/waste_management/settings.py changed, reloading.
+INFO 2025-08-24 23:22:49,083 autoreload 60723 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 23:23:06,671 autoreload 60723 8486575872 /Applications/smart-waste-management/waste_management/settings.py changed, reloading.
+INFO 2025-08-24 23:23:06,945 autoreload 60827 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 23:24:19,649 basehttp 60827 6193180672 "HEAD /api/user-management/ HTTP/1.1" 302 0
+INFO 2025-08-24 23:24:31,594 autoreload 60827 8486575872 /Applications/smart-waste-management/waste_management/settings.py changed, reloading.
+INFO 2025-08-24 23:24:31,833 autoreload 61528 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 23:24:47,925 basehttp 61528 6199980032 "GET /admin/ HTTP/1.1" 200 39254
+INFO 2025-08-24 23:24:51,641 basehttp 61528 6199980032 "GET /admin/ HTTP/1.1" 200 39254
+WARNING 2025-08-24 23:24:58,015 log 61528 6233632768 Forbidden: /api/bin-data/
+WARNING 2025-08-24 23:24:58,016 basehttp 61528 6233632768 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-24 23:24:58,018 log 61528 6233632768 Forbidden: /api/dumping-spots/
+WARNING 2025-08-24 23:24:58,018 basehttp 61528 6233632768 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-24 23:24:58,020 log 61528 6233632768 Forbidden: /api/trucks/
+WARNING 2025-08-24 23:24:58,021 basehttp 61528 6233632768 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-24 23:25:20,137 log 61528 6233632768 Forbidden: /api/bin-data/
+WARNING 2025-08-24 23:25:20,137 basehttp 61528 6233632768 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-24 23:25:20,141 log 61528 6233632768 Forbidden: /api/dumping-spots/
+WARNING 2025-08-24 23:25:20,141 basehttp 61528 6233632768 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-24 23:25:20,143 log 61528 6233632768 Forbidden: /api/trucks/
+WARNING 2025-08-24 23:25:20,143 basehttp 61528 6233632768 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-24 23:25:23,559 log 61528 6233632768 Forbidden: /api/bin-data/
+WARNING 2025-08-24 23:25:23,559 basehttp 61528 6233632768 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-24 23:25:23,563 log 61528 6233632768 Forbidden: /api/dumping-spots/
+WARNING 2025-08-24 23:25:23,564 basehttp 61528 6233632768 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-24 23:25:23,568 log 61528 6233632768 Forbidden: /api/trucks/
+WARNING 2025-08-24 23:25:23,568 basehttp 61528 6233632768 "GET /api/trucks/ HTTP/1.1" 403 58

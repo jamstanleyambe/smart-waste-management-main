@@ -1,13 +1,10 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from . import views
+from . import user_management
  
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
-# Assuming you might eventually convert bin_data to a ViewSet, 
-# for now, keep the path for bin_data as is and add dumping spots to router.
-# If views.bin_data was a ViewSet, you would register it like this:
-# router.register(r'bin-data', views.BinViewSet, basename='bin-data')
 router.register(r'dumping-spots', views.DumpingSpotViewSet, basename='dumpingspot')
 router.register(r'trucks', views.TruckViewSet, basename='truck')
 router.register(r'bin-data', views.BinViewSet, basename='bin')
@@ -19,4 +16,12 @@ router.register(r'roles', views.RoleViewSet, basename='role')
 urlpatterns = [
     path('bin-data/', views.bin_data, name='bin_data'),
     path('', include(router.urls)),
+    
+    # User Management URLs
+    path('user-management/', user_management.user_dashboard, name='user_dashboard'),
+    path('user-management/activity-log/', user_management.user_activity_log, name='user_activity_log'),
+    path('user-management/toggle-status/<int:user_id>/', user_management.toggle_user_status, name='toggle_user_status'),
+    path('user-management/reset-password/<int:user_id>/', user_management.reset_user_password, name='reset_user_password'),
+    path('user-management/unlock-account/<int:user_id>/', user_management.unlock_user_account, name='unlock_user_account'),
+    path('user-management/clear-ip-block/', user_management.clear_ip_block, name='clear_ip_block'),
 ] 

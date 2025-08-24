@@ -1,5 +1,6 @@
 from django.db import models
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MinValueValidator, MaxValueValidator
+from django.core.exceptions import ValidationError
 
 class Role(models.Model):
     ROLE_CHOICES = [
@@ -23,14 +24,65 @@ class Role(models.Model):
         ordering = ['name']
 
 class Bin(models.Model):
-    bin_id = models.CharField(max_length=50, unique=True)
-    fill_level = models.FloatField()
-    latitude = models.FloatField()
-    longitude = models.FloatField()
-    organic_percentage = models.FloatField()
-    plastic_percentage = models.FloatField()
-    metal_percentage = models.FloatField()
+    bin_id = models.CharField(
+        max_length=50, 
+        unique=True,
+        validators=[
+            RegexValidator(
+                regex=r'^[A-Z0-9_-]+$',
+                message='Bin ID must contain only uppercase letters, numbers, hyphens, and underscores.'
+            )
+        ]
+    )
+    fill_level = models.FloatField(
+        validators=[
+            MinValueValidator(0.0, message='Fill level cannot be negative'),
+            MaxValueValidator(100.0, message='Fill level cannot exceed 100%')
+        ]
+    )
+    latitude = models.FloatField(
+        validators=[
+            MinValueValidator(-90.0, message='Latitude must be between -90 and 90'),
+            MaxValueValidator(90.0, message='Latitude must be between -90 and 90')
+        ]
+    )
+    longitude = models.FloatField(
+        validators=[
+            MinValueValidator(-180.0, message='Longitude must be between -180 and 180'),
+            MaxValueValidator(180.0, message='Longitude must be between -180 and 180')
+        ]
+    )
+    organic_percentage = models.FloatField(
+        validators=[
+            MinValueValidator(0.0, message='Organic percentage cannot be negative'),
+            MaxValueValidator(100.0, message='Organic percentage cannot exceed 100%')
+        ]
+    )
+    plastic_percentage = models.FloatField(
+        validators=[
+            MinValueValidator(0.0, message='Plastic percentage cannot be negative'),
+            MaxValueValidator(100.0, message='Plastic percentage cannot exceed 100%')
+        ]
+    )
+    metal_percentage = models.FloatField(
+        validators=[
+            MinValueValidator(0.0, message='Metal percentage cannot be negative'),
+            MaxValueValidator(100.0, message='Metal percentage cannot exceed 100%')
+        ]
+    )
     last_updated = models.DateTimeField(auto_now=True)
+
+    def clean(self):
+        """Validate that percentages sum to 100%"""
+        total_percentage = self.organic_percentage + self.plastic_percentage + self.metal_percentage
+        if abs(total_percentage - 100.0) > 0.01:  # Allow small floating point errors
+            raise ValidationError(
+                f'Percentages must sum to 100%. Current sum: {total_percentage:.2f}%'
+            )
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Bin {self.bin_id}"
@@ -47,7 +99,7 @@ class Bin(models.Model):
             return "red"
         elif self.fill_level < 30:
             return "green"
-        return "orange" 
+        return "orange"
 
 class DumpingSpot(models.Model):
     spot_id = models.CharField(max_length=50, unique=True)

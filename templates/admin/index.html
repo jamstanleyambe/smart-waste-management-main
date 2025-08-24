@@ -57,16 +57,17 @@
     </div>
 </div>
 
-<div class="module quick-actions-module">
-    <h2>🚀 Quick Actions</h2>
-    <p class="module-description">Manage your waste management system efficiently</p>
-    <div class="user-actions">
-        <a href="{% url 'admin:core_role_add' %}" class="button">👥 Add New Role</a>
-        <a href="{% url 'admin:core_bin_add' %}" class="button">🗑️ Add New Bin</a>
-        <a href="{% url 'admin:core_truck_add' %}" class="button">🚛 Add New Truck</a>
-        <a href="{% url 'admin:core_dumpingspot_add' %}" class="button">📍 Add Dumping Spot</a>
+    <div class="module quick-actions-module">
+        <h2>🚀 Quick Actions</h2>
+        <p class="module-description">Manage your waste management system efficiently</p>
+        <div class="user-actions">
+            <a href="{% url 'admin:core_role_add' %}" class="button">👥 Add New Role</a>
+            <a href="{% url 'admin:core_bin_add' %}" class="button">🗑️ Add New Bin</a>
+            <a href="{% url 'admin:core_truck_add' %}" class="button">🚛 Add New Truck</a>
+            <a href="{% url 'admin:core_dumpingspot_add' %}" class="button">📍 Add Dumping Spot</a>
+            <a href="{% url 'user_dashboard' %}" class="button">🔐 User Management</a>
+        </div>
     </div>
-</div>
 
 {{ block.super }}
 {% endblock %}
