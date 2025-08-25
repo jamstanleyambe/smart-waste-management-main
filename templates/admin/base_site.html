@@ -486,112 +486,522 @@
         transform: none;
     }
     
+    /* Professional Responsive Design System */
+    
+    /* Large Desktop (1600px and up) */
     @media (min-width: 1600px) {
-        .dashboard-stats {
-            grid-template-columns: repeat(4, 1fr);
-        }
-    }
-    
-    @media (min-width: 1400px) and (max-width: 1599px) {
-        .dashboard-stats {
-            grid-template-columns: repeat(3, 1fr);
-        }
-    }
-    
-    @media (min-width: 1200px) and (max-width: 1399px) {
-        .dashboard-stats {
-            grid-template-columns: repeat(3, 1fr);
-        }
-    }
-    
-    @media (min-width: 900px) and (max-width: 1199px) {
-        .dashboard-stats {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-    
-    @media (min-width: 600px) and (max-width: 899px) {
-        .dashboard-stats {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-    
-    @media (max-width: 599px) {
         .dashboard-container {
-            max-width: 95vw !important;
-            padding: 1rem !important;
+            max-width: 1600px !important;
+            margin: 3rem auto !important;
+            padding: 3.5rem !important;
         }
         
         .dashboard-stats {
-            grid-template-columns: 1fr;
-            max-width: 95vw !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 3rem !important;
+        }
+        
+        .app-list {
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 3rem !important;
+        }
+        
+        .dashboard-header h1 {
+            font-size: 3.5rem !important;
+        }
+        
+        .stat-card {
+            min-height: 220px !important;
+            padding: 3rem 2.5rem !important;
+        }
+        
+        .stat-card .stat-number {
+            font-size: 3rem !important;
+        }
+    }
+    
+    /* Desktop Large (1400px - 1599px) */
+    @media (min-width: 1400px) and (max-width: 1599px) {
+        .dashboard-container {
+            max-width: 1400px !important;
+            margin: 2.5rem auto !important;
+            padding: 3rem !important;
+        }
+        
+        .dashboard-stats {
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 2.5rem !important;
+        }
+        
+        .app-list {
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 2.5rem !important;
+        }
+        
+        .dashboard-header h1 {
+            font-size: 3rem !important;
+        }
+        
+        .stat-card {
+            min-height: 200px !important;
+            padding: 2.5rem 2rem !important;
+        }
+    }
+    
+    /* Desktop (1200px - 1399px) */
+    @media (min-width: 1200px) and (max-width: 1399px) {
+        .dashboard-container {
+            max-width: 1200px !important;
+            margin: 2rem auto !important;
+            padding: 2.5rem !important;
+        }
+        
+        .dashboard-stats {
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 2rem !important;
+        }
+        
+        .app-list {
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 2rem !important;
+        }
+        
+        .dashboard-header h1 {
+            font-size: 2.5rem !important;
+        }
+        
+        .stat-card {
+            min-height: 180px !important;
+            padding: 2rem 1.5rem !important;
+        }
+    }
+    
+    /* Tablet Landscape (900px - 1199px) */
+    @media (min-width: 900px) and (max-width: 1199px) {
+        .dashboard-container {
+            margin: 1.5rem auto !important;
+            padding: 2rem !important;
+        }
+        
+        .dashboard-stats {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 1.5rem !important;
+        }
+        
+        .app-list {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 1.5rem !important;
+        }
+        
+        .dashboard-header h1 {
+            font-size: 2.2rem !important;
+        }
+        
+        .stat-card {
+            min-height: 160px !important;
+            padding: 1.5rem 1.25rem !important;
+        }
+        
+        #content-main {
+            padding: 1rem 1.5rem !important;
+        }
+        
+        #header {
+            padding: 1rem 1.5rem !important;
+        }
+    }
+    
+    /* Tablet Portrait (600px - 899px) */
+    @media (min-width: 600px) and (max-width: 899px) {
+        .dashboard-container {
+            margin: 1rem auto !important;
+            padding: 1.5rem !important;
+        }
+        
+        .dashboard-stats {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 1.25rem !important;
+        }
+        
+        .app-list {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 1.25rem !important;
+        }
+        
+        .dashboard-header h1 {
+            font-size: 2rem !important;
+        }
+        
+        .stat-card {
+            min-height: 140px !important;
+            padding: 1.25rem 1rem !important;
+        }
+        
+        .stat-card h3 {
+            font-size: 1.1rem !important;
+        }
+        
+        .stat-card .stat-number {
+            font-size: 1.8rem !important;
+        }
+        
+        #content-main {
+            padding: 0.75rem 1rem !important;
+        }
+        
+        #header {
+            padding: 0.75rem 1rem !important;
+        }
+    }
+    
+    /* Mobile Large (480px - 599px) */
+    @media (min-width: 480px) and (max-width: 599px) {
+        .dashboard-container {
+            margin: 0.75rem auto !important;
+            padding: 1.25rem !important;
+            border-radius: 6px !important;
+        }
+        
+        .dashboard-stats {
+            grid-template-columns: repeat(2, 1fr) !important;
             gap: 1rem !important;
         }
         
         .app-list {
-            grid-template-columns: 1fr;
-            max-width: 95vw !important;
+            grid-template-columns: 1fr !important;
             gap: 1rem !important;
-        }
-        
-        .quick-actions-module {
-            max-width: 95vw !important;
-        }
-        
-        .dashboard-header {
-            max-width: 95vw !important;
-            padding: 2rem 1rem !important;
         }
         
         .dashboard-header h1 {
             font-size: 1.8rem !important;
+            margin-bottom: 0.5rem !important;
         }
         
-        .dashboard-subtitle {
-            font-size: 1rem !important;
-        }
-        
-        .module {
-            max-width: 95vw !important;
-        }
-        
-        .main {
-            max-width: 95vw !important;
-        }
-        
-        #content-main {
-            width: 100vw !important;
-            margin: 0 !important;
-            padding: 0.5rem 1rem !important;
-        }
-        
-        #header {
-            width: 100vw !important;
-            margin: 0 !important;
-            padding: 0.5rem 1rem !important;
-        }
-        
-        .dashboard-container {
-            margin: 1rem 0 !important;
-            padding: 1rem !important;
-            border-radius: 6px !important;
+        .dashboard-header .subtitle {
+            font-size: 0.9rem !important;
         }
         
         .stat-card {
-            padding: 1.5rem 1rem !important;
-            min-height: 150px !important;
+            min-height: 120px !important;
+            padding: 1rem 0.75rem !important;
         }
         
-        .user-actions .button {
-            min-width: 120px !important;
-            padding: 0.5rem 1rem !important;
+        .stat-card h3 {
+            font-size: 1rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+        
+        .stat-card .stat-number {
+            font-size: 1.5rem !important;
+        }
+        
+        .stat-card .stat-change {
             font-size: 0.8rem !important;
         }
         
         .app-list .module {
+            min-height: 140px !important;
             padding: 1rem !important;
-            min-height: 180px !important;
         }
+        
+        .app-list .module h2 {
+            font-size: 1.1rem !important;
+        }
+        
+        .user-actions .button {
+            min-width: 120px !important;
+            padding: 0.6rem 1rem !important;
+            font-size: 0.85rem !important;
+        }
+        
+        #content-main {
+            padding: 0.5rem 0.75rem !important;
+        }
+        
+        #header {
+            padding: 0.5rem 0.75rem !important;
+        }
+    }
+    
+    /* Mobile Small (320px - 479px) */
+    @media (max-width: 479px) {
+        .dashboard-container {
+            margin: 0.5rem auto !important;
+            padding: 1rem !important;
+            border-radius: 4px !important;
+        }
+        
+        .dashboard-stats {
+            grid-template-columns: 1fr !important;
+            gap: 0.75rem !important;
+        }
+        
+        .app-list {
+            grid-template-columns: 1fr !important;
+            gap: 0.75rem !important;
+        }
+        
+        .dashboard-header h1 {
+            font-size: 1.6rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+        
+        .dashboard-header .subtitle {
+            font-size: 0.85rem !important;
+        }
+        
+        .stat-card {
+            min-height: 100px !important;
+            padding: 0.75rem 0.5rem !important;
+        }
+        
+        .stat-card h3 {
+            font-size: 0.9rem !important;
+            margin-bottom: 0.25rem !important;
+        }
+        
+        .stat-card .stat-number {
+            font-size: 1.3rem !important;
+        }
+        
+        .stat-card .stat-change {
+            font-size: 0.75rem !important;
+        }
+        
+        .app-list .module {
+            min-height: 120px !important;
+            padding: 0.75rem !important;
+        }
+        
+        .app-list .module h2 {
+            font-size: 1rem !important;
+        }
+        
+        .app-list .module a {
+            font-size: 0.85rem !important;
+        }
+        
+        .user-actions .button {
+            min-width: 100px !important;
+            padding: 0.5rem 0.75rem !important;
+            font-size: 0.8rem !important;
+            margin: 0.25rem !important;
+        }
+        
+        .quick-actions-module {
+            padding: 1rem 0.75rem !important;
+        }
+        
+        .quick-actions-module h2 {
+            font-size: 1.1rem !important;
+        }
+        
+        .quick-actions-module .button {
+            padding: 0.5rem 0.75rem !important;
+            font-size: 0.85rem !important;
+            margin: 0.25rem !important;
+        }
+        
+        #content-main {
+            padding: 0.25rem 0.5rem !important;
+        }
+        
+        #header {
+            padding: 0.25rem 0.5rem !important;
+        }
+        
+        /* Mobile-specific header adjustments */
+        #header h1 {
+            font-size: 1.2rem !important;
+        }
+        
+        #header #user-tools {
+            font-size: 0.8rem !important;
+        }
+    }
+    
+    /* Extra Small Mobile (below 320px) */
+    @media (max-width: 319px) {
+        .dashboard-container {
+            margin: 0.25rem auto !important;
+            padding: 0.75rem !important;
+        }
+        
+        .dashboard-header h1 {
+            font-size: 1.4rem !important;
+        }
+        
+        .stat-card {
+            min-height: 80px !important;
+            padding: 0.5rem !important;
+        }
+        
+        .stat-card .stat-number {
+            font-size: 1.1rem !important;
+        }
+        
+        .user-actions .button {
+            min-width: 80px !important;
+            padding: 0.4rem 0.5rem !important;
+            font-size: 0.75rem !important;
+        }
+        
+        #content-main {
+            padding: 0.25rem !important;
+        }
+        
+        #header {
+            padding: 0.25rem !important;
+        }
+    }
+    
+    /* Landscape Mobile Optimization */
+    @media (max-height: 500px) and (orientation: landscape) {
+        .dashboard-container {
+            margin: 0.5rem auto !important;
+            padding: 1rem !important;
+        }
+        
+        .dashboard-stats {
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 0.75rem !important;
+        }
+        
+        .stat-card {
+            min-height: 80px !important;
+            padding: 0.75rem !important;
+        }
+        
+        .dashboard-header h1 {
+            font-size: 1.5rem !important;
+            margin-bottom: 0.25rem !important;
+        }
+    }
+    
+    /* High DPI Displays */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .dashboard-container {
+            border-width: 0.5px !important;
+        }
+        
+        .stat-card {
+            border-width: 0.5px !important;
+        }
+    }
+    
+    /* Print Styles */
+    @media print {
+        .dashboard-container {
+            box-shadow: none !important;
+            border: 1px solid #ccc !important;
+        }
+        
+        .user-actions {
+            display: none !important;
+        }
+        
+        .stat-card {
+            break-inside: avoid !important;
+        }
+    }
+    
+    /* Touch Device Optimizations */
+    @media (hover: none) and (pointer: coarse) {
+        .user-actions .button {
+            min-height: 44px !important;
+            min-width: 44px !important;
+        }
+        
+        .app-list .module a {
+            min-height: 44px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        
+        .stat-card {
+            cursor: pointer !important;
+        }
+        
+        .stat-card:hover {
+            transform: none !important;
+        }
+    }
+    
+    /* Reduced Motion Preferences */
+    @media (prefers-reduced-motion: reduce) {
+        .stat-card,
+        .app-list .module,
+        .user-actions .button,
+        .app-list .module a {
+            transition: none !important;
+            animation: none !important;
+        }
+        
+        .stat-card:hover,
+        .app-list .module:hover,
+        .user-actions .button:hover,
+        .app-list .module a:hover {
+            transform: none !important;
+        }
+    }
+    
+    /* High Contrast Mode */
+    @media (prefers-contrast: high) {
+        .dashboard-container {
+            border: 2px solid #000 !important;
+        }
+        
+        .stat-card {
+            border: 2px solid #000 !important;
+        }
+        
+        .user-actions .button {
+            border: 2px solid #000 !important;
+        }
+    }
+    
+    /* Dark Mode Support */
+    @media (prefers-color-scheme: dark) {
+        .dashboard-container {
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(40, 40, 40, 0.95) 100%) !important;
+            color: #fff !important;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.95) 0%, rgba(50, 50, 50, 0.95) 100%) !important;
+            color: #fff !important;
+            border-color: rgba(135, 206, 235, 0.3) !important;
+        }
+        
+        .app-list .module {
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.95) 0%, rgba(50, 50, 50, 0.95) 100%) !important;
+            color: #fff !important;
+        }
+    }
+    
+    /* Focus States for Accessibility */
+    .user-actions .button:focus,
+    .app-list .module a:focus {
+        outline: 3px solid var(--primary-color) !important;
+        outline-offset: 2px !important;
+    }
+    
+    /* Skip to Content Link */
+    .skip-link {
+        position: absolute !important;
+        top: -40px !important;
+        left: 6px !important;
+        background: var(--primary-color) !important;
+        color: white !important;
+        padding: 8px !important;
+        text-decoration: none !important;
+        border-radius: 4px !important;
+        z-index: 1000 !important;
+    }
+    
+    .skip-link:focus {
+        top: 6px !important;
     }
     
     .stat-card {
