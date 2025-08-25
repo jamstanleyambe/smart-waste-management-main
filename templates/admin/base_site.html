@@ -961,24 +961,7 @@
         }
     }
     
-    /* Dark Mode Support */
-    @media (prefers-color-scheme: dark) {
-        .dashboard-container {
-            background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(40, 40, 40, 0.95) 100%) !important;
-            color: #fff !important;
-        }
-        
-        .stat-card {
-            background: linear-gradient(135deg, rgba(40, 40, 40, 0.95) 0%, rgba(50, 50, 50, 0.95) 100%) !important;
-            color: #fff !important;
-            border-color: rgba(135, 206, 235, 0.3) !important;
-        }
-        
-        .app-list .module {
-            background: linear-gradient(135deg, rgba(40, 40, 40, 0.95) 0%, rgba(50, 50, 50, 0.95) 100%) !important;
-            color: #fff !important;
-        }
-    }
+
     
     /* Focus States for Accessibility */
     .user-actions .button:focus,
@@ -1671,7 +1654,7 @@
     .tooltip .tooltiptext {
         visibility: hidden;
         width: 200px;
-        background: var(--text-primary);
+        background: var(--primary-color);
         color: white;
         text-align: center;
         border-radius: 8px;
