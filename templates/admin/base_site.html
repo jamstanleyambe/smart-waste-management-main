@@ -202,30 +202,26 @@
     }
     
     .button, input[type=submit], input[type=button], .submit-row input, a.button {
-        background: linear-gradient(135deg, var(--secondary-color) 0%, #4299e1 100%);
+        background: #4682b4;
         color: white;
-        border: none;
+        border: 1px solid #4682b4;
         border-radius: 4px;
         padding: 1rem 2rem;
         font-weight: 600;
         text-decoration: none;
-        transition: all 0.3s ease;
-        box-shadow: var(--shadow);
         margin: 0.5rem;
     }
     
     .button:hover, input[type=submit]:hover, input[type=button]:hover {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-lg);
+        background: #5f9ea0;
     }
     
     .button.default, input[type=submit].default, .submit-row input.default {
-        background: linear-gradient(135deg, var(--success-color) 0%, #48bb78 100%);
+        background: #4682b4;
     }
     
     .button.default:hover, input[type=submit].default:hover {
-        background: linear-gradient(135deg, #2f855a 0%, var(--success-color) 100%);
+        background: #5f9ea0;
     }
     
     a:link, a:visited {
@@ -239,18 +235,16 @@
     }
     
     .object-tools a:link, .object-tools a:visited {
-        background: linear-gradient(135deg, var(--secondary-color) 0%, #4299e1 100%);
+        background: #4682b4;
         border-radius: 4px;
         padding: 0.75rem 1.5rem;
         font-weight: 600;
-        box-shadow: var(--shadow);
         margin: 0.25rem;
+        border: 1px solid #4682b4;
     }
     
     .object-tools a:hover {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-        transform: translateY(-1px);
-        box-shadow: var(--shadow-lg);
+        background: #5f9ea0;
     }
     
     .selector-chosen h2 {
@@ -383,55 +377,34 @@
         min-width: 250px;
         flex: 1 1 250px;
         padding: 2rem;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
-        border-radius: 6px;
-        box-shadow: 0 4px 15px rgba(135, 206, 235, 0.15);
-        border: 1px solid rgba(135, 206, 235, 0.2);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border: 2px solid #4682b4;
         position: relative;
         overflow: hidden;
-        backdrop-filter: blur(10px);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         margin: 0.5rem;
     }
     
-    .app-list .module::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, var(--primary-color) 0%, #5f9ea0 50%, #4682b4 100%);
-        transform: scaleX(0);
-        transition: transform 0.3s ease;
-    }
-    
-    .app-list .module:hover::before {
-        transform: scaleX(1);
-    }
-    
     .app-list .module:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 15px 35px rgba(135, 206, 235, 0.25);
-        border-color: var(--primary-color);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     }
     
     .app-list .module h2 {
-        font-size: 0.95rem;
-        padding: 0.75rem 1rem;
-        background: linear-gradient(135deg, var(--primary-color) 0%, #5f9ea0 50%, #4682b4 100%);
+        font-size: 1.1rem;
+        padding: 1rem 1.5rem;
+        background: #4682b4;
         color: white;
         font-weight: 700;
         border-radius: 6px 6px 0 0;
         text-align: center;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         position: relative;
         overflow: hidden;
-        box-shadow: 0 4px 12px rgba(135, 206, 235, 0.3);
-        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
     }
     
     /* Special styling for Authentication and Authorization section */
@@ -513,37 +486,35 @@
         width: 100%;
         border-collapse: collapse;
         margin: 1rem 0;
-        background: rgba(255, 255, 255, 0.95);
+        background: white;
         border-radius: 6px;
         overflow: hidden;
-        box-shadow: 0 4px 12px rgba(135, 206, 235, 0.15);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e5e7eb;
     }
     
     .app-list .module th {
         padding: 1.25rem 1.5rem;
         font-size: 1rem;
         font-weight: 700;
-        background: linear-gradient(135deg, var(--primary-color) 0%, #5f9ea0 100%);
+        background: #4682b4;
         color: white;
         text-align: left;
         border: none;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
     
     .app-list .module td {
         padding: 1.25rem 1.5rem;
         font-size: 0.95rem;
         font-weight: 600;
-        border-bottom: 1px solid rgba(135, 206, 235, 0.2);
-        background: rgba(255, 255, 255, 0.8);
-        transition: all 0.3s ease;
+        border-bottom: 1px solid #e5e7eb;
+        background: white;
     }
     
     .app-list .module tr:hover td {
         background: rgba(135, 206, 235, 0.1);
-        transform: translateX(5px);
     }
     
     /* Special styling for the first module (Authentication) table */
@@ -612,18 +583,15 @@
         font-size: 0.9rem;
         padding: 0.75rem 1.5rem;
         border-radius: 4px;
-        background: linear-gradient(135deg, var(--primary-color) 0%, #5f9ea0 100%);
+        background: #4682b4;
         color: white;
         text-decoration: none;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 8px rgba(135, 206, 235, 0.3);
         font-weight: 600;
-        position: relative;
-        overflow: hidden;
         margin: 0.25rem;
         display: inline-block;
         min-width: 80px;
         text-align: center;
+        border: 1px solid #4682b4;
     }
     
     /* Enhanced styling for table links in Authentication section */
@@ -664,9 +632,7 @@
     }
     
     .app-list .module a:hover {
-        background: linear-gradient(135deg, #5f9ea0 0%, #4682b4 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(135, 206, 235, 0.4);
+        background: #5f9ea0;
     }
     
     /* Section Headers */
