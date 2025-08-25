@@ -2253,3 +2253,22 @@ INFO 2025-08-25 19:39:01,874 autoreload 40370 8486575872 /Applications/smart-was
 INFO 2025-08-25 19:39:02,092 autoreload 40517 8486575872 Watching for file changes with StatReloader
 INFO 2025-08-25 19:40:06,971 autoreload 40517 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
 INFO 2025-08-25 19:40:07,213 autoreload 40906 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 21:13:05,957 autoreload 40906 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 21:13:06,211 autoreload 73435 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 21:13:56,731 views 73435 6121943040 Bin data retrieved by user: Anonymous
+INFO 2025-08-25 21:13:56,734 basehttp 73435 6121943040 "GET /api/bin-data/ HTTP/1.1" 200 10983
+INFO 2025-08-25 21:14:02,770 basehttp 73435 6121943040 "GET /api/dumping-spots/ HTTP/1.1" 200 1187
+INFO 2025-08-25 21:14:06,255 basehttp 73435 6121943040 "GET /api/trucks/ HTTP/1.1" 200 905
+INFO 2025-08-25 21:17:44,852 basehttp 73435 6121943040 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-08-25 21:17:44,875 basehttp 73435 6121943040 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 59062
+INFO 2025-08-25 21:17:54,082 auth_backends 73435 6121943040 Successful login: admin from 127.0.0.1
+INFO 2025-08-25 21:17:54,088 basehttp 73435 6121943040 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-08-25 21:17:54,104 basehttp 73435 6121943040 "GET /admin/ HTTP/1.1" 200 70545
+INFO 2025-08-25 21:18:01,424 views 73435 6155595776 Bin data retrieved by user: Anonymous
+INFO 2025-08-25 21:18:01,426 basehttp 73435 6155595776 "GET /api/bin-data/ HTTP/1.1" 200 10983
+INFO 2025-08-25 21:18:01,429 basehttp 73435 6155595776 "GET /api/dumping-spots/ HTTP/1.1" 200 1187
+INFO 2025-08-25 21:18:01,433 basehttp 73435 6155595776 "GET /api/trucks/ HTTP/1.1" 200 905
+INFO 2025-08-25 21:19:00,839 views 73435 6138769408 Bin data retrieved by user: Anonymous
+INFO 2025-08-25 21:19:00,842 basehttp 73435 6138769408 "GET /api/bin-data/ HTTP/1.1" 200 10983
+INFO 2025-08-25 21:19:00,846 basehttp 73435 6138769408 "GET /api/dumping-spots/ HTTP/1.1" 200 1187
+INFO 2025-08-25 21:19:00,849 basehttp 73435 6138769408 "GET /api/trucks/ HTTP/1.1" 200 905

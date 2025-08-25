@@ -43,19 +43,37 @@ def get_bins():
     """Fetch all bins from the API"""
     response = requests.get(f"{API_BASE_URL}/bin-data/")
     print(f"API Response: {response.status_code} - {response.text}")
-    return response.json() if response.status_code == 200 else []
+    if response.status_code == 200:
+        data = response.json()
+        # Handle paginated response
+        if isinstance(data, dict) and 'results' in data:
+            return data['results']
+        return data
+    return []
 
 def get_dumping_spots():
     """Fetch all dumping spots from the API"""
     response = requests.get(f"{API_BASE_URL}/dumping-spots/")
     print(f"Dumping Spot API Response: {response.status_code} - {response.text}")
-    return response.json() if response.status_code == 200 else []
+    if response.status_code == 200:
+        data = response.json()
+        # Handle paginated response
+        if isinstance(data, dict) and 'results' in data:
+            return data['results']
+        return data
+    return []
 
 def get_trucks():
     """Fetch all trucks from the API"""
     response = requests.get(f"{API_BASE_URL}/trucks/")
     print(f"Truck API Response: {response.status_code} - {response.text}")
-    return response.json() if response.status_code == 200 else []
+    if response.status_code == 200:
+        data = response.json()
+        # Handle paginated response
+        if isinstance(data, dict) and 'results' in data:
+            return data['results']
+        return data
+    return []
 
 def add_bin(bin_data):
     """Add a new bin via the API"""
