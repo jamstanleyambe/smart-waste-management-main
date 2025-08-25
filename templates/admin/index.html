@@ -15,7 +15,7 @@
             <h3>Total Users</h3>
             <div class="number">{{ user_count|default:"0" }}</div>
             <div class="label">Registered Users</div>
-            <div class="stat-trend positive">+12% this month</div>
+            <div class="stat-trend positive">{{ active_user_count|default:"0" }} Active</div>
         </div>
         
         <div class="stat-card">
@@ -23,7 +23,7 @@
             <h3>Total Bins</h3>
             <div class="number">{{ bin_count|default:"0" }}</div>
             <div class="label">Waste Collection Bins</div>
-            <div class="stat-trend positive">+5% this week</div>
+            <div class="stat-trend positive">{{ full_bins|default:"0" }} Full</div>
         </div>
         
         <div class="stat-card">
@@ -31,7 +31,7 @@
             <h3>Total Trucks</h3>
             <div class="number">{{ truck_count|default:"0" }}</div>
             <div class="label">Collection Vehicles</div>
-            <div class="stat-trend neutral">No change</div>
+            <div class="stat-trend positive">{{ active_trucks|default:"0" }} Active</div>
         </div>
         
         <div class="stat-card">
@@ -39,15 +39,15 @@
             <h3>Dumping Spots</h3>
             <div class="number">{{ dumping_spot_count|default:"0" }}</div>
             <div class="label">Waste Disposal Sites</div>
-            <div class="stat-trend positive">+2 new sites</div>
+            <div class="stat-trend positive">{{ avg_fill_level_spots|default:"0" }}% Avg Fill</div>
         </div>
         
         <div class="stat-card">
-            <div class="stat-icon">✅</div>
-            <h3>Active Users</h3>
-            <div class="number">{{ active_user_count|default:"0" }}</div>
-            <div class="label">Currently Active</div>
-            <div class="stat-trend positive">+8% today</div>
+            <div class="stat-icon">📊</div>
+            <h3>Avg Fill Level</h3>
+            <div class="number">{{ avg_fill_level|default:"0" }}%</div>
+            <div class="label">All Bins Average</div>
+            <div class="stat-trend neutral">{{ empty_bins|default:"0" }} Empty</div>
         </div>
         
         <div class="stat-card">
@@ -55,6 +55,57 @@
             <h3>Roles</h3>
             <div class="number">{{ role_count|default:"0" }}</div>
             <div class="label">User Roles</div>
+            <div class="stat-trend neutral">Stable</div>
+        </div>
+    </div>
+
+    <!-- Additional Statistics Row -->
+    <div class="dashboard-stats" style="margin-top: 1rem;">
+        <div class="stat-card">
+            <div class="stat-icon">⚡</div>
+            <h3>Active Trucks</h3>
+            <div class="number">{{ active_trucks|default:"0" }}</div>
+            <div class="label">Currently Operating</div>
+            <div class="stat-trend positive">On Duty</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">⏸️</div>
+            <h3>Idle Trucks</h3>
+            <div class="number">{{ idle_trucks|default:"0" }}</div>
+            <div class="label">Available for Assignment</div>
+            <div class="stat-trend neutral">Standby</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">🔧</div>
+            <h3>Maintenance</h3>
+            <div class="number">{{ maintenance_trucks|default:"0" }}</div>
+            <div class="label">Under Maintenance</div>
+            <div class="stat-trend negative">Service</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">📈</div>
+            <h3>Total Capacity</h3>
+            <div class="number">{{ total_capacity|default:"0" }}</div>
+            <div class="label">Dumping Spots (Avg)</div>
+            <div class="stat-trend neutral">Tons</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">🔄</div>
+            <h3>Recent Activity</h3>
+            <div class="number">{{ recent_bins|default:"0" }}</div>
+            <div class="label">Bins Updated (7 days)</div>
+            <div class="stat-trend positive">Active</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">📊</div>
+            <h3>System Health</h3>
+            <div class="number">{{ role_count|default:"0" }}</div>
+            <div class="label">Active Roles</div>
             <div class="stat-trend neutral">Stable</div>
         </div>
     </div>

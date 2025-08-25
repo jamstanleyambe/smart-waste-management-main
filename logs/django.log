@@ -258,3 +258,590 @@ WARNING 2025-08-24 23:25:23,563 log 61528 6233632768 Forbidden: /api/dumping-spo
 WARNING 2025-08-24 23:25:23,564 basehttp 61528 6233632768 "GET /api/dumping-spots/ HTTP/1.1" 403 58
 WARNING 2025-08-24 23:25:23,568 log 61528 6233632768 Forbidden: /api/trucks/
 WARNING 2025-08-24 23:25:23,568 basehttp 61528 6233632768 "GET /api/trucks/ HTTP/1.1" 403 58
+INFO 2025-08-24 23:25:35,603 autoreload 61528 8486575872 /Applications/smart-waste-management/core/models.py changed, reloading.
+INFO 2025-08-24 23:25:35,963 autoreload 62005 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-24 23:29:49,068 basehttp 62005 6201126912 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-24 23:30:16,167 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 40382
+INFO 2025-08-24 23:32:41,064 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 40382
+INFO 2025-08-24 23:36:28,330 basehttp 62005 6234779648 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-24 23:37:00,114 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 42414
+INFO 2025-08-24 23:39:19,518 basehttp 62005 6234779648 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-24 23:39:48,594 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 42439
+INFO 2025-08-24 23:40:50,299 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 42437
+INFO 2025-08-24 23:41:00,590 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 42437
+INFO 2025-08-24 23:42:14,974 basehttp 62005 6217953280 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-24 23:42:30,902 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 42515
+WARNING 2025-08-24 23:42:38,416 log 62005 6234779648 Forbidden: /api/bin-data/
+WARNING 2025-08-24 23:42:38,416 basehttp 62005 6234779648 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-24 23:42:38,418 log 62005 6234779648 Forbidden: /api/dumping-spots/
+WARNING 2025-08-24 23:42:38,418 basehttp 62005 6234779648 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-24 23:42:38,420 log 62005 6234779648 Forbidden: /api/trucks/
+WARNING 2025-08-24 23:42:38,420 basehttp 62005 6234779648 "GET /api/trucks/ HTTP/1.1" 403 58
+INFO 2025-08-24 23:42:47,417 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 42515
+WARNING 2025-08-24 23:42:59,911 log 62005 6201126912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-24 23:42:59,912 basehttp 62005 6201126912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-24 23:44:46,936 basehttp 62005 6234779648 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-24 23:45:06,478 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 42515
+WARNING 2025-08-24 23:45:06,492 log 62005 6201126912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-24 23:45:06,492 basehttp 62005 6201126912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-24 23:46:31,485 basehttp 62005 6234779648 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-24 23:46:57,007 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 43218
+INFO 2025-08-24 23:48:36,872 basehttp 62005 6234779648 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-24 23:49:00,517 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 52097
+INFO 2025-08-24 23:50:44,475 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 52097
+INFO 2025-08-24 23:51:06,945 basehttp 62005 6201126912 "GET /admin/axes/accessfailurelog/ HTTP/1.1" 200 42927
+INFO 2025-08-24 23:51:06,962 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-24 23:51:10,595 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 52097
+INFO 2025-08-24 23:51:29,998 basehttp 62005 6201126912 "GET /admin/core/bin/add/ HTTP/1.1" 200 47245
+INFO 2025-08-24 23:51:30,017 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-24 23:51:32,921 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 52399
+INFO 2025-08-24 23:54:23,848 basehttp 62005 6234779648 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-24 23:54:43,109 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 58601
+INFO 2025-08-24 23:57:28,273 basehttp 62005 6234779648 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-24 23:57:46,950 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 59322
+WARNING 2025-08-24 23:59:08,749 log 62005 6201126912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-24 23:59:08,749 basehttp 62005 6201126912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-25 00:01:30,422 basehttp 62005 6217953280 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-25 00:01:49,913 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 59388
+WARNING 2025-08-25 00:01:49,930 log 62005 6201126912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-25 00:01:49,930 basehttp 62005 6201126912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-25 00:04:12,280 basehttp 62005 6234779648 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-25 00:04:37,898 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 59639
+INFO 2025-08-25 00:07:19,046 basehttp 62005 6234779648 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-25 00:07:32,319 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 59353
+INFO 2025-08-25 00:08:28,871 basehttp 62005 6201126912 "GET /admin/auth/user/ HTTP/1.1" 200 52225
+INFO 2025-08-25 00:08:28,885 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:08:34,525 basehttp 62005 6201126912 "GET /admin/auth/user/?o=3.1 HTTP/1.1" 200 52786
+INFO 2025-08-25 00:08:34,542 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:08:35,468 basehttp 62005 6201126912 "GET /admin/auth/user/?o=-3.1 HTTP/1.1" 200 52805
+INFO 2025-08-25 00:08:35,477 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:08:36,049 basehttp 62005 6201126912 "GET /admin/auth/user/?o=3.1 HTTP/1.1" 200 52786
+INFO 2025-08-25 00:08:36,065 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:08:36,640 basehttp 62005 6201126912 "GET /admin/auth/user/?o=-3.1 HTTP/1.1" 200 52805
+INFO 2025-08-25 00:08:36,651 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:08:38,151 basehttp 62005 6201126912 "GET /admin/auth/user/?o=3.1 HTTP/1.1" 200 52794
+INFO 2025-08-25 00:08:38,163 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:08:39,463 basehttp 62005 6201126912 "GET /admin/auth/user/?o=-3.1 HTTP/1.1" 200 52813
+INFO 2025-08-25 00:08:39,480 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:08:40,010 basehttp 62005 6201126912 "GET /admin/auth/user/?o=3.1 HTTP/1.1" 200 52794
+INFO 2025-08-25 00:08:40,023 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:08:40,597 basehttp 62005 6201126912 "GET /admin/auth/user/?o=-3.1 HTTP/1.1" 200 52813
+INFO 2025-08-25 00:08:40,610 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:08:41,278 basehttp 62005 6201126912 "GET /admin/auth/user/?o=4.-3.1 HTTP/1.1" 200 53159
+INFO 2025-08-25 00:08:41,297 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:08:43,140 basehttp 62005 6201126912 "GET /admin/auth/user/?o=-4.-3.1 HTTP/1.1" 200 53180
+INFO 2025-08-25 00:08:43,157 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:08:43,792 basehttp 62005 6201126912 "GET /admin/auth/user/?o=4.-3.1 HTTP/1.1" 200 53159
+INFO 2025-08-25 00:08:43,812 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:08:43,951 basehttp 62005 6201126912 "GET /admin/auth/user/?o=-4.-3.1 HTTP/1.1" 200 53180
+INFO 2025-08-25 00:08:43,962 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:08:44,638 basehttp 62005 6201126912 "GET /admin/auth/user/?o=3.-4.1 HTTP/1.1" 200 53159
+INFO 2025-08-25 00:08:44,660 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:11:00,709 basehttp 62005 6201126912 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-25 00:11:18,860 basehttp 62005 6201126912 "GET /admin/auth/user/?o=3.-4.1 HTTP/1.1" 200 53349
+INFO 2025-08-25 00:11:18,872 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:11:21,040 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 59624
+INFO 2025-08-25 00:12:26,584 basehttp 62005 6234779648 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-25 00:14:05,334 basehttp 62005 6234779648 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-25 00:14:24,437 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 70725
+INFO 2025-08-25 00:15:55,582 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 70004
+INFO 2025-08-25 00:16:00,109 basehttp 62005 6234779648 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-25 00:19:32,786 basehttp 62005 6234779648 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-25 00:19:52,048 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 70068
+INFO 2025-08-25 00:21:38,178 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 70068
+WARNING 2025-08-25 00:25:05,855 log 62005 6217953280 Forbidden: /api/bin-data/
+WARNING 2025-08-25 00:25:05,855 basehttp 62005 6217953280 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 00:25:05,857 log 62005 6217953280 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 00:25:05,857 basehttp 62005 6217953280 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 00:25:05,859 log 62005 6217953280 Forbidden: /api/trucks/
+WARNING 2025-08-25 00:25:05,859 basehttp 62005 6217953280 "GET /api/trucks/ HTTP/1.1" 403 58
+INFO 2025-08-25 00:25:34,540 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 70086
+INFO 2025-08-25 00:26:28,813 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 70087
+INFO 2025-08-25 00:26:32,225 basehttp 62005 6201126912 "GET /admin/auth/group/ HTTP/1.1" 200 59212
+INFO 2025-08-25 00:26:32,243 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:26:34,661 basehttp 62005 6201126912 "GET /admin/auth/user/ HTTP/1.1" 200 62801
+INFO 2025-08-25 00:26:34,675 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:26:39,512 basehttp 62005 6201126912 "GET /admin/axes/accessfailurelog/ HTTP/1.1" 200 60832
+INFO 2025-08-25 00:26:39,529 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:26:42,421 basehttp 62005 6201126912 "GET /admin/core/bin/ HTTP/1.1" 200 88836
+INFO 2025-08-25 00:26:42,435 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:26:57,702 basehttp 62005 6201126912 "GET /admin/core/truck/ HTTP/1.1" 200 65180
+INFO 2025-08-25 00:26:57,719 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:27:00,235 basehttp 62005 6201126912 "GET /admin/core/dumpingspot/ HTTP/1.1" 200 65576
+INFO 2025-08-25 00:27:00,253 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:27:02,217 basehttp 62005 6201126912 "GET /admin/core/role/ HTTP/1.1" 200 64837
+INFO 2025-08-25 00:27:02,237 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:27:04,777 basehttp 62005 6201126912 "GET /admin/core/bin/ HTTP/1.1" 200 88836
+INFO 2025-08-25 00:27:04,791 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:27:44,950 basehttp 62005 6234779648 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-25 00:28:02,421 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 70087
+INFO 2025-08-25 00:28:05,630 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 70087
+WARNING 2025-08-25 00:28:28,700 log 62005 6201126912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-25 00:28:28,700 basehttp 62005 6201126912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-25 00:31:16,639 basehttp 62005 6234779648 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-25 00:31:45,675 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 71729
+WARNING 2025-08-25 00:31:45,689 log 62005 6201126912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-25 00:31:45,689 basehttp 62005 6201126912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+WARNING 2025-08-25 00:32:26,044 log 62005 6201126912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-25 00:32:26,044 basehttp 62005 6201126912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-25 00:39:39,009 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 71836
+WARNING 2025-08-25 00:39:39,026 log 62005 6201126912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-25 00:39:39,026 basehttp 62005 6201126912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-25 00:40:00,999 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 72279
+INFO 2025-08-25 00:40:07,298 basehttp 62005 6234779648 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-25 00:40:55,766 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 72279
+WARNING 2025-08-25 00:41:07,725 log 62005 6201126912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-25 00:41:07,725 basehttp 62005 6201126912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-25 00:43:16,393 basehttp 62005 6201126912 "HEAD /admin/ HTTP/1.1" 302 0
+INFO 2025-08-25 00:43:29,094 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 72906
+WARNING 2025-08-25 00:48:14,330 log 62005 6217953280 Forbidden: /api/bin-data/
+WARNING 2025-08-25 00:48:14,330 basehttp 62005 6217953280 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 00:48:14,332 log 62005 6217953280 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 00:48:14,332 basehttp 62005 6217953280 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 00:48:14,334 log 62005 6217953280 Forbidden: /api/trucks/
+WARNING 2025-08-25 00:48:14,334 basehttp 62005 6217953280 "GET /api/trucks/ HTTP/1.1" 403 58
+INFO 2025-08-25 00:52:42,492 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 73235
+INFO 2025-08-25 00:53:58,769 basehttp 62005 6201126912 "GET /api/user-management/ HTTP/1.1" 200 61464
+INFO 2025-08-25 00:54:09,794 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 73235
+INFO 2025-08-25 00:54:16,726 basehttp 62005 6201126912 "GET /admin/core/bin/add/ HTTP/1.1" 200 67996
+INFO 2025-08-25 00:54:16,743 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 00:54:19,719 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 73235
+INFO 2025-08-25 00:54:20,647 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 73235
+INFO 2025-08-25 01:03:52,576 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 73383
+INFO 2025-08-25 01:04:03,466 basehttp 62005 6201126912 "GET /admin/auth/ HTTP/1.1" 200 65730
+INFO 2025-08-25 01:04:05,350 basehttp 62005 6201126912 "GET /admin/auth/ HTTP/1.1" 200 65730
+INFO 2025-08-25 01:05:05,092 basehttp 62005 6201126912 "GET /admin/auth/ HTTP/1.1" 200 67888
+INFO 2025-08-25 01:07:22,298 basehttp 62005 6201126912 "GET /admin/auth/ HTTP/1.1" 200 71688
+INFO 2025-08-25 01:09:12,850 basehttp 62005 6201126912 "GET /admin/auth/ HTTP/1.1" 200 65730
+INFO 2025-08-25 01:09:20,058 basehttp 62005 6201126912 "GET /admin/auth/ HTTP/1.1" 200 65730
+INFO 2025-08-25 01:09:33,313 basehttp 62005 6201126912 "GET /admin/auth/ HTTP/1.1" 200 65730
+INFO 2025-08-25 01:10:43,159 basehttp 62005 6201126912 "GET /admin/auth/ HTTP/1.1" 200 70659
+INFO 2025-08-25 01:11:45,361 basehttp 62005 6201126912 "GET /admin/core/bin/add/ HTTP/1.1" 200 75032
+INFO 2025-08-25 01:11:45,375 basehttp 62005 6201126912 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 01:11:50,967 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 80271
+INFO 2025-08-25 01:12:12,295 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 82253
+INFO 2025-08-25 01:12:25,312 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 82253
+INFO 2025-08-25 01:12:47,912 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 82253
+INFO 2025-08-25 01:15:19,901 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 82699
+INFO 2025-08-25 01:15:42,721 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 82723
+INFO 2025-08-25 01:19:26,598 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 81423
+INFO 2025-08-25 01:19:44,203 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 81202
+INFO 2025-08-25 01:21:20,452 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 78881
+INFO 2025-08-25 01:24:19,033 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 76960
+INFO 2025-08-25 01:28:22,585 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 77008
+INFO 2025-08-25 01:28:41,684 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 77008
+INFO 2025-08-25 01:34:45,140 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 77465
+INFO 2025-08-25 01:37:18,775 basehttp 62005 6201126912 "GET /admin/ HTTP/1.1" 200 77857
+INFO 2025-08-25 01:59:29,143 autoreload 62005 8486575872 /Applications/smart-waste-management/waste_management/urls.py changed, reloading.
+INFO 2025-08-25 01:59:29,528 autoreload 58472 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 01:59:44,025 autoreload 58472 8486575872 /Applications/smart-waste-management/core/admin.py changed, reloading.
+INFO 2025-08-25 01:59:44,272 autoreload 58582 8486575872 Watching for file changes with StatReloader
+ERROR 2025-08-25 02:00:51,754 log 58582 6197260288 Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 265, in wrapper
+    return self.admin_view(view, cacheable)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Applications/smart-waste-management/core/admin.py", line 42, in index
+    avg_fill_level_spots = DumpingSpot.objects.aggregate(avg_fill=Avg('current_fill_level'))['avg_fill'] or 0
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/query.py", line 588, in aggregate
+    return self.query.chain().get_aggregation(self.db, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/sql/query.py", line 460, in get_aggregation
+    aggregate = aggregate_expr.resolve_expression(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/aggregates.py", line 63, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/expressions.py", line 300, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/expressions.py", line 902, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/sql/query.py", line 2049, in resolve_ref
+    join_info = self.setup_joins(
+                ^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1900, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1805, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'current_fill_level' into field. Choices are: id, latitude, longitude, metal_content, organic_content, plastic_content, spot_id, total_capacity
+ERROR 2025-08-25 02:00:51,759 basehttp 58582 6197260288 "GET /admin/ HTTP/1.1" 500 148054
+ERROR 2025-08-25 02:01:10,904 log 58582 6197260288 Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 265, in wrapper
+    return self.admin_view(view, cacheable)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Applications/smart-waste-management/core/admin.py", line 42, in index
+    avg_fill_level_spots = DumpingSpot.objects.aggregate(avg_fill=Avg('current_fill_level'))['avg_fill'] or 0
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/query.py", line 588, in aggregate
+    return self.query.chain().get_aggregation(self.db, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/sql/query.py", line 460, in get_aggregation
+    aggregate = aggregate_expr.resolve_expression(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/aggregates.py", line 63, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/expressions.py", line 300, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/expressions.py", line 902, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/sql/query.py", line 2049, in resolve_ref
+    join_info = self.setup_joins(
+                ^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1900, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1805, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'current_fill_level' into field. Choices are: id, latitude, longitude, metal_content, organic_content, plastic_content, spot_id, total_capacity
+ERROR 2025-08-25 02:01:10,906 basehttp 58582 6197260288 "GET /admin/ HTTP/1.1" 500 148054
+INFO 2025-08-25 02:02:19,116 autoreload 58582 8486575872 /Applications/smart-waste-management/waste_management/urls.py changed, reloading.
+INFO 2025-08-25 02:02:19,359 autoreload 59560 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 02:02:33,784 autoreload 59560 8486575872 /Applications/smart-waste-management/core/admin.py changed, reloading.
+INFO 2025-08-25 02:02:34,018 autoreload 59677 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 02:08:51,749 autoreload 59677 8486575872 /Applications/smart-waste-management/waste_management/urls.py changed, reloading.
+INFO 2025-08-25 02:08:52,126 autoreload 61921 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 02:09:17,774 autoreload 61921 8486575872 /Applications/smart-waste-management/waste_management/urls.py changed, reloading.
+INFO 2025-08-25 02:09:18,099 autoreload 62099 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 02:09:27,489 autoreload 62099 8486575872 /Applications/smart-waste-management/core/admin.py changed, reloading.
+INFO 2025-08-25 02:09:27,728 autoreload 62173 8486575872 Watching for file changes with StatReloader
+ERROR 2025-08-25 02:10:16,439 log 62173 6200127488 Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'core_role_add' not found. 'core_role_add' is not a valid view function or pattern name.
+ERROR 2025-08-25 02:10:16,441 basehttp 62173 6200127488 "GET /admin/ HTTP/1.1" 500 222754
+ERROR 2025-08-25 02:14:51,184 log 62173 6200127488 Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'core_role_add' not found. 'core_role_add' is not a valid view function or pattern name.
+ERROR 2025-08-25 02:14:51,186 basehttp 62173 6200127488 "GET /admin/ HTTP/1.1" 500 222754
+INFO 2025-08-25 02:17:35,936 autoreload 62173 8486575872 /Applications/smart-waste-management/core/admin.py changed, reloading.
+INFO 2025-08-25 02:17:36,373 autoreload 65277 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 02:17:47,812 autoreload 65277 8486575872 /Applications/smart-waste-management/core/admin.py changed, reloading.
+INFO 2025-08-25 02:17:48,039 autoreload 65362 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 02:17:55,347 autoreload 65362 8486575872 /Applications/smart-waste-management/core/admin.py changed, reloading.
+INFO 2025-08-25 02:17:55,575 autoreload 65421 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 02:18:02,893 autoreload 65421 8486575872 /Applications/smart-waste-management/core/admin.py changed, reloading.
+INFO 2025-08-25 02:18:03,130 autoreload 65467 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 02:18:10,456 autoreload 65467 8486575872 /Applications/smart-waste-management/core/admin.py changed, reloading.
+INFO 2025-08-25 02:18:10,688 autoreload 65528 8486575872 Watching for file changes with StatReloader
+ERROR 2025-08-25 02:18:21,807 log 65528 6203043840 Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'core_role_add' not found. 'core_role_add' is not a valid view function or pattern name.
+ERROR 2025-08-25 02:18:21,809 basehttp 65528 6203043840 "GET /admin/ HTTP/1.1" 500 222754
+INFO 2025-08-25 02:18:22,115 autoreload 65528 8486575872 /Applications/smart-waste-management/core/admin.py changed, reloading.
+INFO 2025-08-25 02:18:22,370 autoreload 65597 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 02:20:51,619 autoreload 67341 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 02:20:59,468 basehttp 65597 6167965696 "GET /admin/ HTTP/1.1" 200 69747
+INFO 2025-08-25 02:20:59,563 autoreload 65597 8486575872 /Applications/smart-waste-management/core/admin.py changed, reloading.
+INFO 2025-08-25 02:20:59,830 autoreload 67441 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 02:21:33,624 basehttp 67441 6164099072 "GET /admin/ HTTP/1.1" 200 69747
+WARNING 2025-08-25 02:21:48,329 log 67441 6164099072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-25 02:21:48,329 basehttp 67441 6164099072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-25 02:24:31,750 basehttp 67441 6164099072 "GET /admin/core/role/add/ HTTP/1.1" 200 68103
+WARNING 2025-08-25 02:24:31,776 log 67441 6180925440 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-25 02:24:31,776 basehttp 67441 6180925440 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-25 02:24:31,777 basehttp 67441 6164099072 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 02:25:22,839 basehttp 67441 6164099072 "POST /admin/core/role/add/ HTTP/1.1" 200 68508
+INFO 2025-08-25 02:25:22,858 basehttp 67441 6180925440 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+WARNING 2025-08-25 02:25:22,860 log 67441 6164099072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-25 02:25:22,860 basehttp 67441 6164099072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-25 02:25:39,341 basehttp 67441 6164099072 "POST /admin/core/role/add/ HTTP/1.1" 200 68507
+WARNING 2025-08-25 02:25:39,361 log 67441 6164099072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-25 02:25:39,362 basehttp 67441 6164099072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-25 02:25:39,363 basehttp 67441 6180925440 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 02:25:40,295 basehttp 67441 6180925440 "POST /admin/core/role/add/ HTTP/1.1" 200 68507
+WARNING 2025-08-25 02:25:40,317 log 67441 6180925440 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-25 02:25:40,318 basehttp 67441 6180925440 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-25 02:25:40,319 basehttp 67441 6164099072 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 02:25:53,822 basehttp 67441 6164099072 "POST /admin/core/role/add/ HTTP/1.1" 200 68507
+WARNING 2025-08-25 02:25:53,839 log 67441 6164099072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-25 02:25:53,839 basehttp 67441 6164099072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-25 02:25:53,841 basehttp 67441 6180925440 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 02:25:54,841 basehttp 67441 6180925440 "POST /admin/core/role/add/ HTTP/1.1" 200 68507
+WARNING 2025-08-25 02:25:54,862 log 67441 6180925440 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-25 02:25:54,862 basehttp 67441 6180925440 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-25 02:25:54,863 basehttp 67441 6164099072 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 02:26:01,715 basehttp 67441 6164099072 "POST /admin/core/role/add/ HTTP/1.1" 200 68509
+WARNING 2025-08-25 02:26:01,736 log 67441 6164099072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-25 02:26:01,737 basehttp 67441 6164099072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-25 02:26:01,738 basehttp 67441 6180925440 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 02:26:03,883 basehttp 67441 6180925440 "POST /admin/core/role/add/ HTTP/1.1" 200 68509
+WARNING 2025-08-25 02:26:03,907 log 67441 6180925440 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-08-25 02:26:03,908 basehttp 67441 6180925440 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2633
+INFO 2025-08-25 02:26:03,909 basehttp 67441 6164099072 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 02:26:27,176 basehttp 67441 6164099072 "GET /admin/ HTTP/1.1" 200 70545
+INFO 2025-08-25 02:26:43,070 basehttp 67441 6164099072 "GET /admin/ HTTP/1.1" 200 70545
+INFO 2025-08-25 02:26:59,778 basehttp 67441 6164099072 "GET /admin/core/bin/ HTTP/1.1" 200 93659
+INFO 2025-08-25 02:26:59,792 basehttp 67441 6164099072 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 02:27:21,759 basehttp 67441 6164099072 "GET /admin/core/bin/?q=BIN027 HTTP/1.1" 200 71208
+INFO 2025-08-25 02:27:21,775 basehttp 67441 6164099072 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 02:27:29,135 basehttp 67441 6164099072 "GET /admin/core/bin/27/change/?_changelist_filters=q%3DBIN027 HTTP/1.1" 200 70157
+INFO 2025-08-25 02:27:29,152 basehttp 67441 6164099072 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 02:27:38,021 basehttp 67441 6164099072 "GET /admin/core/bin/?q=BIN027 HTTP/1.1" 200 71208
+INFO 2025-08-25 02:27:39,660 basehttp 67441 6164099072 "GET /admin/ HTTP/1.1" 200 70545
+INFO 2025-08-25 02:27:51,828 basehttp 67441 6164099072 "GET /admin/core/bin/add/ HTTP/1.1" 200 69671
+INFO 2025-08-25 02:27:51,842 basehttp 67441 6164099072 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 02:28:30,687 basehttp 67441 6164099072 "POST /admin/core/bin/add/ HTTP/1.1" 200 70092
+INFO 2025-08-25 02:28:30,699 basehttp 67441 6164099072 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 02:29:05,333 basehttp 67441 6164099072 "POST /admin/core/bin/add/ HTTP/1.1" 200 70098
+INFO 2025-08-25 02:29:05,347 basehttp 67441 6164099072 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 02:29:24,533 basehttp 67441 6164099072 "POST /admin/core/bin/add/ HTTP/1.1" 200 69932
+INFO 2025-08-25 02:29:24,543 basehttp 67441 6164099072 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 02:29:31,368 basehttp 67441 6164099072 "POST /admin/core/bin/add/ HTTP/1.1" 200 69932
+INFO 2025-08-25 02:29:31,385 basehttp 67441 6164099072 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 02:29:46,431 basehttp 67441 6164099072 "POST /admin/core/bin/add/ HTTP/1.1" 302 0
+INFO 2025-08-25 02:29:46,460 basehttp 67441 6164099072 "GET /admin/core/bin/ HTTP/1.1" 200 94475
+INFO 2025-08-25 02:29:46,474 basehttp 67441 6164099072 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 02:30:10,367 basehttp 67441 6164099072 "GET /admin/core/bin/? HTTP/1.1" 200 94279
+INFO 2025-08-25 02:30:10,386 basehttp 67441 6164099072 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-25 02:30:16,936 basehttp 67441 6164099072 "GET /admin/ HTTP/1.1" 200 70545
