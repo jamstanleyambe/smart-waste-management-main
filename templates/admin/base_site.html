@@ -33,8 +33,8 @@
         padding: 0 !important;
     }
     
-    html,     body {
-        width: 100vw !important;
+    html, body {
+        width: 100% !important;
         height: 100vh !important;
         margin: 0 !important;
         padding: 0 !important;
@@ -48,7 +48,7 @@
     
     /* Force full viewport coverage */
     #container {
-        width: 100vw !important;
+        width: 100% !important;
         height: 100vh !important;
         max-width: none !important;
         margin: 0 !important;
@@ -60,7 +60,7 @@
     }
     
     #content {
-        width: 100vw !important;
+        width: 100% !important;
         height: 100vh !important;
         max-width: none !important;
         margin: 0 !important;
@@ -1726,13 +1726,13 @@
     
     /* Force override any conflicting styles */
     body > * {
-        width: 100vw !important;
+        width: 100% !important;
         max-width: none !important;
     }
     
     /* Ensure all containers span full width */
     .container, .wrapper, .content-wrapper {
-        width: 100vw !important;
+        width: 100% !important;
         max-width: none !important;
         margin: 0 !important;
         padding: 0 !important;
@@ -1740,7 +1740,7 @@
     
     /* Final override for full viewport */
     html, body, #container, #content, #content-main, .main, .dashboard {
-        width: 100vw !important;
+        width: 100% !important;
         height: 100vh !important;
         max-width: none !important;
         margin: 0 !important;
@@ -1826,12 +1826,40 @@
     /* Force colM to stay within bounds */
     .colM {
         width: 100% !important;
-        max-width: 100vw !important;
+        max-width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
         box-sizing: border-box !important;
         overflow-x: hidden !important;
         position: relative !important;
+    }
+    
+    /* Ultimate overflow prevention */
+    * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Ensure no horizontal scroll */
+    body, html {
+        overflow-x: hidden !important;
+        width: 100% !important;
+    }
+    
+    /* Force all containers to respect boundaries */
+    .dashboard-container,
+    .dashboard-header,
+    .dashboard-stats,
+    .app-list,
+    .quick-actions-module,
+    .user-actions,
+    .colM,
+    #content-main,
+    #content,
+    #container {
+        overflow-x: hidden !important;
+        max-width: 100% !important;
+        width: 100% !important;
     }
 </style>
 {% endblock %}
