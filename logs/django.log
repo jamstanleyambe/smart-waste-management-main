@@ -2288,3 +2288,8 @@ INFO 2025-08-25 21:22:17,885 views 73435 6138769408 Bin data retrieved by user: 
 INFO 2025-08-25 21:22:17,887 basehttp 73435 6138769408 "GET /api/bin-data/ HTTP/1.1" 200 10983
 INFO 2025-08-25 21:22:17,890 basehttp 73435 6138769408 "GET /api/dumping-spots/ HTTP/1.1" 200 1187
 INFO 2025-08-25 21:22:17,894 basehttp 73435 6138769408 "GET /api/trucks/ HTTP/1.1" 200 905
+INFO 2025-08-25 21:34:06,925 autoreload 86229 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 21:34:31,381 views 86229 6201618432 Bin data retrieved by user: Anonymous
+INFO 2025-08-25 21:34:31,384 basehttp 86229 6201618432 "GET /api/bin-data/ HTTP/1.1" 200 10983
+INFO 2025-08-25 21:34:31,389 basehttp 86229 6201618432 "GET /api/dumping-spots/ HTTP/1.1" 200 1187
+INFO 2025-08-25 21:34:31,392 basehttp 86229 6201618432 "GET /api/trucks/ HTTP/1.1" 200 905
