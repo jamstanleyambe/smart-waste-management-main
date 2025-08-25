@@ -75,28 +75,24 @@
     
     #content-main {
         width: 100% !important;
-        max-width: 1400px !important;
-        margin: 0 auto !important;
-        padding: 2rem 3rem !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
         box-sizing: border-box !important;
         overflow-x: hidden !important;
         overflow-y: auto !important;
         background: transparent;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
+        display: block;
     }
     
     .main {
         width: 100% !important;
         max-width: none !important;
-        margin: 0 auto !important;
+        margin: 0 !important;
         padding: 0 !important;
         box-sizing: border-box !important;
         overflow-x: hidden !important;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
+        display: block;
     }
     
     /* Dashboard specific styles */
@@ -113,15 +109,13 @@
         color: white;
         box-shadow: var(--shadow-md);
         border-bottom: none;
-        padding: 1.5rem 0;
+        padding: 0;
         width: 100% !important;
-        max-width: 1400px !important;
-        margin: 0 auto !important;
+        max-width: none !important;
+        margin: 0 !important;
         box-sizing: border-box !important;
         position: relative !important;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        display: block;
     }
     
     #branding h1 {
@@ -476,20 +470,20 @@
     /* Dashboard Container */
     .dashboard-container {
         width: 100% !important;
-        max-width: 1200px !important;
-        margin: 0 auto !important;
+        max-width: none !important;
+        margin: 0 !important;
         box-sizing: border-box !important;
-        padding: 1.5rem;
+        padding: 0;
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 248, 255, 0.95) 100%);
-        border-radius: 16px;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        border-radius: 0;
+        box-shadow: none;
         backdrop-filter: blur(10px);
-        border: 1px solid rgba(135, 206, 235, 0.2);
+        border: none;
         overflow: hidden;
         position: relative;
         display: block;
-        left: 50%;
-        transform: translateX(-50%);
+        left: 0;
+        transform: none;
     }
     
     @media (min-width: 1600px) {
@@ -566,14 +560,15 @@
         }
         
         #content-main {
-            width: 95vw !important;
-            margin: 0 auto !important;
-            padding: 1rem !important;
+            width: 100vw !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
         
         #header {
-            width: 95vw !important;
-            margin: 0 auto !important;
+            width: 100vw !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
         
         .stat-card {
