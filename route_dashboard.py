@@ -157,13 +157,21 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None):
 
     # Add dumping spot markers
     for spot in dumping_spots:
+        # Calculate fill level and percentages
+        total_content = spot['organic_content'] + spot['plastic_content'] + spot['metal_content']
+        fill_level = (total_content / spot['total_capacity']) * 100 if spot['total_capacity'] > 0 else 0
+        
+        organic_percentage = (spot['organic_content'] / total_content) * 100 if total_content > 0 else 0
+        plastic_percentage = (spot['plastic_content'] / total_content) * 100 if total_content > 0 else 0
+        metal_percentage = (spot['metal_content'] / total_content) * 100 if total_content > 0 else 0
+        
         popup_content = f"""
             <b>Dumping Spot ID:</b> {spot['spot_id']}<br>
-            <b>Fill Level:</b> {spot['current_fill_level']:.1f}%<br>
+            <b>Fill Level:</b> {fill_level:.1f}%<br>
             <b>Total Capacity:</b> {spot['total_capacity']:.1f} tons<br>
-            <b>Organic Content:</b> {spot['organic_percentage']:.1f}%<br>
-            <b>Plastic Content:</b> {spot['plastic_percentage']:.1f}%<br>
-            <b>Metal Content:</b> {spot['metal_percentage']:.1f}%
+            <b>Organic Content:</b> {organic_percentage:.1f}%<br>
+            <b>Plastic Content:</b> {plastic_percentage:.1f}%<br>
+            <b>Metal Content:</b> {metal_percentage:.1f}%
          """
         folium.Marker(
             [spot['latitude'], spot['longitude']],
@@ -462,8 +470,30 @@ def main():
     # Display Dumping Spot Records
     st.header("Dumping Spot Records")
     if dumping_spots:
-        df_dumping_spots = pd.DataFrame(dumping_spots)
-        # Select and reorder columns for display, using percentage fields
+        # Calculate percentages and fill level for each dumping spot
+        processed_spots = []
+        for spot in dumping_spots:
+            total_content = spot['organic_content'] + spot['plastic_content'] + spot['metal_content']
+            fill_level = (total_content / spot['total_capacity']) * 100 if spot['total_capacity'] > 0 else 0
+            
+            organic_percentage = (spot['organic_content'] / total_content) * 100 if total_content > 0 else 0
+            plastic_percentage = (spot['plastic_content'] / total_content) * 100 if total_content > 0 else 0
+            metal_percentage = (spot['metal_content'] / total_content) * 100 if total_content > 0 else 0
+            
+            processed_spot = {
+                'spot_id': spot['spot_id'],
+                'latitude': spot['latitude'],
+                'longitude': spot['longitude'],
+                'total_capacity': spot['total_capacity'],
+                'organic_percentage': organic_percentage,
+                'plastic_percentage': plastic_percentage,
+                'metal_percentage': metal_percentage,
+                'current_fill_level': fill_level
+            }
+            processed_spots.append(processed_spot)
+        
+        df_dumping_spots = pd.DataFrame(processed_spots)
+        # Select and reorder columns for display
         df_display = df_dumping_spots[[
             'spot_id', 
             'latitude', 
