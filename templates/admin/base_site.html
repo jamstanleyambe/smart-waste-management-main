@@ -317,7 +317,7 @@
         max-width: 100% !important;
         box-sizing: border-box !important;
         padding: 2rem 0 !important;
-        overflow: hidden;
+        overflow: visible;
         justify-content: center;
         align-items: stretch;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
@@ -1195,6 +1195,30 @@
         z-index: 1000 !important;
     }
     
+    /* Remove scroll bars from all elements */
+    .dashboard-container,
+    .dashboard-stats,
+    .stat-card,
+    .stat-card *,
+    .dashboard-header,
+    .quick-actions-module,
+    .app-list,
+    .app-list .module {
+        overflow: visible !important;
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+    }
+    
+    .dashboard-container::-webkit-scrollbar,
+    .dashboard-stats::-webkit-scrollbar,
+    .stat-card::-webkit-scrollbar,
+    .dashboard-header::-webkit-scrollbar,
+    .quick-actions-module::-webkit-scrollbar,
+    .app-list::-webkit-scrollbar,
+    .app-list .module::-webkit-scrollbar {
+        display: none !important;
+    }
+    
     .skip-link:focus {
         top: 6px !important;
     }
@@ -1208,7 +1232,7 @@
         box-shadow: 0 8px 25px rgba(70, 130, 180, 0.15);
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
-        overflow: hidden;
+        overflow: visible;
         min-height: 180px;
         min-width: 220px;
         flex: 1 1 220px;
@@ -1260,6 +1284,10 @@
         margin-bottom: 1rem;
         line-height: 1;
         text-shadow: 0 2px 4px rgba(70, 130, 180, 0.1);
+        overflow: visible;
+        white-space: nowrap;
+        word-wrap: normal;
+        word-break: normal;
     }
     
     .stat-card .label {
