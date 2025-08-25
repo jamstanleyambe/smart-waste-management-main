@@ -74,25 +74,29 @@
     }
     
     #content-main {
-        width: 80vw !important;
+        width: 100% !important;
         max-width: 1400px !important;
-        margin: 0 10% !important;
+        margin: 0 auto !important;
         padding: 2rem 3rem !important;
         box-sizing: border-box !important;
         overflow-x: hidden !important;
         overflow-y: auto !important;
-        left: 0 !important;
-        right: 0 !important;
         background: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
     }
     
     .main {
         width: 100% !important;
         max-width: none !important;
-        margin: 0 !important;
+        margin: 0 auto !important;
         padding: 0 !important;
         box-sizing: border-box !important;
         overflow-x: hidden !important;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
     }
     
     /* Dashboard specific styles */
@@ -110,11 +114,14 @@
         box-shadow: var(--shadow-md);
         border-bottom: none;
         padding: 1.5rem 0;
-        width: 80vw !important;
+        width: 100% !important;
         max-width: 1400px !important;
-        margin: 0 10% !important;
+        margin: 0 auto !important;
         box-sizing: border-box !important;
         position: relative !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
     #branding h1 {
@@ -470,8 +477,7 @@
     .dashboard-container {
         width: 100% !important;
         max-width: 1200px !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
+        margin: 0 auto !important;
         box-sizing: border-box !important;
         padding: 1.5rem;
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 248, 255, 0.95) 100%);
@@ -481,6 +487,9 @@
         border: 1px solid rgba(135, 206, 235, 0.2);
         overflow: hidden;
         position: relative;
+        display: block;
+        left: 50%;
+        transform: translateX(-50%);
     }
     
     @media (min-width: 1600px) {
@@ -558,13 +567,13 @@
         
         #content-main {
             width: 95vw !important;
-            margin: 0 2.5% !important;
+            margin: 0 auto !important;
             padding: 1rem !important;
         }
         
         #header {
             width: 95vw !important;
-            margin: 0 2.5% !important;
+            margin: 0 auto !important;
         }
         
         .stat-card {
