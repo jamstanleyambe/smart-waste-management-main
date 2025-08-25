@@ -845,3 +845,1312 @@ INFO 2025-08-25 02:29:46,474 basehttp 67441 6164099072 "GET /admin/jsi18n/ HTTP/
 INFO 2025-08-25 02:30:10,367 basehttp 67441 6164099072 "GET /admin/core/bin/? HTTP/1.1" 200 94279
 INFO 2025-08-25 02:30:10,386 basehttp 67441 6164099072 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
 INFO 2025-08-25 02:30:16,936 basehttp 67441 6164099072 "GET /admin/ HTTP/1.1" 200 70545
+INFO 2025-08-25 02:31:28,480 autoreload 67441 8486575872 /Applications/smart-waste-management/waste_management/urls.py changed, reloading.
+INFO 2025-08-25 02:31:28,862 autoreload 72392 8486575872 Watching for file changes with StatReloader
+WARNING 2025-08-25 02:31:53,777 log 72392 6139998208 Forbidden: /api/bin-data/
+WARNING 2025-08-25 02:31:53,777 basehttp 72392 6139998208 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:31:53,780 log 72392 6139998208 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 02:31:53,780 basehttp 72392 6139998208 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:31:53,782 log 72392 6139998208 Forbidden: /api/trucks/
+WARNING 2025-08-25 02:31:53,782 basehttp 72392 6139998208 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:32:51,718 log 72392 6139998208 Forbidden: /api/bin-data/
+WARNING 2025-08-25 02:32:51,718 basehttp 72392 6139998208 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:32:51,720 log 72392 6139998208 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 02:32:51,720 basehttp 72392 6139998208 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:32:51,722 log 72392 6139998208 Forbidden: /api/trucks/
+WARNING 2025-08-25 02:32:51,722 basehttp 72392 6139998208 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:33:02,953 log 72392 6139998208 Forbidden: /api/bin-data/
+WARNING 2025-08-25 02:33:02,954 basehttp 72392 6139998208 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:33:02,958 log 72392 6139998208 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 02:33:02,958 basehttp 72392 6139998208 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:33:02,960 log 72392 6139998208 Forbidden: /api/trucks/
+WARNING 2025-08-25 02:33:02,960 basehttp 72392 6139998208 "GET /api/trucks/ HTTP/1.1" 403 58
+INFO 2025-08-25 02:33:44,246 basehttp 72392 6123171840 "GET /admin/ HTTP/1.1" 200 70545
+INFO 2025-08-25 02:33:49,988 basehttp 72392 6123171840 "GET / HTTP/1.1" 200 4997
+INFO 2025-08-25 02:33:50,011 views 72392 6123171840 Bin data retrieved by user: admin
+INFO 2025-08-25 02:33:50,014 basehttp 72392 6123171840 "GET /api/bin-data/ HTTP/1.1" 200 11176
+INFO 2025-08-25 02:33:56,247 basehttp 72392 6123171840 "GET /admin/ HTTP/1.1" 200 70545
+WARNING 2025-08-25 02:34:02,081 log 72392 6156824576 Forbidden: /api/bin-data/
+WARNING 2025-08-25 02:34:02,081 basehttp 72392 6156824576 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:02,083 log 72392 6156824576 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 02:34:02,084 basehttp 72392 6156824576 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:02,085 log 72392 6156824576 Forbidden: /api/trucks/
+WARNING 2025-08-25 02:34:02,086 basehttp 72392 6156824576 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:05,107 log 72392 6156824576 Forbidden: /api/bin-data/
+WARNING 2025-08-25 02:34:05,107 basehttp 72392 6156824576 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:05,109 log 72392 6156824576 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 02:34:05,109 basehttp 72392 6156824576 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:05,111 log 72392 6156824576 Forbidden: /api/trucks/
+WARNING 2025-08-25 02:34:05,111 basehttp 72392 6156824576 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:07,934 log 72392 6156824576 Forbidden: /api/bin-data/
+WARNING 2025-08-25 02:34:07,934 basehttp 72392 6156824576 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:07,936 log 72392 6156824576 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 02:34:07,936 basehttp 72392 6156824576 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:07,938 log 72392 6156824576 Forbidden: /api/trucks/
+WARNING 2025-08-25 02:34:07,938 basehttp 72392 6156824576 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:19,463 log 72392 6156824576 Forbidden: /api/bin-data/
+WARNING 2025-08-25 02:34:19,463 basehttp 72392 6156824576 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:19,465 log 72392 6156824576 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 02:34:19,465 basehttp 72392 6156824576 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:19,467 log 72392 6156824576 Forbidden: /api/trucks/
+WARNING 2025-08-25 02:34:19,467 basehttp 72392 6156824576 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:38,249 log 72392 6156824576 Forbidden: /api/bin-data/
+WARNING 2025-08-25 02:34:38,250 basehttp 72392 6156824576 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:38,253 log 72392 6156824576 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 02:34:38,253 basehttp 72392 6156824576 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:38,255 log 72392 6156824576 Forbidden: /api/trucks/
+WARNING 2025-08-25 02:34:38,255 basehttp 72392 6156824576 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:54,167 log 72392 6139998208 Forbidden: /api/bin-data/
+WARNING 2025-08-25 02:34:54,167 basehttp 72392 6139998208 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:54,169 log 72392 6139998208 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 02:34:54,169 basehttp 72392 6139998208 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:54,171 log 72392 6139998208 Forbidden: /api/trucks/
+WARNING 2025-08-25 02:34:54,171 basehttp 72392 6139998208 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:54,197 log 72392 6139998208 Forbidden: /api/bin-data/
+WARNING 2025-08-25 02:34:54,197 basehttp 72392 6139998208 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:54,199 log 72392 6139998208 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 02:34:54,199 basehttp 72392 6139998208 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:34:54,202 log 72392 6139998208 Forbidden: /api/trucks/
+WARNING 2025-08-25 02:34:54,202 basehttp 72392 6139998208 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:35:01,066 log 72392 6139998208 Forbidden: /api/bin-data/
+WARNING 2025-08-25 02:35:01,067 basehttp 72392 6139998208 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:35:01,069 log 72392 6139998208 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 02:35:01,069 basehttp 72392 6139998208 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 02:35:01,071 log 72392 6139998208 Forbidden: /api/trucks/
+WARNING 2025-08-25 02:35:01,071 basehttp 72392 6139998208 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-25 03:19:58,263 log 72392 6123171840 Forbidden: /api/bin-data/
+WARNING 2025-08-25 03:19:58,263 basehttp 72392 6123171840 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 03:19:58,268 log 72392 6123171840 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 03:19:58,268 basehttp 72392 6123171840 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 03:19:58,270 log 72392 6123171840 Forbidden: /api/trucks/
+WARNING 2025-08-25 03:19:58,270 basehttp 72392 6123171840 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:00:36,141 log 6853 6140014592 Forbidden: /api/bin-data/
+WARNING 2025-08-25 04:00:36,141 basehttp 6853 6140014592 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:00:36,144 log 6853 6140014592 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 04:00:36,144 basehttp 6853 6140014592 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:00:36,146 log 6853 6140014592 Forbidden: /api/trucks/
+WARNING 2025-08-25 04:00:36,147 basehttp 6853 6140014592 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:02:22,048 log 7804 6148141056 Forbidden: /api/bin-data/
+WARNING 2025-08-25 04:02:22,049 basehttp 7804 6148141056 "GET /api/bin-data/ HTTP/1.1" 403 58
+INFO 2025-08-25 04:02:22,055 basehttp 7804 6148141056 "GET /api/dumping-spots/ HTTP/1.1" 200 1194
+INFO 2025-08-25 04:02:22,059 basehttp 7804 6148141056 "GET /api/trucks/ HTTP/1.1" 200 900
+WARNING 2025-08-25 04:03:04,869 log 7804 6148141056 Forbidden: /api/bin-data/
+WARNING 2025-08-25 04:03:04,869 basehttp 7804 6148141056 "GET /api/bin-data/ HTTP/1.1" 403 58
+INFO 2025-08-25 04:03:04,872 basehttp 7804 6148141056 "GET /api/dumping-spots/ HTTP/1.1" 200 1194
+INFO 2025-08-25 04:03:04,876 basehttp 7804 6148141056 "GET /api/trucks/ HTTP/1.1" 200 900
+INFO 2025-08-25 04:05:19,761 basehttp 7804 6148141056 "GET /admin/ HTTP/1.1" 302 0
+ERROR 2025-08-25 04:05:19,798 log 7804 6148141056 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 803, in _connect
+    raise err
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/decorators.py", line 23, in wrapper
+    if utils.is_already_locked(request, username=username):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 411, in is_already_locked
+    ip_blocked = is_source_ip_already_locked(get_ip(request))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 404, in is_source_ip_already_locked
+    return REDIS_SERVER.get(get_ip_blocked_cache_key(ip_address))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/commands/core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 1533, in get_connection
+    connection.connect()
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused.
+ERROR 2025-08-25 04:05:19,801 basehttp 7804 6148141056 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 163956
+ERROR 2025-08-25 04:05:23,527 log 7804 6148141056 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 803, in _connect
+    raise err
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/decorators.py", line 23, in wrapper
+    if utils.is_already_locked(request, username=username):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 411, in is_already_locked
+    ip_blocked = is_source_ip_already_locked(get_ip(request))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 404, in is_source_ip_already_locked
+    return REDIS_SERVER.get(get_ip_blocked_cache_key(ip_address))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/commands/core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 1533, in get_connection
+    connection.connect()
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused.
+ERROR 2025-08-25 04:05:23,529 basehttp 7804 6148141056 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 163956
+INFO 2025-08-25 04:07:05,402 autoreload 10024 8486575872 Watching for file changes with StatReloader
+ERROR 2025-08-25 04:07:11,958 log 10024 6157053952 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 803, in _connect
+    raise err
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/decorators.py", line 23, in wrapper
+    if utils.is_already_locked(request, username=username):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 411, in is_already_locked
+    ip_blocked = is_source_ip_already_locked(get_ip(request))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 404, in is_source_ip_already_locked
+    return REDIS_SERVER.get(get_ip_blocked_cache_key(ip_address))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/commands/core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 1533, in get_connection
+    connection.connect()
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused.
+ERROR 2025-08-25 04:07:11,961 basehttp 10024 6157053952 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 160291
+ERROR 2025-08-25 04:07:14,933 log 10024 6157053952 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 803, in _connect
+    raise err
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/decorators.py", line 23, in wrapper
+    if utils.is_already_locked(request, username=username):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 411, in is_already_locked
+    ip_blocked = is_source_ip_already_locked(get_ip(request))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 404, in is_source_ip_already_locked
+    return REDIS_SERVER.get(get_ip_blocked_cache_key(ip_address))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/commands/core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 1533, in get_connection
+    connection.connect()
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused.
+ERROR 2025-08-25 04:07:14,935 basehttp 10024 6157053952 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 160291
+ERROR 2025-08-25 04:07:19,165 log 10024 6157053952 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 803, in _connect
+    raise err
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/decorators.py", line 23, in wrapper
+    if utils.is_already_locked(request, username=username):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 411, in is_already_locked
+    ip_blocked = is_source_ip_already_locked(get_ip(request))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 404, in is_source_ip_already_locked
+    return REDIS_SERVER.get(get_ip_blocked_cache_key(ip_address))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/commands/core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 1533, in get_connection
+    connection.connect()
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused.
+ERROR 2025-08-25 04:07:19,166 basehttp 10024 6157053952 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 160291
+ERROR 2025-08-25 04:08:18,820 log 10024 6157053952 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 803, in _connect
+    raise err
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/decorators.py", line 23, in wrapper
+    if utils.is_already_locked(request, username=username):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 411, in is_already_locked
+    ip_blocked = is_source_ip_already_locked(get_ip(request))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 404, in is_source_ip_already_locked
+    return REDIS_SERVER.get(get_ip_blocked_cache_key(ip_address))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/commands/core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 1533, in get_connection
+    connection.connect()
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused.
+ERROR 2025-08-25 04:08:18,823 basehttp 10024 6157053952 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 160291
+WARNING 2025-08-25 04:14:12,665 log 10024 6173880320 Forbidden: /api/bin-data/
+WARNING 2025-08-25 04:14:12,666 basehttp 10024 6173880320 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:14:12,671 log 10024 6173880320 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 04:14:12,672 basehttp 10024 6173880320 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:14:12,675 log 10024 6173880320 Forbidden: /api/trucks/
+WARNING 2025-08-25 04:14:12,676 basehttp 10024 6173880320 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:14:25,348 log 10024 6173880320 Forbidden: /api/bin-data/
+WARNING 2025-08-25 04:14:25,349 basehttp 10024 6173880320 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:14:25,352 log 10024 6173880320 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 04:14:25,352 basehttp 10024 6173880320 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:14:25,355 log 10024 6173880320 Forbidden: /api/trucks/
+WARNING 2025-08-25 04:14:25,356 basehttp 10024 6173880320 "GET /api/trucks/ HTTP/1.1" 403 58
+ERROR 2025-08-25 04:14:35,017 log 10024 6157053952 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 803, in _connect
+    raise err
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/decorators.py", line 23, in wrapper
+    if utils.is_already_locked(request, username=username):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 411, in is_already_locked
+    ip_blocked = is_source_ip_already_locked(get_ip(request))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 404, in is_source_ip_already_locked
+    return REDIS_SERVER.get(get_ip_blocked_cache_key(ip_address))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/commands/core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 1533, in get_connection
+    connection.connect()
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused.
+ERROR 2025-08-25 04:14:35,019 basehttp 10024 6157053952 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 160291
+ERROR 2025-08-25 04:14:37,727 log 10024 6157053952 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 803, in _connect
+    raise err
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/decorators.py", line 23, in wrapper
+    if utils.is_already_locked(request, username=username):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 411, in is_already_locked
+    ip_blocked = is_source_ip_already_locked(get_ip(request))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 404, in is_source_ip_already_locked
+    return REDIS_SERVER.get(get_ip_blocked_cache_key(ip_address))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/commands/core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 1533, in get_connection
+    connection.connect()
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused.
+ERROR 2025-08-25 04:14:37,729 basehttp 10024 6157053952 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 160291
+ERROR 2025-08-25 04:14:43,715 log 10024 6157053952 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 803, in _connect
+    raise err
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/decorators.py", line 23, in wrapper
+    if utils.is_already_locked(request, username=username):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 411, in is_already_locked
+    ip_blocked = is_source_ip_already_locked(get_ip(request))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 404, in is_source_ip_already_locked
+    return REDIS_SERVER.get(get_ip_blocked_cache_key(ip_address))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/commands/core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 1533, in get_connection
+    connection.connect()
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused.
+ERROR 2025-08-25 04:14:43,717 basehttp 10024 6157053952 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 160291
+ERROR 2025-08-25 04:14:49,427 log 10024 6157053952 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 803, in _connect
+    raise err
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/decorators.py", line 23, in wrapper
+    if utils.is_already_locked(request, username=username):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 411, in is_already_locked
+    ip_blocked = is_source_ip_already_locked(get_ip(request))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 404, in is_source_ip_already_locked
+    return REDIS_SERVER.get(get_ip_blocked_cache_key(ip_address))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/commands/core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 1533, in get_connection
+    connection.connect()
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused.
+ERROR 2025-08-25 04:14:49,429 basehttp 10024 6157053952 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 160291
+INFO 2025-08-25 04:15:01,499 basehttp 10024 6157053952 "GET /admin/ HTTP/1.1" 302 0
+ERROR 2025-08-25 04:15:01,526 log 10024 6157053952 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 803, in _connect
+    raise err
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/decorators.py", line 23, in wrapper
+    if utils.is_already_locked(request, username=username):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 411, in is_already_locked
+    ip_blocked = is_source_ip_already_locked(get_ip(request))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 404, in is_source_ip_already_locked
+    return REDIS_SERVER.get(get_ip_blocked_cache_key(ip_address))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/commands/core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 1533, in get_connection
+    connection.connect()
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused.
+ERROR 2025-08-25 04:15:01,528 basehttp 10024 6157053952 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 160154
+ERROR 2025-08-25 04:15:44,677 log 10024 6157053952 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 803, in _connect
+    raise err
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/decorators.py", line 23, in wrapper
+    if utils.is_already_locked(request, username=username):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 411, in is_already_locked
+    ip_blocked = is_source_ip_already_locked(get_ip(request))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 404, in is_source_ip_already_locked
+    return REDIS_SERVER.get(get_ip_blocked_cache_key(ip_address))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/commands/core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 1533, in get_connection
+    connection.connect()
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused.
+ERROR 2025-08-25 04:15:44,678 basehttp 10024 6157053952 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 160291
+WARNING 2025-08-25 04:15:50,763 log 10024 13035925504 Forbidden: /api/bin-data/
+WARNING 2025-08-25 04:15:50,764 basehttp 10024 13035925504 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:15:50,768 log 10024 13035925504 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 04:15:50,769 basehttp 10024 13035925504 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:15:50,778 log 10024 13035925504 Forbidden: /api/trucks/
+WARNING 2025-08-25 04:15:50,778 basehttp 10024 13035925504 "GET /api/trucks/ HTTP/1.1" 403 58
+ERROR 2025-08-25 04:18:46,316 log 10024 6157053952 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 803, in _connect
+    raise err
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/decorators.py", line 23, in wrapper
+    if utils.is_already_locked(request, username=username):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 411, in is_already_locked
+    ip_blocked = is_source_ip_already_locked(get_ip(request))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 404, in is_source_ip_already_locked
+    return REDIS_SERVER.get(get_ip_blocked_cache_key(ip_address))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/commands/core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 1533, in get_connection
+    connection.connect()
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused.
+ERROR 2025-08-25 04:18:46,318 basehttp 10024 6157053952 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 160291
+ERROR 2025-08-25 04:23:27,584 log 10024 6157053952 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 803, in _connect
+    raise err
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/decorators.py", line 23, in wrapper
+    if utils.is_already_locked(request, username=username):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 411, in is_already_locked
+    ip_blocked = is_source_ip_already_locked(get_ip(request))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 404, in is_source_ip_already_locked
+    return REDIS_SERVER.get(get_ip_blocked_cache_key(ip_address))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/commands/core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 1533, in get_connection
+    connection.connect()
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused.
+ERROR 2025-08-25 04:23:27,585 basehttp 10024 6157053952 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 160291
+ERROR 2025-08-25 04:25:02,059 log 10024 6157053952 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 803, in _connect
+    raise err
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/decorators.py", line 23, in wrapper
+    if utils.is_already_locked(request, username=username):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 411, in is_already_locked
+    ip_blocked = is_source_ip_already_locked(get_ip(request))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 404, in is_source_ip_already_locked
+    return REDIS_SERVER.get(get_ip_blocked_cache_key(ip_address))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/commands/core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 1533, in get_connection
+    connection.connect()
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused.
+ERROR 2025-08-25 04:25:02,061 basehttp 10024 6157053952 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 160291
+WARNING 2025-08-25 04:25:08,483 log 10024 13035925504 Forbidden: /api/bin-data/
+WARNING 2025-08-25 04:25:08,483 basehttp 10024 13035925504 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:25:08,488 log 10024 13035925504 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 04:25:08,488 basehttp 10024 13035925504 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:25:08,492 log 10024 13035925504 Forbidden: /api/trucks/
+WARNING 2025-08-25 04:25:08,493 basehttp 10024 13035925504 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:26:05,212 log 10024 6173880320 Forbidden: /api/bin-data/
+WARNING 2025-08-25 04:26:05,212 basehttp 10024 6173880320 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:26:05,215 log 10024 6173880320 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 04:26:05,215 basehttp 10024 6173880320 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:26:05,219 log 10024 6173880320 Forbidden: /api/trucks/
+WARNING 2025-08-25 04:26:05,220 basehttp 10024 6173880320 "GET /api/trucks/ HTTP/1.1" 403 58
+ERROR 2025-08-25 04:30:01,480 log 10024 6157053952 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 803, in _connect
+    raise err
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/decorators.py", line 23, in wrapper
+    if utils.is_already_locked(request, username=username):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 411, in is_already_locked
+    ip_blocked = is_source_ip_already_locked(get_ip(request))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/defender/utils.py", line 404, in is_source_ip_already_locked
+    return REDIS_SERVER.get(get_ip_blocked_cache_key(ip_address))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/commands/core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 1533, in get_connection
+    connection.connect()
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "/Users/jamstanleyambe/miniforge3/lib/python3.12/site-packages/redis/connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused.
+ERROR 2025-08-25 04:30:01,482 basehttp 10024 6157053952 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 160291
+INFO 2025-08-25 04:30:29,877 autoreload 10024 8486575872 /Applications/smart-waste-management/waste_management/settings.py changed, reloading.
+INFO 2025-08-25 04:30:30,316 autoreload 19219 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 04:30:49,241 autoreload 19219 8486575872 /Applications/smart-waste-management/waste_management/settings.py changed, reloading.
+INFO 2025-08-25 04:30:49,596 autoreload 19368 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 04:30:54,992 autoreload 19368 8486575872 /Applications/smart-waste-management/waste_management/settings.py changed, reloading.
+INFO 2025-08-25 04:30:55,241 autoreload 19414 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 04:31:02,646 autoreload 19414 8486575872 /Applications/smart-waste-management/waste_management/settings.py changed, reloading.
+INFO 2025-08-25 04:31:02,925 autoreload 19458 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 04:31:03,583 basehttp 19458 6126661632 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 59062
+INFO 2025-08-25 04:31:11,388 auth_backends 19458 6126661632 Successful login: admin from 127.0.0.1
+INFO 2025-08-25 04:31:11,394 basehttp 19458 6126661632 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-08-25 04:31:11,408 basehttp 19458 6126661632 "GET /admin/ HTTP/1.1" 200 70545
+WARNING 2025-08-25 04:31:34,201 log 19458 6160314368 Forbidden: /api/bin-data/
+WARNING 2025-08-25 04:31:34,201 basehttp 19458 6160314368 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:31:34,205 log 19458 6160314368 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 04:31:34,205 basehttp 19458 6160314368 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:31:34,210 log 19458 6160314368 Forbidden: /api/trucks/
+WARNING 2025-08-25 04:31:34,210 basehttp 19458 6160314368 "GET /api/trucks/ HTTP/1.1" 403 58
+INFO 2025-08-25 04:31:45,369 autoreload 20114 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 04:31:52,696 autoreload 20114 8486575872 /Applications/smart-waste-management/waste_management/settings.py changed, reloading.
+INFO 2025-08-25 04:31:52,938 autoreload 20175 8486575872 Watching for file changes with StatReloader
+WARNING 2025-08-25 04:31:57,333 log 20175 6124892160 Forbidden: /api/bin-data/
+WARNING 2025-08-25 04:31:57,333 basehttp 20175 6124892160 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:31:57,336 log 20175 6124892160 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 04:31:57,336 basehttp 20175 6124892160 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:31:57,338 log 20175 6124892160 Forbidden: /api/trucks/
+WARNING 2025-08-25 04:31:57,338 basehttp 20175 6124892160 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:32:10,796 log 20175 6124892160 Forbidden: /api/bin-data/
+WARNING 2025-08-25 04:32:10,796 basehttp 20175 6124892160 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:32:10,798 log 20175 6124892160 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 04:32:10,798 basehttp 20175 6124892160 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:32:10,800 log 20175 6124892160 Forbidden: /api/trucks/
+WARNING 2025-08-25 04:32:10,800 basehttp 20175 6124892160 "GET /api/trucks/ HTTP/1.1" 403 58
+INFO 2025-08-25 04:32:50,351 autoreload 20175 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 04:32:50,714 autoreload 20536 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 04:33:02,228 autoreload 20536 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 04:33:02,569 autoreload 20624 8486575872 Watching for file changes with StatReloader
+WARNING 2025-08-25 04:33:05,228 log 20624 6171013120 Forbidden: /api/bin-data/
+WARNING 2025-08-25 04:33:05,229 basehttp 20624 6171013120 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:33:05,231 log 20624 6171013120 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 04:33:05,231 basehttp 20624 6171013120 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:33:05,233 log 20624 6171013120 Forbidden: /api/trucks/
+WARNING 2025-08-25 04:33:05,233 basehttp 20624 6171013120 "GET /api/trucks/ HTTP/1.1" 403 58
+INFO 2025-08-25 04:33:09,556 basehttp 20624 6171013120 "GET /admin/ HTTP/1.1" 200 70545
+INFO 2025-08-25 04:33:12,087 autoreload 20624 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 04:33:12,423 autoreload 20686 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 04:33:22,863 autoreload 20686 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 04:33:23,095 autoreload 20753 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 04:33:32,449 autoreload 20753 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 04:33:32,682 autoreload 20830 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 04:36:20,646 autoreload 20830 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 04:36:21,022 autoreload 22305 8486575872 Watching for file changes with StatReloader
+WARNING 2025-08-25 04:36:23,193 log 22305 6131331072 Forbidden: /api/bin-data/
+WARNING 2025-08-25 04:36:23,193 basehttp 22305 6131331072 "GET /api/bin-data/ HTTP/1.1" 403 58
+INFO 2025-08-25 04:36:23,198 basehttp 22305 6131331072 "GET /api/dumping-spots/ HTTP/1.1" 200 1187
+INFO 2025-08-25 04:36:23,202 basehttp 22305 6131331072 "GET /api/trucks/ HTTP/1.1" 200 905
+INFO 2025-08-25 04:36:32,668 basehttp 22305 6131331072 "GET /admin/ HTTP/1.1" 200 70545
+WARNING 2025-08-25 04:39:16,295 log 22305 6148157440 Forbidden: /api/bin-data/
+WARNING 2025-08-25 04:39:16,295 basehttp 22305 6148157440 "GET /api/bin-data/ HTTP/1.1" 403 58
+INFO 2025-08-25 04:39:16,299 basehttp 22305 6148157440 "GET /api/dumping-spots/ HTTP/1.1" 200 1187
+INFO 2025-08-25 04:39:16,302 basehttp 22305 6148157440 "GET /api/trucks/ HTTP/1.1" 200 905
+INFO 2025-08-25 04:40:04,122 autoreload 22305 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 04:40:04,571 autoreload 24041 8486575872 Watching for file changes with StatReloader

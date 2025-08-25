@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'axes',  # Login attempt monitoring
-    'defender',  # Advanced security
+    # 'defender',  # Advanced security - temporarily disabled
     'core',
 ]
 
@@ -41,7 +41,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'axes.middleware.AxesMiddleware',  # Login attempt monitoring
-    'defender.middleware.FailedLoginMiddleware',  # Advanced security
+    # 'defender.middleware.FailedLoginMiddleware',  # Advanced security - temporarily disabled
 ]
 
 # Authentication & Authorization Settings
@@ -106,13 +106,15 @@ AXES_LOCK_OUT_BY_IP_AND_USERNAME = True
 AXES_RESET_ON_SUCCESS = True
 AXES_VERBOSE = True
 
-# Defender Settings (Advanced Security)
-DEFENDER_ENABLED = True
-DEFENDER_LOGIN_FAILURE_LIMIT = 5
-DEFENDER_COOLOFF_TIME = 300  # 5 minutes
-DEFENDER_LOCK_OUT_BY_IP_AND_USERNAME = True
-DEFENDER_USE_CELERY = False
-DEFENDER_REDIS_URL = 'redis://localhost:6379/1'
+# Defender Settings (Advanced Security) - temporarily disabled
+# DEFENDER_ENABLED = True
+# DEFENDER_LOGIN_FAILURE_LIMIT = 5
+# DEFENDER_COOLOFF_TIME = 300  # 5 minutes
+# DEFENDER_LOCK_OUT_BY_IP_AND_USERNAME = True
+# DEFENDER_USE_CELERY = False
+# Use local cache instead of Redis for development
+# DEFENDER_CACHE_PREFIX = 'defender'
+# DEFENDER_USE_CACHE = True
 
 # CORS Settings
 CORS_ALLOWED_ORIGINS = [
