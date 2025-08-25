@@ -388,10 +388,12 @@
         flex-direction: column;
         justify-content: space-between;
         margin: 1rem;
+        transition: all 0.3s ease;
     }
     
     .app-list .module:hover {
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        transition: box-shadow 0.3s ease;
     }
     
     .app-list .module h2 {
@@ -407,6 +409,7 @@
         text-transform: uppercase;
         letter-spacing: 0.05em;
         margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
     }
     
     /* Special styling for Authentication and Authorization section */
@@ -440,17 +443,25 @@
         justify-content: center;
         min-height: 80px;
         color: white;
+        transition: all 0.3s ease;
     }
     
-    /* Add simple security icons to the Authentication heading */
+    /* Hide the original Authentication and Authorization text and show custom title */
+    .app-list .module:first-child h2 {
+        color: transparent;
+    }
+    
     .app-list .module:first-child h2::before {
-        content: '🛡️';
+        content: '🔐 User Management';
         position: absolute;
-        left: 1.5rem;
+        left: 50%;
         top: 50%;
-        transform: translateY(-50%);
-        font-size: 1.5rem;
-        z-index: 2;
+        transform: translate(-50%, -50%);
+        font-size: 1.4rem;
+        font-weight: 700;
+        z-index: 3;
+        white-space: nowrap;
+        color: white;
     }
     
     .app-list .module:first-child h2::after {
@@ -468,6 +479,7 @@
     /* Simple hover effect for Authentication and Authorization */
     .app-list .module:first-child:hover h2 {
         background: #4682b4;
+        transition: background-color 0.3s ease;
     }
     
 
@@ -594,6 +606,7 @@
         min-width: 100px;
         text-align: center;
         border: 1px solid #4682b4;
+        transition: all 0.3s ease;
     }
     
     /* Enhanced styling for table links in Authentication section */
@@ -612,6 +625,7 @@
         text-transform: uppercase;
         letter-spacing: 0.05em;
         border: 1px solid #4682b4;
+        transition: all 0.3s ease;
     }
     
     .app-list .module:first-child a:hover {
