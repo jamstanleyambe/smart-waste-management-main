@@ -1,9 +1,9 @@
 import logging
 from rest_framework import status
-from rest_framework.decorators import api_view, throttle_classes
+from rest_framework.decorators import api_view, throttle_classes, permission_classes
 from rest_framework.response import Response
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
@@ -30,6 +30,7 @@ class AnonBinRateThrottle(AnonRateThrottle):
 
 @api_view(['GET', 'POST'])
 @throttle_classes([BinRateThrottle, AnonBinRateThrottle])
+@permission_classes([AllowAny])  # Allow unauthenticated access for dashboard
 def bin_data(request):
     try:
         if request.method == 'GET':
