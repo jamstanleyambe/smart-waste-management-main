@@ -2154,3 +2154,75 @@ INFO 2025-08-25 04:39:16,299 basehttp 22305 6148157440 "GET /api/dumping-spots/ 
 INFO 2025-08-25 04:39:16,302 basehttp 22305 6148157440 "GET /api/trucks/ HTTP/1.1" 200 905
 INFO 2025-08-25 04:40:04,122 autoreload 22305 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
 INFO 2025-08-25 04:40:04,571 autoreload 24041 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 04:40:14,112 autoreload 24041 8486575872 /Applications/smart-waste-management/waste_management/settings.py changed, reloading.
+INFO 2025-08-25 04:40:14,414 autoreload 24321 8486575872 Watching for file changes with StatReloader
+WARNING 2025-08-25 04:40:29,333 log 24321 6170832896 Forbidden: /api/bin-data/
+WARNING 2025-08-25 04:40:29,334 basehttp 24321 6170832896 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:40:29,336 log 24321 6170832896 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 04:40:29,336 basehttp 24321 6170832896 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:40:29,338 log 24321 6170832896 Forbidden: /api/trucks/
+WARNING 2025-08-25 04:40:29,338 basehttp 24321 6170832896 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:40:48,878 log 24321 6170832896 Forbidden: /api/bin-data/
+WARNING 2025-08-25 04:40:48,878 basehttp 24321 6170832896 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:40:48,880 log 24321 6170832896 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 04:40:48,880 basehttp 24321 6170832896 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:40:48,882 log 24321 6170832896 Forbidden: /api/trucks/
+WARNING 2025-08-25 04:40:48,882 basehttp 24321 6170832896 "GET /api/trucks/ HTTP/1.1" 403 58
+INFO 2025-08-25 04:41:00,900 basehttp 24321 6170832896 "GET /admin/ HTTP/1.1" 200 70545
+WARNING 2025-08-25 04:41:13,412 log 24321 6204485632 Forbidden: /api/bin-data/
+WARNING 2025-08-25 04:41:13,412 basehttp 24321 6204485632 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:41:13,414 log 24321 6204485632 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 04:41:13,414 basehttp 24321 6204485632 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 04:41:13,416 log 24321 6204485632 Forbidden: /api/trucks/
+WARNING 2025-08-25 04:41:13,416 basehttp 24321 6204485632 "GET /api/trucks/ HTTP/1.1" 403 58
+WARNING 2025-08-25 14:58:40,320 log 24321 6170832896 Forbidden: /api/bin-data/
+WARNING 2025-08-25 14:58:40,321 basehttp 24321 6170832896 "GET /api/bin-data/ HTTP/1.1" 403 58
+WARNING 2025-08-25 14:58:40,324 log 24321 6170832896 Forbidden: /api/dumping-spots/
+WARNING 2025-08-25 14:58:40,324 basehttp 24321 6170832896 "GET /api/dumping-spots/ HTTP/1.1" 403 58
+WARNING 2025-08-25 14:58:40,326 log 24321 6170832896 Forbidden: /api/trucks/
+WARNING 2025-08-25 14:58:40,326 basehttp 24321 6170832896 "GET /api/trucks/ HTTP/1.1" 403 58
+INFO 2025-08-25 15:16:10,437 autoreload 24321 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 15:16:10,871 autoreload 47586 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 15:16:23,413 autoreload 47586 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 15:16:23,749 autoreload 47676 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 15:16:34,160 autoreload 47676 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 15:16:34,390 autoreload 47748 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 15:16:41,687 autoreload 47748 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 15:16:41,919 autoreload 47796 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 15:16:50,287 autoreload 47796 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 15:16:50,507 autoreload 47852 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 15:17:00,903 autoreload 47852 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 15:17:01,247 autoreload 47925 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 15:17:10,638 autoreload 47925 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 15:17:10,985 autoreload 47993 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 15:17:19,373 autoreload 47993 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 15:17:19,627 autoreload 48050 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 15:17:28,042 autoreload 48050 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 15:17:28,298 autoreload 48103 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 15:17:36,654 autoreload 48103 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 15:17:36,890 autoreload 48164 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 15:17:48,297 autoreload 48164 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 15:17:48,520 autoreload 48247 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 15:34:38,770 autoreload 48247 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 15:34:39,166 autoreload 54132 8486575872 Watching for file changes with StatReloader
+WARNING 2025-08-25 19:13:38,962 log 54132 6131068928 Forbidden: /api/bin-data/
+WARNING 2025-08-25 19:13:38,962 basehttp 54132 6131068928 "GET /api/bin-data/ HTTP/1.1" 403 58
+INFO 2025-08-25 19:13:38,970 basehttp 54132 6131068928 "GET /api/dumping-spots/ HTTP/1.1" 200 1187
+INFO 2025-08-25 19:13:38,976 basehttp 54132 6131068928 "GET /api/trucks/ HTTP/1.1" 200 905
+INFO 2025-08-25 19:14:08,080 autoreload 54132 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 19:14:08,482 autoreload 31139 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 19:14:15,823 autoreload 31139 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 19:14:16,061 autoreload 31191 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 19:14:26,390 autoreload 31191 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 19:14:26,635 autoreload 31261 8486575872 Watching for file changes with StatReloader
+WARNING 2025-08-25 19:14:36,639 log 31261 6131150848 Forbidden: /api/bin-data/
+WARNING 2025-08-25 19:14:36,639 basehttp 31261 6131150848 "GET /api/bin-data/ HTTP/1.1" 403 58
+INFO 2025-08-25 19:14:36,644 basehttp 31261 6131150848 "GET /api/dumping-spots/ HTTP/1.1" 200 1187
+INFO 2025-08-25 19:14:36,648 basehttp 31261 6131150848 "GET /api/trucks/ HTTP/1.1" 200 905
+INFO 2025-08-25 19:14:39,104 autoreload 31261 8486575872 /Applications/smart-waste-management/core/views.py changed, reloading.
+INFO 2025-08-25 19:14:39,359 autoreload 31352 8486575872 Watching for file changes with StatReloader
+INFO 2025-08-25 19:14:41,611 basehttp 31352 6170357760 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-08-25 19:14:41,637 basehttp 31352 6170357760 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 59062
+INFO 2025-08-25 19:14:53,298 auth_backends 31352 6170357760 Successful login: admin from 127.0.0.1
+INFO 2025-08-25 19:14:53,303 basehttp 31352 6170357760 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-08-25 19:14:53,316 basehttp 31352 6170357760 "GET /admin/ HTTP/1.1" 200 70545
