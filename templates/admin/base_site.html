@@ -436,107 +436,66 @@
     
     /* Special styling for Authentication and Authorization section */
     .app-list .module:first-child {
-        border: 4px solid #1e40af;
-        box-shadow: 0 15px 40px rgba(30, 64, 175, 0.25);
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.98) 100%);
-        transform: scale(1.02);
+        border: 2px solid #4682b4;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        background: white;
         position: relative;
         z-index: 2;
-        margin: 3rem auto;
+        margin: 2rem auto;
         max-width: 900px;
         width: 100%;
         padding: 2rem;
-        border-radius: 16px;
+        border-radius: 8px;
     }
     
     .app-list .module:first-child h2 {
-        background: linear-gradient(135deg, #4682b4 0%, var(--primary-color) 50%, #5f9ea0 100%);
-        font-size: 1.8rem;
-        font-weight: 900;
-        letter-spacing: 0.15em;
+        background: #4682b4;
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
-        box-shadow: 0 10px 30px rgba(135, 206, 235, 0.6);
         position: relative;
         overflow: hidden;
-        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-        border-bottom: 4px solid rgba(255, 255, 255, 0.4);
         text-align: center;
-        padding: 2rem 3rem;
+        padding: 1.5rem 2rem;
         margin: 0;
-        border-radius: 8px 8px 0 0;
+        border-radius: 6px 6px 0 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 80px;
+        min-height: 60px;
         color: white;
     }
     
-    /* Add security icons to the Authentication heading */
+    /* Add simple security icons to the Authentication heading */
     .app-list .module:first-child h2::before {
         content: '🛡️';
         position: absolute;
-        left: 2rem;
+        left: 1.5rem;
         top: 50%;
         transform: translateY(-50%);
-        font-size: 2rem;
+        font-size: 1.5rem;
         z-index: 2;
-        filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
-        animation: glow 2s ease-in-out infinite alternate;
     }
     
     .app-list .module:first-child h2::after {
         content: '🔒';
         position: absolute;
-        right: 2rem;
+        right: 1.5rem;
         top: 50%;
         transform: translateY(-50%);
-        font-size: 2rem;
+        font-size: 1.5rem;
         z-index: 2;
-        filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
-        animation: glow 2s ease-in-out infinite alternate-reverse;
     }
     
-    @keyframes glow {
-        from { filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4)) brightness(1); }
-        to { filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4)) brightness(1.3); }
-    }
+
     
-    /* Add a subtle background pattern to the Authentication module */
-    .app-list .module:first-child {
-        background-image: 
-            radial-gradient(circle at 20% 80%, rgba(135, 206, 235, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(135, 206, 235, 0.1) 0%, transparent 50%);
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-    }
-    
-    /* Enhanced hover effect for Authentication and Authorization */
+    /* Simple hover effect for Authentication and Authorization */
     .app-list .module:first-child:hover h2 {
-        background: linear-gradient(135deg, #5f9ea0 0%, #4682b4 50%, var(--primary-color) 100%);
-        transform: translateY(-5px) scale(1.03);
-        box-shadow: 0 15px 40px rgba(135, 206, 235, 0.7);
-        text-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
-        letter-spacing: 0.2em;
+        background: #4682b4;
     }
     
-    /* Special glow effect for Authentication and Authorization text */
-    .app-list .module:first-child h2 .shimmer-effect {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-        animation: shimmer 2s infinite;
-        pointer-events: none;
-        z-index: 1;
-    }
-    
-    @keyframes shimmer {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(100%); }
-    }
+
     
     /* Center the Authentication section in the app list */
     .app-list {
@@ -547,30 +506,7 @@
     }
     
     /* Add a special badge to the Authentication module */
-    .app-list .module:first-child::before {
-        content: '🔐';
-        position: absolute;
-        top: -15px;
-        right: -15px;
-        font-size: 2.5rem;
-        background: linear-gradient(135deg, var(--primary-color) 0%, #4682b4 100%);
-        color: white;
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 6px 20px rgba(135, 206, 235, 0.5);
-        z-index: 3;
-        animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); }
-    }
+
     
     .app-list .module table {
         font-size: 0.9rem;
@@ -612,51 +548,45 @@
     
     /* Special styling for the first module (Authentication) table */
     .app-list .module:first-child table {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 248, 255, 0.98) 100%);
-        border: 3px solid rgba(70, 130, 180, 0.4);
-        box-shadow: 0 12px 35px rgba(70, 130, 180, 0.25);
-        margin: 2rem 0;
-        border-radius: 12px;
+        background: white;
+        border: 2px solid #4682b4;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin: 1.5rem 0;
+        border-radius: 8px;
         overflow: hidden;
         padding: 1rem;
     }
     
     .app-list .module:first-child th {
-        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
-        font-size: 1.2rem;
-        font-weight: 800;
-        padding: 2rem 2.5rem;
-        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+        background: #4682b4;
+        font-size: 1.1rem;
+        font-weight: 700;
+        padding: 1.5rem 2rem;
         color: white;
         text-transform: uppercase;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.05em;
     }
     
     .app-list .module:first-child td {
-        padding: 2rem 2.5rem;
-        font-size: 1.1rem;
-        font-weight: 700;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
-        border-bottom: 2px solid rgba(59, 130, 246, 0.15);
-        transition: all 0.4s ease;
+        padding: 1.5rem 2rem;
+        font-size: 1rem;
+        font-weight: 600;
+        background: white;
+        border-bottom: 1px solid #e5e7eb;
     }
     
     .app-list .module:first-child tr:hover td {
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 197, 253, 0.15) 100%);
-        transform: translateX(10px) scale(1.03);
-        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.25);
-        border-left: 4px solid #3b82f6;
+        background: rgba(135, 206, 235, 0.1);
     }
     
     /* Special styling for model names in Authentication table */
     .app-list .module:first-child td:first-child {
-        font-weight: 800;
-        color: #1e40af;
-        font-size: 1.2rem;
-        text-shadow: 0 2px 4px rgba(30, 64, 175, 0.2);
+        font-weight: 700;
+        color: #4682b4;
+        font-size: 1.1rem;
         position: relative;
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(147, 197, 253, 0.08) 100%);
-        border-right: 2px solid rgba(59, 130, 246, 0.1);
+        background: #f8fafc;
+        border-right: 1px solid #e5e7eb;
     }
     
     .app-list .module:first-child td:first-child::before {
@@ -698,32 +628,24 @@
     
     /* Enhanced styling for table links in Authentication section */
     .app-list .module:first-child a {
-        font-size: 1.1rem;
-        padding: 1rem 2rem;
-        border-radius: 8px;
-        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+        font-size: 1rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        background: #4682b4;
         color: white;
         text-decoration: none;
-        transition: all 0.4s ease;
-        box-shadow: 0 6px 16px rgba(30, 64, 175, 0.3);
-        font-weight: 700;
-        position: relative;
-        overflow: hidden;
-        margin: 0.75rem;
+        font-weight: 600;
+        margin: 0.5rem;
         display: inline-block;
-        min-width: 120px;
+        min-width: 100px;
         text-align: center;
         text-transform: uppercase;
-        letter-spacing: 0.08em;
-        border: 2px solid rgba(255, 255, 255, 0.3);
+        letter-spacing: 0.05em;
+        border: 1px solid #4682b4;
     }
     
     .app-list .module:first-child a:hover {
-        background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
-        transform: translateY(-4px) scale(1.08);
-        box-shadow: 0 12px 25px rgba(59, 130, 246, 0.5);
-        border-color: rgba(255, 255, 255, 0.5);
-        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+        background: #4682b4;
     }
     
     .app-list .module a::before {
