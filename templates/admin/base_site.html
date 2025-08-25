@@ -363,20 +363,21 @@
     .app-list {
         display: flex;
         flex-wrap: wrap;
-        gap: 1.5rem;
+        gap: 2rem;
         width: 100% !important;
         max-width: 100% !important;
         box-sizing: border-box !important;
         overflow: hidden;
         justify-content: center;
         align-items: stretch;
+        margin: 2rem 0;
     }
     
     .app-list .module {
-        min-height: 160px;
-        min-width: 250px;
-        flex: 1 1 250px;
-        padding: 2rem;
+        min-height: 180px;
+        min-width: 280px;
+        flex: 1 1 280px;
+        padding: 2.5rem;
         background: white;
         border-radius: 8px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -386,7 +387,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin: 0.5rem;
+        margin: 1rem;
     }
     
     .app-list .module:hover {
@@ -394,8 +395,8 @@
     }
     
     .app-list .module h2 {
-        font-size: 1.1rem;
-        padding: 1rem 1.5rem;
+        font-size: 1.2rem;
+        padding: 1.5rem 2rem;
         background: #4682b4;
         color: white;
         font-weight: 700;
@@ -405,6 +406,7 @@
         overflow: hidden;
         text-transform: uppercase;
         letter-spacing: 0.05em;
+        margin-bottom: 1.5rem;
     }
     
     /* Special styling for Authentication and Authorization section */
@@ -414,29 +416,29 @@
         background: white;
         position: relative;
         z-index: 2;
-        margin: 2rem auto;
+        margin: 3rem auto;
         max-width: 900px;
         width: 100%;
-        padding: 2rem;
+        padding: 3rem;
         border-radius: 8px;
     }
     
     .app-list .module:first-child h2 {
         background: #4682b4;
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         font-weight: 700;
         letter-spacing: 0.1em;
         text-transform: uppercase;
         position: relative;
         overflow: hidden;
         text-align: center;
-        padding: 1.5rem 2rem;
-        margin: 0;
+        padding: 2rem 3rem;
+        margin: 0 0 2rem 0;
         border-radius: 6px 6px 0 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 60px;
+        min-height: 80px;
         color: white;
     }
     
@@ -485,7 +487,7 @@
         font-size: 0.9rem;
         width: 100%;
         border-collapse: collapse;
-        margin: 1rem 0;
+        margin: 1.5rem 0;
         background: white;
         border-radius: 6px;
         overflow: hidden;
@@ -494,8 +496,8 @@
     }
     
     .app-list .module th {
-        padding: 1.25rem 1.5rem;
-        font-size: 1rem;
+        padding: 1.5rem 2rem;
+        font-size: 1.1rem;
         font-weight: 700;
         background: #4682b4;
         color: white;
@@ -506,8 +508,8 @@
     }
     
     .app-list .module td {
-        padding: 1.25rem 1.5rem;
-        font-size: 0.95rem;
+        padding: 1.5rem 2rem;
+        font-size: 1rem;
         font-weight: 600;
         border-bottom: 1px solid #e5e7eb;
         background: white;
@@ -522,25 +524,25 @@
         background: white;
         border: 2px solid #4682b4;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        margin: 1.5rem 0;
+        margin: 2rem 0;
         border-radius: 8px;
         overflow: hidden;
-        padding: 1rem;
+        padding: 1.5rem;
     }
     
     .app-list .module:first-child th {
         background: #4682b4;
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         font-weight: 700;
-        padding: 1.5rem 2rem;
+        padding: 2rem 2.5rem;
         color: white;
         text-transform: uppercase;
         letter-spacing: 0.05em;
     }
     
     .app-list .module:first-child td {
-        padding: 1.5rem 2rem;
-        font-size: 1rem;
+        padding: 2rem 2.5rem;
+        font-size: 1.1rem;
         font-weight: 600;
         background: white;
         border-bottom: 1px solid #e5e7eb;
@@ -580,24 +582,8 @@
     }
     
     .app-list .module a {
-        font-size: 0.9rem;
-        padding: 0.75rem 1.5rem;
-        border-radius: 4px;
-        background: #4682b4;
-        color: white;
-        text-decoration: none;
-        font-weight: 600;
-        margin: 0.25rem;
-        display: inline-block;
-        min-width: 80px;
-        text-align: center;
-        border: 1px solid #4682b4;
-    }
-    
-    /* Enhanced styling for table links in Authentication section */
-    .app-list .module:first-child a {
         font-size: 1rem;
-        padding: 0.75rem 1.5rem;
+        padding: 1rem 2rem;
         border-radius: 4px;
         background: #4682b4;
         color: white;
@@ -606,6 +592,22 @@
         margin: 0.5rem;
         display: inline-block;
         min-width: 100px;
+        text-align: center;
+        border: 1px solid #4682b4;
+    }
+    
+    /* Enhanced styling for table links in Authentication section */
+    .app-list .module:first-child a {
+        font-size: 1.1rem;
+        padding: 1rem 2rem;
+        border-radius: 4px;
+        background: #4682b4;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        margin: 0.75rem;
+        display: inline-block;
+        min-width: 120px;
         text-align: center;
         text-transform: uppercase;
         letter-spacing: 0.05em;
