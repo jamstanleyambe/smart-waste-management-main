@@ -571,17 +571,98 @@
     }
     
     .app-list .module table {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(135, 206, 235, 0.15);
     }
     
     .app-list .module th {
-        padding: 0.75rem 1rem;
-        font-size: 0.8rem;
+        padding: 1.25rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--primary-color) 0%, #5f9ea0 100%);
+        color: white;
+        text-align: left;
+        border: none;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
     
     .app-list .module td {
-        padding: 0.75rem 1rem;
-        font-size: 0.85rem;
+        padding: 1.25rem 1.5rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        border-bottom: 1px solid rgba(135, 206, 235, 0.2);
+        background: rgba(255, 255, 255, 0.8);
+        transition: all 0.3s ease;
+    }
+    
+    .app-list .module tr:hover td {
+        background: rgba(135, 206, 235, 0.1);
+        transform: translateX(5px);
+    }
+    
+    /* Special styling for the first module (Authentication) table */
+    .app-list .module:first-child table {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 248, 255, 0.98) 100%);
+        border: 2px solid rgba(135, 206, 235, 0.3);
+        box-shadow: 0 8px 25px rgba(135, 206, 235, 0.2);
+    }
+    
+    .app-list .module:first-child th {
+        background: linear-gradient(135deg, #4682b4 0%, var(--primary-color) 50%, #5f9ea0 100%);
+        font-size: 1.1rem;
+        font-weight: 800;
+        padding: 1.5rem 2rem;
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+    }
+    
+    .app-list .module:first-child td {
+        padding: 1.5rem 2rem;
+        font-size: 1rem;
+        font-weight: 700;
+        background: rgba(255, 255, 255, 0.9);
+        border-bottom: 2px solid rgba(135, 206, 235, 0.2);
+    }
+    
+    .app-list .module:first-child tr:hover td {
+        background: linear-gradient(135deg, rgba(135, 206, 235, 0.15) 0%, rgba(240, 248, 255, 0.2) 100%);
+        transform: translateX(8px) scale(1.02);
+        box-shadow: 0 4px 12px rgba(135, 206, 235, 0.3);
+    }
+    
+    /* Special styling for model names in Authentication table */
+    .app-list .module:first-child td:first-child {
+        font-weight: 800;
+        color: var(--primary-color);
+        font-size: 1.1rem;
+        text-shadow: 0 1px 2px rgba(135, 206, 235, 0.3);
+        position: relative;
+    }
+    
+    .app-list .module:first-child td:first-child::before {
+        content: '🔐';
+        position: absolute;
+        left: -2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.2rem;
+        opacity: 0.7;
+    }
+    
+    /* Add icons for specific models */
+    .app-list .module:first-child tr:nth-child(1) td:first-child::before {
+        content: '👥';
+    }
+    
+    .app-list .module:first-child tr:nth-child(2) td:first-child::before {
+        content: '👤';
     }
     
     .app-list .module a {
@@ -597,6 +678,39 @@
         position: relative;
         overflow: hidden;
         margin: 0.25rem;
+        display: inline-block;
+        min-width: 80px;
+        text-align: center;
+    }
+    
+    /* Enhanced styling for table links in Authentication section */
+    .app-list .module:first-child a {
+        font-size: 1rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        background: linear-gradient(135deg, #4682b4 0%, var(--primary-color) 100%);
+        color: white;
+        text-decoration: none;
+        transition: all 0.4s ease;
+        box-shadow: 0 4px 12px rgba(135, 206, 235, 0.4);
+        font-weight: 700;
+        position: relative;
+        overflow: hidden;
+        margin: 0.5rem;
+        display: inline-block;
+        min-width: 100px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .app-list .module:first-child a:hover {
+        background: linear-gradient(135deg, var(--primary-color) 0%, #5f9ea0 100%);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 8px 20px rgba(135, 206, 235, 0.6);
+        border-color: rgba(255, 255, 255, 0.4);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
     
     .app-list .module a::before {
