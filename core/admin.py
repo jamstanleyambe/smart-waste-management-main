@@ -14,20 +14,71 @@ class WasteManagementAdminSite(AdminSite):
     
     def index(self, request, extra_context=None):
         extra_context = extra_context or {}
+        
+        # Get real data counts
+        user_count = User.objects.count()
+        active_user_count = User.objects.filter(is_active=True).count()
+        bin_count = Bin.objects.count()
+        truck_count = Truck.objects.count()
+        dumping_spot_count = DumpingSpot.objects.count()
+        role_count = Role.objects.count()
+        
+        # Calculate additional statistics
+        from django.db.models import Avg, Count, Q
+        from datetime import datetime, timedelta
+        
+        # Bin statistics
+        avg_fill_level = Bin.objects.aggregate(avg_fill=Avg('fill_level'))['avg_fill'] or 0
+        full_bins = Bin.objects.filter(fill_level__gte=80).count()
+        empty_bins = Bin.objects.filter(fill_level__lte=20).count()
+        
+        # Truck statistics
+        active_trucks = Truck.objects.filter(status='ACTIVE').count()
+        idle_trucks = Truck.objects.filter(status='IDLE').count()
+        maintenance_trucks = Truck.objects.filter(status='MAINTENANCE').count()
+        
+        # Dumping spot statistics
+        total_capacity = DumpingSpot.objects.aggregate(total=Avg('total_capacity'))['total'] or 0
+        
+        # Calculate average fill level manually since it's a method
+        dumping_spots = DumpingSpot.objects.all()
+        total_fill_level = 0
+        spot_count = dumping_spots.count()
+        for spot in dumping_spots:
+            total_fill_level += spot.current_fill_level()
+        avg_fill_level_spots = total_fill_level / spot_count if spot_count > 0 else 0
+        
+        # Recent activity (last 7 days)
+        week_ago = datetime.now() - timedelta(days=7)
+        recent_bins = Bin.objects.filter(last_updated__gte=week_ago).count()
+        recent_trucks = Truck.objects.filter(last_updated__gte=week_ago).count()
+        
         extra_context.update({
-            'user_count': User.objects.count(),
-            'active_user_count': User.objects.filter(is_active=True).count(),
-            'bin_count': Bin.objects.count(),
-            'truck_count': Truck.objects.count(),
-            'dumping_spot_count': DumpingSpot.objects.count(),
-            'role_count': Role.objects.count(),
+            'user_count': user_count,
+            'active_user_count': active_user_count,
+            'bin_count': bin_count,
+            'truck_count': truck_count,
+            'dumping_spot_count': dumping_spot_count,
+            'role_count': role_count,
+            
+            # Enhanced statistics
+            'avg_fill_level': round(avg_fill_level, 1),
+            'full_bins': full_bins,
+            'empty_bins': empty_bins,
+            'active_trucks': active_trucks,
+            'idle_trucks': idle_trucks,
+            'maintenance_trucks': maintenance_trucks,
+            'total_capacity': round(total_capacity, 1),
+            'avg_fill_level_spots': round(avg_fill_level_spots, 1),
+            'recent_bins': recent_bins,
+            'recent_trucks': recent_trucks,
         })
         return super().index(request, extra_context)
 
 # Create custom admin site instance
 admin_site = WasteManagementAdminSite(name='waste_management_admin')
 
-@admin.register(Role)
+# Register models with custom admin site
 class RoleAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'created_at', 'updated_at')
     list_filter = ('name', 'created_at')
@@ -49,7 +100,6 @@ class RoleAdmin(admin.ModelAdmin):
         }),
     )
 
-@admin.register(Bin)
 class BinAdmin(admin.ModelAdmin):
     list_display = ('bin_id', 'fill_level', 'latitude', 'longitude', 'get_status', 'get_marker_color', 'last_updated')
     list_filter = ('fill_level', 'last_updated')
@@ -82,7 +132,6 @@ class BinAdmin(admin.ModelAdmin):
         return format_html('<span style="color: {};">●</span> {}', color, color.title())
     get_marker_color.short_description = 'Marker Color'
 
-@admin.register(DumpingSpot)
 class DumpingSpotAdmin(admin.ModelAdmin):
     list_display = ('spot_id', 'latitude', 'longitude', 'total_capacity', 'current_fill_level', 'organic_percentage', 'plastic_percentage', 'metal_percentage')
     list_filter = ('total_capacity',)
@@ -117,7 +166,6 @@ class DumpingSpotAdmin(admin.ModelAdmin):
         return f"{obj.metal_percentage():.1f}%"
     metal_percentage.short_description = 'Metal %'
 
-@admin.register(Truck)
 class TruckAdmin(admin.ModelAdmin):
     list_display = ('truck_id', 'driver_name', 'status', 'fuel_level', 'current_location', 'last_updated')
     list_filter = ('status', 'fuel_level', 'last_updated')
@@ -144,6 +192,12 @@ class TruckAdmin(admin.ModelAdmin):
     def current_location(self, obj):
         return f"({obj.current_latitude:.4f}, {obj.current_longitude:.4f})"
     current_location.short_description = 'Current Location'
+
+# Register models with custom admin site
+admin_site.register(Role, RoleAdmin)
+admin_site.register(Bin, BinAdmin)
+admin_site.register(DumpingSpot, DumpingSpotAdmin)
+admin_site.register(Truck, TruckAdmin)
 
 # Customize admin site
 admin.site.site_header = "Smart Waste Management Admin"
