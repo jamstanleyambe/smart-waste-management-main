@@ -1074,35 +1074,100 @@
     }
     
     #header {
-        background: var(--primary-color);
+        background: linear-gradient(135deg, #87ceeb 0%, #5f9ea0 100%);
         color: white;
-        box-shadow: var(--shadow-md);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
         border-bottom: none;
-        padding: 1.5rem 2rem;
+        padding: 2rem 2.5rem;
         width: 100% !important;
         max-width: none !important;
         margin: 0 !important;
         box-sizing: border-box !important;
         position: relative !important;
         display: block;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+    }
+    
+    #header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 50%, #ffffff 100%);
+        animation: shimmer 3s ease-in-out infinite;
+    }
+    
+    #header::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        border-radius: 50%;
+        transform: translate(50%, -50%);
     }
     
     #branding h1 {
         color: white;
-        font-weight: 700;
-        font-size: 1.5rem;
+        font-weight: 800;
+        font-size: 1.75rem;
         text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        letter-spacing: -0.5px;
+        margin: 0;
+        position: relative;
+        z-index: 1;
     }
     
     #branding h1 a {
         color: white;
         text-decoration: none;
         transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    #branding h1 a::before {
+        content: '🏢';
+        font-size: 1.5rem;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
     }
     
     #branding h1 a:hover {
         color: #e2e8f0;
+        transform: translateY(-2px);
+        text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    #user-tools {
+        position: relative;
+        z-index: 1;
+    }
+    
+    #user-tools a {
+        color: rgba(255, 255, 255, 0.9);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+    }
+    
+    #user-tools a:hover {
+        color: white;
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.4);
         transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
     
     .module h2, .module caption, .inline-group h2 {
@@ -2701,45 +2766,182 @@
     .status-inactive { background: var(--danger-color); }
     .status-pending { background: var(--warning-color); }
     
-    /* Enhanced Navigation */
+    /* Premium Sidebar Navigation */
     #nav-sidebar {
-        background: var(--card-bg);
-        border-radius: 12px;
-        box-shadow: var(--shadow);
-        border: 1px solid var(--border-color);
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(135, 206, 235, 0.15);
         margin-bottom: 2rem;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    #nav-sidebar::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #87ceeb 0%, #5f9ea0 50%, #87ceeb 100%);
+        animation: shimmer 3s ease-in-out infinite;
     }
     
     #nav-sidebar h2 {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        background: linear-gradient(135deg, #87ceeb 0%, #5f9ea0 100%);
         color: white;
-        border-radius: 12px 12px 0 0;
+        border-radius: 0;
         margin: 0;
-        padding: 1rem;
+        padding: 1.5rem 1.5rem 1.25rem;
+        font-size: 1.25rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    #nav-sidebar h2::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        border-radius: 50%;
+        transform: translate(50%, -50%);
     }
     
     #nav-sidebar ul {
-        padding: 1rem;
+        padding: 1.5rem;
         margin: 0;
+        background: white;
     }
     
     #nav-sidebar li {
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
+        position: relative;
+    }
+    
+    #nav-sidebar li:last-child {
+        margin-bottom: 0;
     }
     
     #nav-sidebar a {
-        display: block;
-        padding: 0.75rem 1rem;
-        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem 1.25rem;
+        border-radius: 12px;
         transition: all 0.3s ease;
-        color: var(--text-primary);
+        color: #495057;
         text-decoration: none;
+        font-weight: 500;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid transparent;
+    }
+    
+    #nav-sidebar a::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(135deg, #87ceeb 0%, #5f9ea0 100%);
+        transform: scaleY(0);
+        transition: transform 0.3s ease;
+        border-radius: 0 2px 2px 0;
     }
     
     #nav-sidebar a:hover {
-        background: var(--light-bg);
-        color: var(--secondary-color);
-        transform: translateX(4px);
+        background: linear-gradient(135deg, rgba(135, 206, 235, 0.05) 0%, rgba(95, 158, 160, 0.05) 100%);
+        color: #212529;
+        transform: translateX(8px);
+        border-color: rgba(135, 206, 235, 0.2);
+        box-shadow: 0 4px 15px rgba(135, 206, 235, 0.1);
+    }
+    
+    #nav-sidebar a:hover::before {
+        transform: scaleY(1);
+    }
+    
+    /* Add icons to navigation items */
+    #nav-sidebar a[href*="core"]::after {
+        content: '⚙️';
+        margin-left: auto;
+        font-size: 1.1rem;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+    }
+    
+    #nav-sidebar a[href*="core"]:hover::after {
+        opacity: 1;
+    }
+    
+    #nav-sidebar a[href*="auth"]::after {
+        content: '🔐';
+        margin-left: auto;
+        font-size: 1.1rem;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+    }
+    
+    #nav-sidebar a[href*="auth"]:hover::after {
+        opacity: 1;
+    }
+    
+    #nav-sidebar a[href*="admin"]::after {
+        content: '🏠';
+        margin-left: auto;
+        font-size: 1.1rem;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+    }
+    
+    #nav-sidebar a[href*="admin"]:hover::after {
+        opacity: 1;
+    }
+    
+    /* Active state for current page */
+    #nav-sidebar a.active {
+        background: linear-gradient(135deg, rgba(135, 206, 235, 0.1) 0%, rgba(95, 158, 160, 0.1) 100%);
+        color: #212529;
+        border-color: rgba(135, 206, 235, 0.3);
+        box-shadow: 0 4px 15px rgba(135, 206, 235, 0.15);
+    }
+    
+    #nav-sidebar a.active::before {
+        transform: scaleY(1);
+    }
+    
+    /* Responsive sidebar */
+    @media (max-width: 768px) {
+        #nav-sidebar {
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+        }
+        
+        #nav-sidebar h2 {
+            padding: 1.25rem 1.25rem 1rem;
+            font-size: 1.1rem;
+        }
+        
+        #nav-sidebar ul {
+            padding: 1.25rem;
+        }
+        
+        #nav-sidebar a {
+            padding: 0.875rem 1rem;
+            font-size: 0.9rem;
+        }
+        
+        #nav-sidebar a:hover {
+            transform: translateX(4px);
+        }
     }
     
     /* Enhanced Messages */
