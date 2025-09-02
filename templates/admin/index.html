@@ -71,8 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
         <p class="dashboard-subtitle">Comprehensive overview of your waste management operations</p>
     </div>
 
-    <div class="dashboard-stats">
-        <div class="stat-card">
+    <div class="admin-grid cols-6">
+        <div class="admin-card stat-card">
             <div class="stat-icon">👥</div>
             <h3>Total Users</h3>
             <div class="number">{{ user_count|default:"0" }}</div>
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="stat-trend positive">{{ active_user_count|default:"0" }} Active</div>
         </div>
         
-        <div class="stat-card">
+        <div class="admin-card stat-card">
             <div class="stat-icon">🗑️</div>
             <h3>Total Bins</h3>
             <div class="number">{{ bin_count|default:"0" }}</div>
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="stat-trend positive">{{ full_bins|default:"0" }} Full</div>
         </div>
         
-        <div class="stat-card">
+        <div class="admin-card stat-card">
             <div class="stat-icon">🚛</div>
             <h3>Total Trucks</h3>
             <div class="number">{{ truck_count|default:"0" }}</div>
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="stat-trend positive">{{ active_trucks|default:"0" }} Active</div>
         </div>
         
-        <div class="stat-card">
+        <div class="admin-card stat-card">
             <div class="stat-icon">📍</div>
             <h3>Dumping Spots</h3>
             <div class="number">{{ dumping_spot_count|default:"0" }}</div>
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="stat-trend positive">{{ avg_fill_level_spots|default:"0" }}% Avg Fill</div>
         </div>
         
-        <div class="stat-card">
+        <div class="admin-card stat-card">
             <div class="stat-icon">📊</div>
             <h3>Avg Fill Level</h3>
             <div class="number">{{ avg_fill_level|default:"0" }}%</div>
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="stat-trend neutral">{{ empty_bins|default:"0" }} Empty</div>
         </div>
         
-        <div class="stat-card">
+        <div class="admin-card stat-card">
             <div class="stat-icon">🔧</div>
             <h3>Roles</h3>
             <div class="number">{{ role_count|default:"0" }}</div>
@@ -122,8 +122,8 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 
     <!-- Additional Statistics Row -->
-    <div class="dashboard-stats" style="margin-top: 1rem;">
-        <div class="stat-card">
+    <div class="admin-grid cols-6" style="margin-top: var(--spacing-md);">
+        <div class="admin-card stat-card">
             <div class="stat-icon">⚡</div>
             <h3>Active Trucks</h3>
             <div class="number">{{ active_trucks|default:"0" }}</div>
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="stat-trend positive">On Duty</div>
         </div>
         
-        <div class="stat-card">
+        <div class="admin-card stat-card">
             <div class="stat-icon">⏸️</div>
             <h3>Idle Trucks</h3>
             <div class="number">{{ idle_trucks|default:"0" }}</div>
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="stat-trend neutral">Standby</div>
         </div>
         
-        <div class="stat-card">
+        <div class="admin-card stat-card">
             <div class="stat-icon">🔧</div>
             <h3>Maintenance</h3>
             <div class="number">{{ maintenance_trucks|default:"0" }}</div>
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="stat-trend negative">Service</div>
         </div>
         
-        <div class="stat-card">
+        <div class="admin-card stat-card">
             <div class="stat-icon">📈</div>
             <h3>Total Capacity</h3>
             <div class="number">{{ total_capacity|default:"0" }}</div>
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="stat-trend neutral">Tons</div>
         </div>
         
-        <div class="stat-card">
+        <div class="admin-card stat-card">
             <div class="stat-icon">🔄</div>
             <h3>Recent Activity</h3>
             <div class="number">{{ recent_bins|default:"0" }}</div>
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="stat-trend positive">Active</div>
         </div>
         
-        <div class="stat-card">
+        <div class="admin-card stat-card">
             <div class="stat-icon">📊</div>
             <h3>System Health</h3>
             <div class="number">{{ role_count|default:"0" }}</div>
@@ -172,20 +172,20 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 
-    <div class="module quick-actions-module">
+    <div class="admin-card quick-actions-module">
         <h2>🚀 Quick Actions</h2>
         <p class="module-description">Manage your waste management system efficiently</p>
-        <div class="user-actions">
-            <a href="{% url 'admin:core_role_add' %}" class="button">👥 Add New Role</a>
-            <a href="{% url 'admin:core_bin_add' %}" class="button">🗑️ Add New Bin</a>
-            <a href="{% url 'admin:core_truck_add' %}" class="button">🚛 Add New Truck</a>
-            <a href="{% url 'admin:core_dumpingspot_add' %}" class="button">📍 Add Dumping Spot</a>
-            <a href="{% url 'user_dashboard' %}" class="button">🔐 User Management</a>
+        <div class="admin-grid cols-5">
+            <a href="{% url 'admin:core_role_add' %}" class="admin-btn">👥 Add New Role</a>
+            <a href="{% url 'admin:core_bin_add' %}" class="admin-btn">🗑️ Add New Bin</a>
+            <a href="{% url 'admin:core_truck_add' %}" class="admin-btn">🚛 Add New Truck</a>
+            <a href="{% url 'admin:core_dumpingspot_add' %}" class="admin-btn">📍 Add Dumping Spot</a>
+            <a href="{% url 'user_dashboard' %}" class="admin-btn secondary">🔐 User Management</a>
         </div>
     </div>
 
     <!-- Premium Core Management Section -->
-    <div class="premium-core-section">
+    <div class="admin-card premium-core-section">
         <div class="premium-header">
             <div class="header-content">
                 <div class="header-icon">
@@ -198,11 +198,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p class="premium-subtitle">Advanced control center for your waste management system</p>
                 </div>
                 <div class="header-stats">
-                    <div class="stat-bubble">
+                    <div class="admin-badge info">
                         <span class="stat-number">{{ app_list|length }}</span>
                         <span class="stat-label">APPS</span>
                     </div>
-                    <div class="stat-bubble">
+                    <div class="admin-badge info">
                         <span class="stat-number">{{ app_list|length|add:"0" }}</span>
                         <span class="stat-label">MODELS</span>
                     </div>
@@ -236,9 +236,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         
                         {% if app.models %}
-                            <div class="models-grid">
+                            <div class="admin-grid cols-3">
                                 {% for model in app.models %}
-                                    <div class="premium-model-card">
+                                    <div class="admin-card premium-model-card">
                                         <div class="card-header">
                                             <div class="model-icon-wrapper">
                                                 <div class="model-icon">
@@ -258,8 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                                 </div>
                                             </div>
                                             <div class="model-status">
-                                                <span class="status-dot active"></span>
-                                                <span class="status-text">Ready</span>
+                                                <span class="admin-badge success">Ready</span>
                                             </div>
                                         </div>
                                         
@@ -284,14 +283,14 @@ document.addEventListener('DOMContentLoaded', function() {
                                         
                                         <div class="card-actions">
                                             {% if model.add_url %}
-                                                <a href="{{ model.add_url }}" class="premium-btn primary-btn" title="Create new {{ model.name }}">
+                                                <a href="{{ model.add_url }}" class="admin-btn" title="Create new {{ model.name }}">
                                                     <span class="btn-icon">➕</span>
                                                     <span class="btn-text">Add New</span>
                                                 </a>
                                             {% endif %}
                                             
                                             {% if model.admin_url %}
-                                                <a href="{{ model.admin_url }}" class="premium-btn secondary-btn" title="Manage {{ model.name }}">
+                                                <a href="{{ model.admin_url }}" class="admin-btn secondary" title="Manage {{ model.name }}">
                                                     <span class="btn-icon">⚙️</span>
                                                     <span class="btn-text">Manage</span>
                                                 </a>
