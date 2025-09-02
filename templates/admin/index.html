@@ -1,5 +1,7 @@
-{% extends "admin/base_site.html" %}
+{% extends "admin/base.html" %}
 {% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Smart Waste Management') }}{% endblock %}
 
 {% block content %}
 <a href="#main-content" class="skip-link">Skip to main content</a>
