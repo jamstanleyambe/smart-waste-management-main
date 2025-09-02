@@ -2766,26 +2766,29 @@
     .status-inactive { background: var(--danger-color); }
     .status-pending { background: var(--warning-color); }
     
-    /* Premium Sidebar Navigation */
+    /* Premium Sidebar Navigation - Fixed Positioning */
     #nav-sidebar {
         background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
         border-radius: 20px;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
         border: 1px solid rgba(135, 206, 235, 0.15);
-        margin-bottom: 2rem;
         overflow: hidden;
-        position: relative;
+        position: fixed !important;
+        top: 120px !important;
+        right: 20px !important;
+        width: 300px !important;
+        height: calc(100vh - 140px) !important;
+        overflow-y: auto !important;
+        z-index: 1000 !important;
         display: block !important;
         visibility: visible !important;
         opacity: 1 !important;
-        width: 300px !important;
-        float: right !important;
-        margin-left: 2rem !important;
-        margin-right: 0 !important;
+        /* Debug: Ensure sidebar is visible */
+        background-color: red !important;
+        border: 3px solid blue !important;
     }
     
-    /* Ensure sidebar is visible */
-    #nav-sidebar,
+    /* Ensure sidebar content is visible */
     #nav-sidebar * {
         display: block !important;
         visibility: visible !important;
@@ -2803,16 +2806,6 @@
         margin-right: 320px !important;
         min-width: 0 !important;
         width: calc(100% - 320px) !important;
-    }
-    
-    /* Position sidebar on the right */
-    #nav-sidebar {
-        position: fixed !important;
-        top: 120px !important;
-        right: 20px !important;
-        height: calc(100vh - 140px) !important;
-        overflow-y: auto !important;
-        z-index: 1000 !important;
     }
     
     #nav-sidebar::before {
