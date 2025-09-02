@@ -1,221 +1,247 @@
+{% extends "admin/base_site.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="NONE,NOARCHIVE">
-    <title>{% block title %}{% endblock %}</title>
-    
-    <!-- Django Admin CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/nav_sidebar.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/dark_mode.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/login.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/responsive.css' %}">
-    
-    <!-- Custom Admin CSS -->
-    {% block extrastyle %}{% endblock %}
-    
-    <!-- Django Admin JS -->
-    <script src="{% static 'admin/js/theme.js' %}"></script>
-    <script src="{% static 'admin/js/nav_sidebar.js' %}"></script>
-</head>
 
-<body class="{% block bodyclass %}{% endblock %}">
-    <!-- Mobile Menu Toggle -->
-    <button class="mobile-menu-toggle" onclick="toggleSidebar()">☰</button>
+{% block title %}{{ title }} | {{ site_title|default:_('Smart Waste Management') }}{% endblock %}
+
+{% block extrastyle %}
+<style>
+    :root {
+        --primary-color: #87ceeb;
+        --primary-dark: #5f9ea0;
+        --primary-light: #b0e0e6;
+        --secondary-color: #6c757d;
+        --accent-color: #87ceeb;
+        --success-color: #28a745;
+        --warning-color: #ffc107;
+        --danger-color: #dc3545;
+        --light-bg: #f8f9fa;
+        --card-bg: #ffffff;
+        --border-color: #dee2e6;
+        --text-primary: #212529;
+        --text-secondary: #6c757d;
+        --text-muted: #adb5bd;
+        --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+        --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
     
-    <!-- Container -->
-    <div id="container">
-        <!-- Header -->
-        <div id="header">
-            <div id="branding">
-                <h1 id="site-name">
-                    <a href="{% url 'admin:index' %}">
-                        {% block branding %}{% endblock %}
-                    </a>
-                </h1>
-            </div>
-            {% block usertools %}
-            {% if has_permission %}
-            <div id="user-tools">
-                {% block welcome-msg %}
-                    Welcome,
-                    <strong>{% firstof user.get_short_name user.get_username %}</strong>.
-                {% endblock %}
-                {% block userlinks %}
-                    {% if site_url %}
-                        <a href="{{ site_url }}">View site</a> /
-                    {% endif %}
-                    {% if user.is_active and user.is_staff %}
-                        {% url 'django-admindocs-docroot' as docsroot %}
-                        {% if docsroot %}
-                            <a href="{{ docsroot }}">Documentation</a> /
-                        {% endif %}
-                    {% endif %}
-                    {% if user.has_usable_password %}
-                        <a href="{% url 'admin:password_change' %}">Change password</a> /
-                    {% endif %}
-                    <a href="{% url 'admin:logout' %}">Log out</a>
-                {% endblock %}
-            </div>
-            {% endif %}
-            {% endblock %}
-        </div>
-        
-        <!-- Content -->
-        <div id="content" class="{% block coltype %}colM{% endblock %}">
-            <!-- Sidebar -->
-            {% block nav-sidebar %}
-            <div id="nav-sidebar">
-                <h2>Navigation</h2>
-                
-                <!-- Search Box -->
-                <div class="sidebar-search">
-                    <input type="text" id="sidebar-search" placeholder="🔍 Search navigation..." class="search-input">
-                </div>
-                
-                <ul id="sidebar-nav">
-                    <li><a href="{% url 'admin:index' %}" data-search="dashboard home main">🏠 Dashboard</a></li>
-                    <li><a href="{% url 'admin:core_bin_changelist' %}" data-search="bins waste collection trash">🗑️ Bins</a></li>
-                    <li><a href="{% url 'admin:core_truck_changelist' %}" data-search="trucks vehicles fleet transport">🚛 Trucks</a></li>
-                    <li><a href="{% url 'admin:core_dumpingspot_changelist' %}" data-search="dumping spots disposal sites locations">📍 Dumping Spots</a></li>
-                    <li><a href="{% url 'admin:core_role_changelist' %}" data-search="roles permissions user roles access">👥 Roles</a></li>
-                    <li><a href="{% url 'admin:index' %}" data-search="users accounts user management">👤 Users</a></li>
-                </ul>
-                
-                <!-- Sidebar Stats -->
-                <div class="sidebar-stats">
-                    <div class="stat-item">
-                        <span class="stat-icon">📊</span>
-                        <span class="stat-text">System Active</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-icon">🔄</span>
-                        <span class="stat-text">Real-time Data</span>
-                    </div>
-                </div>
-            </div>
-            {% endblock %}
-            
-            <!-- Main Content -->
-            <div id="content-main">
-                {% block content %}
-                    {% block object-tools %}{% endblock %}
-                    {{ content }}
-                {% endblock %}
-            </div>
-            
-            <!-- Breadcrumbs -->
-            {% block breadcrumbs %}
-            <div class="breadcrumbs">
-                <a href="{% url 'admin:index' %}">Home</a>
-                {% if title %} &rsaquo; {{ title }}{% endif %}
-            </div>
-            {% endblock %}
-        </div>
-        
-        <!-- Footer -->
-        <div id="footer">
-            <div class="footer-content">
-                <p>&copy; 2025 Smart Waste Management System. Built with ❤️ for sustainable waste management.</p>
-            </div>
-        </div>
-    </div>
+    /* Premium Sidebar Navigation - Fixed Positioning */
+    #nav-sidebar {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(135, 206, 235, 0.15);
+        overflow: hidden;
+        position: fixed !important;
+        top: 120px !important;
+        right: 20px !important;
+        width: 300px !important;
+        height: calc(100vh - 140px) !important;
+        overflow-y: auto !important;
+        z-index: 1000 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
     
-    <!-- Django Admin JS -->
-    <script src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
-    <script src="{% static 'admin/js/jquery.init.js' %}"></script>
-    <script src="{% static 'admin/js/core.js' %}"></script>
-    <script src="{% static 'admin/js/actions.js' %}"></script>
-    <script src="{% static 'admin/js/urlify.js' %}"></script>
-    <script src="{% static 'admin/js/prepopulate.js' %}"></script>
-    <script src="{% static 'admin/js/vendor/xregexp/xregexp.js' %}"></script>
+    /* Ensure sidebar content is visible */
+    #nav-sidebar * {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
     
-    <!-- Custom Admin JavaScript -->
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('nav-sidebar');
-            const isOpen = sidebar.classList.contains('open');
-            
-            if (isOpen) {
-                sidebar.classList.remove('open');
-            } else {
-                sidebar.classList.add('open');
-            }
+    /* Layout fixes for content */
+    #content {
+        display: block !important;
+        position: relative !important;
+        padding: 2rem !important;
+    }
+    
+    #content-main {
+        margin-right: 320px !important;
+        min-width: 0 !important;
+        width: calc(100% - 320px) !important;
+    }
+    
+    /* Sidebar styling */
+    #nav-sidebar::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #87ceeb 0%, #5f9ea0 50%, #87ceeb 100%);
+        animation: shimmer 3s ease-in-out infinite;
+    }
+    
+    #nav-sidebar h2 {
+        background: linear-gradient(135deg, #87ceeb 0%, #5f9ea0 100%);
+        color: white;
+        border-radius: 0;
+        margin: 0;
+        padding: 1.5rem 1.5rem 1.25rem;
+        font-size: 1.25rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    #nav-sidebar ul {
+        padding: 1.5rem;
+        margin: 0;
+        background: white;
+    }
+    
+    #nav-sidebar li {
+        margin-bottom: 0.75rem;
+        position: relative;
+    }
+    
+    #nav-sidebar a {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem 1.25rem;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        color: #495057;
+        text-decoration: none;
+        font-weight: 500;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid transparent;
+    }
+    
+    #nav-sidebar a:hover {
+        background: linear-gradient(135deg, rgba(135, 206, 235, 0.05) 0%, rgba(95, 158, 160, 0.05) 100%);
+        color: #212529;
+        transform: translateX(-8px);
+        border-color: rgba(135, 206, 235, 0.2);
+        box-shadow: 0 4px 15px rgba(135, 206, 235, 0.1);
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+        #nav-sidebar {
+            position: fixed !important;
+            top: 0 !important;
+            right: -300px !important;
+            width: 280px !important;
+            height: 100vh !important;
+            z-index: 9999 !important;
+            transition: right 0.3s ease !important;
+            border-radius: 16px 0 0 16px !important;
         }
         
-        // Sidebar search functionality
-        function initSidebarSearch() {
-            const searchInput = document.getElementById('sidebar-search');
-            const navItems = document.querySelectorAll('#sidebar-nav li');
-            
-            if (searchInput) {
-                searchInput.addEventListener('input', function() {
-                    const searchTerm = this.value.toLowerCase().trim();
-                    
-                    navItems.forEach(item => {
-                        const link = item.querySelector('a');
-                        const searchData = link.getAttribute('data-search') || '';
-                        const text = link.textContent.toLowerCase();
-                        
-                        if (searchTerm === '' || text.includes(searchTerm) || searchData.includes(searchTerm)) {
-                            item.classList.remove('hidden');
-                            item.classList.remove('highlighted');
-                        } else {
-                            item.classList.add('hidden');
-                        }
-                    });
-                    
-                    // Highlight matching items
-                    if (searchTerm !== '') {
-                        navItems.forEach(item => {
-                            if (!item.classList.contains('hidden')) {
-                                item.classList.add('highlighted');
-                            }
-                        });
-                    }
-                });
-                
-                // Clear search on escape key
-                searchInput.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape') {
-                        this.value = '';
-                        this.dispatchEvent(new Event('input'));
-                        this.blur();
-                    }
-                });
-            }
+        #nav-sidebar.open {
+            right: 0 !important;
         }
         
-        // Close sidebar when clicking outside on mobile
+        #content-main {
+            margin-right: 0 !important;
+            width: 100% !important;
+        }
+        
+        .mobile-menu-toggle {
+            display: block !important;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            background: linear-gradient(135deg, #87ceeb 0%, #5f9ea0 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 0;
+            font-size: 1.25rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(135, 206, 235, 0.3);
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+    }
+    
+    @media (min-width: 769px) {
+        .mobile-menu-toggle {
+            display: none !important;
+        }
+    }
+    
+    @keyframes shimmer {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+    }
+</style>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        <span style="font-size: 1.5rem; margin-right: 0.5rem;">🗑️</span>
+        <span style="color: white;">Smart Waste Management</span>
+        <span style="font-size: 0.9rem; opacity: 0.8; margin-left: 0.5rem;">Admin Panel</span>
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}
+<!-- Custom Sidebar Navigation -->
+<div id="nav-sidebar">
+    <h2>Navigation</h2>
+    <ul>
+        <li><a href="{% url 'admin:index' %}">🏠 Dashboard</a></li>
+        <li><a href="{% url 'admin:core_bin_changelist' %}">🗑️ Bins</a></li>
+        <li><a href="{% url 'admin:core_truck_changelist' %}">🚛 Trucks</a></li>
+        <li><a href="{% url 'admin:core_dumpingspot_changelist' %}">📍 Dumping Spots</a></li>
+        <li><a href="{% url 'admin:core_role_changelist' %}">👥 Roles</a></li>
+        <li><a href="{% url 'admin:auth_user_changelist' %}">👤 Users</a></li>
+    </ul>
+</div>
+
+<!-- Mobile Menu Toggle Button -->
+<button class="mobile-menu-toggle" id="mobile-menu-toggle" style="display: none;">
+    <span>☰</span>
+</button>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const navSidebar = document.getElementById('nav-sidebar');
+    
+    if (mobileMenuToggle && navSidebar) {
+        mobileMenuToggle.addEventListener('click', function() {
+            navSidebar.classList.toggle('open');
+        });
+        
+        // Close sidebar when clicking outside
         document.addEventListener('click', function(event) {
-            const sidebar = document.getElementById('nav-sidebar');
-            const toggle = document.querySelector('.mobile-menu-toggle');
-            
-            if (window.innerWidth <= 768 && 
-                !sidebar.contains(event.target) && 
-                !toggle.contains(event.target) && 
-                sidebar.classList.contains('open')) {
-                sidebar.classList.remove('open');
+            if (!navSidebar.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+                navSidebar.classList.remove('open');
             }
         });
         
-        // Handle window resize
-        window.addEventListener('resize', function() {
-            const sidebar = document.getElementById('nav-sidebar');
-            if (window.innerWidth > 768) {
-                sidebar.classList.remove('open');
+        // Show mobile toggle on small screens
+        function checkScreenSize() {
+            if (window.innerWidth <= 768) {
+                mobileMenuToggle.style.display = 'block';
+            } else {
+                mobileMenuToggle.style.display = 'none';
+                navSidebar.classList.remove('open');
             }
-        });
+        }
         
-        // Initialize search when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            initSidebarSearch();
-        });
-    </script>
-    
-    {% block extrajs %}{% endblock %}
-</body>
-</html>
+        checkScreenSize();
+        window.addEventListener('resize', checkScreenSize);
+    }
+});
+</script>
+{% endblock %} 
