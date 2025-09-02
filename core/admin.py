@@ -1,79 +1,8 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 from django.utils.html import format_html
-from django.contrib.admin import AdminSite
-from django.contrib.auth import get_user_model
 from .models import Bin, DumpingSpot, Truck, Role
 
-User = get_user_model()
-
-class WasteManagementAdminSite(AdminSite):
-    site_header = "Smart Waste Management Admin"
-    site_title = "Waste Management Admin"
-    index_title = "Welcome to Smart Waste Management Administration"
-    
-    def index(self, request, extra_context=None):
-        extra_context = extra_context or {}
-        
-        # Get real data counts
-        user_count = User.objects.count()
-        active_user_count = User.objects.filter(is_active=True).count()
-        bin_count = Bin.objects.count()
-        truck_count = Truck.objects.count()
-        dumping_spot_count = DumpingSpot.objects.count()
-        role_count = Role.objects.count()
-        
-        # Calculate additional statistics
-        from django.db.models import Avg, Count, Q
-        from datetime import datetime, timedelta
-        
-        # Bin statistics
-        avg_fill_level = Bin.objects.aggregate(avg_fill=Avg('fill_level'))['avg_fill'] or 0
-        full_bins = Bin.objects.filter(fill_level__gte=80).count()
-        empty_bins = Bin.objects.filter(fill_level__lte=20).count()
-        
-        # Truck statistics
-        active_trucks = Truck.objects.filter(status='ACTIVE').count()
-        idle_trucks = Truck.objects.filter(status='IDLE').count()
-        maintenance_trucks = Truck.objects.filter(status='MAINTENANCE').count()
-        
-        # Dumping spot statistics
-        total_capacity = DumpingSpot.objects.aggregate(total=Avg('total_capacity'))['total'] or 0
-        
-        # Calculate average fill level manually since it's a method
-        dumping_spots = DumpingSpot.objects.all()
-        total_fill_level = 0
-        spot_count = dumping_spots.count()
-        for spot in dumping_spots:
-            total_fill_level += spot.current_fill_level()
-        avg_fill_level_spots = total_fill_level / spot_count if spot_count > 0 else 0
-        
-        # Recent activity (last 7 days)
-        week_ago = datetime.now() - timedelta(days=7)
-        recent_bins = Bin.objects.filter(last_updated__gte=week_ago).count()
-        recent_trucks = Truck.objects.filter(last_updated__gte=week_ago).count()
-        
-        extra_context.update({
-            'user_count': user_count,
-            'active_user_count': active_user_count,
-            'bin_count': bin_count,
-            'truck_count': truck_count,
-            'dumping_spot_count': dumping_spot_count,
-            'role_count': role_count,
-            
-            # Enhanced statistics
-            'avg_fill_level': round(avg_fill_level, 1),
-            'full_bins': full_bins,
-            'empty_bins': empty_bins,
-            'active_trucks': active_trucks,
-            'idle_trucks': idle_trucks,
-            'maintenance_trucks': maintenance_trucks,
-            'total_capacity': round(total_capacity, 1),
-            'avg_fill_level_spots': round(avg_fill_level_spots, 1),
-            'recent_bins': recent_bins,
-            'recent_trucks': recent_trucks,
-        })
-        return super().index(request, extra_context)
+# Custom admin site configuration (using default admin site)
 
 # Custom admin site configuration (using default admin site)
 
@@ -198,8 +127,7 @@ admin.site.register(Bin, BinAdmin)
 admin.site.register(DumpingSpot, DumpingSpotAdmin)
 admin.site.register(Truck, TruckAdmin)
 
-# Register User model with default admin site
-admin.site.register(User, UserAdmin)
+# User model is automatically registered by Django, no need to register again
 
 # Remove default admin site customization to avoid conflicts
 # admin.site.site_header = "Smart Waste Management Admin"
