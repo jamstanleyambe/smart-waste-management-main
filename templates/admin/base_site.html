@@ -1,10 +1,6 @@
 {% extends "admin/base.html" %}
 {% load static %}
 
-{% block branding %}
-🏢 Smart Waste Management
-{% endblock %}
-
 {% block title %}{{ title }} | {{ site_title|default:_('Smart Waste Management') }}{% endblock %}
 
 {% block extrastyle %}
@@ -2783,8 +2779,9 @@
         visibility: visible !important;
         opacity: 1 !important;
         width: 300px !important;
-        float: left !important;
-        margin-right: 2rem !important;
+        float: right !important;
+        margin-left: 2rem !important;
+        margin-right: 0 !important;
     }
     
     /* Ensure sidebar is visible */
@@ -2803,16 +2800,16 @@
     }
     
     #content-main {
-        margin-left: 320px !important;
+        margin-right: 320px !important;
         min-width: 0 !important;
         width: calc(100% - 320px) !important;
     }
     
-    /* Position sidebar on the left */
+    /* Position sidebar on the right */
     #nav-sidebar {
         position: fixed !important;
         top: 120px !important;
-        left: 20px !important;
+        right: 20px !important;
         height: calc(100vh - 140px) !important;
         overflow-y: auto !important;
         z-index: 1000 !important;
@@ -2947,131 +2944,6 @@
         opacity: 1;
     }
     
-    /* Enhanced sidebar animations */
-    #nav-sidebar li {
-        opacity: 0;
-        animation: slideInLeft 0.6s ease forwards;
-    }
-    
-    #nav-sidebar li:nth-child(1) { animation-delay: 0.1s; }
-    #nav-sidebar li:nth-child(2) { animation-delay: 0.2s; }
-    #nav-sidebar li:nth-child(3) { animation-delay: 0.3s; }
-    #nav-sidebar li:nth-child(4) { animation-delay: 0.4s; }
-    #nav-sidebar li:nth-child(5) { animation-delay: 0.5s; }
-    #nav-sidebar li:nth-child(6) { animation-delay: 0.6s; }
-    
-    @keyframes slideInLeft {
-        from {
-            opacity: 0;
-            transform: translateX(-30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-    
-    /* Sidebar scrollbar styling */
-    #nav-sidebar::-webkit-scrollbar {
-        width: 6px;
-    }
-    
-    #nav-sidebar::-webkit-scrollbar-track {
-        background: rgba(135, 206, 235, 0.1);
-        border-radius: 3px;
-    }
-    
-    #nav-sidebar::-webkit-scrollbar-thumb {
-        background: linear-gradient(135deg, #87ceeb 0%, #5f9ea0 100%);
-        border-radius: 3px;
-    }
-    
-    #nav-sidebar::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(135deg, #5f9ea0 0%, #87ceeb 100%);
-    }
-    
-    /* Sidebar Search Box */
-    .sidebar-search {
-        padding: 0 1.5rem 1rem;
-        border-bottom: 1px solid rgba(135, 206, 235, 0.1);
-        margin-bottom: 1rem;
-    }
-    
-    .search-input {
-        width: 100%;
-        padding: 0.75rem 1rem;
-        border: 2px solid rgba(135, 206, 235, 0.2);
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.8);
-        color: #495057;
-        font-size: 0.9rem;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-    }
-    
-    .search-input:focus {
-        outline: none;
-        border-color: #87ceeb;
-        background: white;
-        box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.1);
-        transform: translateY(-1px);
-    }
-    
-    .search-input::placeholder {
-        color: #adb5bd;
-        font-style: italic;
-    }
-    
-    /* Sidebar Stats */
-    .sidebar-stats {
-        padding: 1rem 1.5rem;
-        border-top: 1px solid rgba(135, 206, 235, 0.1);
-        margin-top: 1rem;
-        background: rgba(135, 206, 235, 0.05);
-        border-radius: 12px;
-        margin: 1rem 1.5rem 0;
-    }
-    
-    .stat-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 0;
-        color: #6c757d;
-        font-size: 0.85rem;
-        font-weight: 500;
-    }
-    
-    .stat-item:not(:last-child) {
-        border-bottom: 1px solid rgba(135, 206, 235, 0.1);
-    }
-    
-    .stat-icon {
-        font-size: 1rem;
-        opacity: 0.8;
-    }
-    
-    .stat-text {
-        flex: 1;
-    }
-    
-    /* Search functionality */
-    .sidebar-nav-item {
-        transition: all 0.3s ease;
-    }
-    
-    .sidebar-nav-item.hidden {
-        opacity: 0.3;
-        transform: scale(0.95);
-        pointer-events: none;
-    }
-    
-    .sidebar-nav-item.highlighted {
-        background: rgba(135, 206, 235, 0.1);
-        border-radius: 8px;
-        transform: scale(1.02);
-    }
-    
     /* Active state for current page */
     #nav-sidebar a.active {
         background: linear-gradient(135deg, rgba(135, 206, 235, 0.1) 0%, rgba(95, 158, 160, 0.1) 100%);
@@ -3091,7 +2963,7 @@
         }
         
         #content-main {
-            margin-left: 300px !important;
+            margin-right: 300px !important;
             width: calc(100% - 300px) !important;
         }
     }
@@ -3100,17 +2972,17 @@
         #nav-sidebar {
             position: fixed !important;
             top: 0 !important;
-            left: -300px !important;
+            right: -300px !important;
             width: 280px !important;
             height: 100vh !important;
             z-index: 9999 !important;
-            transition: left 0.3s ease !important;
-            border-radius: 0 16px 16px 0 !important;
+            transition: right 0.3s ease !important;
+            border-radius: 16px 0 0 16px !important;
             margin-bottom: 0 !important;
         }
         
         #nav-sidebar.open {
-            left: 0 !important;
+            right: 0 !important;
         }
         
         #nav-sidebar h2 {
@@ -3128,11 +3000,11 @@
         }
         
         #nav-sidebar a:hover {
-            transform: translateX(4px);
+            transform: translateX(-4px);
         }
         
         #content-main {
-            margin-left: 0 !important;
+            margin-right: 0 !important;
             width: 100% !important;
         }
         
@@ -3141,7 +3013,7 @@
             display: block !important;
             position: fixed;
             top: 20px;
-            left: 20px;
+            right: 20px;
             z-index: 10000;
             background: linear-gradient(135deg, #87ceeb 0%, #5f9ea0 100%);
             color: white;
@@ -3172,37 +3044,12 @@
     }
     
     .messagelist li {
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-        border-radius: 16px;
-        padding: 1.5rem 2rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 1rem 1.5rem;
+        margin-bottom: 1rem;
+        box-shadow: var(--shadow);
         border-left: 4px solid var(--secondary-color);
-        border: 1px solid rgba(135, 206, 235, 0.15);
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .messagelist li::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 4px;
-        height: 100%;
-        background: linear-gradient(135deg, #87ceeb 0%, #5f9ea0 100%);
-        transform: scaleY(0);
-        transition: transform 0.3s ease;
-    }
-    
-    .messagelist li:hover::before {
-        transform: scaleY(1);
-    }
-    
-    .messagelist li:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
     }
     
     .messagelist .success {
@@ -3218,53 +3065,6 @@
     .messagelist .warning {
         border-left-color: var(--warning-color);
         background: linear-gradient(135deg, #fffbeb 0%, #fef5e7 100%);
-    }
-    
-    /* Premium Footer */
-    #footer {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        border-top: 1px solid rgba(135, 206, 235, 0.2);
-        padding: 2rem 0;
-        margin-top: 4rem;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
-    }
-    
-    #footer::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: linear-gradient(90deg, #87ceeb 0%, #5f9ea0 50%, #87ceeb 100%);
-        animation: shimmer 3s ease-in-out infinite;
-    }
-    
-    .footer-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 2rem;
-    }
-    
-    .footer-content p {
-        color: #6c757d;
-        font-size: 0.9rem;
-        margin: 0;
-        font-weight: 500;
-    }
-    
-    .footer-content a {
-        color: #87ceeb;
-        text-decoration: none;
-        font-weight: 600;
-        transition: color 0.3s ease;
-    }
-    
-    .footer-content a:hover {
-        color: #5f9ea0;
     }
     
     /* Enhanced Pagination */
@@ -3562,3 +3362,41 @@
 {% endblock %}
 
 {% block nav-global %}{% endblock %}
+
+<!-- Mobile Menu Toggle Button -->
+<button class="mobile-menu-toggle" id="mobile-menu-toggle" style="display: none;">
+    <span>☰</span>
+</button>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const navSidebar = document.getElementById('nav-sidebar');
+    
+    if (mobileMenuToggle && navSidebar) {
+        mobileMenuToggle.addEventListener('click', function() {
+            navSidebar.classList.toggle('open');
+        });
+        
+        // Close sidebar when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!navSidebar.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+                navSidebar.classList.remove('open');
+            }
+        });
+        
+        // Show mobile toggle on small screens
+        function checkScreenSize() {
+            if (window.innerWidth <= 768) {
+                mobileMenuToggle.style.display = 'block';
+            } else {
+                mobileMenuToggle.style.display = 'none';
+                navSidebar.classList.remove('open');
+            }
+        }
+        
+        checkScreenSize();
+        window.addEventListener('resize', checkScreenSize);
+    }
+});
+</script>
