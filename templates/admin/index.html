@@ -122,95 +122,114 @@
         </div>
     </div>
 
-    <!-- Enhanced Core Section -->
-    <div class="core-section">
-        <div class="section-header">
-            <h2>🔧 Core Management</h2>
-            <p class="section-description">Manage your waste management system's core components with advanced tools and insights</p>
-            <div class="section-stats">
-                <div class="stat-item">
-                    <span class="stat-number">{{ app_list|length }}</span>
-                    <span class="stat-label">Applications</span>
+    <!-- Premium Core Management Section -->
+    <div class="premium-core-section">
+        <div class="premium-header">
+            <div class="header-content">
+                <div class="header-icon">
+                    <div class="icon-circle">
+                        <span class="icon-emoji">⚙️</span>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-number">{{ app_list|length|add:"0" }}</span>
-                    <span class="stat-label">Total Models</span>
+                <div class="header-text">
+                    <h2 class="premium-title">CORE MANAGEMENT</h2>
+                    <p class="premium-subtitle">Advanced control center for your waste management system</p>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-number">100%</span>
-                    <span class="stat-label">System Health</span>
+                <div class="header-stats">
+                    <div class="stat-bubble">
+                        <span class="stat-number">{{ app_list|length }}</span>
+                        <span class="stat-label">APPS</span>
+                    </div>
+                    <div class="stat-bubble">
+                        <span class="stat-number">{{ app_list|length|add:"0" }}</span>
+                        <span class="stat-label">MODELS</span>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <div class="core-grid">
+        <div class="premium-content">
             {% if app_list %}
                 {% for app in app_list %}
-                    <div class="core-module">
-                        <div class="module-header">
-                            <div class="module-icon">
-                                {% if app.name == "Core" %}
-                                    ⚙️
-                                {% elif app.name == "Authentication and Authorization" %}
-                                    🔐
-                                {% else %}
-                                    📱
-                                {% endif %}
+                    <div class="app-container">
+                        <div class="app-header">
+                            <div class="app-icon-wrapper">
+                                <div class="app-icon">
+                                    {% if app.name == "Core" %}
+                                        ⚙️
+                                    {% elif app.name == "Authentication and Authorization" %}
+                                        🔐
+                                    {% else %}
+                                        📱
+                                    {% endif %}
+                                </div>
                             </div>
-                            <h3 class="module-title">{{ app.name }}</h3>
-                            <div class="module-badge">{{ app.models|length }} Models</div>
+                            <div class="app-info">
+                                <h3 class="app-name">{{ app.name }}</h3>
+                                <div class="app-meta">
+                                    <span class="model-count">{{ app.models|length }} Models</span>
+                                    <span class="app-status active">Active</span>
+                                </div>
+                            </div>
                         </div>
                         
                         {% if app.models %}
-                            <div class="models-container">
+                            <div class="models-grid">
                                 {% for model in app.models %}
-                                    <div class="model-card">
-                                        <div class="model-info">
-                                            <div class="model-icon">
-                                                {% if "bin" in model.name|lower %}
-                                                    🗑️
-                                                {% elif "truck" in model.name|lower %}
-                                                    🚛
-                                                {% elif "dumping" in model.name|lower %}
-                                                    📍
-                                                {% elif "role" in model.name|lower %}
-                                                    👥
-                                                {% elif "user" in model.name|lower %}
-                                                    👤
-                                                {% else %}
-                                                    📋
-                                                {% endif %}
-                                            </div>
-                                            <div class="model-details">
-                                                <h4 class="model-name">{{ model.name }}</h4>
-                                                <p class="model-description">
+                                    <div class="premium-model-card">
+                                        <div class="card-header">
+                                            <div class="model-icon-wrapper">
+                                                <div class="model-icon">
                                                     {% if "bin" in model.name|lower %}
-                                                        Waste collection bin management
+                                                        🗑️
                                                     {% elif "truck" in model.name|lower %}
-                                                        Fleet vehicle management
+                                                        🚛
                                                     {% elif "dumping" in model.name|lower %}
-                                                        Waste disposal site management
+                                                        📍
                                                     {% elif "role" in model.name|lower %}
-                                                        User role and permission management
+                                                        👥
                                                     {% elif "user" in model.name|lower %}
-                                                        User account management
+                                                        👤
                                                     {% else %}
-                                                        System component management
+                                                        📋
                                                     {% endif %}
-                                                </p>
+                                                </div>
+                                            </div>
+                                            <div class="model-status">
+                                                <span class="status-dot active"></span>
+                                                <span class="status-text">Ready</span>
                                             </div>
                                         </div>
                                         
-                                        <div class="model-actions">
+                                        <div class="card-body">
+                                            <h4 class="model-title">{{ model.name }}</h4>
+                                            <p class="model-description">
+                                                {% if "bin" in model.name|lower %}
+                                                    Intelligent waste collection bin management system
+                                                {% elif "truck" in model.name|lower %}
+                                                    Advanced fleet vehicle tracking and management
+                                                {% elif "dumping" in model.name|lower %}
+                                                    Comprehensive waste disposal site operations
+                                                {% elif "role" in model.name|lower %}
+                                                    Secure user role and permission management
+                                                {% elif "user" in model.name|lower %}
+                                                    Complete user account administration
+                                                {% else %}
+                                                    System component management and control
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="card-actions">
                                             {% if model.add_url %}
-                                                <a href="{{ model.add_url }}" class="action-btn add-btn" title="Add new {{ model.name }}">
+                                                <a href="{{ model.add_url }}" class="premium-btn primary-btn" title="Create new {{ model.name }}">
                                                     <span class="btn-icon">➕</span>
-                                                    <span class="btn-text">Add</span>
+                                                    <span class="btn-text">Add New</span>
                                                 </a>
                                             {% endif %}
                                             
                                             {% if model.admin_url %}
-                                                <a href="{{ model.admin_url }}" class="action-btn manage-btn" title="Manage {{ model.name }}">
+                                                <a href="{{ model.admin_url }}" class="premium-btn secondary-btn" title="Manage {{ model.name }}">
                                                     <span class="btn-icon">⚙️</span>
                                                     <span class="btn-text">Manage</span>
                                                 </a>
@@ -220,18 +239,19 @@
                                 {% endfor %}
                             </div>
                         {% else %}
-                            <div class="no-models">
-                                <div class="no-models-icon">📭</div>
-                                <p>No models available for this application.</p>
+                            <div class="empty-state">
+                                <div class="empty-icon">📭</div>
+                                <h4>No Models Available</h4>
+                                <p>This application doesn't have any models configured.</p>
                             </div>
                         {% endif %}
                     </div>
                 {% endfor %}
             {% else %}
-                <div class="no-apps">
-                    <div class="no-apps-icon">🚫</div>
-                    <h3>No Applications Available</h3>
-                    <p>There are no applications configured in your Django project.</p>
+                <div class="empty-apps">
+                    <div class="empty-apps-icon">🚫</div>
+                    <h3>No Applications Configured</h3>
+                    <p>Your Django project doesn't have any applications set up yet.</p>
                 </div>
             {% endif %}
         </div>
