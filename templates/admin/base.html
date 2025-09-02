@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="NONE,NOARCHIVE">
+    <title>{% block title %}{% endblock %}</title>
+    
+    <!-- Django Admin CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/nav_sidebar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/dark_mode.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/login.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/responsive.css' %}">
+    
+    <!-- Custom Admin CSS -->
+    {% block extrastyle %}{% endblock %}
+    
+    <!-- Django Admin JS -->
+    <script src="{% static 'admin/js/theme.js' %}"></script>
+    <script src="{% static 'admin/js/nav_sidebar.js' %}"></script>
+</head>
+
+<body class="{% block bodyclass %}{% endblock %}">
+    <!-- Container -->
+    <div id="container">
+        <!-- Header -->
+        <div id="header">
+            <div id="branding">
+                <h1 id="site-name">
+                    <a href="{% url 'admin:index' %}">
+                        {% block branding %}{% endblock %}
+                    </a>
+                </h1>
+            </div>
+            {% block usertools %}
+            {% if has_permission %}
+            <div id="user-tools">
+                {% block welcome-msg %}
+                    Welcome,
+                    <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+                {% endblock %}
+                {% block userlinks %}
+                    {% if site_url %}
+                        <a href="{{ site_url }}">View site</a> /
+                    {% endif %}
+                    {% if user.is_active and user.is_staff %}
+                        {% url 'django-admindocs-docroot' as docsroot %}
+                        {% if docsroot %}
+                            <a href="{{ docsroot }}">Documentation</a> /
+                        {% endif %}
+                    {% endif %}
+                    {% if user.has_usable_password %}
+                        <a href="{% url 'admin:password_change' %}">Change password</a> /
+                    {% endif %}
+                    <a href="{% url 'admin:logout' %}">Log out</a>
+                {% endblock %}
+            </div>
+            {% endif %}
+            {% endblock %}
+        </div>
+        
+        <!-- Content -->
+        <div id="content" class="{% block coltype %}colM{% endblock %}">
+            <!-- Sidebar -->
+            {% block nav-sidebar %}
+            <div id="nav-sidebar">
+                <h2>Navigation</h2>
+                <ul>
+                    <li><a href="{% url 'admin:index' %}">🏠 Dashboard</a></li>
+                    <li><a href="{% url 'admin:core_bin_changelist' %}">🗑️ Bins</a></li>
+                    <li><a href="{% url 'admin:core_truck_changelist' %}">🚛 Trucks</a></li>
+                    <li><a href="{% url 'admin:core_dumpingspot_changelist' %}">📍 Dumping Spots</a></li>
+                    <li><a href="{% url 'admin:core_role_changelist' %}">👥 Roles</a></li>
+                    <li><a href="{% url 'admin:core_customuser_changelist' %}">👤 Users</a></li>
+                </ul>
+            </div>
+            {% endblock %}
+            
+            <!-- Main Content -->
+            <div id="content-main">
+                {% block content %}
+                    {% block object-tools %}{% endblock %}
+                    {{ content }}
+                {% endblock %}
+            </div>
+            
+            <!-- Breadcrumbs -->
+            {% block breadcrumbs %}
+            <div class="breadcrumbs">
+                <a href="{% url 'admin:index' %}">Home</a>
+                {% if title %} &rsaquo; {{ title }}{% endif %}
+            </div>
+            {% endblock %}
+        </div>
+        
+        <!-- Footer -->
+        <div id="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Smart Waste Management System. Built with ❤️ for sustainable waste management.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Django Admin JS -->
+    <script src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+    <script src="{% static 'admin/js/jquery.init.js' %}"></script>
+    <script src="{% static 'admin/js/core.js' %}"></script>
+    <script src="{% static 'admin/js/actions.js' %}"></script>
+    <script src="{% static 'admin/js/urlify.js' %}"></script>
+    <script src="{% static 'admin/js/prepopulate.js' %}"></script>
+    <script src="{% static 'admin/js/vendor/xregexp/xregexp.js' %}"></script>
+    
+    {% block extrajs %}{% endblock %}
+</body>
+</html>

@@ -1,6 +1,10 @@
 {% extends "admin/base.html" %}
 {% load static %}
 
+{% block branding %}
+🏢 Smart Waste Management
+{% endblock %}
+
 {% block title %}{{ title }} | {{ site_title|default:_('Smart Waste Management') }}{% endblock %}
 
 {% block extrastyle %}
@@ -2775,6 +2779,32 @@
         margin-bottom: 2rem;
         overflow: hidden;
         position: relative;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 300px !important;
+        float: left !important;
+        margin-right: 2rem !important;
+    }
+    
+    /* Ensure sidebar is visible */
+    #nav-sidebar,
+    #nav-sidebar * {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    /* Layout fixes for content */
+    #content {
+        display: flex !important;
+        gap: 2rem !important;
+        align-items: flex-start !important;
+    }
+    
+    #content-main {
+        flex: 1 !important;
+        min-width: 0 !important;
     }
     
     #nav-sidebar::before {
