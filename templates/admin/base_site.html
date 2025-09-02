@@ -2797,14 +2797,25 @@
     
     /* Layout fixes for content */
     #content {
-        display: flex !important;
-        gap: 2rem !important;
-        align-items: flex-start !important;
+        display: block !important;
+        position: relative !important;
+        padding: 2rem !important;
     }
     
     #content-main {
-        flex: 1 !important;
+        margin-left: 320px !important;
         min-width: 0 !important;
+        width: calc(100% - 320px) !important;
+    }
+    
+    /* Position sidebar on the left */
+    #nav-sidebar {
+        position: fixed !important;
+        top: 120px !important;
+        left: 20px !important;
+        height: calc(100vh - 140px) !important;
+        overflow-y: auto !important;
+        z-index: 1000 !important;
     }
     
     #nav-sidebar::before {
