@@ -98,6 +98,94 @@
     }
     
     /* Fix colM container overflow */
+    
+    /* Login Page Form Styling */
+    .login #id_username,
+    .login #id_password {
+        width: 100% !important;
+        padding: 1rem 1.25rem !important;
+        border: 2px solid #e9ecef !important;
+        border-radius: 12px !important;
+        font-size: 1rem !important;
+        transition: all 0.3s ease !important;
+        background: #f8f9fa !important;
+        color: #495057 !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+        display: block !important;
+    }
+    
+    .login #id_username:focus,
+    .login #id_password:focus {
+        outline: none !important;
+        border-color: #87ceeb !important;
+        background: white !important;
+        box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.1) !important;
+        transform: translateY(-2px) !important;
+    }
+    
+    .login #id_username::placeholder,
+    .login #id_password::placeholder {
+        color: #adb5bd !important;
+    }
+    
+    /* Hide default Django form styling on login page */
+    .login .form-row {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .login .submit-row {
+        margin: 0 !important;
+        padding: 0 !important;
+        text-align: center !important;
+    }
+    
+    .login .submit-row input {
+        display: none !important;
+    }
+    
+    /* Additional login page improvements */
+    .login body {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        min-height: 100vh !important;
+    }
+    
+    .login #container {
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: 100vh !important;
+    }
+    
+    .login #content {
+        background: transparent !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: 100vh !important;
+    }
+    
+    .login #content-main {
+        background: transparent !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: 100vh !important;
+    }
+    
+    .login .main {
+        background: transparent !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: 100vh !important;
+    }
     .colM {
         width: 100% !important;
         max-width: 100% !important;
