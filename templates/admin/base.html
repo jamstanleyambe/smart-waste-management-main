@@ -70,14 +70,32 @@
             {% block nav-sidebar %}
             <div id="nav-sidebar">
                 <h2>Navigation</h2>
-                <ul>
-                    <li><a href="{% url 'admin:index' %}">🏠 Dashboard</a></li>
-                    <li><a href="{% url 'admin:core_bin_changelist' %}">🗑️ Bins</a></li>
-                    <li><a href="{% url 'admin:core_truck_changelist' %}">🚛 Trucks</a></li>
-                    <li><a href="{% url 'admin:core_dumpingspot_changelist' %}">📍 Dumping Spots</a></li>
-                    <li><a href="{% url 'admin:core_role_changelist' %}">👥 Roles</a></li>
-                    <li><a href="{% url 'admin:index' %}">👤 Users</a></li>
+                
+                <!-- Search Box -->
+                <div class="sidebar-search">
+                    <input type="text" id="sidebar-search" placeholder="🔍 Search navigation..." class="search-input">
+                </div>
+                
+                <ul id="sidebar-nav">
+                    <li><a href="{% url 'admin:index' %}" data-search="dashboard home main">🏠 Dashboard</a></li>
+                    <li><a href="{% url 'admin:core_bin_changelist' %}" data-search="bins waste collection trash">🗑️ Bins</a></li>
+                    <li><a href="{% url 'admin:core_truck_changelist' %}" data-search="trucks vehicles fleet transport">🚛 Trucks</a></li>
+                    <li><a href="{% url 'admin:core_dumpingspot_changelist' %}" data-search="dumping spots disposal sites locations">📍 Dumping Spots</a></li>
+                    <li><a href="{% url 'admin:core_role_changelist' %}" data-search="roles permissions user roles access">👥 Roles</a></li>
+                    <li><a href="{% url 'admin:index' %}" data-search="users accounts user management">👤 Users</a></li>
                 </ul>
+                
+                <!-- Sidebar Stats -->
+                <div class="sidebar-stats">
+                    <div class="stat-item">
+                        <span class="stat-icon">📊</span>
+                        <span class="stat-text">System Active</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🔄</span>
+                        <span class="stat-text">Real-time Data</span>
+                    </div>
+                </div>
             </div>
             {% endblock %}
             
@@ -128,6 +146,49 @@
             }
         }
         
+        // Sidebar search functionality
+        function initSidebarSearch() {
+            const searchInput = document.getElementById('sidebar-search');
+            const navItems = document.querySelectorAll('#sidebar-nav li');
+            
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    
+                    navItems.forEach(item => {
+                        const link = item.querySelector('a');
+                        const searchData = link.getAttribute('data-search') || '';
+                        const text = link.textContent.toLowerCase();
+                        
+                        if (searchTerm === '' || text.includes(searchTerm) || searchData.includes(searchTerm)) {
+                            item.classList.remove('hidden');
+                            item.classList.remove('highlighted');
+                        } else {
+                            item.classList.add('hidden');
+                        }
+                    });
+                    
+                    // Highlight matching items
+                    if (searchTerm !== '') {
+                        navItems.forEach(item => {
+                            if (!item.classList.contains('hidden')) {
+                                item.classList.add('highlighted');
+                            }
+                        });
+                    }
+                });
+                
+                // Clear search on escape key
+                searchInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        this.value = '';
+                        this.dispatchEvent(new Event('input'));
+                        this.blur();
+                    }
+                });
+            }
+        }
+        
         // Close sidebar when clicking outside on mobile
         document.addEventListener('click', function(event) {
             const sidebar = document.getElementById('nav-sidebar');
@@ -147,6 +208,11 @@
             if (window.innerWidth > 768) {
                 sidebar.classList.remove('open');
             }
+        });
+        
+        // Initialize search when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initSidebarSearch();
         });
     </script>
     
