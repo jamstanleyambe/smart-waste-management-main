@@ -99,6 +99,100 @@
     } else {
         initSidebar();
     }
+    
+    // Enhanced UX features
+    function initUXFeatures() {
+        // Add loading states to buttons
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('admin-btn')) {
+                e.target.classList.add('loading');
+                setTimeout(() => {
+                    e.target.classList.remove('loading');
+                }, 2000);
+            }
+        });
+        
+        // Add toast notifications
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // Show toast
+            setTimeout(() => toast.classList.add('show'), 100);
+            
+            // Hide toast after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 3000);
+        }
+        
+        // Show welcome toast
+        setTimeout(() => {
+            showToast('🎉 Welcome to Smart Waste Management Admin!', 'success');
+        }, 1000);
+        
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + K to focus search
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                const searchInput = document.querySelector('input[type="search"], input[name="q"]');
+                if (searchInput) searchInput.focus();
+            }
+            
+            // Escape to close sidebar on mobile
+            if (e.key === 'Escape' && window.innerWidth <= 768) {
+                sidebar.classList.remove('open');
+            }
+        });
+        
+        // Add smooth scroll to top
+        const scrollToTop = document.createElement('button');
+        scrollToTop.innerHTML = '⬆️';
+        scrollToTop.className = 'scroll-to-top';
+        scrollToTop.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            z-index: var(--z-fixed);
+            display: none;
+        `;
+        
+        document.body.appendChild(scrollToTop);
+        
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollToTop.style.display = 'block';
+            } else {
+                scrollToTop.style.display = 'none';
+            }
+        });
+        
+        // Scroll to top functionality
+        scrollToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+    
+    // Initialize UX features
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initUXFeatures);
+    } else {
+        initUXFeatures();
+    }
 })();
 </script>
 {% endblock %}
