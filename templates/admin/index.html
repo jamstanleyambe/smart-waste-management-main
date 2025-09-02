@@ -88,6 +88,51 @@
         width: calc(100% - 320px) !important;
     }
     
+    /* Mobile menu toggle */
+    .mobile-menu-toggle {
+        position: fixed !important;
+        top: 20px !important;
+        right: 20px !important;
+        z-index: 10000 !important;
+        background: linear-gradient(135deg, #87ceeb 0%, #5f9ea0 100%) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 12px !important;
+        padding: 0 !important;
+        font-size: 1.25rem !important;
+        cursor: pointer !important;
+        box-shadow: 0 4px 15px rgba(135, 206, 235, 0.3) !important;
+        transition: all 0.3s ease !important;
+        width: 50px !important;
+        height: 50px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    .mobile-menu-toggle:hover {
+        transform: scale(1.1) !important;
+        box-shadow: 0 6px 20px rgba(135, 206, 235, 0.4) !important;
+    }
+    
+    /* Mobile sidebar positioning */
+    @media (max-width: 768px) {
+        #custom-nav-sidebar {
+            right: -300px !important;
+            transition: right 0.3s ease !important;
+        }
+        
+        #custom-nav-sidebar.open {
+            right: 0 !important;
+        }
+        
+        #content-main {
+            margin-right: 0 !important;
+            width: 100% !important;
+        }
+    }
+    
     @keyframes shimmer {
         0%, 100% { opacity: 1; }
         50% { opacity: 0.7; }
@@ -96,6 +141,8 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Sidebar injection script loaded');
+    
     // Create and inject sidebar
     const sidebar = document.createElement('div');
     sidebar.id = 'custom-nav-sidebar';
@@ -113,13 +160,52 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Inject sidebar into page
     document.body.appendChild(sidebar);
+    console.log('Sidebar injected into page');
     
     // Adjust content margin
     const contentMain = document.getElementById('content-main');
     if (contentMain) {
         contentMain.style.marginRight = '320px';
         contentMain.style.width = 'calc(100% - 320px)';
+        console.log('Content margin adjusted for sidebar');
+    } else {
+        console.log('content-main element not found');
     }
+    
+    // Add mobile menu toggle
+    const mobileToggle = document.createElement('button');
+    mobileToggle.className = 'mobile-menu-toggle';
+    mobileToggle.id = 'mobile-menu-toggle';
+    mobileToggle.innerHTML = '<span>☰</span>';
+    mobileToggle.style.display = 'none';
+    document.body.appendChild(mobileToggle);
+    
+    // Mobile menu functionality
+    mobileToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('open');
+    });
+    
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+        if (!sidebar.contains(event.target) && !mobileToggle.contains(event.target)) {
+            sidebar.classList.remove('open');
+        }
+    });
+    
+    // Responsive behavior
+    function checkScreenSize() {
+        if (window.innerWidth <= 768) {
+            mobileToggle.style.display = 'flex';
+            sidebar.style.right = '-300px';
+        } else {
+            mobileToggle.style.display = 'none';
+            sidebar.style.right = '20px';
+            sidebar.classList.remove('open');
+        }
+    }
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
 });
 </script>
 {% endblock %}
