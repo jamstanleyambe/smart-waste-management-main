@@ -3,50 +3,56 @@
 
 {% block extrahead %}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Sidebar injection script loaded');
+// Performance-optimized sidebar implementation
+(function() {
+    'use strict';
     
-    // Create and inject sidebar
-    const sidebar = document.createElement('div');
-    sidebar.id = 'custom-nav-sidebar';
-    sidebar.innerHTML = `
-        <h2>Navigation</h2>
-        <ul>
-            <li><a href="/admin/">🏠 Dashboard</a></li>
-            <li><a href="/admin/core/bin/">🗑️ Bins</a></li>
-            <li><a href="/admin/core/truck/">🚛 Trucks</a></li>
-            <li><a href="/admin/core/dumpingspot/">📍 Dumping Spots</a></li>
-            <li><a href="/admin/core/role/">👥 Roles</a></li>
-            <li><a href="/admin/auth/user/">👤 Users</a></li>
-        </ul>
-    `;
+    // Cache DOM elements
+    let sidebar, mobileToggle;
     
-    // Inject sidebar into page
-    document.body.appendChild(sidebar);
-    console.log('Sidebar injected into page');
+    // Debounced resize handler
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
     
-    // Add mobile menu toggle
-    const mobileToggle = document.createElement('button');
-    mobileToggle.className = 'mobile-menu-toggle';
-    mobileToggle.id = 'mobile-menu-toggle';
-    mobileToggle.innerHTML = '<span>☰</span>';
-    mobileToggle.style.display = 'none';
-    document.body.appendChild(mobileToggle);
+    // Create sidebar element
+    function createSidebar() {
+        sidebar = document.createElement('div');
+        sidebar.id = 'custom-nav-sidebar';
+        sidebar.innerHTML = `
+            <h2>Navigation</h2>
+            <ul>
+                <li><a href="/admin/">🏠 Dashboard</a></li>
+                <li><a href="/admin/core/bin/">🗑️ Bins</a></li>
+                <li><a href="/admin/core/truck/">🚛 Trucks</a></li>
+                <li><a href="/admin/core/dumpingspot/">📍 Dumping Spots</a></li>
+                <li><a href="/admin/core/role/">👥 Roles</a></li>
+                <li><a href="/admin/auth/user/">👤 Users</a></li>
+            </ul>
+        `;
+        return sidebar;
+    }
     
-    // Mobile menu functionality
-    mobileToggle.addEventListener('click', function() {
-        sidebar.classList.toggle('open');
-    });
+    // Create mobile toggle
+    function createMobileToggle() {
+        mobileToggle = document.createElement('button');
+        mobileToggle.className = 'mobile-menu-toggle';
+        mobileToggle.id = 'mobile-menu-toggle';
+        mobileToggle.innerHTML = '<span>☰</span>';
+        mobileToggle.style.display = 'none';
+        return mobileToggle;
+    }
     
-    // Close sidebar when clicking outside on mobile
-    document.addEventListener('click', function(event) {
-        if (!sidebar.contains(event.target) && !mobileToggle.contains(event.target)) {
-            sidebar.classList.remove('open');
-        }
-    });
-    
-    // Responsive behavior
-    function checkScreenSize() {
+    // Handle responsive behavior
+    function handleResponsive() {
         if (window.innerWidth <= 768) {
             mobileToggle.style.display = 'flex';
             sidebar.style.right = '-300px';
@@ -57,9 +63,43 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-});
+    // Initialize sidebar
+    function initSidebar() {
+        console.log('Sidebar injection script loaded');
+        
+        // Create and inject sidebar
+        sidebar = createSidebar();
+        document.body.appendChild(sidebar);
+        console.log('Sidebar injected into page');
+        
+        // Create and inject mobile toggle
+        mobileToggle = createMobileToggle();
+        document.body.appendChild(mobileToggle);
+        
+        // Event listeners
+        mobileToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
+        });
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            if (!sidebar.contains(event.target) && !mobileToggle.contains(event.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+        
+        // Responsive behavior with debouncing
+        handleResponsive();
+        window.addEventListener('resize', debounce(handleResponsive, 150));
+    }
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSidebar);
+    } else {
+        initSidebar();
+    }
+})();
 </script>
 {% endblock %}
 

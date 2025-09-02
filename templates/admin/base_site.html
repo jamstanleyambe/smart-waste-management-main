@@ -148,6 +148,9 @@
         display: block;
         visibility: visible;
         opacity: 1;
+        contain: layout style paint;
+        will-change: transform;
+        transform: translateZ(0);
     }
     
     #custom-nav-sidebar::before {
@@ -236,6 +239,42 @@
     .mobile-menu-toggle:hover {
         transform: scale(1.1);
         box-shadow: var(--shadow-lg);
+    }
+    
+    /* ========================================
+       PERFORMANCE OPTIMIZATIONS
+       ======================================== */
+    
+    /* CSS Containment for better performance */
+    .admin-container {
+        contain: layout style;
+    }
+    
+    .dashboard-stats {
+        contain: layout style;
+    }
+    
+    .premium-core-section {
+        contain: layout style;
+    }
+    
+    /* Hardware acceleration for animations */
+    .admin-card,
+    .admin-btn,
+    #custom-nav-sidebar,
+    .dashboard-header {
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+    }
+    
+    /* Optimize transitions */
+    .admin-card,
+    .admin-btn,
+    #custom-nav-sidebar a {
+        transition: transform var(--transition-normal), 
+                    box-shadow var(--transition-normal),
+                    background-color var(--transition-normal);
     }
     
     /* ========================================
@@ -342,6 +381,8 @@
         margin-bottom: var(--spacing-md);
         border: 1px solid var(--border-color);
         transition: all var(--transition-normal);
+        contain: layout style paint;
+        will-change: transform;
     }
     
     .admin-card:hover {
@@ -2889,6 +2930,9 @@
         justify-content: center;
         align-items: center;
         margin-bottom: 2rem;
+        contain: layout style paint;
+        will-change: transform;
+        transform: translateZ(0);
     }
     
     .dashboard-header::before {
