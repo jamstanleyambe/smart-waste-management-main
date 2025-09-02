@@ -75,8 +75,7 @@ class WasteManagementAdminSite(AdminSite):
         })
         return super().index(request, extra_context)
 
-# Create custom admin site instance
-admin_site = WasteManagementAdminSite(name='waste_management_admin')
+# Custom admin site configuration (using default admin site)
 
 # Register models with custom admin site
 class RoleAdmin(admin.ModelAdmin):
@@ -193,14 +192,14 @@ class TruckAdmin(admin.ModelAdmin):
         return f"({obj.current_latitude:.4f}, {obj.current_longitude:.4f})"
     current_location.short_description = 'Current Location'
 
-# Register models with custom admin site ONLY
-admin_site.register(Role, RoleAdmin)
-admin_site.register(Bin, BinAdmin)
-admin_site.register(DumpingSpot, DumpingSpotAdmin)
-admin_site.register(Truck, TruckAdmin)
+# Register models with default admin site
+admin.site.register(Role, RoleAdmin)
+admin.site.register(Bin, BinAdmin)
+admin.site.register(DumpingSpot, DumpingSpotAdmin)
+admin.site.register(Truck, TruckAdmin)
 
-# Register User model with custom admin site to avoid URL conflicts
-admin_site.register(User, UserAdmin)
+# Register User model with default admin site
+admin.site.register(User, UserAdmin)
 
 # Remove default admin site customization to avoid conflicts
 # admin.site.site_header = "Smart Waste Management Admin"
