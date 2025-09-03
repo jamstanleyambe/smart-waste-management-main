@@ -193,20 +193,13 @@ class TruckAdmin(admin.ModelAdmin):
         return f"({obj.current_latitude:.4f}, {obj.current_longitude:.4f})"
     current_location.short_description = 'Current Location'
 
-# Register models with custom admin site ONLY
+# Register models with custom admin site
 admin_site.register(Role, RoleAdmin)
 admin_site.register(Bin, BinAdmin)
 admin_site.register(DumpingSpot, DumpingSpotAdmin)
 admin_site.register(Truck, TruckAdmin)
 
-# Register User model with custom admin site to avoid URL conflicts
-# Only register if not already registered
-try:
-    admin_site.register(User, UserAdmin)
-except admin.sites.AlreadyRegistered:
-    pass
-
-# Remove default admin site customization to avoid conflicts
-# admin.site.site_header = "Smart Waste Management Admin"
-# admin.site.site_title = "Waste Management Admin"
-# admin.site.index_title = "Welcome to Smart Waste Management Administration" 
+# Customize custom admin site
+admin_site.site_header = "Smart Waste Management Admin"
+admin_site.site_title = "Waste Management Admin"
+admin.site.index_title = "Welcome to Smart Waste Management Administration" 

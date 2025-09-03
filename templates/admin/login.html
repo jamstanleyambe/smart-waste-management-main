@@ -1,222 +1,250 @@
-{% extends "admin/base_site.html" %}
+{% extends "admin/base.html" %}
 {% load i18n static %}
 
-{% block extrastyle %}
+{% block extrastyle %}{{ block.super }}
 <style>
-    /* Login Page Specific Styles */
-    .login-container {
+    /* Reset and Base Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
-        padding: 2rem;
-        box-sizing: border-box;
+        overflow-x: hidden;
     }
-    
-    .login-card {
-        background: white;
+
+    /* Login Container */
+    .login-container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
         border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         padding: 3rem;
-        width: 100%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
         max-width: 450px;
-        text-align: center;
-        border: 1px solid rgba(135, 206, 235, 0.2);
-        backdrop-filter: blur(10px);
+        width: 100%;
+        margin: 2rem;
+        position: relative;
+        overflow: hidden;
     }
-    
+
+    .login-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #87CEEB, #4682B4, #1E90FF);
+        border-radius: 20px 20px 0 0;
+    }
+
+    /* Header */
     .login-header {
+        text-align: center;
         margin-bottom: 2.5rem;
     }
-    
-    .login-logo {
-        width: 80px;
-        height: 80px;
-        background: linear-gradient(135deg, #87ceeb 0%, #5f9ea0 100%);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 1.5rem;
-        box-shadow: 0 8px 20px rgba(135, 206, 235, 0.3);
-    }
-    
-    .login-logo i {
-        font-size: 2.5rem;
-        color: white;
-    }
-    
-    .login-title {
+
+    .login-header h1 {
+        color: #2c3e50;
         font-size: 2rem;
         font-weight: 700;
-        color: #212529;
         margin-bottom: 0.5rem;
         letter-spacing: -0.5px;
     }
-    
-    .login-subtitle {
-        color: #6c757d;
+
+    .login-header .subtitle {
+        color: #7f8c8d;
         font-size: 1rem;
         font-weight: 400;
     }
-    
-    .login-form {
-        text-align: left;
+
+    .login-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #87CEEB, #4682B4);
+        border-radius: 50%;
+        margin: 0 auto 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(135, 206, 235, 0.3);
     }
-    
-    .form-group {
+
+    .login-icon::before {
+        content: '🔐';
+        font-size: 2.5rem;
+    }
+
+    /* Form Styles */
+    .login-form {
+        width: 100%;
+    }
+
+    .form-row {
         margin-bottom: 1.5rem;
     }
-    
-    .form-label {
+
+    .form-row label {
         display: block;
-        margin-bottom: 0.5rem;
+        color: #2c3e50;
         font-weight: 600;
-        color: #495057;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
     }
-    
-    .form-input {
+
+    .form-row input[type="text"],
+    .form-row input[type="password"] {
         width: 100%;
-        padding: 1rem 1.25rem;
-        border: 2px solid #e9ecef;
+        padding: 1rem;
+        border: 2px solid #e1e8ed;
         border-radius: 12px;
         font-size: 1rem;
         transition: all 0.3s ease;
         background: #f8f9fa;
-        color: #495057;
-        box-sizing: border-box;
+        color: #2c3e50;
     }
-    
-    .form-input:focus {
+
+    .form-row input[type="text"]:focus,
+    .form-row input[type="password"]:focus {
         outline: none;
-        border-color: #87ceeb;
-        background: white;
+        border-color: #87CEEB;
+        background: #ffffff;
         box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.1);
-        transform: translateY(-2px);
+        transform: translateY(-1px);
     }
-    
-    .form-input::placeholder {
-        color: #adb5bd;
+
+    /* Submit Button */
+    .submit-row {
+        margin-top: 2rem;
     }
-    
-    .submit-btn {
+
+    .submit-row input[type="submit"] {
         width: 100%;
-        padding: 1rem 2rem;
-        background: linear-gradient(135deg, #87ceeb 0%, #5f9ea0 100%);
+        padding: 1rem;
+        background: linear-gradient(135deg, #87CEEB, #4682B4);
+        color: white;
         border: none;
         border-radius: 12px;
-        color: white;
         font-size: 1.1rem;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        margin-top: 1rem;
-        box-shadow: 0 8px 20px rgba(135, 206, 235, 0.3);
+        box-shadow: 0 4px 15px rgba(135, 206, 235, 0.4);
     }
-    
-    .submit-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 25px rgba(135, 206, 235, 0.4);
-        background: linear-gradient(135deg, #5f9ea0 0%, #87ceeb 100%);
+
+    .submit-row input[type="submit"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 25px rgba(135, 206, 235, 0.6);
+        background: linear-gradient(135deg, #4682B4, #1E90FF);
     }
-    
-    .submit-btn:active {
-        transform: translateY(-1px);
+
+    .submit-row input[type="submit"]:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 10px rgba(135, 206, 235, 0.4);
     }
-    
+
+    /* Error Messages */
+    .errornote {
+        background: #fee;
+        color: #d63384;
+        padding: 1rem;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+        border: 1px solid #f8d7da;
+        font-weight: 500;
+    }
+
+    .errorlist {
+        background: #fee;
+        color: #d63384;
+        padding: 0.75rem;
+        border-radius: 8px;
+        margin-top: 0.5rem;
+        border: 1px solid #f8d7da;
+        list-style: none;
+    }
+
+    .errorlist li {
+        margin: 0;
+        padding: 0;
+        font-weight: 500;
+    }
+
+    /* Help Text */
+    .help {
+        color: #6c757d;
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+        line-height: 1.4;
+    }
+
+    /* Footer */
     .login-footer {
+        text-align: center;
         margin-top: 2rem;
         padding-top: 2rem;
-        border-top: 1px solid #e9ecef;
-        color: #6c757d;
+        border-top: 1px solid #e1e8ed;
+    }
+
+    .login-footer p {
+        color: #7f8c8d;
         font-size: 0.9rem;
+        margin: 0;
     }
-    
-    .login-footer a {
-        color: #87ceeb;
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.3s ease;
-    }
-    
-    .login-footer a:hover {
-        color: #5f9ea0;
-    }
-    
-    .error-message {
-        background: #f8d7da;
-        color: #721c24;
-        padding: 1rem;
-        border-radius: 8px;
-        margin-bottom: 1.5rem;
-        border: 1px solid #f5c6cb;
-        font-size: 0.9rem;
-        text-align: center;
-    }
-    
-    .success-message {
-        background: #d4edda;
-        color: #155724;
-        padding: 1rem;
-        border-radius: 8px;
-        margin-bottom: 1.5rem;
-        border: 1px solid #c3e6cb;
-        font-size: 0.9rem;
-        text-align: center;
-    }
-    
+
     /* Responsive Design */
     @media (max-width: 768px) {
         .login-container {
-            padding: 1rem;
-        }
-        
-        .login-card {
-            padding: 2rem;
             margin: 1rem;
+            padding: 2rem;
         }
-        
-        .login-title {
+
+        .login-header h1 {
             font-size: 1.75rem;
         }
-        
-        .login-logo {
-            width: 60px;
-            height: 60px;
+
+        .login-icon {
+            width: 70px;
+            height: 70px;
         }
-        
-        .login-logo i {
+
+        .login-icon::before {
             font-size: 2rem;
         }
     }
-    
+
     @media (max-width: 480px) {
-        .login-card {
+        .login-container {
             padding: 1.5rem;
         }
-        
-        .login-title {
+
+        .login-header h1 {
             font-size: 1.5rem;
         }
-        
-        .form-input {
-            padding: 0.875rem 1rem;
-        }
-        
-        .submit-btn {
-            padding: 0.875rem 1.5rem;
-            font-size: 1rem;
+
+        .form-row input[type="text"],
+        .form-row input[type="password"],
+        .submit-row input[type="submit"] {
+            padding: 0.875rem;
         }
     }
-    
+
     /* Animation */
-    @keyframes fadeInUp {
+    .login-container {
+        animation: slideIn 0.6s ease-out;
+    }
+
+    @keyframes slideIn {
         from {
             opacity: 0;
             transform: translateY(30px);
@@ -226,236 +254,141 @@
             transform: translateY(0);
         }
     }
-    
-    .login-card {
-        animation: fadeInUp 0.6s ease-out;
+
+    /* Hide default Django admin styles */
+    #header, #nav-sidebar, #main, #footer {
+        display: none !important;
     }
-    
-    /* Loading animation */
-    .loading {
-        position: relative;
-        pointer-events: none;
+
+    .login {
+        background: transparent !important;
     }
-    
-    .loading::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 20px;
-        height: 20px;
-        margin: -10px 0 0 -10px;
-        border: 2px solid transparent;
-        border-top: 2px solid #ffffff;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
+
+    /* Override default login styles */
+    body.login {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
     }
-    
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+
+    body.login #container {
+        width: 100% !important;
+        min-width: unset !important;
+        background: transparent !important;
+        padding: 0 !important;
     }
-    
-    /* Enhanced form styling */
-    .form-input.invalid {
-        border-color: #dc3545 !important;
-        box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1) !important;
-        animation: shake 0.5s ease-in-out;
+
+    body.login #content {
+        padding: 0 !important;
+        margin: 0 !important;
+        background: transparent !important;
     }
-    
-    .form-input.valid {
-        border-color: #28a745 !important;
-        box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1) !important;
+
+    body.login .form-row {
+        float: none !important;
+        padding: 0 !important;
     }
-    
-    @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-5px); }
-        75% { transform: translateX(5px); }
+
+    body.login .form-row label {
+        float: none !important;
+        width: auto !important;
+        padding-right: 0 !important;
+        text-align: left !important;
     }
-    
-    /* Custom checkbox styling */
-    .checkbox-group {
-        display: flex;
-        align-items: center;
-        margin-bottom: 1.5rem;
+
+    body.login .form-row #id_username,
+    body.login .form-row #id_password {
+        clear: none !important;
+        float: none !important;
+        margin-left: 0 !important;
+        width: 100% !important;
     }
-    
-    .checkbox-group input[type="checkbox"] {
-        width: auto;
-        margin-right: 0.75rem;
-        transform: scale(1.2);
+
+    body.login .submit-row {
+        clear: none !important;
+        float: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+        margin-left: 0 !important;
     }
-    
-    .checkbox-group label {
-        margin: 0;
-        font-size: 0.9rem;
-        color: #6c757d;
-        cursor: pointer;
+
+    body.login .submit-row label {
+        width: auto !important;
+        padding-right: 0 !important;
+    }
+
+    body.login .submit-row input {
+        margin-left: 0 !important;
     }
 </style>
 {% endblock %}
 
-{% block bodyclass %}login{% endblock %}
+{% block title %}{% trans 'Log in' %} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}{% endblock %}
 
 {% block nav-global %}{% endblock %}
 
 {% block content %}
 <div class="login-container">
-    <div class="login-card">
-        <div class="login-header">
-            <div class="login-logo">
-                <i>♻️</i>
-            </div>
-            <h1 class="login-title">Smart Waste Management</h1>
-            <p class="login-subtitle">Admin Access Portal</p>
+    <div class="login-header">
+        <div class="login-icon"></div>
+        <h1>{% trans 'Smart Waste Management' %}</h1>
+        <p class="subtitle">{% trans 'Admin Portal' %}</p>
+    </div>
+
+    {% if form.errors and not form.non_field_errors %}
+        <div class="errornote">
+            {% trans "Please correct the error below." %}
         </div>
+    {% endif %}
+
+    {% if form.non_field_errors %}
+        <div class="errornote">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <form method="post" action="{{ app_path }}" class="login-form">
+        {% csrf_token %}
         
-        {% if form.errors and not form.non_field_errors %}
-            <div class="error-message">
-                {% if form.errors.items|length == 1 %}
-                    Please correct the error below.
-                {% else %}
-                    Please correct the errors below.
-                {% endif %}
+        <div class="form-row">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {% if form.username.errors %}
+                <ul class="errorlist">
+                    {% for error in form.username.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <div class="form-row">
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            {% if form.password.errors %}
+                <ul class="errorlist">
+                    {% for error in form.password.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        {% url 'admin_password_reset' as password_reset_url %}
+        {% if password_reset_url %}
+            <div class="password-reset-link">
+                <a href="{{ password_reset_url }}">{% trans 'Forgotten your password or username?' %}</a>
             </div>
         {% endif %}
-        
-        {% if form.non_field_errors %}
-            {% for error in form.non_field_errors %}
-                <div class="error-message">
-                    {{ error }}
-                </div>
-            {% endfor %}
-        {% endif %}
-        
-        {% if user.is_authenticated %}
-            <div class="success-message">
-                You are authenticated as {{ user.username }}, but are not authorized to access this page. Would you like to login to a different account?
-            </div>
-        {% endif %}
-        
-        <form method="post" id="login-form" class="login-form">
-            {% csrf_token %}
-            
-            <div class="form-group">
-                <label for="id_username" class="form-label">Username</label>
-                <input type="text" name="username" id="id_username" class="form-input" placeholder="Enter your username" required>
-                {% if form.username.errors %}
-                    <div class="error-message">
-                        {{ form.username.errors.0 }}
-                    </div>
-                {% endif %}
-            </div>
-            
-            <div class="form-group">
-                <label for="id_password" class="form-label">Password</label>
-                <input type="password" name="password" id="id_password" class="form-input" placeholder="Enter your password" required>
-                {% if form.password.errors %}
-                    <div class="error-message">
-                        {{ form.password.errors.0 }}
-                    </div>
-                {% endif %}
-            </div>
-            
-            <div class="checkbox-group">
-                <input type="checkbox" id="id_remember" name="remember" value="1">
-                <label for="id_remember">Remember me for 30 days</label>
-            </div>
-            
+
+        <div class="submit-row">
+            <input type="submit" value="{% trans 'Log in' %}">
             <input type="hidden" name="next" value="{{ next }}">
-            
-            <button type="submit" class="submit-btn">
-                🔐 Sign In
-            </button>
-        </form>
-        
-        <div class="login-footer">
-            <p>Secure access to the Smart Waste Management System</p>
-            <p>Need help? Contact your system administrator</p>
         </div>
+    </form>
+
+    <div class="login-footer">
+        <p>&copy; {% now "Y" %} Smart Waste Management System v1.0.0</p>
     </div>
 </div>
-
-<script>
-    // Add some interactive enhancements
-    document.addEventListener('DOMContentLoaded', function() {
-        const inputs = document.querySelectorAll('.form-input');
-        const submitBtn = document.querySelector('.submit-btn');
-        
-        // Add focus effects
-        inputs.forEach(input => {
-            input.addEventListener('focus', function() {
-                this.parentElement.classList.add('focused');
-            });
-            
-            input.addEventListener('blur', function() {
-                this.parentElement.classList.remove('focused');
-            });
-        });
-        
-        // Form validation enhancement
-        const form = document.getElementById('login-form');
-        const usernameInput = document.getElementById('id_username');
-        const passwordInput = document.getElementById('id_password');
-        
-        // Real-time validation
-        usernameInput.addEventListener('input', function() {
-            if (this.value.trim()) {
-                this.classList.add('valid');
-                this.classList.remove('invalid');
-            } else {
-                this.classList.remove('valid');
-                this.classList.add('invalid');
-            }
-        });
-        
-        passwordInput.addEventListener('input', function() {
-            if (this.value.trim()) {
-                this.classList.add('valid');
-                this.classList.remove('invalid');
-            } else {
-                this.classList.remove('valid');
-                this.classList.add('invalid');
-            }
-        });
-        
-        form.addEventListener('submit', function(e) {
-            const username = usernameInput.value.trim();
-            const password = passwordInput.value.trim();
-            
-            if (!username || !password) {
-                e.preventDefault();
-                
-                if (!username) {
-                    usernameInput.classList.add('invalid');
-                    usernameInput.focus();
-                }
-                if (!password) {
-                    passwordInput.classList.add('invalid');
-                    passwordInput.focus();
-                }
-                
-                // Show error message
-                const errorDiv = document.createElement('div');
-                errorDiv.className = 'error-message';
-                errorDiv.textContent = 'Please fill in all required fields.';
-                errorDiv.style.animation = 'fadeInUp 0.3s ease-out';
-                
-                const existingError = document.querySelector('.error-message');
-                if (existingError) {
-                    existingError.remove();
-                }
-                
-                form.insertBefore(errorDiv, form.firstChild);
-                return false;
-            }
-            
-            // Show loading state
-            submitBtn.classList.add('loading');
-            submitBtn.textContent = 'Signing In...';
-            submitBtn.disabled = true;
-        });
-    });
-</script>
 {% endblock %}
