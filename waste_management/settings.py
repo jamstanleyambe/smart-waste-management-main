@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'axes',  # Login attempt monitoring
     # 'defender',  # Advanced security - temporarily disabled
-    'core',
+    'core',  # Re-enabled for custom admin site
 ]
 
 MIDDLEWARE = [
@@ -47,8 +47,8 @@ MIDDLEWARE = [
 # Authentication & Authorization Settings
 AUTHENTICATION_BACKENDS = [
     'axes.backends.AxesStandaloneBackend',
-    'core.auth_backends.EnhancedAuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
+    'core.auth_backends.EnhancedAuthenticationBackend',  # Re-enabled
 ]
 
 # Session Security
@@ -190,6 +190,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

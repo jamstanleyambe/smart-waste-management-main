@@ -1,16 +1,25 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 from django.utils.html import format_html
 from django.contrib.admin import AdminSite
+from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
-from .models import Bin, DumpingSpot, Truck, Role
+from django.contrib.auth.views import LogoutView
+from django.urls import path
+from .models import Bin, DumpingSpot, Truck
 
 User = get_user_model()
 
-class WasteManagementAdminSite(AdminSite):
-    site_header = "Smart Waste Management Admin"
-    site_title = "Waste Management Admin"
+class SmartWasteAdminSite(AdminSite):
+    site_header = "Smart Waste Management"
+    site_title = "Smart Waste Management Admin"
     index_title = "Welcome to Smart Waste Management Administration"
+    
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path('logout/', LogoutView.as_view(next_page='/admin/login/'), name='logout'),
+        ]
+        return custom_urls + urls
     
     def index(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -21,7 +30,6 @@ class WasteManagementAdminSite(AdminSite):
         bin_count = Bin.objects.count()
         truck_count = Truck.objects.count()
         dumping_spot_count = DumpingSpot.objects.count()
-        role_count = Role.objects.count()
         
         # Calculate additional statistics
         from django.db.models import Avg, Count, Q
@@ -59,7 +67,6 @@ class WasteManagementAdminSite(AdminSite):
             'bin_count': bin_count,
             'truck_count': truck_count,
             'dumping_spot_count': dumping_spot_count,
-            'role_count': role_count,
             
             # Enhanced statistics
             'avg_fill_level': round(avg_fill_level, 1),
@@ -76,29 +83,7 @@ class WasteManagementAdminSite(AdminSite):
         return super().index(request, extra_context)
 
 # Create custom admin site instance
-admin_site = WasteManagementAdminSite(name='waste_management_admin')
-
-# Register models with custom admin site
-class RoleAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'created_at', 'updated_at')
-    list_filter = ('name', 'created_at')
-    search_fields = ('name', 'description')
-    readonly_fields = ('created_at', 'updated_at')
-    ordering = ('name',)
-    
-    fieldsets = (
-        ('Basic Information', {
-            'fields': ('name', 'description')
-        }),
-        ('Permissions', {
-            'fields': ('permissions',),
-            'description': 'Enter permissions as JSON format'
-        }),
-        ('Timestamps', {
-            'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',)
-        }),
-    )
+admin_site = SmartWasteAdminSite(name='smart_waste_admin')
 
 class BinAdmin(admin.ModelAdmin):
     list_display = ('bin_id', 'fill_level', 'latitude', 'longitude', 'get_status', 'get_marker_color', 'last_updated')
@@ -147,7 +132,7 @@ class DumpingSpotAdmin(admin.ModelAdmin):
         }),
         ('Current Content', {
             'fields': ('organic_content', 'plastic_content', 'metal_content')
-        }),
+            }),
     )
     
     def current_fill_level(self, obj):
@@ -194,12 +179,14 @@ class TruckAdmin(admin.ModelAdmin):
     current_location.short_description = 'Current Location'
 
 # Register models with custom admin site
-admin_site.register(Role, RoleAdmin)
 admin_site.register(Bin, BinAdmin)
 admin_site.register(DumpingSpot, DumpingSpotAdmin)
 admin_site.register(Truck, TruckAdmin)
 
+# Register User model for authentication
+admin_site.register(User, UserAdmin)
+
 # Customize custom admin site
-admin_site.site_header = "Smart Waste Management Admin"
-admin_site.site_title = "Waste Management Admin"
-admin_site.index_title = "Welcome to Smart Waste Management Administration" 
+admin_site.site_header = "Smart Waste Management"
+admin_site.site_title = "Smart Waste Management Admin"
+admin_site.index_title = "Welcome to Smart Waste Management Administration"

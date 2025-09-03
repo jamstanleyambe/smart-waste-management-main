@@ -1,171 +1,608 @@
-{% extends "admin/base_site.html" %}
-{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚮 Smart Waste Management Admin</title>
+    <style>
+        /* ===== PREMIUM ADMIN INTERFACE STYLING ===== */
+        :root {
+            --primary-color: #2E86AB;
+            --secondary-color: #A23B72;
+            --accent-color: #F18F01;
+            --success-color: #C73E1D;
+            --warning-color: #F18F01;
+            --danger-color: #C73E1D;
+            --info-color: #2E86AB;
+            
+            --light-bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --border-color: #e9ecef;
+            --text-primary: #2c3e50;
+            --text-secondary: #6c757d;
+            
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-xxl: 4rem;
+            
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            
+            --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
 
-{% block content %}
-<a href="#main-content" class="skip-link">Skip to main content</a>
-<div class="dashboard-container" id="main-content">
-    <div class="dashboard-header">
-        <h1>🏢 Smart Waste Management Dashboard</h1>
-        <p class="dashboard-subtitle">Comprehensive overview of your waste management operations</p>
-    </div>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <div class="dashboard-stats">
-        <div class="stat-card">
-            <div class="stat-icon">👥</div>
-            <h3>Total Users</h3>
-            <div class="number">{{ user_count|default:"0" }}</div>
-            <div class="label">Registered Users</div>
-            <div class="stat-trend positive">{{ active_user_count|default:"0" }} Active</div>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon">🗑️</div>
-            <h3>Total Bins</h3>
-            <div class="number">{{ bin_count|default:"0" }}</div>
-            <div class="label">Waste Collection Bins</div>
-            <div class="stat-trend positive">{{ full_bins|default:"0" }} Full</div>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon">🚛</div>
-            <h3>Total Trucks</h3>
-            <div class="number">{{ truck_count|default:"0" }}</div>
-            <div class="label">Collection Vehicles</div>
-            <div class="stat-trend positive">{{ active_trucks|default:"0" }} Active</div>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon">📍</div>
-            <h3>Dumping Spots</h3>
-            <div class="number">{{ dumping_spot_count|default:"0" }}</div>
-            <div class="label">Waste Disposal Sites</div>
-            <div class="stat-trend positive">{{ avg_fill_level_spots|default:"0" }}% Avg Fill</div>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon">📊</div>
-            <h3>Avg Fill Level</h3>
-            <div class="number">{{ avg_fill_level|default:"0" }}%</div>
-            <div class="label">All Bins Average</div>
-            <div class="stat-trend neutral">{{ empty_bins|default:"0" }} Empty</div>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon">🔧</div>
-            <h3>Roles</h3>
-            <div class="number">{{ role_count|default:"0" }}</div>
-            <div class="label">User Roles</div>
-            <div class="stat-trend neutral">Stable</div>
-        </div>
-    </div>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background: var(--light-bg);
+        }
 
-    <!-- Additional Statistics Row -->
-    <div class="dashboard-stats" style="margin-top: 1rem;">
-        <div class="stat-card">
-            <div class="stat-icon">⚡</div>
-            <h3>Active Trucks</h3>
-            <div class="number">{{ active_trucks|default:"0" }}</div>
-            <div class="label">Currently Operating</div>
-            <div class="stat-trend positive">On Duty</div>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon">⏸️</div>
-            <h3>Idle Trucks</h3>
-            <div class="number">{{ idle_trucks|default:"0" }}</div>
-            <div class="label">Available for Assignment</div>
-            <div class="stat-trend neutral">Standby</div>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon">🔧</div>
-            <h3>Maintenance</h3>
-            <div class="number">{{ maintenance_trucks|default:"0" }}</div>
-            <div class="label">Under Maintenance</div>
-            <div class="stat-trend negative">Service</div>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon">📈</div>
-            <h3>Total Capacity</h3>
-            <div class="number">{{ total_capacity|default:"0" }}</div>
-            <div class="label">Dumping Spots (Avg)</div>
-            <div class="stat-trend neutral">Tons</div>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon">🔄</div>
-            <h3>Recent Activity</h3>
-            <div class="number">{{ recent_bins|default:"0" }}</div>
-            <div class="label">Bins Updated (7 days)</div>
-            <div class="stat-trend positive">Active</div>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon">📊</div>
-            <h3>System Health</h3>
-            <div class="number">{{ role_count|default:"0" }}</div>
-            <div class="label">Active Roles</div>
-            <div class="stat-trend neutral">Stable</div>
-        </div>
-    </div>
+        /* ===== CLEAN ADMIN LAYOUT ===== */
+        .clean-admin {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-    <div class="module quick-actions-module">
-        <h2>🚀 Quick Actions</h2>
-        <p class="module-description">Manage your waste management system efficiently</p>
-        <div class="user-actions">
-            <a href="{% url 'admin:core_role_add' %}" class="button">👥 Add New Role</a>
-            <a href="{% url 'admin:core_bin_add' %}" class="button">🗑️ Add New Bin</a>
-            <a href="{% url 'admin:core_truck_add' %}" class="button">🚛 Add New Truck</a>
-            <a href="{% url 'admin:core_dumpingspot_add' %}" class="button">📍 Add Dumping Spot</a>
-            <a href="{% url 'user_dashboard' %}" class="button">🔐 User Management</a>
-        </div>
-    </div>
+        /* Top Header Bar */
+        .admin-header {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
 
-    <div class="app-list">
-        {% if app_list %}
-            {% for app in app_list %}
-                <div class="module">
-                    <h2>{{ app.name }}</h2>
-                    {% if app.models %}
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Model name</th>
-                                    <th>Add link</th>
-                                    <th>Change or view list link</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for model in app.models %}
-                                    <tr>
-                                        <td>{{ model.name }}</td>
-                                        <td>
-                                            {% if model.add_url %}
-                                                <a href="{{ model.add_url }}">Add</a>
-                                            {% else %}
-                                                &nbsp;
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            {% if model.admin_url %}
-                                                <a href="{{ model.admin_url }}">Change</a>
-                                            {% else %}
-                                                &nbsp;
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    {% else %}
-                        <p>No models available.</p>
-                    {% endif %}
+        .header-left .admin-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-info {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            background: var(--danger-color);
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: #a82333;
+        }
+
+        /* Navigation Bar */
+        .admin-nav {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 24px;
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+        }
+
+        .nav-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 16px 20px;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-item:hover {
+            color: var(--text-primary);
+            background: var(--light-bg);
+        }
+
+        .nav-item.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+            background: var(--light-bg);
+        }
+
+        /* Main Content Area */
+        .admin-content {
+            flex: 1;
+            padding: 24px;
+            background: var(--light-bg);
+        }
+
+        /* Dashboard Container */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+        }
+
+        /* Welcome Header */
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-xl);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .dashboard-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 700;
+        }
+
+        .dashboard-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Statistics Cards */
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .stat-card:nth-child(2)::before {
+            background: linear-gradient(90deg, var(--secondary-color), var(--warning-color));
+        }
+
+        .stat-card:nth-child(3)::before {
+            background: linear-gradient(90deg, var(--success-color), var(--info-color));
+        }
+
+        .stat-card:nth-child(4)::before {
+            background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Quick Actions */
+        .quick-actions-module {
+            margin: var(--spacing-xl) 0;
+        }
+
+        .quick-actions-module h2 {
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-lg);
+            font-size: 1.5rem;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            transition: all 0.2s;
+            box-shadow: var(--shadow);
+        }
+
+        .action-btn:hover {
+            background: var(--warning-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Models Section */
+        .models-section {
+            margin: var(--spacing-xl) 0;
+        }
+
+        .models-section h2 {
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-lg);
+            font-size: 1.5rem;
+        }
+
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .premium-model-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .premium-model-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .premium-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: var(--spacing-lg);
+        }
+
+        .premium-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .premium-description {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .premium-content {
+            padding: var(--spacing-lg);
+        }
+
+        .premium-content p {
+            margin-bottom: var(--spacing-md);
+            color: var(--text-secondary);
+        }
+
+        .premium-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
+        }
+
+        .premium-actions a {
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .premium-actions a:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .admin-header {
+                padding: 12px 16px;
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+            
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .admin-nav {
+                padding: 0 16px;
+            }
+            
+            .nav-item {
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+            
+            .admin-content {
+                padding: 16px;
+            }
+            
+            .dashboard-container {
+                padding: var(--spacing-md);
+            }
+            
+            .dashboard-header h1 {
+                font-size: 2rem;
+            }
+            
+            .dashboard-header p {
+                font-size: 1rem;
+            }
+            
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+            
+            .user-actions {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                text-align: center;
+            }
+            
+            .models-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-left .admin-title {
+                font-size: 18px;
+            }
+            
+            .admin-nav {
+                padding: 0 12px;
+            }
+            
+            .nav-item {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+            
+            .admin-content {
+                padding: 12px;
+            }
+            
+            .dashboard-container {
+                padding: var(--spacing-md);
+            }
+            
+            .dashboard-header {
+                padding: var(--spacing-lg);
+            }
+            
+            .dashboard-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Clean Professional Admin Interface -->
+    <div class="clean-admin">
+        <!-- Top Bar -->
+        <div class="admin-header">
+            <div class="header-left">
+                <span class="admin-title">🚮 Smart Waste Management Admin</span>
+            </div>
+            <div class="header-right">
+                <span class="user-info">Admin</span>
+                <a href="/admin/logout/" class="logout-btn">Logout</a>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="admin-nav">
+            <a href="/admin/" class="nav-item active">🏠 Dashboard</a>
+            <a href="/admin/core/bin/" class="nav-item">🗑️ Bins</a>
+            <a href="/admin/core/truck/" class="nav-item">🚛 Trucks</a>
+            <a href="/admin/core/dumpingspot/" class="nav-item">📍 Dumping Spots</a>
+            <a href="/admin/auth/user/" class="nav-item">👤 Users</a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="admin-content">
+            <div class="dashboard-container">
+                <!-- Welcome Header -->
+                <div class="dashboard-header">
+                    <h1>🚮 Welcome to Smart Waste Management</h1>
+                    <p>Monitor and manage your waste collection system efficiently</p>
                 </div>
-            {% endfor %}
-        {% else %}
-            <p>No apps available.</p>
-        {% endif %}
+
+                <!-- Statistics Cards -->
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">40</div>
+                        <div class="stat-label">Total Bins</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Active Trucks</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Dumping Spots</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">System Users</div>
+                    </div>
+                </div>
+
+                <!-- Enhanced Statistics -->
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">296.8%</div>
+                        <div class="stat-label">Average Bin Fill Level</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number">22</div>
+                        <div class="stat-label">Full Bins (≥80%)</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Active Trucks</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Recent Updates (7 days)</div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions-module">
+                    <h2>⚡ Quick Actions</h2>
+                    <div class="user-actions">
+                        <a href="/admin/core/bin/add/" class="action-btn">➕ Add New Bin</a>
+                        <a href="/admin/core/truck/add/" class="action-btn">🚛 Add New Truck</a>
+                        <a href="/admin/core/dumpingspot/add/" class="action-btn">📍 Add Dumping Spot</a>
+                        <a href="/admin/auth/user/add/" class="action-btn">👤 Add New User</a>
+                    </div>
+                </div>
+
+                <!-- Models Grid -->
+                <div class="models-section">
+                    <h2>📊 Manage Your Data</h2>
+                    <div class="models-grid">
+                        <!-- Bins Management -->
+                        <div class="premium-model-card">
+                            <div class="premium-header">
+                                <div class="premium-title">🗑️ Waste Bins</div>
+                                <div class="premium-description">Monitor bin fill levels and locations</div>
+                            </div>
+                            <div class="premium-content">
+                                <p>Track 40 bins across your collection network</p>
+                                <div class="premium-actions">
+                                    <a href="/admin/core/bin/">View All</a>
+                                    <a href="/admin/core/bin/add/">Add New</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Trucks Management -->
+                        <div class="premium-model-card">
+                            <div class="premium-header">
+                                <div class="premium-title">🚛 Collection Trucks</div>
+                                <div class="premium-description">Manage fleet operations and routes</div>
+                            </div>
+                            <div class="premium-content">
+                                <p>Coordinate 4 trucks for efficient collection</p>
+                                <div class="premium-actions">
+                                    <a href="/admin/core/truck/">View All</a>
+                                    <a href="/admin/core/truck/add/">Add New</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dumping Spots Management -->
+                        <div class="premium-model-card">
+                            <div class="premium-header">
+                                <div class="premium-title">📍 Dumping Spots</div>
+                                <div class="premium-description">Monitor waste processing locations</div>
+                            </div>
+                            <div class="premium-content">
+                                <p>Manage 5 waste processing facilities</p>
+                                <div class="premium-actions">
+                                    <a href="/admin/core/dumpingspot/">View All</a>
+                                    <a href="/admin/core/dumpingspot/add/">Add New</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Management -->
+                        <div class="premium-model-card">
+                            <div class="premium-header">
+                                <div class="premium-title">👥 User Management</div>
+                                <div class="premium-description">Control system access and permissions</div>
+                            </div>
+                            <div class="premium-content">
+                                <p>Manage 3 system users and roles</p>
+                                <div class="premium-actions">
+                                    <a href="/admin/auth/user/">View All</a>
+                                    <a href="/admin/auth/user/add/">Add New</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-{% endblock %}
+
+    <script>
+        // Simple, clean admin interface JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚮 Smart Waste Management Admin Panel Loaded');
+            
+            // Add active class to current nav item
+            const currentPath = window.location.pathname;
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            navItems.forEach(item => {
+                if (item.href && currentPath.includes(item.href.split('/').filter(Boolean).pop())) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
