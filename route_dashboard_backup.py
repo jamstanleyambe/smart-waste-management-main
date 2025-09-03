@@ -98,124 +98,10 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None):
     
     # Add truck markers
     for truck in trucks:
-        # Create enhanced truck popup content
-        status_color = "#e74c3c" if truck['status'] == 'MAINTENANCE' else "#27ae60" if truck['status'] == 'ACTIVE' else "#f39c12"
-        status_icon = "🔧" if truck['status'] == 'MAINTENANCE' else "✅" if truck['status'] == 'ACTIVE' else "⏸️"
-        
-        truck_popup_content = f"""
-        <div style="
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-            color: white;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            min-width: 280px;
-            border: 2px solid rgba(255,255,255,0.2);
-        ">
-            <div style="
-                text-align: center;
-                margin-bottom: 12px;
-                padding-bottom: 8px;
-                border-bottom: 2px solid rgba(255,255,255,0.3);
-            ">
-                <h3 style="
-                    margin: 0;
-                    font-size: 18px;
-                    font-weight: bold;
-                    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-                    color: #fff;
-                ">🚛 Waste Truck</h3>
-            </div>
-            
-            <div style="margin-bottom: 8px;">
-                <span style="
-                    display: inline-block;
-                    background: rgba(255,255,255,0.2);
-                    padding: 4px 8px;
-                    border-radius: 20px;
-                    font-weight: bold;
-                    font-size: 11px;
-                    margin-right: 8px;
-                    min-width: 60px;
-                    text-align: center;
-                ">ID</span>
-                <span style="font-weight: bold; font-size: 14px;">{truck['truck_id']}</span>
-            </div>
-            
-            <div style="margin-bottom: 8px;">
-                <span style="
-                    display: inline-block;
-                    background: rgba(255,255,255,0.2);
-                    padding: 4px 8px;
-                    border-radius: 20px;
-                    font-weight: bold;
-                    font-size: 11px;
-                    margin-right: 8px;
-                    min-width: 60px;
-                    text-align: center;
-                ">STATUS</span>
-                <span style="
-                    background: {status_color};
-                    color: white;
-                    padding: 3px 8px;
-                    border-radius: 15px;
-                    font-weight: bold;
-                    font-size: 13px;
-                    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-                ">{status_icon} {truck['status']}</span>
-            </div>
-            
-            <div style="
-                background: rgba(255,255,255,0.1);
-                padding: 10px;
-                border-radius: 8px;
-                margin: 8px 0;
-            ">
-                <div style="font-weight: bold; margin-bottom: 6px; color: #f1c40f;">👨‍💼 Driver & Details</div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                    <span>👤 Driver:</span>
-                    <span style="font-weight: bold; color: #ecf0f1;">{truck['driver_name']}</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                    <span>⛽ Fuel Level:</span>
-                    <span style="font-weight: bold; color: #e67e22;">{truck['fuel_level']:.1f}%</span>
-                </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <span>📍 Location:</span>
-                    <span style="font-weight: bold; color: #95a5a6; font-size: 10px;">
-                        {truck['current_latitude']:.4f}, {truck['current_longitude']:.4f}
-                    </span>
-                </div>
-            </div>
-            
-            <div style="
-                font-size: 10px;
-                color: rgba(255,255,255,0.7);
-                text-align: center;
-                margin-top: 10px;
-                padding-top: 8px;
-                border-top: 1px solid rgba(255,255,255,0.2);
-            ">
-                📅 Updated: {truck['last_updated'][:16].replace('T', ' ')}
-            </div>
-        </div>
-        """
-        
         folium.Marker(
             [truck['current_latitude'], truck['current_longitude']],
-            popup=folium.Popup(truck_popup_content, max_width=320),
+            popup=f"Truck {truck['truck_id']}",
             icon=folium.Icon(color='blue', icon='truck', prefix='fa')
-        ).add_to(m)
-    
-        # Add enhanced truck ID label above the marker
-        folium.Marker(
-            [truck['current_latitude'], truck['current_longitude']],
-            icon=folium.DivIcon(
-                html=f'<div style="font-size:8px;font-weight:bold;color:white;background:rgba(30,144,255,0.95);border:2px solid white;border-radius:4px;padding:1px 3px;text-align:center;display:flex;align-items:center;justify-content:center;white-space:nowrap;box-shadow:0 3px 6px rgba(0,0,0,0.4);transform:translate(-50%,-95%);letter-spacing:0.2px;">{truck["truck_id"]}</div>',
-                icon_size=(38, 10),
-                icon_anchor=(19, 20)
-            )
         ).add_to(m)
     
     # Add bin markers with different colors based on fill level
@@ -226,54 +112,20 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None):
             icon = folium.Icon(color=color, icon='exclamation-triangle', prefix='fa')
         elif bin['fill_level'] == 100:
             color = 'red'
-            # Enhanced 100% full bins with warning symbols and animations
+            # Add blinking effect for 100% full bins
             icon_html = f'''
-                <div style="
-                    width: 32px; 
-                    height: 32px; 
-                    background: linear-gradient(45deg, #dc143c, #ff4444); 
-                    border: 3px solid white;
-                    border-radius: 50%; 
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    animation: alertBlink 1s infinite;
-                    box-shadow: 0 0 15px rgba(220, 20, 60, 0.8);
-                    position: relative;
-                ">
-                    <span style="color: white; font-size: 16px; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">🚨</span>
-                    <div style="
-                        position: absolute;
-                        top: -6px;
-                        right: -6px;
-                        background-color: #ffff00;
-                        color: #dc143c;
-                        border-radius: 50%;
-                        width: 14px;
-                        height: 14px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-size: 8px;
-                        font-weight: bold;
-                        border: 2px solid white;
-                        animation: pulse 0.6s infinite;
-                    ">⚠</div>
+                <div style="background-color: {color}; width: 20px; height: 20px; border-radius: 50%; 
+                           animation: blink 1s infinite;">
                 </div>
                 <style>
-                    @keyframes alertBlink {{
-                        0% {{ opacity: 1; transform: scale(1); }}
-                        50% {{ opacity: 0.7; transform: scale(1.05); }}
-                        100% {{ opacity: 1; transform: scale(1); }}
-                    }}
-                    @keyframes pulse {{
-                        0% {{ transform: scale(1); }}
-                        50% {{ transform: scale(1.3); }}
-                        100% {{ transform: scale(1); }}
+                    @keyframes blink {{
+                        0% {{ opacity: 1; }}
+                        50% {{ opacity: 0.3; }}
+                        100% {{ opacity: 1; }}
                     }}
                 </style>
             '''
-            icon = folium.DivIcon(html=icon_html, icon_size=(32, 32), icon_anchor=(16, 16))
+            icon = folium.DivIcon(html=icon_html)
         elif bin['fill_level'] >= 80:
             color = 'orange'
             icon = folium.Icon(color=color)
@@ -287,121 +139,20 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None):
             color = 'gray'
             icon = folium.Icon(color=color)
         
-        # Create enhanced popup content with professional styling
-        fill_color = "#e74c3c" if bin['fill_level'] >= 80 else "#f39c12" if bin['fill_level'] >= 50 else "#27ae60"
+        # Create popup content
         popup_content = f"""
-        <div style="
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            min-width: 280px;
-            border: 2px solid rgba(255,255,255,0.2);
-        ">
-            <div style="
-                text-align: center;
-                margin-bottom: 12px;
-                padding-bottom: 8px;
-                border-bottom: 2px solid rgba(255,255,255,0.3);
-            ">
-                <h3 style="
-                    margin: 0;
-                    font-size: 18px;
-                    font-weight: bold;
-                    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-                    color: #fff;
-                ">🗑️ Waste Bin</h3>
-            </div>
-            
-            <div style="margin-bottom: 8px;">
-                <span style="
-                    display: inline-block;
-                    background: rgba(255,255,255,0.2);
-                    padding: 4px 8px;
-                    border-radius: 20px;
-                    font-weight: bold;
-                    font-size: 11px;
-                    margin-right: 8px;
-                    min-width: 60px;
-                    text-align: center;
-                ">ID</span>
-                <span style="font-weight: bold; font-size: 14px;">{bin['bin_id']}</span>
-            </div>
-            
-            <div style="margin-bottom: 8px;">
-                <span style="
-                    display: inline-block;
-                    background: rgba(255,255,255,0.2);
-                    padding: 4px 8px;
-                    border-radius: 20px;
-                    font-weight: bold;
-                    font-size: 11px;
-                    margin-right: 8px;
-                    min-width: 60px;
-                    text-align: center;
-                ">FILL</span>
-                <span style="
-                    background: {fill_color};
-                    color: white;
-                    padding: 3px 8px;
-                    border-radius: 15px;
-                    font-weight: bold;
-                    font-size: 13px;
-                    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-                ">{bin['fill_level']:.1f}%</span>
-            </div>
-            
-            <div style="
-                background: rgba(255,255,255,0.1);
-                padding: 10px;
-                border-radius: 8px;
-                margin: 8px 0;
-            ">
-                <div style="font-weight: bold; margin-bottom: 6px; color: #f1c40f;">📊 Composition</div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                    <span>🥬 Organic:</span>
-                    <span style="font-weight: bold; color: #2ecc71;">{bin['organic_percentage']:.1f}%</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                    <span>♻️ Plastic:</span>
-                    <span style="font-weight: bold; color: #3498db;">{bin['plastic_percentage']:.1f}%</span>
-                </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <span>🔩 Metal:</span>
-                    <span style="font-weight: bold; color: #95a5a6;">{bin['metal_percentage']:.1f}%</span>
-                </div>
-            </div>
-            
-            <div style="
-                font-size: 10px;
-                color: rgba(255,255,255,0.7);
-                text-align: center;
-                margin-top: 10px;
-                padding-top: 8px;
-                border-top: 1px solid rgba(255,255,255,0.2);
-            ">
-                📅 Updated: {bin['last_updated'][:16].replace('T', ' ')}
-            </div>
-        </div>
-        """
+            <b>Bin ID:</b> {bin['bin_id']}<br>
+            <b>Fill Level:</b> {bin['fill_level']:.1f}%<br>
+            <b>Organic:</b> {bin['organic_percentage']:.1f}%<br>
+            <b>Plastic:</b> {bin['plastic_percentage']:.1f}%<br>
+            <b>Metal:</b> {bin['metal_percentage']:.1f}%<br>
+            <b>Last Updated:</b> {bin['last_updated']}"""
         
         # Add marker to map
         folium.Marker(
             [bin['latitude'], bin['longitude']],
-            popup=folium.Popup(popup_content, max_width=320),
+            popup=folium.Popup(popup_content, max_width=300),
             icon=icon
-        ).add_to(m)
-
-        # Add enhanced bin ID label above the marker
-        folium.Marker(
-            [bin['latitude'], bin['longitude']],
-            icon=folium.DivIcon(
-                html=f'<div style="font-size:8px;font-weight:bold;color:white;background:rgba(0,0,0,0.9);border:2px solid white;border-radius:4px;padding:1px 3px;text-align:center;display:flex;align-items:center;justify-content:center;white-space:nowrap;box-shadow:0 3px 6px rgba(0,0,0,0.4);transform:translate(-50%,-100%);letter-spacing:0.2px;">{bin["bin_id"]}</div>',
-                icon_size=(28, 10),
-                icon_anchor=(14, 20)
-            )
         ).add_to(m)
 
     # Add dumping spot markers
@@ -414,144 +165,18 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None):
         plastic_percentage = (spot['plastic_content'] / total_content) * 100 if total_content > 0 else 0
         metal_percentage = (spot['metal_content'] / total_content) * 100 if total_content > 0 else 0
         
-        # Create enhanced dumping spot popup content
-        capacity_color = "#e74c3c" if fill_level >= 80 else "#f39c12" if fill_level >= 50 else "#27ae60"
-        
         popup_content = f"""
-        <div style="
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
-            color: white;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            min-width: 280px;
-            border: 2px solid rgba(255,255,255,0.2);
-        ">
-            <div style="
-                text-align: center;
-                margin-bottom: 12px;
-                padding-bottom: 8px;
-                border-bottom: 2px solid rgba(255,255,255,0.3);
-            ">
-                <h3 style="
-                    margin: 0;
-                    font-size: 18px;
-                    font-weight: bold;
-                    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-                    color: #fff;
-                ">🗑️ Dumping Spot</h3>
-            </div>
-            
-            <div style="margin-bottom: 8px;">
-                <span style="
-                    display: inline-block;
-                    background: rgba(255,255,255,0.2);
-                    padding: 4px 8px;
-                    border-radius: 20px;
-                    font-weight: bold;
-                    font-size: 11px;
-                    margin-right: 8px;
-                    min-width: 60px;
-                    text-align: center;
-                ">ID</span>
-                <span style="font-weight: bold; font-size: 14px;">{spot['spot_id']}</span>
-            </div>
-            
-            <div style="margin-bottom: 8px;">
-                <span style="
-                    display: inline-block;
-                    background: rgba(255,255,255,0.2);
-                    padding: 4px 8px;
-                    border-radius: 20px;
-                    font-weight: bold;
-                    font-size: 11px;
-                    margin-right: 8px;
-                    min-width: 60px;
-                    text-align: center;
-                ">FILL</span>
-                <span style="
-                    background: {capacity_color};
-                    color: white;
-                    padding: 3px 8px;
-                    border-radius: 15px;
-                    font-weight: bold;
-                    font-size: 13px;
-                    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-                ">{fill_level:.1f}%</span>
-            </div>
-            
-            <div style="margin-bottom: 8px;">
-                <span style="
-                    display: inline-block;
-                    background: rgba(255,255,255,0.2);
-                    padding: 4px 8px;
-                    border-radius: 20px;
-                    font-weight: bold;
-                    font-size: 11px;
-                    margin-right: 8px;
-                    min-width: 60px;
-                    text-align: center;
-                ">CAPACITY</span>
-                <span style="
-                    background: #8e44ad;
-                    color: white;
-                    padding: 3px 8px;
-                    border-radius: 15px;
-                    font-weight: bold;
-                    font-size: 13px;
-                    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-                ">{spot['total_capacity']:.1f} tons</span>
-            </div>
-            
-            <div style="
-                background: rgba(255,255,255,0.1);
-                padding: 10px;
-                border-radius: 8px;
-                margin: 8px 0;
-            ">
-                <div style="font-weight: bold; margin-bottom: 6px; color: #f1c40f;">📊 Waste Composition</div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                    <span>🥬 Organic:</span>
-                    <span style="font-weight: bold; color: #2ecc71;">{organic_percentage:.1f}%</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                    <span>♻️ Plastic:</span>
-                    <span style="font-weight: bold; color: #3498db;">{plastic_percentage:.1f}%</span>
-                </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <span>🔩 Metal:</span>
-                    <span style="font-weight: bold; color: #95a5a6;">{metal_percentage:.1f}%</span>
-                </div>
-            </div>
-            
-            <div style="
-                background: rgba(255,255,255,0.1);
-                padding: 8px;
-                border-radius: 8px;
-                margin: 8px 0;
-                text-align: center;
-            ">
-                <div style="font-weight: bold; color: #e67e22; font-size: 12px;">
-                    📍 Location: {spot['latitude']:.4f}, {spot['longitude']:.4f}
-                </div>
-            </div>
-        </div>
-        """
+            <b>Dumping Spot ID:</b> {spot['spot_id']}<br>
+            <b>Fill Level:</b> {fill_level:.1f}%<br>
+            <b>Total Capacity:</b> {spot['total_capacity']:.1f} tons<br>
+            <b>Organic Content:</b> {organic_percentage:.1f}%<br>
+            <b>Plastic Content:</b> {plastic_percentage:.1f}%<br>
+            <b>Metal Content:</b> {metal_percentage:.1f}%
+         """
         folium.Marker(
             [spot['latitude'], spot['longitude']],
-            popup=folium.Popup(popup_content, max_width=320),
+            popup=folium.Popup(popup_content, max_width=300),
             icon=folium.Icon(color='black', icon='trash', prefix='fa') # Black color, trash icon
-        ).add_to(m)
-        
-        # Add enhanced dumping spot ID label above the marker
-        folium.Marker(
-            [spot['latitude'], spot['longitude']],
-            icon=folium.DivIcon(
-                html=f'<div style="font-size:8px;font-weight:bold;color:white;background:rgba(44,62,80,0.95);border:2px solid white;border-radius:4px;padding:1px 3px;text-align:center;display:flex;align-items:center;justify-content:center;white-space:nowrap;box-shadow:0 3px 6px rgba(0,0,0,0.4);transform:translate(-50%,-100%);letter-spacing:0.2px;">{spot["spot_id"]}</div>',
-                icon_size=(28, 10),
-                icon_anchor=(14, 20)
-            )
         ).add_to(m)
 
     
@@ -568,31 +193,6 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None):
 
 def main():
     st.title("Smart Waste Management Route Dashboard - Douala 5")
-    
-    # Add custom CSS for container margins
-    st.markdown("""
-    <style>
-    /* Target the specific Streamlit container */
-    .st-emotion-cache-lxqt60.e1cbzgzq10 {
-        margin-left: 10px !important;
-        margin-right: 10px !important;
-    }
-    
-    /* Alternative selector in case the exact class changes */
-    .st-emotion-cache-lxqt60 {
-        margin-left: 10px !important;
-        margin-right: 10px !important;
-    }
-    
-    /* General container margin adjustment */
-    .main .block-container {
-        margin-left: 10px !important;
-        margin-right: 10px !important;
-        padding-left: 10px !important;
-        padding-right: 10px !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
     
     # Remove single truck location input
     # Get bins data
@@ -633,7 +233,85 @@ def main():
         main_map = create_map(bins, dumping_spots, trucks)
     folium_static(main_map)
 
-
+    # Add any item form in the sidebar
+    st.sidebar.header("Add New Item")
+    add_item_type = st.sidebar.selectbox("Select Item Type to Add", ["Bin", "Truck", "Dumping Spot"], key="add_item_type")
+    with st.sidebar.form("add_item_form"):
+        if add_item_type == "Bin":
+            bin_id = st.text_input("Bin ID")
+            fill_level = st.slider("Fill Level (%)", 0, 100, 50)
+            lat = st.number_input("Latitude", value=DOUALA5_CENTER[0], format="%.4f", key="bin_lat")
+            lon = st.number_input("Longitude", value=DOUALA5_CENTER[1], format="%.4f", key="bin_lon")
+            organic = st.slider("Organic (%)", 0, 100, 33)
+            plastic = st.slider("Plastic (%)", 0, 100, 33)
+            metal = st.slider("Metal (%)", 0, 100, 34)
+            submitted = st.form_submit_button("Add Bin")
+            if submitted:
+                if organic + plastic + metal != 100:
+                    st.error("Percentages must sum to 100%")
+                else:
+                    bin_data = {
+                        "bin_id": bin_id,
+                        "fill_level": fill_level,
+                        "latitude": lat,
+                        "longitude": lon,
+                        "organic_percentage": organic,
+                        "plastic_percentage": plastic,
+                        "metal_percentage": metal
+                    }
+                    if add_bin(bin_data):
+                        st.success("Bin added successfully!")
+                        st.rerun()
+                    else:
+                        st.error("Failed to add bin")
+        elif add_item_type == "Truck":
+            truck_id = st.text_input("Truck ID")
+            driver_name = st.text_input("Driver Name")
+            current_lat = st.number_input("Latitude", value=DOUALA5_CENTER[0], format="%.4f", key="truck_lat")
+            current_lon = st.number_input("Longitude", value=DOUALA5_CENTER[1], format="%.4f", key="truck_lon")
+            fuel_level = st.number_input("Fuel Level", value=100.0, format="%.2f")
+            status = st.selectbox("Status", ["ACTIVE", "IDLE", "MAINTENANCE"])
+            submitted = st.form_submit_button("Add Truck")
+            if submitted:
+                truck_data = {
+                    "truck_id": truck_id,
+                    "driver_name": driver_name,
+                    "current_latitude": current_lat,
+                    "current_longitude": current_lon,
+                    "fuel_level": fuel_level,
+                    "status": status
+                }
+                response = requests.post(f"{API_BASE_URL}/trucks/", json=truck_data)
+                if response.status_code == 201:
+                    st.success("Truck added successfully!")
+                    st.rerun()
+                else:
+                    st.error(f"Failed to add truck: {response.text}")
+        else:
+            spot_id = st.text_input("Dumping Spot ID")
+            lat = st.number_input("Latitude", value=DOUALA5_CENTER[0], format="%.4f", key="spot_lat")
+            lon = st.number_input("Longitude", value=DOUALA5_CENTER[1], format="%.4f", key="spot_lon")
+            total_capacity = st.number_input("Total Capacity", value=1000.0, format="%.2f")
+            organic_content = st.number_input("Organic Content", value=0.0, format="%.2f")
+            plastic_content = st.number_input("Plastic Content", value=0.0, format="%.2f")
+            metal_content = st.number_input("Metal Content", value=0.0, format="%.2f")
+            submitted = st.form_submit_button("Add Dumping Spot")
+            if submitted:
+                spot_data = {
+                    "spot_id": spot_id,
+                    "latitude": lat,
+                    "longitude": lon,
+                    "total_capacity": total_capacity,
+                    "organic_content": organic_content,
+                    "plastic_content": plastic_content,
+                    "metal_content": metal_content
+                }
+                response = requests.post(f"{API_BASE_URL}/dumping-spots/", json=spot_data)
+                if response.status_code == 201:
+                    st.success("Dumping Spot added successfully!")
+                    st.rerun()
+                else:
+                    st.error(f"Failed to add dumping spot: {response.text}")
 
     # Calculate and display statistics
     st.header("Bin Statistics")

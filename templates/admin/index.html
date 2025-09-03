@@ -1,202 +1,6 @@
 {% extends "admin/base_site.html" %}
 {% load i18n %}
 
-{% block extrahead %}
-<script>
-// Performance-optimized sidebar implementation
-(function() {
-    'use strict';
-    
-    // Cache DOM elements
-    let sidebar, mobileToggle;
-    
-    // Debounced resize handler
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-    
-    // Create sidebar element
-    function createSidebar() {
-        sidebar = document.createElement('div');
-        sidebar.id = 'custom-nav-sidebar';
-        sidebar.innerHTML = `
-            <h2>Navigation</h2>
-            <ul>
-                <li><a href="/admin/">🏠 Dashboard</a></li>
-                <li><a href="/admin/core/bin/">🗑️ Bins</a></li>
-                <li><a href="/admin/core/truck/">🚛 Trucks</a></li>
-                <li><a href="/admin/core/dumpingspot/">📍 Dumping Spots</a></li>
-                <li><a href="/admin/core/role/">👥 Roles</a></li>
-                <li><a href="/admin/auth/user/">👤 Users</a></li>
-            </ul>
-        `;
-        return sidebar;
-    }
-    
-    // Create mobile toggle
-    function createMobileToggle() {
-        mobileToggle = document.createElement('button');
-        mobileToggle.className = 'mobile-menu-toggle';
-        mobileToggle.id = 'mobile-menu-toggle';
-        mobileToggle.innerHTML = '<span>☰</span>';
-        mobileToggle.style.display = 'none';
-        return mobileToggle;
-    }
-    
-    // Handle responsive behavior
-    function handleResponsive() {
-        if (window.innerWidth <= 768) {
-            mobileToggle.style.display = 'flex';
-            sidebar.style.right = '-300px';
-        } else {
-            mobileToggle.style.display = 'none';
-            sidebar.style.right = '20px';
-            sidebar.classList.remove('open');
-        }
-    }
-    
-    // Initialize sidebar
-    function initSidebar() {
-        console.log('Sidebar injection script loaded');
-        
-        // Create and inject sidebar
-        sidebar = createSidebar();
-        document.body.appendChild(sidebar);
-        console.log('Sidebar injected into page');
-        
-        // Create and inject mobile toggle
-        mobileToggle = createMobileToggle();
-        document.body.appendChild(mobileToggle);
-        
-        // Event listeners
-        mobileToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('open');
-        });
-        
-        // Close sidebar when clicking outside on mobile
-        document.addEventListener('click', function(event) {
-            if (!sidebar.contains(event.target) && !mobileToggle.contains(event.target)) {
-                sidebar.classList.remove('open');
-            }
-        });
-        
-        // Responsive behavior with debouncing
-        handleResponsive();
-        window.addEventListener('resize', debounce(handleResponsive, 150));
-    }
-    
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initSidebar);
-    } else {
-        initSidebar();
-    }
-    
-    // Enhanced UX features
-    function initUXFeatures() {
-        // Add loading states to buttons
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('admin-btn')) {
-                e.target.classList.add('loading');
-                setTimeout(() => {
-                    e.target.classList.remove('loading');
-                }, 2000);
-            }
-        });
-        
-        // Add toast notifications
-        function showToast(message, type = 'info') {
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            
-            // Show toast
-            setTimeout(() => toast.classList.add('show'), 100);
-            
-            // Hide toast after 3 seconds
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => document.body.removeChild(toast), 300);
-            }, 3000);
-        }
-        
-        // Show welcome toast
-        setTimeout(() => {
-            showToast('🎉 Welcome to Smart Waste Management Admin!', 'success');
-        }, 1000);
-        
-        // Add keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            // Ctrl/Cmd + K to focus search
-            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-                e.preventDefault();
-                const searchInput = document.querySelector('input[type="search"], input[name="q"]');
-                if (searchInput) searchInput.focus();
-            }
-            
-            // Escape to close sidebar on mobile
-            if (e.key === 'Escape' && window.innerWidth <= 768) {
-                sidebar.classList.remove('open');
-            }
-        });
-        
-        // Add smooth scroll to top
-        const scrollToTop = document.createElement('button');
-        scrollToTop.innerHTML = '⬆️';
-        scrollToTop.className = 'scroll-to-top';
-        scrollToTop.style.cssText = `
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            cursor: pointer;
-            box-shadow: var(--shadow-md);
-            transition: all 0.3s ease;
-            z-index: var(--z-fixed);
-            display: none;
-        `;
-        
-        document.body.appendChild(scrollToTop);
-        
-        // Show/hide scroll to top button
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-                scrollToTop.style.display = 'block';
-            } else {
-                scrollToTop.style.display = 'none';
-            }
-        });
-        
-        // Scroll to top functionality
-        scrollToTop.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
-    
-    // Initialize UX features
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initUXFeatures);
-    } else {
-        initUXFeatures();
-    }
-})();
-</script>
-{% endblock %}
-
 {% block content %}
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="dashboard-container" id="main-content">
@@ -205,8 +9,8 @@
         <p class="dashboard-subtitle">Comprehensive overview of your waste management operations</p>
     </div>
 
-    <div class="admin-grid cols-6">
-        <div class="admin-card stat-card">
+    <div class="dashboard-stats">
+        <div class="stat-card">
             <div class="stat-icon">👥</div>
             <h3>Total Users</h3>
             <div class="number">{{ user_count|default:"0" }}</div>
@@ -214,7 +18,7 @@
             <div class="stat-trend positive">{{ active_user_count|default:"0" }} Active</div>
         </div>
         
-        <div class="admin-card stat-card">
+        <div class="stat-card">
             <div class="stat-icon">🗑️</div>
             <h3>Total Bins</h3>
             <div class="number">{{ bin_count|default:"0" }}</div>
@@ -222,7 +26,7 @@
             <div class="stat-trend positive">{{ full_bins|default:"0" }} Full</div>
         </div>
         
-        <div class="admin-card stat-card">
+        <div class="stat-card">
             <div class="stat-icon">🚛</div>
             <h3>Total Trucks</h3>
             <div class="number">{{ truck_count|default:"0" }}</div>
@@ -230,7 +34,7 @@
             <div class="stat-trend positive">{{ active_trucks|default:"0" }} Active</div>
         </div>
         
-        <div class="admin-card stat-card">
+        <div class="stat-card">
             <div class="stat-icon">📍</div>
             <h3>Dumping Spots</h3>
             <div class="number">{{ dumping_spot_count|default:"0" }}</div>
@@ -238,7 +42,7 @@
             <div class="stat-trend positive">{{ avg_fill_level_spots|default:"0" }}% Avg Fill</div>
         </div>
         
-        <div class="admin-card stat-card">
+        <div class="stat-card">
             <div class="stat-icon">📊</div>
             <h3>Avg Fill Level</h3>
             <div class="number">{{ avg_fill_level|default:"0" }}%</div>
@@ -246,7 +50,7 @@
             <div class="stat-trend neutral">{{ empty_bins|default:"0" }} Empty</div>
         </div>
         
-        <div class="admin-card stat-card">
+        <div class="stat-card">
             <div class="stat-icon">🔧</div>
             <h3>Roles</h3>
             <div class="number">{{ role_count|default:"0" }}</div>
@@ -256,8 +60,8 @@
     </div>
 
     <!-- Additional Statistics Row -->
-    <div class="admin-grid cols-6" style="margin-top: var(--spacing-md);">
-        <div class="admin-card stat-card">
+    <div class="dashboard-stats" style="margin-top: 1rem;">
+        <div class="stat-card">
             <div class="stat-icon">⚡</div>
             <h3>Active Trucks</h3>
             <div class="number">{{ active_trucks|default:"0" }}</div>
@@ -265,7 +69,7 @@
             <div class="stat-trend positive">On Duty</div>
         </div>
         
-        <div class="admin-card stat-card">
+        <div class="stat-card">
             <div class="stat-icon">⏸️</div>
             <h3>Idle Trucks</h3>
             <div class="number">{{ idle_trucks|default:"0" }}</div>
@@ -273,7 +77,7 @@
             <div class="stat-trend neutral">Standby</div>
         </div>
         
-        <div class="admin-card stat-card">
+        <div class="stat-card">
             <div class="stat-icon">🔧</div>
             <h3>Maintenance</h3>
             <div class="number">{{ maintenance_trucks|default:"0" }}</div>
@@ -281,7 +85,7 @@
             <div class="stat-trend negative">Service</div>
         </div>
         
-        <div class="admin-card stat-card">
+        <div class="stat-card">
             <div class="stat-icon">📈</div>
             <h3>Total Capacity</h3>
             <div class="number">{{ total_capacity|default:"0" }}</div>
@@ -289,7 +93,7 @@
             <div class="stat-trend neutral">Tons</div>
         </div>
         
-        <div class="admin-card stat-card">
+        <div class="stat-card">
             <div class="stat-icon">🔄</div>
             <h3>Recent Activity</h3>
             <div class="number">{{ recent_bins|default:"0" }}</div>
@@ -297,7 +101,7 @@
             <div class="stat-trend positive">Active</div>
         </div>
         
-        <div class="admin-card stat-card">
+        <div class="stat-card">
             <div class="stat-icon">📊</div>
             <h3>System Health</h3>
             <div class="number">{{ role_count|default:"0" }}</div>
@@ -306,150 +110,62 @@
         </div>
     </div>
 
-    <div class="admin-card quick-actions-module">
+    <div class="module quick-actions-module">
         <h2>🚀 Quick Actions</h2>
         <p class="module-description">Manage your waste management system efficiently</p>
-        <div class="admin-grid cols-5">
-            <a href="{% url 'admin:core_role_add' %}" class="admin-btn">👥 Add New Role</a>
-            <a href="{% url 'admin:core_bin_add' %}" class="admin-btn">🗑️ Add New Bin</a>
-            <a href="{% url 'admin:core_truck_add' %}" class="admin-btn">🚛 Add New Truck</a>
-            <a href="{% url 'admin:core_dumpingspot_add' %}" class="admin-btn">📍 Add Dumping Spot</a>
-            <a href="{% url 'user_dashboard' %}" class="admin-btn secondary">🔐 User Management</a>
+        <div class="user-actions">
+            <a href="{% url 'admin:core_role_add' %}" class="button">👥 Add New Role</a>
+            <a href="{% url 'admin:core_bin_add' %}" class="button">🗑️ Add New Bin</a>
+            <a href="{% url 'admin:core_truck_add' %}" class="button">🚛 Add New Truck</a>
+            <a href="{% url 'admin:core_dumpingspot_add' %}" class="button">📍 Add Dumping Spot</a>
+            <a href="{% url 'user_dashboard' %}" class="button">🔐 User Management</a>
         </div>
     </div>
 
-    <!-- Premium Core Management Section -->
-    <div class="admin-card premium-core-section">
-        <div class="premium-header">
-            <div class="header-content">
-                <div class="header-icon">
-                    <div class="icon-circle">
-                        <span class="icon-emoji">⚙️</span>
-                    </div>
-                </div>
-                <div class="header-text">
-                    <h2 class="premium-title">CORE MANAGEMENT</h2>
-                    <p class="premium-subtitle">Advanced control center for your waste management system</p>
-                </div>
-                <div class="header-stats">
-                    <div class="admin-badge info">
-                        <span class="stat-number">{{ app_list|length }}</span>
-                        <span class="stat-label">APPS</span>
-                    </div>
-                    <div class="admin-badge info">
-                        <span class="stat-number">{{ app_list|length|add:"0" }}</span>
-                        <span class="stat-label">MODELS</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="premium-content">
-            {% if app_list %}
-                {% for app in app_list %}
-                    <div class="app-container">
-                        <div class="app-header">
-                            <div class="app-icon-wrapper">
-                                <div class="app-icon">
-                                    {% if app.name == "Core" %}
-                                        ⚙️
-                                    {% elif app.name == "Authentication and Authorization" %}
-                                        🔐
-                                    {% else %}
-                                        📱
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="app-info">
-                                <h3 class="app-name">{{ app.name }}</h3>
-                                <div class="app-meta">
-                                    <span class="model-count">{{ app.models|length }} Models</span>
-                                    <span class="app-status active">Active</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {% if app.models %}
-                            <div class="admin-grid cols-3">
+    <div class="app-list">
+        {% if app_list %}
+            {% for app in app_list %}
+                <div class="module">
+                    <h2>{{ app.name }}</h2>
+                    {% if app.models %}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Model name</th>
+                                    <th>Add link</th>
+                                    <th>Change or view list link</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 {% for model in app.models %}
-                                    <div class="admin-card premium-model-card">
-                                        <div class="card-header">
-                                            <div class="model-icon-wrapper">
-                                                <div class="model-icon">
-                                                    {% if "bin" in model.name|lower %}
-                                                        🗑️
-                                                    {% elif "truck" in model.name|lower %}
-                                                        🚛
-                                                    {% elif "dumping" in model.name|lower %}
-                                                        📍
-                                                    {% elif "role" in model.name|lower %}
-                                                        👥
-                                                    {% elif "user" in model.name|lower %}
-                                                        👤
-                                                    {% else %}
-                                                        📋
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                            <div class="model-status">
-                                                <span class="admin-badge success">Ready</span>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="card-body">
-                                            <h4 class="model-title">{{ model.name }}</h4>
-                                            <p class="model-description">
-                                                {% if "bin" in model.name|lower %}
-                                                    Intelligent waste collection bin management system
-                                                {% elif "truck" in model.name|lower %}
-                                                    Advanced fleet vehicle tracking and management
-                                                {% elif "dumping" in model.name|lower %}
-                                                    Comprehensive waste disposal site operations
-                                                {% elif "role" in model.name|lower %}
-                                                    Secure user role and permission management
-                                                {% elif "user" in model.name|lower %}
-                                                    Complete user account administration
-                                                {% else %}
-                                                    System component management and control
-                                                {% endif %}
-                                            </p>
-                                        </div>
-                                        
-                                        <div class="card-actions">
+                                    <tr>
+                                        <td>{{ model.name }}</td>
+                                        <td>
                                             {% if model.add_url %}
-                                                <a href="{{ model.add_url }}" class="admin-btn" title="Create new {{ model.name }}">
-                                                    <span class="btn-icon">➕</span>
-                                                    <span class="btn-text">Add New</span>
-                                                </a>
+                                                <a href="{{ model.add_url }}">Add</a>
+                                            {% else %}
+                                                &nbsp;
                                             {% endif %}
-                                            
+                                        </td>
+                                        <td>
                                             {% if model.admin_url %}
-                                                <a href="{{ model.admin_url }}" class="admin-btn secondary" title="Manage {{ model.name }}">
-                                                    <span class="btn-icon">⚙️</span>
-                                                    <span class="btn-text">Manage</span>
-                                                </a>
+                                                <a href="{{ model.admin_url }}">Change</a>
+                                            {% else %}
+                                                &nbsp;
                                             {% endif %}
-                                        </div>
-                                    </div>
+                                        </td>
+                                    </tr>
                                 {% endfor %}
-                            </div>
-                        {% else %}
-                            <div class="empty-state">
-                                <div class="empty-icon">📭</div>
-                                <h4>No Models Available</h4>
-                                <p>This application doesn't have any models configured.</p>
-                            </div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-            {% else %}
-                <div class="empty-apps">
-                    <div class="empty-apps-icon">🚫</div>
-                    <h3>No Applications Configured</h3>
-                    <p>Your Django project doesn't have any applications set up yet.</p>
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>No models available.</p>
+                    {% endif %}
                 </div>
-            {% endif %}
-        </div>
+            {% endfor %}
+        {% else %}
+            <p>No apps available.</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
