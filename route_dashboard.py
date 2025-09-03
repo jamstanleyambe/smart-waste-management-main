@@ -29,6 +29,280 @@ local_css("style.css")
 # Call the function to inject JS (example)
 local_js("console.log('Hello from Streamlit JS!');")
 
+# Inject custom CSS for full-width layout and map styling
+st.markdown("""
+<style>
+    /* Full-Width Layout - Remove All White Space */
+    .main .block-container {
+        padding: 1rem 0.5rem !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    /* Expand all content to full screen width */
+    .main .block-container > div {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    /* Force full width for all Streamlit elements */
+    .stMarkdown, .stHeader, .stSubheader, .stText, .stMap, .stDataFrame {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    
+    /* Remove default Streamlit margins and padding */
+    .stMarkdown > div {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    /* Full-width map container */
+    .stMap {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Force map to span full width */
+    .stMap > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Map iframe full width */
+    .stMap iframe {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+    }
+    
+    /* Map container wrapper */
+    .stMap > div > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Force all map elements to full width */
+    .stMap * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Target Folium map container for end-to-end span */
+    .folium-map.leaflet-container.leaflet-touch.leaflet-retina.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+    }
+    
+    /* Alternative Folium selectors for broader coverage */
+    .folium-map {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .leaflet-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Force all Folium elements to full width */
+    .folium-map *, .leaflet-container * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Enhanced Folium map end-to-end span */
+    .folium-map.leaflet-container.leaflet-touch.leaflet-retina.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        position: relative !important;
+    }
+    
+    /* Force Folium map to use full viewport width */
+    .folium-map {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+    }
+    
+    /* Leaflet container full width */
+    .leaflet-container {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+    }
+    
+    /* Force all map elements to use full width */
+    .folium-map > div, .leaflet-container > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Map tiles full width */
+    .leaflet-tile-pane, .leaflet-overlay-pane, .leaflet-marker-pane {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Target Streamlit element container for end-to-end span */
+    .stElementContainer.element-container.st-emotion-cache-1clwqzo.eertqu00 {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        position: relative !important;
+    }
+    
+    /* Alternative selectors for broader coverage */
+    .stElementContainer {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .element-container {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .st-emotion-cache-1clwqzo.eertqu00 {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Force all content inside to use full width */
+    .stElementContainer > div, .element-container > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Target specific container for end-to-end spread */
+    .st-emotion-cache-lxqt60.e1cbzgzq10 {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+    }
+    
+    /* Force all content inside to spread end-to-end */
+    .st-emotion-cache-lxqt60.e1cbzgzq10 > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Alternative selector in case class changes */
+    .st-emotion-cache-lxqt60 {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Target stMain container for smaller size with nice padding */
+    .stMain.st-emotion-cache-z4kicb.e1cbzgzq1 {
+        width: 90% !important;
+        max-width: 1200px !important;
+        margin: 0 auto !important;
+        padding: 2rem !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+    }
+    
+    /* Force all content inside stMain to fit properly */
+    .stMain.st-emotion-cache-z4kicb.e1cbzgzq1 > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Alternative stMain selectors */
+    .stMain {
+        width: 90% !important;
+        max-width: 1200px !important;
+        margin: 0 auto !important;
+        padding: 2rem !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+    }
+    
+    .st-emotion-cache-z4kicb.e1cbzgz1 {
+        width: 90% !important;
+        max-width: 1200px !important;
+        margin: 0 auto !important;
+        padding: 2rem !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+    }
+    
+    /* Professional Form Styling */
+    .stSelectbox, .stTextInput, .stButton {
+        margin: 0.5rem 0 !important;
+        width: 100% !important;
+    }
+    
+    /* Additional overflow prevention */
+    .stMain, .stMain > div, .main .block-container, .main .block-container > div {
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    .stMain * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 def calculate_distance(lat1, lon1, lat2, lon2):
     """Calculate Euclidean distance between two points in kilometers"""
     R = 6371  # Earth's radius in kilometers
@@ -94,7 +368,7 @@ def delete_bin(bin_id):
     return response.status_code == 204
 
 def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None):
-    m = folium.Map(location=[4.0511, 9.7679], zoom_start=13)
+    m = folium.Map(location=[4.0511, 9.7679], zoom_start=10)
     
     # Add truck markers
     for truck in trucks:
