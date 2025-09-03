@@ -43,37 +43,37 @@ def get_bins():
     """Fetch all bins from the API"""
     response = requests.get(f"{API_BASE_URL}/bin-data/")
     print(f"API Response: {response.status_code} - {response.text}")
-    if response.status_code == 200:
+        if response.status_code == 200:
         data = response.json()
         # Handle paginated response
         if isinstance(data, dict) and 'results' in data:
             return data['results']
         return data
-    return []
+            return []
 
 def get_dumping_spots():
     """Fetch all dumping spots from the API"""
     response = requests.get(f"{API_BASE_URL}/dumping-spots/")
     print(f"Dumping Spot API Response: {response.status_code} - {response.text}")
-    if response.status_code == 200:
+        if response.status_code == 200:
         data = response.json()
         # Handle paginated response
         if isinstance(data, dict) and 'results' in data:
             return data['results']
         return data
-    return []
+            return []
 
 def get_trucks():
     """Fetch all trucks from the API"""
     response = requests.get(f"{API_BASE_URL}/trucks/")
     print(f"Truck API Response: {response.status_code} - {response.text}")
-    if response.status_code == 200:
+        if response.status_code == 200:
         data = response.json()
         # Handle paginated response
         if isinstance(data, dict) and 'results' in data:
             return data['results']
         return data
-    return []
+            return []
 
 def add_bin(bin_data):
     """Add a new bin via the API"""
@@ -84,11 +84,11 @@ def add_bin(bin_data):
 def delete_bin(bin_id):
     """Delete a bin via the API using the RESTful endpoint (by pk/id)"""
     # Find the bin's pk (id) from the bins list
-    bins_list = get_bins()
-    bin_obj = next((b for b in bins_list if b['bin_id'] == bin_id), None)
-    if not bin_obj:
-        return False
-    pk = bin_obj['id']
+        bins_list = get_bins()
+        bin_obj = next((b for b in bins_list if b['bin_id'] == bin_id), None)
+        if not bin_obj:
+            return False
+        pk = bin_obj['id']
     response = requests.delete(f"{API_BASE_URL}/bin-data/{pk}/")
     print(f"Delete Bin API Response: {response.status_code} - {response.text}")
     return response.status_code == 204
@@ -98,10 +98,67 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None):
     
     # Add truck markers
     for truck in trucks:
+        # Determine truck color based on status
+        truck_color = '#1e90ff'  # Default blue
+        if truck['status'] == 'MAINTENANCE':
+            truck_color = '#ff6b6b'  # Red for maintenance
+        elif truck['status'] == 'ACTIVE':
+            truck_color = '#51cf66'  # Green for active
+        elif truck['status'] == 'IDLE':
+            truck_color = '#ffd43b'  # Yellow for idle
+            
+        # Create enhanced popup content
+        popup_content = f"""
+            <b>Truck ID:</b> {truck['truck_id']}<br>
+            <b>Driver:</b> {truck['driver_name']}<br>
+            <b>Status:</b> {truck['status']}<br>
+            <b>Fuel Level:</b> {truck['fuel_level']:.1f}%<br>
+            <b>Location:</b> ({truck['current_latitude']:.4f}, {truck['current_longitude']:.4f})<br>
+            <b>Last Updated:</b> {truck['last_updated']}"""
+        
+        # Create custom truck marker with ID label
         folium.Marker(
             [truck['current_latitude'], truck['current_longitude']],
-            popup=f"Truck {truck['truck_id']}",
-            icon=folium.Icon(color='blue', icon='truck', prefix='fa')
+            popup=folium.Popup(popup_content, max_width=300),
+            icon=folium.DivIcon(
+                html=f'''
+                <div style="
+                    width: 40px; 
+                    height: 40px; 
+                    background-color: {truck_color}; 
+                    border: 3px solid white;
+                    border-radius: 12px; 
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+                    position: relative;
+                ">
+                    <div style="
+                        font-size: 20px; 
+                        color: white;
+                    ">🚛</div>
+            </div>
+                <div style="
+                    position: absolute;
+                    top: -24px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    font-size: 11px; 
+                    font-weight: bold; 
+                    color: white; 
+                    background-color: rgba(30, 144, 255, 0.9); 
+                    border: 1px solid white;
+                    border-radius: 6px; 
+                    padding: 2px 6px; 
+                    text-align: center;
+                    white-space: nowrap;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                ">{truck['truck_id']}</div>
+                ''',
+                icon_size=(40, 40),
+                icon_anchor=(20, 20)
+            )
         ).add_to(m)
     
     # Add bin markers with different colors based on fill level
@@ -148,12 +205,99 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None):
             <b>Metal:</b> {bin['metal_percentage']:.1f}%<br>
             <b>Last Updated:</b> {bin['last_updated']}"""
         
-        # Add marker to map
+        # Create custom marker with bin ID label
+        # For 100% full bins with blinking effect, keep the special icon
+        if bin['fill_level'] == 100:
         folium.Marker(
             [bin['latitude'], bin['longitude']],
             popup=folium.Popup(popup_content, max_width=300),
             icon=icon
         ).add_to(m)
+
+            # Add text label for bin ID
+            folium.Marker(
+                [bin['latitude'], bin['longitude']],
+                icon=folium.DivIcon(
+                    html=f'''
+                    <div style="
+                        font-size: 10px; 
+                        font-weight: bold; 
+                        color: white; 
+                        background-color: rgba(220, 20, 60, 0.8); 
+                        border: 2px solid white;
+                        border-radius: 8px; 
+                        padding: 2px 6px; 
+                        text-align: center;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                        white-space: nowrap;
+                        transform: translate(-50%, -100%);
+                        margin-top: -25px;
+                    ">{bin['bin_id']}</div>
+                    ''',
+                    icon_size=(50, 20),
+                    icon_anchor=(25, 35)
+                )
+            ).add_to(m)
+        else:
+            # For regular bins, create a custom marker with bin ID
+            # Get color name for styling
+            color_map = {
+                'red': '#dc143c',
+                'orange': '#ff8c00', 
+                'yellow': '#ffd700',
+                'green': '#32cd32',
+                'gray': '#808080'
+            }
+            
+            marker_color = color_map.get(color, '#808080')
+            text_color = 'white' if color in ['red', 'green', 'gray'] else 'black'
+            
+            # Create custom marker with bin ID displayed
+            folium.Marker(
+                [bin['latitude'], bin['longitude']],
+                popup=folium.Popup(popup_content, max_width=300),
+                icon=folium.DivIcon(
+                    html=f'''
+                    <div style="
+                        width: 30px; 
+                        height: 30px; 
+                        background-color: {marker_color}; 
+                        border: 3px solid white;
+                        border-radius: 50%; 
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+                        position: relative;
+                    ">
+                        <div style="
+                            font-size: 8px; 
+                            font-weight: bold; 
+                            color: {text_color};
+                            text-align: center;
+                            line-height: 1;
+                        ">{bin['fill_level']:.0f}%</div>
+                    </div>
+                    <div style="
+                        position: absolute;
+                        top: -20px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        font-size: 10px; 
+                        font-weight: bold; 
+                        color: white; 
+                        background-color: rgba(0, 0, 0, 0.7); 
+                        border-radius: 4px; 
+                        padding: 1px 4px; 
+                        text-align: center;
+                        white-space: nowrap;
+                        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                    ">{bin['bin_id']}</div>
+                    ''',
+                    icon_size=(30, 30),
+                    icon_anchor=(15, 15)
+                )
+            ).add_to(m)
 
     # Add dumping spot markers
     for spot in dumping_spots:
@@ -173,10 +317,49 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None):
             <b>Plastic Content:</b> {plastic_percentage:.1f}%<br>
             <b>Metal Content:</b> {metal_percentage:.1f}%
          """
+        # Create custom dumping spot marker with ID label
         folium.Marker(
             [spot['latitude'], spot['longitude']],
             popup=folium.Popup(popup_content, max_width=300),
-            icon=folium.Icon(color='black', icon='trash', prefix='fa') # Black color, trash icon
+            icon=folium.DivIcon(
+                html=f'''
+                <div style="
+                    width: 35px; 
+                    height: 35px; 
+                    background-color: #2c3e50; 
+                    border: 3px solid white;
+                    border-radius: 8px; 
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+                    position: relative;
+                ">
+                    <div style="
+                        font-size: 18px; 
+                        color: white;
+                    ">🗑️</div>
+                </div>
+                <div style="
+                    position: absolute;
+                    top: -22px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    font-size: 11px; 
+                    font-weight: bold; 
+                    color: white; 
+                    background-color: rgba(44, 62, 80, 0.9); 
+                    border: 1px solid white;
+                    border-radius: 6px; 
+                    padding: 2px 6px; 
+                    text-align: center;
+                    white-space: nowrap;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                ">{spot['spot_id']}</div>
+                ''',
+                icon_size=(35, 35),
+                icon_anchor=(17, 17)
+            )
         ).add_to(m)
 
     
@@ -196,11 +379,11 @@ def main():
     
     # Remove single truck location input
     # Get bins data
-    bins = get_bins()
+            bins = get_bins()
     # Get dumping spot data
-    dumping_spots = get_dumping_spots()
+            dumping_spots = get_dumping_spots()
     # Get trucks data
-    trucks = get_trucks()
+        trucks = get_trucks()
     
     # Search and highlight item on the map
     st.header("Search Item by ID on Map")

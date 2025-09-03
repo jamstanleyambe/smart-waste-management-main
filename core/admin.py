@@ -202,4 +202,4 @@ admin_site.register(Truck, TruckAdmin)
 # Customize custom admin site
 admin_site.site_header = "Smart Waste Management Admin"
 admin_site.site_title = "Waste Management Admin"
-admin.site.index_title = "Welcome to Smart Waste Management Administration" 
+admin_site.index_title = "Welcome to Smart Waste Management Administration" 
