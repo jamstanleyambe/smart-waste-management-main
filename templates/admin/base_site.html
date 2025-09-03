@@ -7073,7 +7073,7 @@
     <!-- Top Bar -->
     <div class="admin-header">
         <div class="header-left">
-            <span class="admin-title">Admin Panel</span>
+            <span class="admin-title">🚮 Smart Waste Management Admin</span>
         </div>
         <div class="header-right">
             <span class="user-info">{{ user.username|default:"Admin" }}</span>
@@ -7083,12 +7083,12 @@
 
     <!-- Navigation -->
     <div class="admin-nav">
-        <a href="{% url 'admin:index' %}" class="nav-item {% if not title %}active{% endif %}">Dashboard</a>
-        <a href="{% url 'admin:core_bin_changelist' %}" class="nav-item">Bins</a>
-        <a href="{% url 'admin:core_truck_changelist' %}" class="nav-item">Trucks</a>
-        <a href="{% url 'admin:core_dumpingspot_changelist' %}" class="nav-item">Dumping Spots</a>
-        <a href="{% url 'admin:core_role_changelist' %}" class="nav-item">Roles</a>
-        <a href="{% url 'admin:auth_user_changelist' %}" class="nav-item">Users</a>
+        <a href="{% url 'admin:index' %}" class="nav-item {% if not title %}active{% endif %}">🏠 Dashboard</a>
+        <a href="{% url 'admin:core_bin_changelist' %}" class="nav-item">🗑️ Bins</a>
+        <a href="{% url 'admin:core_truck_changelist' %}" class="nav-item">🚛 Trucks</a>
+        <a href="{% url 'admin:core_dumpingspot_changelist' %}" class="nav-item">📍 Dumping Spots</a>
+        <a href="{% url 'admin:core_role_changelist' %}" class="nav-item">👥 Roles</a>
+        <a href="{% url 'admin:auth_user_changelist' %}" class="nav-item">👤 Users</a>
     </div>
 
     <!-- Main Content -->
@@ -7135,6 +7135,9 @@ body {
     font-size: 20px;
     font-weight: 600;
     color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .header-right {
