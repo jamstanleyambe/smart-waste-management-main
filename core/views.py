@@ -94,7 +94,15 @@ class DumpingSpotViewSet(viewsets.ModelViewSet):
 class TruckViewSet(viewsets.ModelViewSet):
     queryset = Truck.objects.all()
     serializer_class = TruckSerializer
-    permission_classes = [IsAuthenticated]
+    
+    def get_permissions(self):
+        """
+        Allow unauthenticated access for GET requests (dashboard access)
+        Require authentication for POST, PUT, DELETE operations
+        """
+        if self.action in ['list', 'retrieve']:
+            return []  # No permission required for read operations
+        return [IsAuthenticated()]  # Authentication required for create/update/delete operations
     
     def perform_create(self, serializer):
         serializer.save()
@@ -112,7 +120,15 @@ class TruckViewSet(viewsets.ModelViewSet):
 class BinViewSet(viewsets.ModelViewSet):
     queryset = Bin.objects.all()
     serializer_class = BinSerializer
-    permission_classes = [IsAuthenticated]
+    
+    def get_permissions(self):
+        """
+        Allow unauthenticated access for GET requests (dashboard access)
+        Require authentication for POST, PUT, DELETE operations
+        """
+        if self.action in ['list', 'retrieve']:
+            return []  # No permission required for read operations
+        return [IsAuthenticated()]  # Authentication required for create/update/delete operations
     
     def perform_create(self, serializer):
         serializer.save()
