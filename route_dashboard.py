@@ -1530,22 +1530,125 @@ def main():
     # Get trucks data
     trucks = get_trucks()
     
+    # Display last update timestamp and data freshness indicator
+    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    # Check if we have recent data (within last 5 minutes)
+    if bins and len(bins) > 0:
+        latest_bin_time = max(bins, key=lambda x: x.get('last_updated', '1970-01-01')).get('last_updated', '1970-01-01')
+        if latest_bin_time != '1970-01-01':
+            try:
+                from datetime import datetime as dt_local
+                latest_time = dt_local.fromisoformat(latest_bin_time.replace('Z', '+00:00'))
+                time_diff = (dt_local.now().astimezone() - latest_time.astimezone()).total_seconds() / 60
+                
+                if time_diff < 5:
+                    freshness_icon = "🟢"
+                    freshness_text = "Fresh"
+                elif time_diff < 15:
+                    freshness_icon = "🟡"
+                    freshness_text = "Recent"
+                else:
+                    freshness_icon = "🔴"
+                    freshness_text = "Stale"
+                
+                st.caption(f"{freshness_icon} Data freshness: {freshness_text} | 📅 Last updated: {current_time} | 🕒 API data: {time_diff:.1f} min ago")
+            except:
+                st.caption(f"📅 Last updated: {current_time}")
+        else:
+            st.caption(f"📅 Last updated: {current_time}")
+    else:
+        st.caption(f"📅 Last updated: {current_time}")
+    
     # Search and highlight item on the map
     st.header("🔍 Search Item by ID on Map")
-    st.info("💡 **Search Tip**: Enter an ID below to find and highlight the item with a ⭐ star marker on the map!")
     
-    map_search_type = st.selectbox("Select Item Type to Search", ["Bin", "Truck", "Dumping Spot"], key="map_search_type")
-    map_search_id = st.text_input("Enter ID to Search on Map (e.g., BIN001, TRUCK01, DS01)", "", key="map_search_id")
+    # Show search history if available
+    if 'search_history' not in st.session_state:
+        st.session_state['search_history'] = []
+    
+    if st.session_state['search_history']:
+        st.info(f"💡 **Recent searches**: {', '.join(st.session_state['search_history'][-3:])}")
+    
+    st.info("💡 **Search Tip**: Enter an ID below to find and highlight the item with a ⭐ star marker on the map! Data is automatically refreshed on each search.")
+    
+    # Create columns for search input and button
+    col1, col2 = st.columns([3, 1])
+    
+    with col1:
+        map_search_type = st.selectbox("Select Item Type to Search", ["Bin", "Truck", "Dumping Spot"], key="map_search_type")
+        map_search_id = st.text_input("Enter ID to Search on Map (e.g., BIN001, TRUCK01, DS01)", "", key="map_search_id")
+    
+    with col2:
+        search_button = st.button("🔍 Search", type="primary", use_container_width=True)
+        refresh_button = st.button("🔄 Refresh All", use_container_width=True)
+    
     highlight_item = None
-    if map_search_id:
+    
+    # Handle refresh all button
+    if refresh_button:
+        st.info("🔄 Refreshing all data from API...")
+        bins = get_bins()
+        trucks = get_trucks()
+        dumping_spots = get_dumping_spots()
+        st.success("✅ All data refreshed!")
+        # Clear search state when refreshing all
+        if 'last_search_id' in st.session_state:
+            del st.session_state['last_search_id']
+    
+    if map_search_id and (search_button or st.session_state.get('last_search_id') != map_search_id):
+        # Always fetch fresh data when searching
+        st.info("🔄 Fetching fresh data from API...")
+        
         if map_search_type == "Bin":
-            highlight_item = next((b for b in bins if b['bin_id'] == map_search_id), None)
+            # Fetch fresh bin data specifically for this search
+            fresh_bins = get_bins()
+            highlight_item = next((b for b in fresh_bins if b['bin_id'] == map_search_id), None)
+            # Update the main bins data with fresh data
+            bins = fresh_bins
         elif map_search_type == "Truck":
-            highlight_item = next((t for t in trucks if t['truck_id'] == map_search_id), None)
+            # Fetch fresh truck data specifically for this search
+            fresh_trucks = get_trucks()
+            highlight_item = next((t for t in fresh_trucks if t['truck_id'] == map_search_id), None)
+            # Update the main trucks data with fresh data
+            trucks = fresh_trucks
         else:
-            highlight_item = next((d for d in dumping_spots if d['spot_id'] == map_search_id), None)
+            # Fetch fresh dumping spot data specifically for this search
+            fresh_dumping_spots = get_dumping_spots()
+            highlight_item = next((d for d in fresh_dumping_spots if d['spot_id'] == map_search_id), None)
+            # Update the main dumping spots data with fresh data
+            dumping_spots = fresh_dumping_spots
+        
+        # Store the last searched ID to track changes
+        st.session_state['last_search_id'] = map_search_id
+        
+        # Add to search history
+        search_entry = f"{map_search_type}:{map_search_id}"
+        if search_entry not in st.session_state['search_history']:
+            st.session_state['search_history'].append(search_entry)
+            # Keep only last 10 searches
+            if len(st.session_state['search_history']) > 10:
+                st.session_state['search_history'] = st.session_state['search_history'][-10:]
+        
         if not highlight_item:
             st.warning(f"No {map_search_type.lower()} found with ID '{map_search_id}'")
+        else:
+            # Show detailed info about the found item
+            if map_search_type == "Bin":
+                last_updated = highlight_item.get('last_updated', 'Unknown')
+                fill_level = highlight_item.get('fill_level', 0)
+                st.success(f"✅ Fresh data fetched! Found {map_search_type}: {map_search_id}")
+                st.info(f"📊 Fill Level: {fill_level:.1f}% | 🕒 Last Updated: {last_updated}")
+            elif map_search_type == "Truck":
+                last_updated = highlight_item.get('last_updated', 'Unknown')
+                status = highlight_item.get('status', 'Unknown')
+                fuel_level = highlight_item.get('fuel_level', 0)
+                st.success(f"✅ Fresh data fetched! Found {map_search_type}: {map_search_id}")
+                st.info(f"🚛 Status: {status} | ⛽ Fuel: {fuel_level:.1f}% | 🕒 Last Updated: {last_updated}")
+            else:
+                last_updated = highlight_item.get('last_updated', 'Unknown')
+                st.success(f"✅ Fresh data fetched! Found {map_search_type}: {map_search_id}")
+                st.info(f"🕒 Last Updated: {last_updated}")
     # Create main map, centering/highlighting if search is active
     if highlight_item:
         if map_search_type == "Bin":
