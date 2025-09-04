@@ -147,6 +147,30 @@ st.markdown("""
         box-sizing: border-box !important;
     }
     
+    /* Ensure main content area content spans end-to-end */
+    .main .block-container > div:not(.stSidebar):not(.sidebar) {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Force all direct children in main area to full width */
+    .main .block-container > div:not(.stSidebar):not(.sidebar) > * {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Ensure search section spans full width */
+    .main .block-container > div:not(.stSidebar):not(.sidebar) .stHorizontalBlock {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
     /* Layout: Sidebar 20%, Main Content 80% */
     .main .block-container {
         display: flex !important;
@@ -181,6 +205,37 @@ st.markdown("""
     .stMap, .folium-map, .leaflet-container {
         width: 100% !important;
         max-width: 100% !important;
+    }
+    
+    /* Force main content to span end-to-end within its container */
+    .main .block-container > div:not(.stSidebar):not(.sidebar) > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Ensure all content inside main area spans full width */
+    .main .block-container > div:not(.stSidebar):not(.sidebar) .stMarkdown,
+    .main .block-container > div:not(.stSidebar):not(.sidebar) .stHeader,
+    .main .block-container > div:not(.stSidebar):not(.sidebar) .stSubheader,
+    .main .block-container > div:not(.stSidebar):not(.sidebar) .stText,
+    .main .block-container > div:not(.stSidebar):not(.sidebar) .stMap,
+    .main .block-container > div:not(.stSidebar):not(.sidebar) .stDataFrame {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Force all Streamlit widgets in main area to full width */
+    .main .block-container > div:not(.stSidebar):not(.sidebar) .stButton,
+    .main .block-container > div:not(.stSidebar):not(.sidebar) .stSelectbox,
+    .main .block-container > div:not(.stSidebar):not(.sidebar) .stTextInput,
+    .main .block-container > div:not(.stSidebar):not(.sidebar) .stNumberInput {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
     
     /* Responsive design for different screen sizes */
