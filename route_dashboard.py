@@ -601,12 +601,12 @@ st.markdown("""
     /* Reduce margin and padding for specific Streamlit main container */
     .stMain.st-emotion-cache-4rsbii.e4man111,
     .st-emotion-cache-4rsbii.e4man111 {
-        margin: 0 !important;
+        margin: 30px !important;
         padding: 0 !important;
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
+        margin-top: 30px !important;
+        margin-bottom: 30px !important;
+        margin-left: 30px !important;
+        margin-right: 30px !important;
         padding-top: 0 !important;
         padding-bottom: 0 !important;
         padding-left: 0 !important;
