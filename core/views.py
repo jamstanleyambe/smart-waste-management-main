@@ -23,10 +23,10 @@ User = get_user_model()
 
 # Rate limiting classes
 class BinRateThrottle(UserRateThrottle):
-    rate = '100/hour'
+    rate = '10000/hour'  # Increased for dashboard access
 
 class AnonBinRateThrottle(AnonRateThrottle):
-    rate = '20/hour'
+    rate = '5000/hour'   # Increased for dashboard access
 
 # Special rate limiting for sensor data (higher frequency)
 class SensorDataRateThrottle(UserRateThrottle):
