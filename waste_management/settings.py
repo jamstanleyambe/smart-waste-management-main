@@ -14,7 +14,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-your-secret-key-her
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,192.168.1.116').split(',')
 
 # Application definition
 INSTALLED_APPS = [
@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'axes',  # Login attempt monitoring
     # 'defender',  # Advanced security - temporarily disabled
-    'core',  # Re-enabled for custom admin site
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -47,8 +47,8 @@ MIDDLEWARE = [
 # Authentication & Authorization Settings
 AUTHENTICATION_BACKENDS = [
     'axes.backends.AxesStandaloneBackend',
+    'core.auth_backends.EnhancedAuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
-    'core.auth_backends.EnhancedAuthenticationBackend',  # Re-enabled
 ]
 
 # Session Security
@@ -87,7 +87,7 @@ LOGOUT_REDIRECT_URL = '/admin/login/'
 CSRF_COOKIE_SECURE = False  # Set to True in production with HTTPS
 CSRF_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SAMESITE = 'Lax'
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000', 'http://192.168.1.116:8000']
 
 # Security Headers
 SECURE_BROWSER_XSS_FILTER = True

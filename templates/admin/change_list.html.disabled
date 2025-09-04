@@ -1,0 +1,368 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static admin_list %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static "admin/css/changelists.css" %}" />
+  {% if cl.formset %}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />
+  {% endif %}
+  {% if cl.formset or action_form %}
+    {% url 'admin:jsi18n' as jsi18nurl %}
+    <script src="{{ jsi18nurl|default:'../../jsi18n/' }}"></script>
+  {% endif %}
+  {{ media.css }}
+  {% if not actions_on_top and not actions_on_bottom %}
+    <style>
+      #changelist table thead th:first-child {width: inherit}
+    </style>
+  {% endif %}
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+{{ media.js }}
+{% if action_form %}{% if action_form.action_fields %}
+<script>
+  var min_num = parseInt(document.getElementById('id_form-0-DELETE').value);
+  var max_num = parseInt(document.getElementById('id_form-0-DELETE').value);
+  function updateElementIndices(el, prefix, ndx) {
+    var id = el.id || el.name;
+    if (id) {
+      el.id = el.name = prefix + '-' + ndx + '-' + id.split('-').slice(2).join('-');
+    }
+    var index = el.getAttribute('data-index');
+    if (index) {
+      el.setAttribute('data-index', prefix + '-' + ndx + '-' + index.split('-').slice(2).join('-'));
+    }
+  }
+  window.addEventListener('load', function(e) {
+    var el = document.getElementById('id_form-0-DELETE');
+    if (el) {
+      min_num = parseInt(el.value);
+      max_num = parseInt(el.value);
+    }
+  });
+</script>
+{% endif %}{% endif %}
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-list{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">🏠 Home</a>
+&rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+&rsaquo; {{ opts.verbose_name_plural|capfirst }}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  {% block object-tools %}
+    {% if has_add_permission %}
+      <ul class="object-tools">
+        {% block object-tools-items %}
+          <li>
+            {% url cl.opts|admin_urlname:'add' as add_url %}
+            <a href="{% add_preserved_filters add_url is_popup to_field %}" class="addlink">
+              ➕ Add {{ opts.verbose_name }}
+            </a>
+          </li>
+        {% endblock %}
+      </ul>
+    {% endif %}
+  {% endblock %}
+  
+  {% if cl.formset and cl.formset.errors %}
+    <p class="errornote">
+      {% blocktrans count cl.formset.errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+    </p>
+    {{ cl.formset.non_form_errors }}
+  {% endif %}
+  
+  <div class="module{% if cl.has_filters %} filtered{% endif %}" id="changelist">
+    {% block search %}{% search_form cl %}{% endblock %}
+    {% block date_hierarchy %}{% if cl.date_hierarchy %}{% date_hierarchy cl %}{% endif %}{% endblock %}
+
+    {% block filters %}
+      {% if cl.has_filters %}
+        <div id="changelist-filter">
+          <h2>{% blocktrans with cl.opts.verbose_name_plural as verbose_name %}Filter {{ verbose_name }}{% endblocktrans %}</h2>
+          {% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}
+        </div>
+      {% endif %}
+    {% endblock %}
+
+    {% block result_list %}
+        {% if action_form and actions_on_top and cl.show_admin_actions %}{% admin_actions %}{% endif %}
+        {% result_list cl %}
+        {% if action_form and actions_on_bottom and cl.show_admin_actions %}{% admin_actions %}{% endif %}
+    {% endblock %}
+    
+    {% block pagination %}{% pagination cl %}{% endblock %}
+  </div>
+</div>
+{% endblock %}
+
+<style>
+/* Enhanced styling for admin list pages */
+#content-main {
+    background: var(--light-bg);
+    padding: 24px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow);
+}
+
+.object-tools {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.object-tools li {
+    list-style: none;
+    margin: 0;
+}
+
+.object-tools .addlink {
+    background: var(--accent-color);
+    color: white;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    transition: all 0.2s;
+    display: inline-block;
+}
+
+.object-tools .addlink:hover {
+    background: var(--warning-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.module {
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.module h2 {
+    background: var(--primary-color);
+    color: white;
+    padding: 20px;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Search form styling */
+.search-form {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    border-left: 4px solid var(--info-color);
+}
+
+.search-form input[type="text"] {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-size: 14px;
+    width: 300px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-form input[type="text"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(46, 134, 171, 0.25);
+    outline: none;
+}
+
+.search-form input[type="submit"] {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    margin-left: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.search-form input[type="submit"]:hover {
+    background: var(--secondary-color);
+}
+
+/* Results table styling */
+.results {
+    background: var(--card-bg);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    margin-top: 20px;
+}
+
+.results th {
+    background: var(--light-bg);
+    color: var(--text-primary);
+    font-weight: 600;
+    padding: 15px 12px;
+    border-bottom: 2px solid var(--border-color);
+    text-align: left;
+}
+
+.results td {
+    padding: 15px 12px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.results tr:hover {
+    background: var(--light-bg);
+}
+
+.results tr:nth-child(even) {
+    background: rgba(248, 249, 250, 0.5);
+}
+
+/* Filter sidebar styling */
+#changelist-filter {
+    background: var(--card-bg);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+#changelist-filter h2 {
+    background: var(--primary-color);
+    color: white;
+    padding: 15px;
+    margin: -20px -20px 20px -20px;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#changelist-filter li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+    list-style: none;
+}
+
+#changelist-filter li:last-child {
+    border-bottom: none;
+}
+
+#changelist-filter a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.2s;
+    display: block;
+    padding: 5px 0;
+}
+
+#changelist-filter a:hover {
+    color: var(--primary-color);
+}
+
+#changelist-filter a.selected {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Pagination styling */
+.paginator {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+    margin-top: 20px;
+    text-align: center;
+}
+
+.paginator a:link,
+.paginator a:visited {
+    color: var(--primary-color);
+    text-decoration: none;
+    padding: 8px 12px;
+    margin: 0 4px;
+    border-radius: var(--radius-sm);
+    transition: background-color 0.2s;
+}
+
+.paginator a:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.paginator .this-page {
+    background: var(--primary-color);
+    color: white;
+    padding: 8px 12px;
+    margin: 0 4px;
+    border-radius: var(--radius-sm);
+}
+
+/* Breadcrumbs styling */
+.breadcrumbs {
+    background: var(--light-bg);
+    padding: 15px 24px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+    border-radius: var(--radius-sm);
+}
+
+.breadcrumbs a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.breadcrumbs a:hover {
+    color: var(--secondary-color);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #content-main {
+        padding: 16px;
+    }
+    
+    .search-form input[type="text"] {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .search-form input[type="submit"] {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    .object-tools .addlink {
+        text-align: center;
+        display: block;
+    }
+    
+    .results {
+        overflow-x: auto;
+    }
+    
+    .results th,
+    .results td {
+        padding: 10px 8px;
+        font-size: 13px;
+    }
+}
+</style>
+{% endblock %}

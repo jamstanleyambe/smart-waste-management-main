@@ -318,6 +318,49 @@
     body.login .submit-row input {
         margin-left: 0 !important;
     }
+
+    /* Hide breadcrumbs and other admin elements with higher specificity */
+    body .breadcrumbs, 
+    body nav[aria-label="Breadcrumbs"],
+    body .breadcrumbs a,
+    body nav[aria-label="Breadcrumbs"] a {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        width: 0 !important;
+        overflow: hidden !important;
+    }
+
+    /* Hide the toggle nav sidebar button */
+    body #toggle-nav-sidebar {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    /* Hide the nav sidebar */
+    body #nav-sidebar {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    /* Hide the main content wrapper */
+    body .main {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    /* Hide the content-start div */
+    body #content-start {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    /* Hide the content div */
+    body #content {
+        display: none !important;
+        visibility: hidden !important;
+    }
 </style>
 {% endblock %}
 

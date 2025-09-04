@@ -1,0 +1,385 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static admin_modify %}
+
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+{{ media }}
+{% endblock %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />{% endblock %}
+
+{% block coltype %}colM{% endblock %}
+
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">🏠 Home</a>
+&rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+&rsaquo; <a href="{% url 'admin:changelist' opts.app_label opts.model_name %}">{{ opts.verbose_name_plural|capfirst }}</a>
+&rsaquo; {% if add %}Add{% else %}{{ original|truncatewords:"18" }}{% endif %}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form" novalidate>{% csrf_token %}
+  {% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="1" />{% endif %}
+  {% if to_field %}<input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}" />{% endif %}
+  {% if save_on_top %}{% block submit_buttons_top %}{% submit_row %}{% endblock %}{% endif %}
+  
+  {% if errors %}
+      <p class="errornote">
+      {% blocktrans count counter=errors|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+      </p>
+      {{ adminform.form.non_field_errors }}
+  {% endif %}
+
+  {% block field_sets %}
+  {% for fieldset in adminform %}
+    {% include "admin/includes/fieldset.html" %}
+  {% endfor %}
+  {% endblock %}
+
+  {% block after_field_sets %}{% endblock %}
+
+  {% block inline_field_sets %}
+  {% for inline_admin_formset in inline_admin_formsets %}
+    {% include inline_admin_formset.opts.template %}
+  {% endfor %}
+  {% endblock %}
+
+  {% block after_related_objects %}{% endblock %}
+
+  {% block submit_buttons_bottom %}{% submit_row %}{% endblock %}
+
+  {% block admin_change_form_document_ready %}
+  <script>
+    (function($) {
+      $(document).ready(function() {
+        $('.add-another').click(function(e) {
+          e.preventDefault();
+          var event = $.Event('django:add-another-related');
+          $(this).trigger(event);
+          if (!event.isDefaultPrevented()) {
+            showAddAnotherPopup(this);
+          }
+        });
+      });
+    })(django.jQuery);
+  </script>
+  {% endblock %}
+
+  {# JavaScript for prepopulated fields #}
+  {% prepopulated_fields_js %}
+
+  </form>
+</div>
+{% endblock %}
+
+<style>
+/* Enhanced styling for admin form pages */
+#content-main {
+    background: var(--light-bg);
+    padding: 24px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow);
+}
+
+/* Form styling */
+.form-row {
+    background: var(--card-bg);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--primary-color);
+}
+
+.form-row:last-child {
+    margin-bottom: 0;
+}
+
+.form-row label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.form-row input,
+.form-row select,
+.form-row textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: white;
+}
+
+.form-row input:focus,
+.form-row select:focus,
+.form-row textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(46, 134, 171, 0.25);
+    outline: none;
+}
+
+.form-row .help {
+    color: var(--text-secondary);
+    font-size: 13px;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+.form-row .errors {
+    color: var(--danger-color);
+    font-size: 13px;
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+/* Required field indicator */
+.form-row label .required {
+    color: var(--danger-color);
+    font-weight: bold;
+}
+
+/* Submit row styling */
+.submit-row {
+    background: var(--light-bg);
+    padding: 24px;
+    border-top: 1px solid var(--border-color);
+    margin-top: 20px;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    text-align: right;
+}
+
+.submit-row input {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-weight: 500;
+    margin-left: 10px;
+    transition: background-color 0.2s;
+}
+
+.submit-row input:hover {
+    background: var(--secondary-color);
+}
+
+.submit-row input.default {
+    background: var(--accent-color);
+}
+
+.submit-row input.default:hover {
+    background: var(--warning-color);
+}
+
+.submit-row input.deletelink {
+    background: var(--danger-color);
+}
+
+.submit-row input.deletelink:hover {
+    background: #a82333;
+}
+
+/* Fieldset styling */
+.fieldset {
+    background: var(--card-bg);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.fieldset h2 {
+    background: var(--primary-color);
+    color: white;
+    padding: 20px;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.fieldset .description {
+    background: var(--light-bg);
+    padding: 15px 20px;
+    color: var(--text-secondary);
+    font-style: italic;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Inline forms styling */
+.inline-group {
+    background: var(--card-bg);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.inline-related h3 {
+    background: var(--light-bg);
+    color: var(--text-primary);
+    padding: 15px 20px;
+    margin: 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.inline-related .form-row {
+    margin: 0;
+    border-radius: 0;
+    border-left: none;
+    box-shadow: none;
+}
+
+.inline-related .inline-deletelink {
+    background: var(--danger-color);
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    transition: background-color 0.2s;
+}
+
+.inline-related .inline-deletelink:hover {
+    background: #a82333;
+}
+
+/* Error styling */
+.errornote {
+    background: rgba(199, 62, 29, 0.1);
+    border: 1px solid var(--danger-color);
+    color: var(--danger-color);
+    padding: 15px 20px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Breadcrumbs styling */
+.breadcrumbs {
+    background: var(--light-bg);
+    padding: 15px 24px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+    border-radius: var(--radius-sm);
+}
+
+.breadcrumbs a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.breadcrumbs a:hover {
+    color: var(--secondary-color);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #content-main {
+        padding: 16px;
+    }
+    
+    .form-row {
+        padding: 16px;
+    }
+    
+    .submit-row {
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .submit-row input {
+        margin: 5px;
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .fieldset h2 {
+        padding: 16px;
+        font-size: 16px;
+    }
+    
+    .inline-related h3 {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+}
+
+/* Checkbox and radio button styling */
+.form-row input[type="checkbox"],
+.form-row input[type="radio"] {
+    width: auto;
+    margin-right: 8px;
+}
+
+.form-row input[type="checkbox"] + label,
+.form-row input[type="radio"] + label {
+    display: inline;
+    font-weight: normal;
+    margin-left: 8px;
+}
+
+/* File input styling */
+.form-row input[type="file"] {
+    padding: 8px 12px;
+    border: 2px dashed var(--border-color);
+    background: var(--light-bg);
+}
+
+.form-row input[type="file"]:focus {
+    border-color: var(--primary-color);
+    background: white;
+}
+
+/* Select multiple styling */
+.form-row select[multiple] {
+    height: 120px;
+}
+
+/* Textarea styling */
+.form-row textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Date and time input styling */
+.form-row input[type="date"],
+.form-row input[type="time"],
+.form-row input[type="datetime-local"] {
+    font-family: inherit;
+}
+
+/* Number input styling */
+.form-row input[type="number"] {
+    font-family: inherit;
+}
+
+/* URL input styling */
+.form-row input[type="url"] {
+    font-family: inherit;
+}
+
+/* Email input styling */
+.form-row input[type="email"] {
+    font-family: inherit;
+}
+
+/* Password input styling */
+.form-row input[type="password"] {
+    font-family: inherit;
+}
+</style>
+{% endblock %}

@@ -367,8 +367,14 @@ def delete_bin(bin_id):
     print(f"Delete Bin API Response: {response.status_code} - {response.text}")
     return response.status_code == 204
 
-def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None):
-    m = folium.Map(location=[4.0511, 9.7679], zoom_start=10)
+def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highlight_item=None, highlight_type=None):
+    m = folium.Map(
+        location=[4.0511, 9.7679], 
+        zoom_start=7,
+        tiles='OpenStreetMap',
+        control_scale=True,
+        prefer_canvas=True
+    )
     
     # Add truck markers
     for truck in trucks:
@@ -838,12 +844,163 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None):
             opacity=0.8
         ).add_to(m)
     
+    # Add special star marker for highlighted/searched item
+    if highlight_item and highlight_type:
+        if highlight_type == "Bin":
+            highlight_coords = [highlight_item['latitude'], highlight_item['longitude']]
+            highlight_id = highlight_item['bin_id']
+        elif highlight_type == "Truck":
+            highlight_coords = [highlight_item['current_latitude'], highlight_item['current_longitude']]
+            highlight_id = highlight_item['truck_id']
+        else:  # Dumping Spot
+            highlight_coords = [highlight_item['latitude'], highlight_item['longitude']]
+            highlight_id = highlight_item['spot_id']
+        
+                # Use existing bin data for popup but with star marker
+        if highlight_type == "Bin":
+            # Get the existing bin data for popup
+            bin_data = next((b for b in bins if b['bin_id'] == highlight_id), None)
+            if bin_data:
+                # Use the existing bin popup content but mark it as searched
+                star_popup_content = f"""
+                <div style="
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+                    color: white;
+                    padding: 15px;
+                    border-radius: 12px;
+                    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+                    min-width: 280px;
+                    border: 3px solid #f1c40f;
+                ">
+                    <div style="
+                        text-align: center;
+                        margin-bottom: 12px;
+                        padding-bottom: 8px;
+                        border-bottom: 2px solid rgba(255,255,255,0.3);
+                    ">
+                        <h3 style="
+                            margin: 0;
+                            font-size: 18px;
+                            font-weight: bold;
+                            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+                            color: #fff;
+                        ">🗑️ Waste Bin - {bin_data['bin_id']}</h3>
+                        <div style="
+                            background: #f1c40f;
+                            color: #2c3e50;
+                            padding: 4px 8px;
+                            border-radius: 15px;
+                            font-weight: bold;
+                            font-size: 12px;
+                            margin-top: 8px;
+                        ">⭐ SEARCHED ITEM</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 8px;">
+                        <span style="
+                            display: inline-block;
+                            background: rgba(255,255,255,0.2);
+                            padding: 4px 8px;
+                            border-radius: 20px;
+                            font-weight: bold;
+                            font-size: 11px;
+                            margin-right: 8px;
+                            min-width: 60px;
+                            text-align: center;
+                        ">FILL LEVEL</span>
+                        <span style="font-weight: bold; font-size: 14px;">{bin_data['fill_level']:.1f}%</span>
+                    </div>
+                    
+                    <div style="
+                        background: rgba(255,255,255,0.1);
+                        padding: 10px;
+                        border-radius: 8px;
+                        margin: 8px 0;
+                    ">
+                        <div style="font-weight: bold; margin-bottom: 6px; color: #f1c40f;">📍 Location & Details</div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                            <span>🌍 Coordinates:</span>
+                            <span style="font-weight: bold; color: #ecf0f1; font-size: 10px;">
+                                {bin_data['latitude']:.4f}, {bin_data['longitude']:.4f}
+                            </span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                            <span>♻️ Organic:</span>
+                            <span style="font-weight: bold; color: #e67e22;">{bin_data['organic_percentage']:.1f}%</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                            <span>🥤 Plastic:</span>
+                            <span style="font-weight: bold; color: #3498db;">{bin_data['plastic_percentage']:.1f}%</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>🔩 Metal:</span>
+                            <span style="font-weight: bold; color: #95a5a6;">{bin_data['metal_percentage']:.1f}%</span>
+                        </div>
+                    </div>
+                    
+                    <div style="
+                        font-size: 10px;
+                        color: rgba(255,255,255,0.7);
+                        text-align: center;
+                        margin-top: 8px;
+                        padding-top: 8px;
+                        border-top: 1px solid rgba(255,255,255,0.2);
+                    ">
+                        Last updated: {bin_data.get('last_updated', 'Unknown')}
+                    </div>
+                </div>
+                """
+            else:
+                # Fallback if bin data not found
+                star_popup_content = f"⭐ {highlight_type}: {highlight_id} (SEARCHED)"
+        else:
+            # For trucks and dumping spots, use simple popup
+            star_popup_content = f"⭐ {highlight_type}: {highlight_id} (SEARCHED)"
+        
+        # Add the star marker with custom icon
+        folium.Marker(
+            highlight_coords,
+            popup=folium.Popup(star_popup_content, max_width=320),
+            icon=folium.Icon(color='red', icon='star', prefix='fa'),
+            tooltip=f"⭐ {highlight_type}: {highlight_id} (SEARCHED)"
+        ).add_to(m)
+        
+        # Add a pulsing circle around the star marker for extra visibility
+        folium.Circle(
+            highlight_coords,
+            radius=100,  # 100 meters radius for better visibility
+            color='#f39c12',
+            fill=True,
+            fill_color='#f39c12',
+            fill_opacity=0.2,
+            weight=4,
+            opacity=0.9
+        ).add_to(m)
+    
+    # Auto-fit map to show all markers
+    if bins or dumping_spots or trucks:
+        # Collect all coordinates
+        all_coords = []
+        for bin in bins:
+            all_coords.append([bin['latitude'], bin['longitude']])
+        for spot in dumping_spots:
+            all_coords.append([spot['latitude'], spot['longitude']])
+        for truck in trucks:
+            all_coords.append([truck['current_latitude'], truck['current_longitude']])
+        
+        if all_coords:
+            # Fit map to show all markers with some padding
+            m.fit_bounds(all_coords, padding=[0.1, 0.1])
+    
     return m
 
 def main():
     st.title("Smart Waste Management Route Dashboard - Douala 5")
     
-    # Add custom CSS for container margins
+
+    
+    # Add custom CSS for container margins and map enhancements
     st.markdown("""
     <style>
     /* Target the specific Streamlit container */
@@ -865,7 +1022,79 @@ def main():
         padding-left: 10px !important;
         padding-right: 10px !important;
     }
+    
+    /* Map container enhancements */
+    .folium-container {
+        border-radius: 12px !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+        overflow: hidden !important;
+    }
+    
+    /* Smooth transitions for map elements */
+    .leaflet-marker-icon,
+    .leaflet-popup-content {
+        transition: all 0.3s ease-in-out !important;
+    }
+    
+    /* Enhanced map controls */
+    .leaflet-control-zoom a {
+        background: rgba(255,255,255,0.9) !important;
+        border: 2px solid #3498db !important;
+        color: #2c3e50 !important;
+        font-weight: bold !important;
+        transition: all 0.2s ease !important;
+    }
+    
+    .leaflet-control-zoom a:hover {
+        background: #3498db !important;
+        color: white !important;
+        transform: scale(1.1) !important;
+    }
+    
+    /* Star marker animations */
+    .fa-star {
+        animation: starPulse 2s ease-in-out infinite !important;
+    }
+    
+    @keyframes starPulse {
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.2); opacity: 0.8; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    
+    /* Highlighted item popup styling */
+    .leaflet-popup-content-wrapper {
+        border-radius: 12px !important;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
+    }
     </style>
+    
+    <script>
+    // Enhanced map functionality with smooth zoom transitions
+    document.addEventListener('DOMContentLoaded', function() {
+        // Wait for map to load
+        setTimeout(function() {
+            const mapContainer = document.querySelector('.folium-container');
+            if (mapContainer) {
+                // Add smooth zoom transition class
+                mapContainer.style.transition = 'all 0.5s ease-in-out';
+                
+                // Ensure map is properly centered and zoomed
+                const map = mapContainer.querySelector('.leaflet-container');
+                if (map) {
+                    map.style.opacity = '0';
+                    map.style.transform = 'scale(0.95)';
+                    
+                    // Smooth entrance animation
+                    setTimeout(function() {
+                        map.style.opacity = '1';
+                        map.style.transform = 'scale(1)';
+                    }, 100);
+                }
+            }
+        }, 500);
+    });
+    </script>
     """, unsafe_allow_html=True)
     
     # Remove single truck location input
@@ -877,7 +1106,9 @@ def main():
     trucks = get_trucks()
     
     # Search and highlight item on the map
-    st.header("Search Item by ID on Map")
+    st.header("🔍 Search Item by ID on Map")
+    st.info("💡 **Search Tip**: Enter an ID below to find and highlight the item with a ⭐ star marker on the map!")
+    
     map_search_type = st.selectbox("Select Item Type to Search", ["Bin", "Truck", "Dumping Spot"], key="map_search_type")
     map_search_id = st.text_input("Enter ID to Search on Map (e.g., BIN001, TRUCK01, DS01)", "", key="map_search_id")
     highlight_item = None
@@ -894,17 +1125,37 @@ def main():
     if highlight_item:
         if map_search_type == "Bin":
             center = [highlight_item['latitude'], highlight_item['longitude']]
-            main_map = create_map(bins, dumping_spots, trucks, selected_bin=highlight_item)
+            main_map = create_map(bins, dumping_spots, trucks, selected_bin=highlight_item, highlight_item=highlight_item, highlight_type=map_search_type)
         elif map_search_type == "Truck":
             center = [highlight_item['current_latitude'], highlight_item['current_longitude']]
-            main_map = create_map(bins, dumping_spots, trucks, selected_bin=None, path=None)
+            main_map = create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highlight_item=highlight_item, highlight_type=map_search_type)
         else:
             center = [highlight_item['latitude'], highlight_item['longitude']]
-            main_map = create_map(bins, dumping_spots, trucks, selected_bin=None, path=None)
+            main_map = create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highlight_item=highlight_item, highlight_type=map_search_type)
+        
+        # Enhanced zoom and centering for searched item
+        # Force the map to center and zoom to the highlighted item
         main_map.location = center
-        main_map.zoom_start = 16
+        main_map.zoom_start = 11  # More zoomed out for better visibility and context
+        
+        # Force map to center on the searched item with proper bounds
+        if highlight_item:
+            # Create a small bounds around the searched item to ensure it's centered
+            lat, lon = center
+            bounds = [[lat - 0.01, lon - 0.01], [lat + 0.01, lon + 0.01]]
+            main_map.fit_bounds(bounds, padding=[0.1, 0.1])
+        
+        # Ensure the map properly centers on the searched item
+        if hasattr(main_map, '_name'):
+            item_id = highlight_item.get('bin_id') or highlight_item.get('truck_id') or highlight_item.get('spot_id') or 'item'
+            main_map._name = f"map_centered_on_{item_id}"
+        
+        # Add smooth zoom animation to the highlighted item
+        item_id = highlight_item.get('bin_id') or highlight_item.get('truck_id') or highlight_item.get('spot_id') or 'Unknown'
+        st.success(f"🎯 **{map_search_type} Found!** - {item_id} is now highlighted with a ⭐ star marker and zoomed for optimal visibility")
     else:
         main_map = create_map(bins, dumping_spots, trucks)
+    
     folium_static(main_map)
 
 
@@ -1335,7 +1586,9 @@ def main():
             dumping_spots,
             trucks,
             selected_bins,
-            path
+            path,
+            highlight_item=None,  # No highlight for route calculation
+            highlight_type=None
         )
         folium_static(path_map)
     elif calculate_route_button and not selected_truck:

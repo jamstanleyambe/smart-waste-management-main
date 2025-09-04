@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
-from .models import Bin, DumpingSpot, Truck, Role
+from .models import Bin, DumpingSpot, Truck, Role, SensorData
 
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -104,4 +104,64 @@ class TruckSerializer(serializers.ModelSerializer):
         """Validate driver name"""
         if len(value.strip()) < 2:
             raise serializers.ValidationError("Driver name must be at least 2 characters long")
-        return value.strip() 
+        return value.strip()
+
+class SensorDataSerializer(serializers.ModelSerializer):
+    """
+    Serializer for real-time sensor data from ESP32 devices
+    """
+    class Meta:
+        model = SensorData
+        fields = '__all__'
+        read_only_fields = ['timestamp', 'last_updated']
+
+    def validate(self, data):
+        """Validate that percentages sum to 100%"""
+        organic = data.get('organic_percentage', 0)
+        plastic = data.get('plastic_percentage', 0)
+        metal = data.get('metal_percentage', 0)
+        
+        total = organic + plastic + metal
+        if abs(total - 100.0) > 0.01:  # Allow small floating point errors
+            raise serializers.ValidationError(
+                f'Percentages must sum to 100%. Current sum: {total:.2f}%'
+            )
+        return data
+
+    def validate_fill_level(self, value):
+        """Validate fill level"""
+        if value < 0 or value > 100:
+            raise serializers.ValidationError("Fill level must be between 0 and 100")
+        return value
+
+    def validate_latitude(self, value):
+        """Validate latitude"""
+        if value < -90 or value > 90:
+            raise serializers.ValidationError("Latitude must be between -90 and 90")
+        return value
+
+    def validate_longitude(self, value):
+        """Validate longitude"""
+        if value < -180 or value > 180:
+            raise serializers.ValidationError("Longitude must be between -180 and 180")
+        return value
+
+    def validate_battery_level(self, value):
+        """Validate battery level"""
+        if value is not None and (value < 0 or value > 100):
+            raise serializers.ValidationError("Battery level must be between 0 and 100")
+        return value
+
+    def validate_signal_strength(self, value):
+        """Validate signal strength (typically negative dBm values)"""
+        if value is not None and value > 0:
+            raise serializers.ValidationError("Signal strength should typically be negative (dBm)")
+        return value
+
+    def to_representation(self, instance):
+        """Custom representation with additional computed fields"""
+        data = super().to_representation(instance)
+        data['fill_status'] = instance.get_fill_status()
+        data['sensor_health'] = instance.get_sensor_health()
+        data['is_recent'] = instance.is_recent()
+        return data 

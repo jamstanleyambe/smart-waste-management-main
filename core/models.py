@@ -153,3 +153,161 @@ class Truck(models.Model):
 
     def __str__(self):
         return f"Truck {self.truck_id}" 
+
+class SensorData(models.Model):
+    """
+    Real-time sensor data from ESP32 devices
+    """
+    SENSOR_STATUS_CHOICES = [
+        ('ONLINE', 'Online'),
+        ('OFFLINE', 'Offline'),
+        ('ERROR', 'Error'),
+        ('MAINTENANCE', 'Maintenance'),
+    ]
+    
+    # Sensor identification
+    sensor_id = models.CharField(max_length=50, help_text="Unique identifier for the sensor device")
+    bin_id = models.CharField(max_length=50, help_text="Associated bin ID")
+    
+    # Real-time measurements
+    fill_level = models.FloatField(
+        validators=[
+            MinValueValidator(0.0, message='Fill level cannot be negative'),
+            MaxValueValidator(100.0, message='Fill level cannot exceed 100%')
+        ],
+        help_text="Current fill level percentage"
+    )
+    
+    # Location data
+    latitude = models.FloatField(
+        validators=[
+            MinValueValidator(-90.0, message='Latitude must be between -90 and 90'),
+            MaxValueValidator(90.0, message='Latitude must be between -90 and 90')
+        ]
+    )
+    longitude = models.FloatField(
+        validators=[
+            MinValueValidator(-180.0, message='Longitude must be between -180 and 180'),
+            MaxValueValidator(180.0, message='Longitude must be between -180 and 180')
+        ]
+    )
+    
+    # Waste composition (from sensor analysis or estimation)
+    organic_percentage = models.FloatField(
+        validators=[
+            MinValueValidator(0.0, message='Organic percentage cannot be negative'),
+            MaxValueValidator(100.0, message='Organic percentage cannot exceed 100%')
+        ],
+        default=40.0
+    )
+    plastic_percentage = models.FloatField(
+        validators=[
+            MinValueValidator(0.0, message='Plastic percentage cannot be negative'),
+            MaxValueValidator(100.0, message='Plastic percentage cannot exceed 100%')
+        ],
+        default=35.0
+    )
+    metal_percentage = models.FloatField(
+        validators=[
+            MinValueValidator(0.0, message='Metal percentage cannot be negative'),
+            MaxValueValidator(100.0, message='Metal percentage cannot exceed 100%')
+        ],
+        default=25.0
+    )
+    
+    # Sensor status and metadata
+    sensor_status = models.CharField(
+        max_length=20, 
+        choices=SENSOR_STATUS_CHOICES, 
+        default='ONLINE',
+        help_text="Current status of the sensor device"
+    )
+    battery_level = models.FloatField(
+        validators=[
+            MinValueValidator(0.0, message='Battery level cannot be negative'),
+            MaxValueValidator(100.0, message='Battery level cannot exceed 100%')
+        ],
+        null=True, 
+        blank=True,
+        help_text="Battery level percentage (if available)"
+    )
+    signal_strength = models.IntegerField(
+        null=True, 
+        blank=True,
+        help_text="WiFi signal strength in dBm (if available)"
+    )
+    
+    # Timestamps
+    timestamp = models.DateTimeField(auto_now_add=True, help_text="When this reading was received")
+    last_updated = models.DateTimeField(auto_now=True, help_text="Last time this record was updated")
+    
+    # Additional sensor data
+    temperature = models.FloatField(
+        null=True, 
+        blank=True,
+        help_text="Temperature reading in Celsius (if available)"
+    )
+    humidity = models.FloatField(
+        null=True, 
+        blank=True,
+        help_text="Humidity reading in percentage (if available)"
+    )
+    
+    class Meta:
+        ordering = ['-timestamp']
+        verbose_name = "Sensor Data"
+        verbose_name_plural = "Sensor Data"
+        indexes = [
+            models.Index(fields=['sensor_id', 'timestamp']),
+            models.Index(fields=['bin_id', 'timestamp']),
+            models.Index(fields=['timestamp']),
+        ]
+        # Allow multiple readings from the same sensor, but ensure timestamp uniqueness
+        unique_together = [['sensor_id', 'timestamp']]
+    
+    def clean(self):
+        """Validate that percentages sum to 100%"""
+        total_percentage = self.organic_percentage + self.plastic_percentage + self.metal_percentage
+        if abs(total_percentage - 100.0) > 0.01:  # Allow small floating point errors
+            raise ValidationError(
+                f'Percentages must sum to 100%. Current sum: {total_percentage:.2f}%'
+            )
+    
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return f"Sensor {self.sensor_id} - Bin {self.bin_id} ({self.timestamp})"
+    
+    def get_fill_status(self):
+        """Get human-readable fill status"""
+        if self.fill_level > 80:
+            return "Critical - Nearly Full"
+        elif self.fill_level > 70:
+            return "High - Needs Attention"
+        elif self.fill_level > 50:
+            return "Moderate"
+        elif self.fill_level > 20:
+            return "Low"
+        else:
+            return "Empty"
+    
+    def get_sensor_health(self):
+        """Get sensor health status"""
+        if self.sensor_status == 'ONLINE' and self.battery_level and self.battery_level > 20:
+            return "Healthy"
+        elif self.sensor_status == 'ONLINE':
+            return "Online"
+        elif self.sensor_status == 'OFFLINE':
+            return "Offline"
+        elif self.sensor_status == 'ERROR':
+            return "Error"
+        else:
+            return "Maintenance"
+    
+    def is_recent(self, minutes=5):
+        """Check if sensor data is recent (within specified minutes)"""
+        from django.utils import timezone
+        from datetime import timedelta
+        return self.timestamp > timezone.now() - timedelta(minutes=minutes) 

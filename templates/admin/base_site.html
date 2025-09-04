@@ -7,7 +7,7 @@
 {{ block.super }}
 <style>
 /* ===== PREMIUM ADMIN INTERFACE STYLING ===== */
-:root {
+    :root {
     --primary-color: #2E86AB;
     --secondary-color: #A23B72;
     --accent-color: #F18F01;
@@ -16,11 +16,11 @@
     --danger-color: #C73E1D;
     --info-color: #2E86AB;
     
-    --light-bg: #f8f9fa;
-    --card-bg: #ffffff;
+        --light-bg: #f8f9fa;
+        --card-bg: #ffffff;
     --border-color: #e9ecef;
     --text-primary: #2c3e50;
-    --text-secondary: #6c757d;
+        --text-secondary: #6c757d;
     
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
@@ -47,18 +47,18 @@
 
 #header a:link, #header a:visited {
     color: white !important;
-}
-
-#branding h1 {
+    }
+    
+    #branding h1 {
     color: white !important;
-}
-
-.module h2, .module caption, .inline-group h2 {
+    }
+    
+    .module h2, .module caption, .inline-group h2 {
     background: var(--primary-color) !important;
     color: white !important;
-}
-
-.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    }
+    
+    .button, input[type=submit], input[type=button], .submit-row input, a.button {
     background: var(--primary-color) !important;
     color: white !important;
     border: none !important;
@@ -72,9 +72,9 @@
 
 .button:hover, input[type=submit]:hover, input[type=button]:hover, .submit-row input:hover, a.button:hover {
     background: var(--secondary-color) !important;
-}
-
-.button.default, input[type=submit].default, .submit-row input.default {
+    }
+    
+    .button.default, input[type=submit].default, .submit-row input.default {
     background: var(--accent-color) !important;
 }
 
@@ -88,18 +88,18 @@
 
 .delete:hover {
     background: #a82333 !important;
-}
-
-.object-tools a:link, .object-tools a:visited {
+    }
+    
+    .object-tools a:link, .object-tools a:visited {
     background: var(--primary-color) !important;
     color: white !important;
     padding: 8px 16px !important;
     border-radius: var(--radius-sm) !important;
     text-decoration: none !important;
     font-size: 14px !important;
-}
-
-.object-tools a:hover {
+    }
+    
+    .object-tools a:hover {
     background: var(--secondary-color) !important;
 }
 
@@ -131,9 +131,9 @@
 /* Content wrapper */
 #content {
     padding: 0 !important;
-}
-
-#content-main {
+        }
+        
+        #content-main {
     padding: 0 !important;
 }
 
@@ -264,9 +264,9 @@
     padding: 10px 20px !important;
     border-radius: var(--radius-sm) !important;
     margin-left: 10px !important;
-    cursor: pointer !important;
-}
-
+            cursor: pointer !important;
+        }
+        
 .search-form input[type="submit"]:hover {
     background: var(--secondary-color) !important;
 }
@@ -280,8 +280,8 @@
 }
 
 #changelist-filter h2 {
-    background: var(--primary-color) !important;
-    color: white !important;
+        background: var(--primary-color) !important;
+        color: white !important;
     padding: 15px !important;
     margin: -20px -20px 20px -20px !important;
     border-radius: var(--radius-sm) var(--radius-sm) 0 0 !important;
@@ -422,28 +422,28 @@
 
 /* Custom admin header styling */
 .custom-admin-header {
-    background: var(--card-bg);
+        background: var(--card-bg);
     border-bottom: 1px solid var(--border-color);
     padding: 16px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: var(--shadow);
+        box-shadow: var(--shadow);
     margin-bottom: 20px;
 }
 
 .custom-admin-title {
     font-size: 20px;
-    font-weight: 600;
-    color: var(--text-primary);
+        font-weight: 600;
+        color: var(--text-primary);
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
 .custom-admin-actions {
-    display: flex;
-    align-items: center;
+        display: flex;
+        align-items: center;
     gap: 16px;
 }
 
@@ -460,7 +460,7 @@
     border-radius: var(--radius-sm);
     font-size: 14px;
     transition: background-color 0.2s;
-    display: inline-block;
+        display: inline-block;
     border: none;
     cursor: pointer;
     font-family: inherit;
@@ -468,7 +468,7 @@
 
 .logout-btn:hover {
     background: #a82333;
-    color: white;
+        color: white;
     text-decoration: none;
 }
 
@@ -485,7 +485,7 @@
         width: 100%;
         justify-content: space-between;
     }
-}
+    }
 </style>
 {% endblock %}
 

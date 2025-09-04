@@ -8,9 +8,10 @@ router = DefaultRouter()
 router.register(r'dumping-spots', views.DumpingSpotViewSet, basename='dumpingspot')
 router.register(r'trucks', views.TruckViewSet, basename='truck')
 router.register(r'bin-data', views.BinViewSet, basename='bin')
+router.register(r'sensor-data', views.SensorDataViewSet, basename='sensordata')
 
 # Admin endpoints
-router.register(r'roles', views.RoleViewSet, basename='role')
+# router.register(r'roles', views.RoleViewSet, basename='role')  # Temporarily disabled to fix admin error
 
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
