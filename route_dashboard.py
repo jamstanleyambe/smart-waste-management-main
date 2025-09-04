@@ -32,6 +32,52 @@ local_js("console.log('Hello from Streamlit JS!');")
 # Inject custom CSS for full-width layout and map styling
 st.markdown("""
 <style>
+    /* Global fix for all Streamlit elements to fit screen */
+    html, body {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* Target the specific problematic element you mentioned */
+    .st-emotion-cache-6px8kg.e4man1110,
+    [class*="st-emotion-cache-6px8kg"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    /* Additional selectors for the specific element */
+    .e4man1110,
+    [class*="e4man1110"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    /* Force any element with 6px8kg in class to fit */
+    [class*="6px8kg"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    /* Universal fix for all emotion cache elements */
+    [class*="st-emotion-cache"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
     /* Full-Width Layout - Remove All White Space */
     .main .block-container {
         padding: 1rem 0.5rem !important;
@@ -99,6 +145,48 @@ st.markdown("""
     .stMap * {
         max-width: 100% !important;
         box-sizing: border-box !important;
+    }
+    
+    /* Responsive design for different screen sizes */
+    @media (max-width: 1200px) {
+        .main .block-container {
+            padding: 0.5rem !important;
+        }
+        
+        [class*="st-emotion-cache"] {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .main .block-container {
+            padding: 0.25rem !important;
+        }
+        
+        .st-emotion-cache-6px8kg.e4man1110 {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        
+        /* Ensure mobile-friendly layout */
+        .stMarkdown, .stHeader, .stSubheader {
+            padding: 0.5rem !important;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .main .block-container {
+            padding: 0.1rem !important;
+        }
+        
+        /* Extra small screen optimizations */
+        [class*="st-emotion-cache"] {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
     }
     
     /* Target Folium map container for end-to-end span */
@@ -261,6 +349,105 @@ st.markdown("""
         max-width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
+    }
+    
+    /* Universal fix for all Streamlit emotion cache elements to fit screen */
+    [class*="st-emotion-cache"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Specific fix for the problematic element you mentioned */
+    .st-emotion-cache-6px8kg.e4man1110 {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    /* Force all Streamlit containers to use full width */
+    .stElementContainer, .element-container, .stBlock, .stHorizontalBlock {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Ensure all content inside Streamlit elements fits */
+    [class*="st-emotion-cache"] > div,
+    .stElementContainer > div,
+    .element-container > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Fix for any horizontally scrolling elements */
+    .stHorizontalBlock > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+    
+        /* Ensure the main app container fits the screen */
+    .main .block-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 1rem !important;
+        margin: 0 !important;
+    }
+    
+    /* Prevent horizontal scrolling and ensure all content fits */
+    .main {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Force all Streamlit widgets to fit within screen bounds */
+    .stButton, .stSelectbox, .stTextInput, .stNumberInput {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Ensure search and control elements don't overflow */
+    .stHorizontalBlock {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* Responsive design for mobile and tablet */
+    @media (max-width: 768px) {
+        .stMain.st-emotion-cache-z4kicb.e1cbzgzq1 {
+            width: 95% !important;
+            padding: 1rem !important;
+        }
+        
+        [class*="st-emotion-cache"] {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        
+        .st-emotion-cache-6px8kg.e4man1110 {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+    }
+    
+    /* Extra small screens */
+    @media (max-width: 480px) {
+        .stMain.st-emotion-cache-z4kicb.e1cbzgzq1 {
+            width: 98% !important;
+            padding: 0.5rem !important;
+        }
     }
     
     /* Alternative stMain selectors */
