@@ -763,17 +763,7 @@ def add_bin(bin_data):
     print(f"Add Bin API Response: {response.status_code} - {response.text}")
     return response.status_code == 201
 
-def delete_bin(bin_id):
-    """Delete a bin via the API using the RESTful endpoint (by pk/id)"""
-    # Find the bin's pk (id) from the bins list
-    bins_list = get_bins()
-    bin_obj = next((b for b in bins_list if b['bin_id'] == bin_id), None)
-    if not bin_obj:
-        return False
-    pk = bin_obj['id']
-    response = requests.delete(f"{API_BASE_URL}/bin-data/{pk}/")
-    print(f"Delete Bin API Response: {response.status_code} - {response.text}")
-    return response.status_code == 204
+
 
 def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highlight_item=None, highlight_type=None):
     m = folium.Map(
@@ -2004,44 +1994,7 @@ def main():
     elif calculate_route_button and not selected_bins:
         st.warning("Please select at least one bin to calculate a route.")
 
-    # Generalized Delete Section
-    st.header("Delete Item by ID")
-    item_type = st.selectbox("Select Item Type", ["Bin", "Truck", "Dumping Spot"])
-    item_id = st.text_input("Enter ID to Delete (e.g., BIN001, TRUCK01, DS01)", "")
-    item_found = None
-    if item_type == "Bin":
-        items = bins
-        id_field = "bin_id"
-        delete_func = delete_bin
-    elif item_type == "Truck":
-        items = trucks
-        id_field = "truck_id"
-        def delete_truck(truck_id):
-            response = requests.delete(f"{API_BASE_URL}/trucks/{truck_id}/")
-            print(f"Delete Truck API Response: {response.status_code} - {response.text}")
-            return response.status_code == 204
-        delete_func = delete_truck
-    else:
-        items = dumping_spots
-        id_field = "spot_id"
-        def delete_dumping_spot(spot_id):
-            response = requests.delete(f"{API_BASE_URL}/dumping-spots/{spot_id}/")
-            print(f"Delete Dumping Spot API Response: {response.status_code} - {response.text}")
-            return response.status_code == 204
-        delete_func = delete_dumping_spot
-    if item_id:
-        item_found = next((item for item in items if item[id_field] == item_id), None)
-        if item_found:
-            st.write(f"**{item_type} Details:**")
-            st.json(item_found)
-            if st.button(f"Delete {item_type}", key=f"delete_{item_type}_{item_id}"):
-                if delete_func(item_id):
-                    st.success(f"{item_type} {item_id} deleted!")
-                    st.rerun()
-                else:
-                    st.error(f"Failed to delete {item_type} {item_id}")
-        else:
-            st.warning(f"No {item_type.lower()} found with ID '{item_id}'")
+
 
 if __name__ == "__main__":
     main() 
