@@ -602,15 +602,15 @@ st.markdown("""
     .stMain.st-emotion-cache-4rsbii.e4man111,
     .st-emotion-cache-4rsbii.e4man111 {
         margin: 30px !important;
-        padding: 0 !important;
+        padding: 20px !important;
         margin-top: 30px !important;
         margin-bottom: 30px !important;
         margin-left: 30px !important;
         margin-right: 30px !important;
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
+        padding-top: 20px !important;
+        padding-bottom: 20px !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
     }
     
     /* Target any element with the specific class combination */
