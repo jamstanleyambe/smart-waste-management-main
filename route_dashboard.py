@@ -157,6 +157,21 @@ st.markdown("""
         flex-shrink: 0 !important;
         position: relative !important;
         left: 0 !important;
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+    }
+    
+    /* Force sidebar and main content to touch */
+    .stSidebar, .sidebar .sidebar-content {
+        margin-right: 0 !important;
+        padding-right: 0 !important;
+        border-right: none !important;
+    }
+    
+    .main .block-container > div:not(.stSidebar):not(.sidebar) {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        border-left: none !important;
     }
     
     /* Force all direct children in main area to full width */
@@ -184,6 +199,7 @@ st.markdown("""
         max-width: 100vw !important;
         width: 100vw !important;
         margin: 0 !important;
+        align-items: stretch !important;
     }
     
     /* Sidebar for "Route through selected bins" - 20% width */
@@ -194,7 +210,7 @@ st.markdown("""
         flex: 0 0 20% !important;
         padding: 0.5rem !important;
         margin-right: 0 !important;
-        padding-right: 0.25rem !important;
+        padding-right: 0 !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
         border-radius: 8px !important;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
@@ -209,6 +225,7 @@ st.markdown("""
         padding-left: 0 !important;
         padding-right: 0 !important;
         margin-right: 0 !important;
+        border-left: none !important;
     }
     
     /* Ensure the map takes full width of its container */
