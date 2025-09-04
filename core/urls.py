@@ -5,10 +5,13 @@ from . import user_management
  
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
-router.register(r'dumping-spots', views.DumpingSpotViewSet, basename='dumpingspot')
-router.register(r'trucks', views.TruckViewSet, basename='truck')
-router.register(r'bin-data', views.BinViewSet, basename='bin')
-router.register(r'sensor-data', views.SensorDataViewSet, basename='sensordata')
+router.register(r'bins', views.BinViewSet)
+router.register(r'trucks', views.TruckViewSet)
+router.register(r'dumping-spots', views.DumpingSpotViewSet)
+router.register(r'roles', views.RoleViewSet)
+router.register(r'sensor-data', views.SensorDataViewSet)
+router.register(r'cameras', views.CameraViewSet)
+router.register(r'camera-images', views.CameraImageViewSet)
 
 # Admin endpoints
 # router.register(r'roles', views.RoleViewSet, basename='role')  # Temporarily disabled to fix admin error

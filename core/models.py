@@ -311,3 +311,147 @@ class SensorData(models.Model):
         from django.utils import timezone
         from datetime import timedelta
         return self.timestamp > timezone.now() - timedelta(minutes=minutes) 
+
+class Camera(models.Model):
+    """Camera device model for ESP32-CAM and other cameras"""
+    CAMERA_TYPES = [
+        ('ESP32_CAM', 'ESP32-CAM'),
+        ('USB', 'USB Camera'),
+        ('IP', 'IP Camera'),
+        ('RASPBERRY_PI', 'Raspberry Pi Camera'),
+    ]
+    
+    STATUS_CHOICES = [
+        ('ACTIVE', 'Active'),
+        ('MAINTENANCE', 'Maintenance'),
+        ('OFFLINE', 'Offline'),
+        ('ERROR', 'Error'),
+    ]
+    
+    camera_id = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=100)
+    camera_type = models.CharField(max_length=20, choices=CAMERA_TYPES, default='ESP32_CAM')
+    location = models.CharField(max_length=200)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='ACTIVE')
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    rtsp_url = models.URLField(null=True, blank=True)
+    last_maintenance = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "Camera"
+        verbose_name_plural = "Cameras"
+        ordering = ['-created_at']
+    
+    def __str__(self):
+        return f"{self.name} ({self.camera_id})"
+    
+    def get_status_color(self):
+        """Get color for status display"""
+        status_colors = {
+            'ACTIVE': 'green',
+            'MAINTENANCE': 'orange',
+            'OFFLINE': 'red',
+            'ERROR': 'darkred',
+        }
+        return status_colors.get(self.status, 'gray')
+
+class CameraImage(models.Model):
+    """Model for storing camera captured images"""
+    ANALYSIS_TYPES = [
+        ('WASTE_CLASSIFICATION', 'Waste Classification'),
+        ('SECURITY', 'Security Monitoring'),
+        ('COLLECTION', 'Collection Verification'),
+        ('GENERAL', 'General Monitoring'),
+    ]
+    
+    camera = models.ForeignKey(Camera, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='camera_images/%Y/%m/%d/')
+    thumbnail = models.ImageField(upload_to='camera_thumbnails/%Y/%m/%d/', null=True, blank=True)
+    analysis_type = models.CharField(max_length=20, choices=ANALYSIS_TYPES, default='GENERAL')
+    confidence_score = models.FloatField(null=True, blank=True)
+    detected_objects = models.JSONField(default=dict, blank=True)
+    analysis_result = models.JSONField(default=dict, blank=True)
+    metadata = models.JSONField(default=dict, blank=True)
+    is_analyzed = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        verbose_name = "Camera Image"
+        verbose_name_plural = "Camera Images"
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['camera', 'created_at']),
+            models.Index(fields=['analysis_type', 'created_at']),
+            models.Index(fields=['is_analyzed', 'created_at']),
+        ]
+    
+    def __str__(self):
+        return f"Image from {self.camera.name} at {self.created_at}"
+    
+    def get_image_url(self):
+        """Get full image URL"""
+        if self.image:
+            return self.image.url
+        return None
+    
+    def get_thumbnail_url(self):
+        """Get thumbnail URL"""
+        if self.thumbnail:
+            return self.thumbnail.url
+        return self.image.url if self.image else None
+    
+    def get_file_size_mb(self):
+        """Get image file size in MB"""
+        if self.image:
+            return round(self.image.size / (1024 * 1024), 2)
+        return 0
+    
+    def get_dimensions(self):
+        """Get image dimensions"""
+        if self.image:
+            try:
+                from PIL import Image
+                with Image.open(self.image.path) as img:
+                    return f"{img.width} x {img.height}"
+            except:
+                return "Unknown"
+        return "Unknown"
+    
+    def save(self, *args, **kwargs):
+        """Override save to create thumbnail"""
+        super().save(*args, **kwargs)
+        if self.image and not self.thumbnail:
+            self.create_thumbnail()
+    
+    def create_thumbnail(self):
+        """Create thumbnail from main image"""
+        try:
+            from PIL import Image
+            from io import BytesIO
+            from django.core.files import File
+            
+            # Open the image
+            with Image.open(self.image.path) as img:
+                # Convert to RGB if necessary
+                if img.mode != 'RGB':
+                    img = img.convert('RGB')
+                
+                # Create thumbnail
+                img.thumbnail((300, 300), Image.Resampling.LANCZOS)
+                
+                # Save thumbnail
+                thumb_io = BytesIO()
+                img.save(thumb_io, format='JPEG', quality=85)
+                thumb_io.seek(0)
+                
+                # Generate thumbnail filename
+                thumb_name = f"thumb_{self.image.name.split('/')[-1]}"
+                
+                # Save thumbnail
+                self.thumbnail.save(thumb_name, File(thumb_io), save=False)
+                self.save(update_fields=['thumbnail'])
+                
+        except Exception as e:
+            print(f"Error creating thumbnail: {e}") 

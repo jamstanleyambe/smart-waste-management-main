@@ -10,10 +10,10 @@ from django.core.exceptions import ValidationError
 from django.db import DatabaseError
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
-from .models import Bin, DumpingSpot, Truck, Role, SensorData
+from .models import Bin, DumpingSpot, Truck, Role, SensorData, Camera, CameraImage
 from .serializers import (
     BinSerializer, DumpingSpotSerializer, TruckSerializer,
-    RoleSerializer, SensorDataSerializer
+    RoleSerializer, SensorDataSerializer, CameraSerializer, CameraImageSerializer
 )
 
 # Set up logging
@@ -250,3 +250,96 @@ class SensorDataViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(timestamp__gte=yesterday)
         
         return queryset.order_by('-timestamp') 
+
+class CameraViewSet(viewsets.ModelViewSet):
+    """ViewSet for Camera management"""
+    queryset = Camera.objects.all()
+    serializer_class = CameraSerializer
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [UserRateThrottle]
+    
+    def get_permissions(self):
+        """Allow unauthenticated access for GET operations"""
+        if self.action in ['list', 'retrieve']:
+            return [AllowAny()]
+        return super().get_permissions()
+    
+    def get_queryset(self):
+        """Filter cameras by status if requested"""
+        queryset = Camera.objects.all()
+        status = self.request.query_params.get('status', None)
+        if status:
+            queryset = queryset.filter(status=status)
+        return queryset
+
+class CameraImageViewSet(viewsets.ModelViewSet):
+    """ViewSet for CameraImage management"""
+    queryset = CameraImage.objects.all()
+    serializer_class = CameraImageSerializer
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [UserRateThrottle]
+    
+    def get_permissions(self):
+        """Allow unauthenticated access for image upload and viewing"""
+        if self.action in ['list', 'retrieve', 'create']:
+            return [AllowAny()]
+        return super().get_permissions()
+    
+    def get_queryset(self):
+        """Filter images by various parameters"""
+        queryset = CameraImage.objects.all()
+        
+        # Filter by camera
+        camera_id = self.request.query_params.get('camera_id', None)
+        if camera_id:
+            queryset = queryset.filter(camera__camera_id=camera_id)
+        
+        # Filter by analysis type
+        analysis_type = self.request.query_params.get('analysis_type', None)
+        if analysis_type:
+            queryset = queryset.filter(analysis_type=analysis_type)
+        
+        # Filter by date range
+        date_from = self.request.query_params.get('date_from', None)
+        if date_from:
+            try:
+                from datetime import datetime
+                date_obj = datetime.strptime(date_from, '%Y-%m-%d')
+                queryset = queryset.filter(created_at__date__gte=date_obj.date())
+            except ValueError:
+                pass
+        
+        date_to = self.request.query_params.get('date_to', None)
+        if date_to:
+            try:
+                from datetime import datetime
+                date_obj = datetime.strptime(date_to, '%Y-%m-%d')
+                queryset = queryset.filter(created_at__date__lte=date_obj.date())
+            except ValueError:
+                pass
+        
+        # Filter by analyzed status
+        is_analyzed = self.request.query_params.get('is_analyzed', None)
+        if is_analyzed is not None:
+            is_analyzed_bool = is_analyzed.lower() == 'true'
+            queryset = queryset.filter(is_analyzed=is_analyzed_bool)
+        
+        return queryset
+    
+    def perform_create(self, serializer):
+        """Handle image upload and processing"""
+        # Save the image
+        image_instance = serializer.save()
+        
+        # Log the upload
+        print(f"📸 New image uploaded: {image_instance.image.name}")
+        print(f"📊 Image size: {image_instance.get_file_size_mb()} MB")
+        print(f"📅 Upload time: {image_instance.created_at}")
+        
+        # TODO: Add image analysis processing here
+        # This could include:
+        # - Waste classification using AI
+        # - Object detection
+        # - Quality assessment
+        
+        return image_instance 

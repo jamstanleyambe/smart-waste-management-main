@@ -1420,10 +1420,137 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
     
     return m
 
+def camera_gallery_section():
+    """Camera Gallery Section"""
+    st.header("📸 Camera Gallery")
+    st.markdown("View all captured images from ESP32-CAM and other cameras")
+    
+    # Fetch camera images from API
+    try:
+        response = requests.get(f"{API_BASE_URL}/camera-images/")
+        if response.status_code == 200:
+            images_data = response.json()
+            images = images_data.get('results', [])
+            
+            if not images:
+                st.info("📷 No images captured yet. ESP32-CAM will start sending images automatically.")
+                return
+            
+            # Gallery controls
+            col1, col2, col3 = st.columns([2, 2, 1])
+            
+            with col1:
+                # Filter by camera
+                camera_response = requests.get(f"{API_BASE_URL}/cameras/")
+                cameras = []
+                if camera_response.status_code == 200:
+                    cameras_data = camera_response.json()
+                    cameras = cameras_data.get('results', [])
+                
+                camera_filter = st.selectbox(
+                    "📷 Filter by Camera:",
+                    ["All Cameras"] + [cam['name'] for cam in cameras]
+                )
+            
+            with col2:
+                # Filter by analysis type
+                analysis_types = ["All Types", "WASTE_CLASSIFICATION", "SECURITY", "COLLECTION", "GENERAL"]
+                analysis_filter = st.selectbox("🔍 Filter by Type:", analysis_types)
+            
+            with col3:
+                # Sort options
+                sort_by = st.selectbox("📊 Sort by:", ["Newest", "Oldest", "File Size", "Camera"])
+            
+            # Apply filters
+            filtered_images = images
+            if camera_filter != "All Cameras":
+                filtered_images = [img for img in images if img.get('camera_name') == camera_filter]
+            
+            if analysis_filter != "All Types":
+                filtered_images = [img for img in filtered_images if img.get('analysis_type') == analysis_filter]
+            
+            # Apply sorting
+            if sort_by == "Oldest":
+                filtered_images.sort(key=lambda x: x.get('created_at', ''))
+            elif sort_by == "File Size":
+                filtered_images.sort(key=lambda x: x.get('file_size_mb', 0), reverse=True)
+            elif sort_by == "Camera":
+                filtered_images.sort(key=lambda x: x.get('camera_name', ''))
+            else:  # Newest (default)
+                filtered_images.sort(key=lambda x: x.get('created_at', ''), reverse=True)
+            
+            # Display image count
+            st.success(f"📊 Found {len(filtered_images)} images")
+            
+            # Gallery grid
+            cols = st.columns(3)
+            for idx, image in enumerate(filtered_images):
+                col_idx = idx % 3
+                
+                with cols[col_idx]:
+                    # Image card
+                    with st.container():
+                        st.markdown("---")
+                        
+                        # Image thumbnail
+                        if image.get('thumbnail_url'):
+                            st.image(image['thumbnail_url'], use_column_width=True)
+                        elif image.get('image_url'):
+                            st.image(image['image_url'], use_column_width=True)
+                        else:
+                            st.error("❌ Image not available")
+                        
+                        # Image info
+                        st.markdown(f"**📷 {image.get('camera_name', 'Unknown Camera')}**")
+                        st.markdown(f"**📅 {image.get('created_at', 'Unknown Date')[:10]}**")
+                        st.markdown(f"**🔍 {image.get('analysis_type', 'Unknown Type')}**")
+                        
+                        if image.get('file_size_mb'):
+                            st.markdown(f"**💾 {image.get('file_size_mb')} MB**")
+                        
+                        if image.get('dimensions'):
+                            st.markdown(f"**📐 {image.get('dimensions')}**")
+                        
+                        # Analysis results
+                        if image.get('is_analyzed') and image.get('confidence_score'):
+                            st.markdown(f"**🎯 Confidence: {image.get('confidence_score', 0):.2f}**")
+                        
+                        # View full image button
+                        if image.get('image_url'):
+                            if st.button(f"🔍 View Full", key=f"view_{image['id']}"):
+                                st.image(image['image_url'], use_column_width=True)
+                                st.success("✅ Full image displayed above")
+                        
+                        # Download button
+                        if image.get('image_url'):
+                            st.download_button(
+                                label="⬇️ Download",
+                                data=requests.get(image['image_url']).content,
+                                file_name=f"camera_image_{image['id']}.jpg",
+                                mime="image/jpeg",
+                                key=f"download_{image['id']}"
+                            )
+            
+            # Pagination info
+            if len(images) > len(filtered_images):
+                st.info(f"📄 Showing {len(filtered_images)} of {len(images)} total images")
+                
+        else:
+            st.error(f"❌ Failed to fetch images: {response.status_code}")
+            
+    except Exception as e:
+        st.error(f"❌ Error loading camera gallery: {str(e)}")
+        st.info("💡 Make sure the Django backend is running and accessible")
+
 def main():
     st.title("Smart Waste Management Route Dashboard - Douala 5")
     
-
+    # Navigation system
+    st.sidebar.header("🧭 Navigation")
+    selected = st.sidebar.selectbox(
+        "Choose a section:",
+        ["🗺️ Interactive Map", "📊 Analytics Dashboard", "🚛 Truck Management", "🗑️ Bin Management", "📈 Real-time Data", "📸 Camera Gallery"]
+    )
     
     # Add custom CSS for container margins and map enhancements
     st.markdown("""
@@ -1559,6 +1686,30 @@ def main():
             st.caption(f"📅 Last updated: {current_time}")
     else:
         st.caption(f"📅 Last updated: {current_time}")
+    
+    # Navigation routing
+    if selected == "📸 Camera Gallery":
+        camera_gallery_section()
+        return
+    elif selected == "📊 Analytics Dashboard":
+        st.header("📊 Analytics Dashboard")
+        st.info("Analytics dashboard coming soon...")
+        return
+    elif selected == "🚛 Truck Management":
+        st.header("🚛 Truck Management")
+        st.info("Truck management coming soon...")
+        return
+    elif selected == "🗑️ Bin Management":
+        st.header("🗑️ Bin Management")
+        st.info("Bin management coming soon...")
+        return
+    elif selected == "📈 Real-time Data":
+        st.header("📈 Real-time Data")
+        st.info("Real-time data monitoring coming soon...")
+        return
+    
+    # Default: Interactive Map
+    st.header("🗺️ Interactive Map")
     
     # Search and highlight item on the map
     st.header("🔍 Search Item by ID on Map")
@@ -2123,6 +2274,8 @@ def main():
         st.warning("Please select a truck to calculate a route.")
     elif calculate_route_button and not selected_bins:
         st.warning("Please select at least one bin to calculate a route.")
+
+
 
 
 

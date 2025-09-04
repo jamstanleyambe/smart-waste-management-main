@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LogoutView
 from django.urls import path
-from .models import Bin, DumpingSpot, Truck, SensorData
+from .models import Bin, DumpingSpot, Truck, SensorData, Camera, CameraImage
 
 User = get_user_model()
 
@@ -247,6 +247,93 @@ class SensorDataAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         """Allow deletion for data cleanup"""
         return True
+
+@admin.register(Camera)
+class CameraAdmin(admin.ModelAdmin):
+    """Admin interface for Camera model"""
+    list_display = ['camera_id', 'name', 'camera_type', 'location', 'status', 'total_images', 'last_maintenance', 'created_at']
+    list_filter = ['camera_type', 'status', 'created_at']
+    search_fields = ['camera_id', 'name', 'location']
+    readonly_fields = ['created_at', 'updated_at', 'total_images']
+    ordering = ['-created_at']
+    
+    fieldsets = (
+        ('Basic Information', {
+            'fields': ('camera_id', 'name', 'camera_type', 'location')
+        }),
+        ('Status & Configuration', {
+            'fields': ('status', 'ip_address', 'rtsp_url')
+        }),
+        ('Maintenance', {
+            'fields': ('last_maintenance',)
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    def total_images(self, obj):
+        """Display total number of images"""
+        return obj.images.count()
+    total_images.short_description = 'Total Images'
+
+@admin.register(CameraImage)
+class CameraImageAdmin(admin.ModelAdmin):
+    """Admin interface for CameraImage model"""
+    list_display = ['id', 'camera', 'analysis_type', 'file_size_mb', 'dimensions', 'is_analyzed', 'created_at']
+    list_filter = ['camera', 'analysis_type', 'is_analyzed', 'created_at']
+    search_fields = ['camera__name', 'camera__camera_id']
+    readonly_fields = ['created_at', 'file_size_mb', 'dimensions', 'image_url', 'thumbnail_url']
+    ordering = ['-created_at']
+    
+    fieldsets = (
+        ('Image Information', {
+            'fields': ('camera', 'image', 'thumbnail', 'analysis_type')
+        }),
+        ('Analysis Results', {
+            'fields': ('confidence_score', 'detected_objects', 'analysis_result', 'is_analyzed')
+        }),
+        ('Metadata', {
+            'fields': ('metadata',)
+        }),
+        ('File Details', {
+            'fields': ('file_size_mb', 'dimensions', 'image_url', 'thumbnail_url'),
+            'classes': ('collapse',)
+        }),
+        ('Timestamps', {
+            'fields': ('created_at',),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    def file_size_mb(self, obj):
+        """Display file size in MB"""
+        return f"{obj.get_file_size_mb()} MB"
+    file_size_mb.short_description = 'File Size'
+    
+    def dimensions(self, obj):
+        """Display image dimensions"""
+        return obj.get_dimensions()
+    dimensions.short_description = 'Dimensions'
+    
+    def image_url(self, obj):
+        """Display image URL"""
+        url = obj.get_image_url()
+        if url:
+            return f'<a href="{url}" target="_blank">View Image</a>'
+        return 'No image'
+    image_url.short_description = 'Image URL'
+    image_url.allow_tags = True
+    
+    def thumbnail_url(self, obj):
+        """Display thumbnail URL"""
+        url = obj.get_thumbnail_url()
+        if url:
+            return f'<a href="{url}" target="_blank">View Thumbnail</a>'
+        return 'No thumbnail'
+    thumbnail_url.short_description = 'Thumbnail URL'
+    thumbnail_url.allow_tags = True
 
 # Register models with custom admin site
 admin_site.register(Bin, BinAdmin)
