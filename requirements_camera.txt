@@ -1,0 +1,44 @@
+# 📸 Camera Integration Dependencies
+# Smart Waste Management System - test-v3-cam branch
+
+# Core camera and computer vision libraries
+opencv-python==4.8.1.78
+opencv-contrib-python==4.8.1.78
+Pillow==10.0.1
+
+# Machine learning and AI
+tensorflow==2.13.0
+torch==2.0.1
+torchvision==0.15.2
+scikit-learn==1.3.0
+
+# Image processing and analysis
+numpy==1.24.3
+scikit-image==0.21.0
+matplotlib==3.7.2
+seaborn==0.12.2
+
+# Camera hardware integration
+picamera2==0.3.12  # Raspberry Pi camera
+pyserial==3.5       # ESP32 communication
+pynetworktables==2023.4.3  # Network camera support
+
+# Video processing and streaming
+ffmpeg-python==0.2.0
+opencv-python-headless==4.8.1.78  # For servers without GUI
+
+# Additional utilities
+requests==2.31.0
+python-dateutil==2.8.2
+tqdm==4.65.0
+
+# Development and testing
+pytest==7.4.0
+pytest-cov==4.1.0
+black==23.7.0
+flake8==6.0.0
+
+# Note: Some packages may require system-level dependencies:
+# - FFmpeg: sudo apt-get install ffmpeg (Ubuntu/Debian)
+# - V4L2: sudo apt-get install v4l-utils (Ubuntu/Debian)
+# - OpenGL: sudo apt-get install libgl1-mesa-glx (Ubuntu/Debian)
