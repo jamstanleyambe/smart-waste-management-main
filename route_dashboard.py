@@ -147,10 +147,57 @@ st.markdown("""
         box-sizing: border-box !important;
     }
     
+    /* Layout: Sidebar 20%, Main Content 80% */
+    .main .block-container {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 1rem !important;
+        padding: 1rem !important;
+        max-width: 100vw !important;
+        width: 100vw !important;
+        margin: 0 !important;
+    }
+    
+    /* Sidebar for "Route through selected bins" - 20% width */
+    .stSidebar, .sidebar .sidebar-content {
+        width: 20% !important;
+        min-width: 20% !important;
+        max-width: 20% !important;
+        flex: 0 0 20% !important;
+        padding: 1rem !important;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    /* Main content area - 80% width */
+    .main .block-container > div:not(.stSidebar):not(.sidebar) {
+        width: 80% !important;
+        flex: 1 !important;
+        max-width: 80% !important;
+    }
+    
+    /* Ensure the map takes full width of its container */
+    .stMap, .folium-map, .leaflet-container {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
     /* Responsive design for different screen sizes */
     @media (max-width: 1200px) {
         .main .block-container {
             padding: 0.5rem !important;
+            flex-direction: row !important;
+            gap: 0.5rem !important;
+        }
+        
+        .stSidebar, .sidebar .sidebar-content {
+            width: 20% !important;
+            min-width: 20% !important;
+        }
+        
+        .main .block-container > div:not(.stSidebar):not(.sidebar) {
+            width: 80% !important;
         }
         
         [class*="st-emotion-cache"] {
@@ -162,6 +209,20 @@ st.markdown("""
     @media (max-width: 768px) {
         .main .block-container {
             padding: 0.25rem !important;
+            flex-direction: column !important;
+            gap: 0.5rem !important;
+        }
+        
+        .stSidebar, .sidebar .sidebar-content {
+            width: 100% !important;
+            min-width: 100% !important;
+            max-width: 100% !important;
+            flex: none !important;
+        }
+        
+        .main .block-container > div:not(.stSidebar):not(.sidebar) {
+            width: 100% !important;
+            max-width: 100% !important;
         }
         
         .st-emotion-cache-6px8kg.e4man1110 {
@@ -178,6 +239,20 @@ st.markdown("""
     @media (max-width: 480px) {
         .main .block-container {
             padding: 0.1rem !important;
+            flex-direction: column !important;
+            gap: 0.25rem !important;
+        }
+        
+        .stSidebar, .sidebar .sidebar-content {
+            width: 100% !important;
+            min-width: 100% !important;
+            max-width: 100% !important;
+            flex: none !important;
+        }
+        
+        .main .block-container > div:not(.stSidebar):not(.sidebar) {
+            width: 100% !important;
+            max-width: 100% !important;
         }
         
         /* Extra small screen optimizations */
