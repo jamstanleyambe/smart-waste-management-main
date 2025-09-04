@@ -153,6 +153,8 @@ st.markdown("""
         flex-direction: column !important;
         width: 100% !important;
         max-width: 100% !important;
+        flex-grow: 1 !important;
+        flex-shrink: 0 !important;
     }
     
     /* Force all direct children in main area to full width */
@@ -175,7 +177,7 @@ st.markdown("""
     .main .block-container {
         display: flex !important;
         flex-direction: row !important;
-        gap: 0.5rem !important;
+        gap: 0.1rem !important;
         padding: 1rem !important;
         max-width: 100vw !important;
         width: 100vw !important;
@@ -188,7 +190,7 @@ st.markdown("""
         min-width: 20% !important;
         max-width: 20% !important;
         flex: 0 0 20% !important;
-        padding: 0.75rem !important;
+        padding: 0.5rem !important;
         margin-right: 0 !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
         border-radius: 8px !important;
@@ -202,6 +204,7 @@ st.markdown("""
         max-width: 80% !important;
         margin-left: 0 !important;
         padding-left: 0 !important;
+        padding-right: 0 !important;
     }
     
     /* Ensure the map takes full width of its container */
@@ -246,7 +249,7 @@ st.markdown("""
         .main .block-container {
             padding: 0.5rem !important;
             flex-direction: row !important;
-            gap: 0.25rem !important;
+            gap: 0.1rem !important;
         }
         
         .stSidebar, .sidebar .sidebar-content {
