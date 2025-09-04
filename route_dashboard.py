@@ -166,12 +166,74 @@ st.markdown("""
         margin-right: 0 !important;
         padding-right: 0 !important;
         border-right: none !important;
+        outline: none !important;
+        box-shadow: none !important;
     }
     
     .main .block-container > div:not(.stSidebar):not(.sidebar) {
         margin-left: 0 !important;
         padding-left: 0 !important;
         border-left: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+    
+    /* Eliminate ALL possible white space */
+    .main .block-container {
+        gap: 0 !important;
+        column-gap: 0 !important;
+        row-gap: 0 !important;
+    }
+    
+    /* Force containers to be absolutely adjacent */
+    .stSidebar, .sidebar .sidebar-content {
+        position: relative !important;
+        right: 0 !important;
+        z-index: 1 !important;
+    }
+    
+    .main .block-container > div:not(.stSidebar):not(.sidebar) {
+        position: relative !important;
+        left: 0 !important;
+        z-index: 1 !important;
+    }
+    
+    /* Remove any default browser spacing */
+    * {
+        box-sizing: border-box !important;
+    }
+    
+    /* Ensure no gaps in flexbox */
+    .main .block-container > * {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Force absolute adjacency with no white space */
+    .stSidebar, .sidebar .sidebar-content {
+        margin: 0 !important;
+        padding: 0.5rem 0.5rem 0.5rem 0.5rem !important;
+        padding-right: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    .main .block-container > div:not(.stSidebar):not(.sidebar) {
+        margin: 0 !important;
+        padding: 0 !important;
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+    }
+    
+    /* Remove any remaining visual separators */
+    .stSidebar::after,
+    .sidebar .sidebar-content::after {
+        display: none !important;
+        content: none !important;
+    }
+    
+    .main .block-container > div:not(.stSidebar):not(.sidebar)::before {
+        display: none !important;
+        content: none !important;
     }
     
     /* Force all direct children in main area to full width */
@@ -200,6 +262,8 @@ st.markdown("""
         width: 100vw !important;
         margin: 0 !important;
         align-items: stretch !important;
+        justify-content: flex-start !important;
+        overflow: hidden !important;
     }
     
     /* Sidebar for "Route through selected bins" - 20% width */
