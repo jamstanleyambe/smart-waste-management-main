@@ -598,6 +598,33 @@ st.markdown("""
         box-sizing: border-box !important;
     }
     
+    /* Reduce margin and padding for specific Streamlit main container */
+    .stMain.st-emotion-cache-4rsbii.e4man111,
+    .st-emotion-cache-4rsbii.e4man111 {
+        margin: 0 !important;
+        padding: 0 !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    
+    /* Target any element with the specific class combination */
+    [class*="4rsbii"][class*="e4man111"] {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Alternative selector for broader coverage */
+    .e4man111 {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
     /* Ensure all content inside Streamlit elements fits */
     [class*="st-emotion-cache"] > div,
     .stElementContainer > div,
