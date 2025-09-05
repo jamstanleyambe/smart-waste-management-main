@@ -7,7 +7,7 @@ from folium.plugins import MarkerCluster
 import json
 import altair as alt
 import pandas as pd
-import datetime
+import datetime as dt
 from dateutil import parser as date_parser
 
 # Constants
@@ -1425,6 +1425,90 @@ def camera_gallery_section():
     st.header("📸 Camera Gallery")
     st.markdown("View all captured images from ESP32-CAM and other cameras")
     
+    # Add custom CSS for the 4x4 gallery grid
+    st.markdown("""
+    <style>
+    /* Enhanced 4x4 Gallery Grid Styling */
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        padding: 16px 0;
+    }
+    
+    .gallery-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 12px;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .gallery-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        border-color: #3498db;
+    }
+    
+    .gallery-image {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 8px;
+    }
+    
+    .gallery-info {
+        font-size: 12px;
+        line-height: 1.4;
+        color: #2c3e50;
+    }
+    
+    .gallery-buttons {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+    }
+    
+    .gallery-button {
+        flex: 1;
+        padding: 4px 8px;
+        border: none;
+        border-radius: 6px;
+        background: #3498db;
+        color: white;
+        font-size: 12px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
+    
+    .gallery-button:hover {
+        background: #2980b9;
+    }
+    
+    /* Responsive design for smaller screens */
+    @media (max-width: 1200px) {
+        .gallery-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .gallery-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .gallery-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
     # Fetch camera images from API
     try:
         response = requests.get(f"{API_BASE_URL}/camera-images/")
@@ -1482,54 +1566,102 @@ def camera_gallery_section():
             # Display image count
             st.success(f"📊 Found {len(filtered_images)} images")
             
-            # Gallery grid
-            cols = st.columns(3)
+            # Gallery grid - 4x4 layout
+            st.markdown("### 📸 Image Gallery (4x4 Grid)")
+            
+            # Create 4 columns for the grid
+            cols = st.columns(4)
+            
             for idx, image in enumerate(filtered_images):
-                col_idx = idx % 3
+                col_idx = idx % 4
                 
                 with cols[col_idx]:
-                    # Image card
+                    # Image card with enhanced styling
                     with st.container():
-                        st.markdown("---")
+                        # Create a card-like container
+                        st.markdown("""
+                        <div style="
+                            border: 1px solid #e0e0e0;
+                            border-radius: 12px;
+                            padding: 12px;
+                            margin-bottom: 16px;
+                            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+                            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                            transition: transform 0.2s ease;
+                        ">
+                        """, unsafe_allow_html=True)
                         
-                        # Image thumbnail
-                        if image.get('thumbnail_url'):
-                            st.image(image['thumbnail_url'], use_column_width=True)
-                        elif image.get('image_url'):
-                            st.image(image['image_url'], use_column_width=True)
-                        else:
-                            st.error("❌ Image not available")
+                        # Image thumbnail with hover effect
+                        try:
+                            if image.get('thumbnail_url'):
+                                # Convert relative URL to full URL
+                                thumbnail_url = f"{API_BASE_URL.replace('/api', '')}{image['thumbnail_url']}"
+                                st.image(
+                                    thumbnail_url, 
+                                    use_container_width=True,
+                                    caption=f"📷 {image.get('camera_name', 'Unknown Camera')}"
+                                )
+                            elif image.get('image_url'):
+                                # Convert relative URL to full URL
+                                image_url = f"{API_BASE_URL.replace('/api', '')}{image['image_url']}"
+                                st.image(
+                                    image_url, 
+                                    use_container_width=True,
+                                    caption=f"📷 {image.get('camera_name', 'Unknown Camera')}"
+                                )
+                            else:
+                                st.error("❌ Image not available")
+                        except Exception as e:
+                            # Fallback to main image if thumbnail fails
+                            if image.get('image_url'):
+                                image_url = f"{API_BASE_URL.replace('/api', '')}{image['image_url']}"
+                                st.image(
+                                    image_url, 
+                                    use_container_width=True,
+                                    caption=f"📷 {image.get('camera_name', 'Unknown Camera')} (Full Image)"
+                                )
+                            else:
+                                st.error("❌ Image not available")
                         
-                        # Image info
-                        st.markdown(f"**📷 {image.get('camera_name', 'Unknown Camera')}**")
+                        # Compact image info
                         st.markdown(f"**📅 {image.get('created_at', 'Unknown Date')[:10]}**")
                         st.markdown(f"**🔍 {image.get('analysis_type', 'Unknown Type')}**")
                         
-                        if image.get('file_size_mb'):
-                            st.markdown(f"**💾 {image.get('file_size_mb')} MB**")
-                        
-                        if image.get('dimensions'):
-                            st.markdown(f"**📐 {image.get('dimensions')}**")
+                        # File details in compact format
+                        if image.get('file_size_mb') and image.get('dimensions'):
+                            st.markdown(f"**💾 {image.get('file_size_mb')} MB | 📐 {image.get('dimensions')}**")
                         
                         # Analysis results
                         if image.get('is_analyzed') and image.get('confidence_score'):
-                            st.markdown(f"**🎯 Confidence: {image.get('confidence_score', 0):.2f}**")
+                            confidence = image.get('confidence_score', 0)
+                            confidence_color = "🟢" if confidence > 0.8 else "🟡" if confidence > 0.5 else "🔴"
+                            st.markdown(f"**🎯 {confidence_color} {confidence:.2f}**")
                         
-                        # View full image button
-                        if image.get('image_url'):
-                            if st.button(f"🔍 View Full", key=f"view_{image['id']}"):
-                                st.image(image['image_url'], use_column_width=True)
-                                st.success("✅ Full image displayed above")
+                        # Action buttons in compact layout
+                        button_col1, button_col2 = st.columns(2)
                         
-                        # Download button
-                        if image.get('image_url'):
-                            st.download_button(
-                                label="⬇️ Download",
-                                data=requests.get(image['image_url']).content,
-                                file_name=f"camera_image_{image['id']}.jpg",
-                                mime="image/jpeg",
-                                key=f"download_{image['id']}"
-                            )
+                        with button_col1:
+                            # View full image button
+                            if image.get('image_url'):
+                                if st.button("🔍", key=f"view_{image['id']}", help="View full image"):
+                                    full_image_url = f"{API_BASE_URL.replace('/api', '')}{image['image_url']}"
+                                    st.image(full_image_url, use_container_width=True)
+                                    st.success("✅ Full image displayed above")
+                        
+                        with button_col2:
+                            # Download button
+                            if image.get('image_url'):
+                                full_image_url = f"{API_BASE_URL.replace('/api', '')}{image['image_url']}"
+                                st.download_button(
+                                    "⬇️",
+                                    data=requests.get(full_image_url).content,
+                                    file_name=f"camera_image_{image['id']}.jpg",
+                                    mime="image/jpeg",
+                                    key=f"download_{image['id']}",
+                                    help="Download image"
+                                )
+                        
+                        st.markdown("</div>", unsafe_allow_html=True)
             
             # Pagination info
             if len(images) > len(filtered_images):
@@ -1658,7 +1790,7 @@ def main():
     trucks = get_trucks()
     
     # Display last update timestamp and data freshness indicator
-    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    current_time = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     # Check if we have recent data (within last 5 minutes)
     if bins and len(bins) > 0:
@@ -2057,7 +2189,7 @@ def main():
     # Technical Support Bins Section
     st.header("Technical Support Needed (Real Data)")
     # Find real bins needing technical support
-    now = datetime.datetime.utcnow()
+    now = dt.datetime.utcnow()
     tech_support_bins = []
     for b in bins:
         reason = None

@@ -280,22 +280,24 @@ class CameraAdmin(admin.ModelAdmin):
 
 @admin.register(CameraImage)
 class CameraImageAdmin(admin.ModelAdmin):
-    """Admin interface for CameraImage model"""
+    """Admin interface for CameraImage model with enhanced upload capabilities"""
     list_display = ['id', 'camera', 'analysis_type', 'file_size_mb', 'dimensions', 'is_analyzed', 'created_at']
     list_filter = ['camera', 'analysis_type', 'is_analyzed', 'created_at']
     search_fields = ['camera__name', 'camera__camera_id']
-    readonly_fields = ['created_at', 'file_size_mb', 'dimensions', 'image_url', 'thumbnail_url']
+    readonly_fields = ['created_at', 'file_size_mb', 'dimensions', 'image_url', 'thumbnail_url', 'image_preview', 'thumbnail_preview']
     ordering = ['-created_at']
     
     fieldsets = (
+        ('Image Upload', {
+            'fields': ('camera', 'image', 'image_preview'),
+            'description': '📸 Upload images directly from your computer. Images will be automatically resized and thumbnails created.'
+        }),
         ('Image Information', {
-            'fields': ('camera', 'image', 'thumbnail', 'analysis_type')
+            'fields': ('thumbnail', 'thumbnail_preview', 'analysis_type', 'confidence_score', 'is_analyzed')
         }),
         ('Analysis Results', {
-            'fields': ('confidence_score', 'detected_objects', 'analysis_result', 'is_analyzed')
-        }),
-        ('Metadata', {
-            'fields': ('metadata',)
+            'fields': ('detected_objects', 'analysis_result', 'metadata'),
+            'classes': ('collapse',)
         }),
         ('File Details', {
             'fields': ('file_size_mb', 'dimensions', 'image_url', 'thumbnail_url'),
@@ -334,12 +336,34 @@ class CameraImageAdmin(admin.ModelAdmin):
         return 'No thumbnail'
     thumbnail_url.short_description = 'Thumbnail URL'
     thumbnail_url.allow_tags = True
+    
+    def image_preview(self, obj):
+        """Display image preview in admin"""
+        if obj.image:
+            url = obj.get_image_url()
+            if url:
+                return f'<img src="{url}" style="max-width: 300px; max-height: 200px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" />'
+        return 'No image uploaded'
+    image_preview.short_description = 'Image Preview'
+    image_preview.allow_tags = True
+    
+    def thumbnail_preview(self, obj):
+        """Display thumbnail preview in admin"""
+        if obj.thumbnail:
+            url = obj.get_thumbnail_url()
+            if url:
+                return f'<img src="{url}" style="max-width: 150px; max-height: 100px; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.1);" />'
+        return 'No thumbnail available'
+    thumbnail_preview.short_description = 'Thumbnail Preview'
+    thumbnail_preview.allow_tags = True
 
 # Register models with custom admin site
 admin_site.register(Bin, BinAdmin)
 admin_site.register(DumpingSpot, DumpingSpotAdmin)
 admin_site.register(Truck, TruckAdmin)
 admin_site.register(SensorData, SensorDataAdmin)
+admin_site.register(Camera, CameraAdmin)
+admin_site.register(CameraImage, CameraImageAdmin)
 
 # Register User model for authentication
 admin_site.register(User, UserAdmin)

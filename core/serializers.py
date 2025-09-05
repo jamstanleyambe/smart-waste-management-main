@@ -209,6 +209,9 @@ class CameraImageSerializer(serializers.ModelSerializer):
             'file_size_mb', 'dimensions'
         ]
         read_only_fields = ['created_at', 'thumbnail', 'image_url', 'thumbnail_url']
+        extra_kwargs = {
+            'camera': {'required': False}  # Make camera field optional for uploads
+        }
     
     def create(self, validated_data):
         """Override create to handle image upload"""

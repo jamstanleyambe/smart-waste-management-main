@@ -399,7 +399,11 @@ class CameraImage(models.Model):
     def get_thumbnail_url(self):
         """Get thumbnail URL"""
         if self.thumbnail:
-            return self.thumbnail.url
+            try:
+                return self.thumbnail.url
+            except:
+                # If thumbnail URL is invalid, return the main image URL
+                return self.image.url if self.image else None
         return self.image.url if self.image else None
     
     def get_file_size_mb(self):
@@ -431,6 +435,12 @@ class CameraImage(models.Model):
             from PIL import Image
             from io import BytesIO
             from django.core.files import File
+            import os
+            
+            # Check if image exists
+            if not self.image or not os.path.exists(self.image.path):
+                print(f"Image file not found: {self.image.path if self.image else 'No image'}")
+                return
             
             # Open the image
             with Image.open(self.image.path) as img:
@@ -447,11 +457,15 @@ class CameraImage(models.Model):
                 thumb_io.seek(0)
                 
                 # Generate thumbnail filename
-                thumb_name = f"thumb_{self.image.name.split('/')[-1]}"
+                original_name = self.image.name.split('/')[-1]
+                name, ext = os.path.splitext(original_name)
+                thumb_name = f"thumb_{name}.jpg"
                 
                 # Save thumbnail
                 self.thumbnail.save(thumb_name, File(thumb_io), save=False)
                 self.save(update_fields=['thumbnail'])
+                print(f"Thumbnail created successfully: {thumb_name}")
                 
         except Exception as e:
-            print(f"Error creating thumbnail: {e}") 
+            print(f"Error creating thumbnail: {e}")
+            # Don't fail the save if thumbnail creation fails 
