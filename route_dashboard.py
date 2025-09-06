@@ -1851,15 +1851,10 @@ def main():
         return
     
     # Default: Interactive Map
-    st.markdown("---")
     st.header("🗺️ Interactive Map")
-    st.markdown("### Navigate and explore your waste management system")
-    
-    # Add some breathing room
-    st.markdown("<br>", unsafe_allow_html=True)
     
     # Search and highlight item on the map
-    st.subheader("🔍 Search Item by ID on Map")
+    st.header("🔍 Search Item by ID on Map")
     
     # Show search history if available
     if 'search_history' not in st.session_state:
@@ -1869,9 +1864,6 @@ def main():
         st.info(f"💡 **Recent searches**: {', '.join(st.session_state['search_history'][-3:])}")
     
     st.info("💡 **Search Tip**: Enter an ID below to find and highlight the item with a ⭐ star marker on the map! Data is automatically refreshed on each search.")
-    
-    # Add spacing before search section
-    st.markdown("<br>", unsafe_allow_html=True)
     
     # Create columns for search input and button
     col1, col2 = st.columns([3, 1])
@@ -1985,22 +1977,16 @@ def main():
     else:
         main_map = create_map(bins, dumping_spots, trucks)
     
-    # Add spacing before map
-    st.markdown("<br><br>", unsafe_allow_html=True)
-    
     # Display map in a full-width container
     with st.container():
         st.markdown('<div class="map-container">', unsafe_allow_html=True)
         folium_static(main_map, width=1200, height=800)
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # Add spacing after map
-    st.markdown("<br><br>", unsafe_allow_html=True)
+
 
     # Calculate and display statistics
-    st.markdown("---")
-    st.header("📊 System Statistics")
-    st.markdown("### Real-time insights and performance metrics")
+    st.header("Bin Statistics")
     if bins:
         # Separate technical support bins (abnormal fill levels)
         tech_support_bins = [b for b in bins if b.get('fill_level', 50) < 0 or b.get('fill_level', 50) > 100]
@@ -2013,9 +1999,6 @@ def main():
         almost_full_bins = sum(1 for b in other_bins if 0 <= b.get('fill_level', 50) <= 100 and b['fill_level'] >= 80 and b['fill_level'] < 100)
         half_full_bins = sum(1 for b in other_bins if 0 <= b.get('fill_level', 50) <= 100 and b['fill_level'] >= 50 and b['fill_level'] < 80)
         low_fill_bins = sum(1 for b in other_bins if 0 <= b.get('fill_level', 50) <= 100 and b['fill_level'] < 50)
-        # Add spacing before statistics
-        st.markdown("<br>", unsafe_allow_html=True)
-        
         # Create a DataFrame for statistics with redefined categories
         stats_data = {
             'Category': [
@@ -2104,17 +2087,8 @@ def main():
         
         st.info("Note: The 'Technical Support Needed' count in this chart represents the bins with fill_level < 0 or > 100.")
 
-        # Add spacing before next section
-        st.markdown("<br><br>", unsafe_allow_html=True)
-        
         # Waste Composition Distribution
-        st.markdown("---")
-        st.header("🗂️ Waste Composition Distribution")
-        st.markdown("### Analysis of organic waste patterns across bins")
-        
-        # Add spacing
-        st.markdown("<br>", unsafe_allow_html=True)
-        
+        st.header("Waste Composition Distribution")
         # Only use bins with valid fill levels (not technical support bins)
         valid_bins = [b for b in bins if 0 <= b.get('fill_level', 50) <= 100]
         if valid_bins:

@@ -60,58 +60,82 @@ div[data-testid="stVerticalBlock"] {
     border-radius: 10px;
 }
 
-/* Main content area styling */
+/* Main content area styling - Expanded */
 .main .block-container {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     max-width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
 }
 
 /* Expand main content area */
 .main {
-    padding-left: 2rem !important;
-    padding-right: 2rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    flex: 1 !important;
 }
 
-/* Header spacing */
-h1, h2, h3 {
+/* Make sidebar more compact */
+.css-1d391kg {
+    max-width: 250px !important;
+    min-width: 200px !important;
+}
+
+/* Expand the main content area */
+.stApp > div:first-child {
+    max-width: 100% !important;
+}
+
+/* Better spacing for the main content */
+div[data-testid="stAppViewContainer"] {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+/* Force main content to take more space */
+div[data-testid="stAppViewContainer"] > div:first-child {
+    flex: 1 !important;
+    max-width: calc(100% - 250px) !important;
+}
+
+/* Compact sidebar */
+section[data-testid="stSidebar"] {
+    max-width: 250px !important;
+    min-width: 200px !important;
+}
+
+/* Ensure main content area is wide */
+div[data-testid="stAppViewContainer"] > div:first-child > div {
+    max-width: 100% !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}
+
+/* Enhanced title styling */
+h1 {
+    font-size: 2.5rem !important;
+    margin-bottom: 2rem !important;
+    padding-bottom: 1rem !important;
+    border-bottom: 3px solid #1f77b4 !important;
+    text-align: center !important;
+    background: linear-gradient(135deg, #1f77b4, #2c5aa0) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+/* Better spacing for headers */
+h2 {
     margin-top: 2rem !important;
     margin-bottom: 1.5rem !important;
+    font-size: 1.8rem !important;
 }
 
-/* Section spacing */
-div[data-testid="stVerticalBlock"] {
-    margin-bottom: 2rem !important;
-}
-
-/* Info boxes and alerts spacing */
-div[data-testid="stAlert"] {
+h3 {
     margin-top: 1.5rem !important;
-    margin-bottom: 1.5rem !important;
-}
-
-/* Add more spacing between major sections */
-hr {
-    margin: 3rem 0 !important;
-    border: none;
-    border-top: 2px solid #e0e0e0;
-}
-
-/* Expand sidebar spacing */
-.css-1d391kg {
-    padding-top: 2rem !important;
-}
-
-/* Better spacing for columns */
-.stColumns {
-    margin-bottom: 2rem !important;
-}
-
-/* Enhanced spacing for text elements */
-p, div {
     margin-bottom: 1rem !important;
+    font-size: 1.4rem !important;
 }
 
 /* Map container styling */
