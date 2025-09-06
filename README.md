@@ -1,6 +1,6 @@
-# 🗑️ Smart Waste Management System
+# 🚀 Smart Waste Management System
 
-A comprehensive, professional-grade waste management system built with Django and Streamlit, featuring real-time monitoring, route optimization, and interactive analytics.
+A comprehensive, professional-grade waste management system built with Django and Streamlit, featuring real-time monitoring, ESP32-CAM integration, route optimization, and interactive analytics.
 
 ## 🌟 Features
 
@@ -9,6 +9,15 @@ A comprehensive, professional-grade waste management system built with Django an
 - **Color-coded Markers** - Visual indicators for fill levels and status
 - **Route Planning** - Smart truck routing with nearest neighbor algorithm
 - **Live Data Updates** - Real-time data from Django REST API
+- **Camera Gallery** - 4x4 grid layout for ESP32-CAM images
+- **Search & Filter** - Advanced search and filtering capabilities
+
+### 📸 ESP32-CAM Integration
+- **Image Capture & Upload** - Direct ESP32-CAM integration with binary upload
+- **Gallery System** - Professional image gallery with thumbnails
+- **Bulk Upload** - Admin panel support for multiple image uploads
+- **Image Classification** - Support for waste detection, security monitoring
+- **Real-time Processing** - Automatic thumbnail generation and metadata extraction
 
 ### 📊 Analytics & Reporting
 - **Comprehensive Statistics** - Total bins, trucks, dumping spots, and users
@@ -49,12 +58,18 @@ A comprehensive, professional-grade waste management system built with Django an
 - **Django REST Framework** - API development
 - **SQLite** - Database (production-ready for PostgreSQL)
 - **Python 3.12** - Programming language
+- **PIL/Pillow** - Image processing and thumbnail generation
 
 ### Frontend
 - **Streamlit** - Interactive web application
 - **Folium** - Interactive maps
 - **Altair** - Statistical visualizations
 - **Pandas** - Data manipulation and analysis
+
+### IoT Hardware
+- **ESP32** - IoT sensor platform
+- **ESP32-CAM** - Camera module for image capture
+- **Arduino IDE** - ESP32 development environment
 
 ### Security
 - **Django-Axes** - Login attempt monitoring
@@ -85,6 +100,7 @@ cd smart-waste-management-main
 ### Install Dependencies
 ```bash
 pip install -r requirements.txt
+pip install -r requirements_camera.txt  # For ESP32-CAM features
 ```
 
 ### Database Setup
@@ -112,9 +128,10 @@ python manage.py runserver
 
 ### Start Streamlit Dashboard
 ```bash
-streamlit run route_dashboard.py --server.port 8502
+streamlit run route_dashboard.py --server.port 8502 --server.address 0.0.0.0
 ```
 - **Dashboard**: http://localhost:8502/
+- **ESP32-CAM Upload**: http://localhost:8000/api/esp32-cam-upload/
 
 ## 📡 API Endpoints
 
@@ -129,6 +146,11 @@ streamlit run route_dashboard.py --server.port 8502
 - `POST /api/dumping-spots/` - Create new dumping spot
 - `GET /api/trucks/` - Get all trucks
 - `POST /api/trucks/` - Create new truck
+
+### Camera Management
+- `GET /api/camera-images/` - Get all camera images
+- `POST /api/camera-images/` - Upload new image
+- `POST /api/esp32-cam-upload/` - Direct ESP32-CAM upload
 
 ### User Management
 - `GET /api/roles/` - Get all user roles
@@ -380,9 +402,48 @@ For support and questions:
 - **Database Optimization** - Query optimization
 - **Load Balancing** - Horizontal scaling
 
+## 📚 Comprehensive Documentation
+
+### 📖 Complete Documentation Suite
+- **[Master README](README_MASTER_COMPLETE.md)** - Comprehensive system overview and setup guide
+- **[API Documentation](API_DOCUMENTATION.md)** - Complete API reference with examples
+- **[Deployment Guide](DEPLOYMENT_GUIDE.md)** - Production deployment instructions
+- **[Changelog](CHANGELOG.md)** - Version history and release notes
+
+### 📸 ESP32-CAM Integration
+- **[Quick Start Guide](ESP32_CAM_QUICK_START.md)** - 5-minute ESP32-CAM setup
+- **[Setup Guide](ESP32_CAM_SETUP_GUIDE.md)** - Detailed hardware and software setup
+- **[Integration Plan](CAMERA_INTEGRATION_PLAN.md)** - Complete integration roadmap
+
+### 🔧 ESP32-CAM Code Files
+- **`esp32_cam_perfect.ino`** - Production-ready code with robust error handling
+- **`esp32_cam_simple.ino`** - Simplified version for testing
+- **`esp32_cam_smart_waste.ino`** - Full-featured version
+- **`esp32_cam_code.ino`** - Basic version
+
+## 🚀 Production Ready
+
+The system includes:
+- **Docker deployment** configurations
+- **Production settings** for Django and Streamlit
+- **Nginx configuration** with SSL support
+- **Database optimization** and caching
+- **Security hardening** and monitoring
+- **Backup and recovery** procedures
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our contributing guidelines and submit pull requests for any improvements.
+
+## 📞 Support
+
+- **Issues**: Create GitHub issues for bugs or feature requests
+- **Discussions**: Use GitHub Discussions for questions
+- **Documentation**: Check the comprehensive documentation files
+
 ---
 
-**Built with ❤️ for sustainable waste management**
+**🚀 Ready to revolutionize waste management with IoT and AI!**
 
-*Last updated: August 25, 2025* 
+*Last updated: September 6, 2025* 
 
