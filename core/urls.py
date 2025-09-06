@@ -19,6 +19,7 @@ router.register(r'camera-images', views.CameraImageViewSet)
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
     path('bin-data/', views.bin_data, name='bin_data'),
+    path('esp32-cam-upload/', views.esp32_cam_upload, name='esp32_cam_upload'),
     path('', include(router.urls)),
     
     # User Management URLs

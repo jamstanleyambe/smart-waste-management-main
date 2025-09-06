@@ -10,6 +10,7 @@ from django.core.exceptions import ValidationError
 from django.db import DatabaseError
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
+from django.utils import timezone
 from .models import Bin, DumpingSpot, Truck, Role, SensorData, Camera, CameraImage
 from .serializers import (
     BinSerializer, DumpingSpotSerializer, TruckSerializer,
@@ -55,7 +56,7 @@ def bin_data(request):
                 {'error': 'Failed to retrieve bin data'}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-    
+
     elif request.method == 'POST':
         try:
             serializer = BinSerializer(data=request.data)
@@ -77,15 +78,15 @@ class DumpingSpotViewSet(viewsets.ModelViewSet):
     queryset = DumpingSpot.objects.all()
     serializer_class = DumpingSpotSerializer
     permission_classes = [IsAuthenticated]
-    
+
     def perform_create(self, serializer):
         serializer.save()
         logger.info(f"Dumping spot created: {serializer.instance.spot_id}")
-    
+
     def perform_update(self, serializer):
         serializer.save()
         logger.info(f"Dumping spot updated: {serializer.instance.spot_id}")
-    
+
     def perform_destroy(self, instance):
         spot_id = instance.spot_id
         instance.delete()
@@ -103,15 +104,15 @@ class TruckViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'retrieve']:
             return []  # No permission required for read operations
         return [IsAuthenticated()]  # Authentication required for create/update/delete operations
-    
+
     def perform_create(self, serializer):
         serializer.save()
         logger.info(f"Truck created: {serializer.instance.truck_id}")
-    
+
     def perform_update(self, serializer):
         serializer.save()
         logger.info(f"Truck updated: {serializer.instance.truck_id}")
-    
+
     def perform_destroy(self, instance):
         truck_id = instance.truck_id
         instance.delete()
@@ -129,15 +130,15 @@ class BinViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'retrieve']:
             return []  # No permission required for read operations
         return [IsAuthenticated()]  # Authentication required for create/update/delete operations
-    
+
     def perform_create(self, serializer):
         serializer.save()
         logger.info(f"Bin created: {serializer.instance.bin_id}")
-    
+
     def perform_update(self, serializer):
         serializer.save()
         logger.info(f"Bin updated: {serializer.instance.bin_id}")
-    
+
     def perform_destroy(self, instance):
         bin_id = instance.bin_id
         instance.delete()
@@ -147,15 +148,15 @@ class RoleViewSet(viewsets.ModelViewSet):
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
     permission_classes = [IsAuthenticated]
-    
+
     def perform_create(self, serializer):
         serializer.save()
         logger.info(f"Role created: {serializer.instance.name}")
-    
+
     def perform_update(self, serializer):
         serializer.save()
         logger.info(f"Role updated: {serializer.instance.name}")
-    
+
     def perform_destroy(self, instance):
         role_name = instance.name
         instance.delete()
@@ -284,6 +285,126 @@ class CameraImageViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'retrieve', 'create']:
             return [AllowAny()]
         return super().get_permissions()
+    
+    def create(self, request, *args, **kwargs):
+        """Custom create method to handle ESP32-CAM uploads"""
+        # Get camera info from headers
+        camera_id = request.META.get('HTTP_X_CAMERA_ID', 'ESP32_CAM_001')
+        camera_type = request.META.get('HTTP_X_CAMERA_TYPE', 'ESP32-CAM')
+        analysis_type = request.META.get('HTTP_X_ANALYSIS_TYPE', 'WASTE_CLASSIFICATION')
+        
+        # Create or get camera
+        camera, created = Camera.objects.get_or_create(
+            camera_id=camera_id,
+            defaults={
+                'name': f'Camera {camera_id}',
+                'camera_type': camera_type,
+                'location': 'Unknown',
+                'latitude': 0.0,
+                'longitude': 0.0,
+                'is_active': True
+            }
+        )
+        
+        # Add camera and analysis_type to request data
+        data = request.data.copy()
+        data['camera'] = camera.id
+        data['analysis_type'] = analysis_type
+        
+        # Create serializer with modified data
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def esp32_cam_upload(request):
+    """Custom endpoint for ESP32-CAM raw binary uploads"""
+    try:
+        # Get camera info from headers
+        camera_id = request.META.get('HTTP_X_CAMERA_ID', 'ESP32_CAM_001')
+        camera_type = request.META.get('HTTP_X_CAMERA_TYPE', 'ESP32-CAM')
+        analysis_type = request.META.get('HTTP_X_ANALYSIS_TYPE', 'WASTE_CLASSIFICATION')
+        
+        # Create or get camera
+        camera, created = Camera.objects.get_or_create(
+            camera_id=camera_id,
+            defaults={
+                'name': f'Camera {camera_id}',
+                'camera_type': camera_type,
+                'location': 'Unknown',
+                'latitude': 0.0,
+                'longitude': 0.0,
+                'is_active': True
+            }
+        )
+        
+        # Get raw image data from request body
+        image_data = request.body
+        
+        if not image_data:
+            return Response(
+                {'error': 'No image data received'}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Create a temporary file-like object
+        from django.core.files.base import ContentFile
+        from django.core.files.storage import default_storage
+        
+        # Create the image file
+        image_file = ContentFile(image_data, name=f'image_{camera_id}_{timezone.now().strftime("%Y%m%d_%H%M%S")}.jpg')
+        
+        # Create CameraImage instance
+        camera_image = CameraImage.objects.create(
+            camera=camera,
+            image=image_file,
+            analysis_type=analysis_type,
+            metadata={
+                'camera_id': camera_id,
+                'camera_type': camera_type,
+                'upload_method': 'ESP32-CAM',
+                'file_size': len(image_data)
+            }
+        )
+        
+        # Generate thumbnail
+        try:
+            from PIL import Image
+            import io
+            
+            # Open the image
+            img = Image.open(io.BytesIO(image_data))
+            
+            # Create thumbnail
+            img.thumbnail((150, 150), Image.Resampling.LANCZOS)
+            
+            # Save thumbnail
+            thumb_io = io.BytesIO()
+            img.save(thumb_io, format='JPEG', quality=85)
+            thumb_io.seek(0)
+            
+            # Create thumbnail file
+            thumb_file = ContentFile(thumb_io.getvalue(), name=f'thumb_{camera_image.id}.jpg')
+            camera_image.thumbnail = thumb_file
+            camera_image.save()
+            
+        except Exception as e:
+            logger.warning(f"Failed to generate thumbnail for image {camera_image.id}: {e}")
+        
+        # Return success response
+        serializer = CameraImageSerializer(camera_image)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+    except Exception as e:
+        logger.error(f"ESP32-CAM upload error: {e}")
+        return Response(
+            {'error': f'Upload failed: {str(e)}'}, 
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
     
     def get_queryset(self):
         """Filter images by various parameters"""

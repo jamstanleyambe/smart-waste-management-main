@@ -1,0 +1,195 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static admin_modify %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+&rsaquo; <a href="{% url 'admin:core_cameraimage_changelist' %}">{% trans 'Camera images' %}</a>
+&rsaquo; {% trans 'Bulk Upload' %}
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="module aligned">
+    <h1>📸 Bulk Image Upload</h1>
+    <p class="help">Upload multiple images at once. All images will be automatically processed and thumbnails will be created.</p>
+    
+    <form method="post" enctype="multipart/form-data" id="bulk-upload-form">
+        {% csrf_token %}
+        
+        <fieldset class="module aligned">
+            <h2>Upload Settings</h2>
+            
+            <div class="form-row">
+                <div>
+                    <label for="{{ form.camera.id_for_label }}" class="required">{{ form.camera.label }}:</label>
+                    {{ form.camera }}
+                    {% if form.camera.help_text %}
+                        <p class="help">{{ form.camera.help_text }}</p>
+                    {% endif %}
+                    {% if form.camera.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.camera.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div>
+                    <label for="{{ form.analysis_type.id_for_label }}" class="required">{{ form.analysis_type.label }}:</label>
+                    {{ form.analysis_type }}
+                    {% if form.analysis_type.help_text %}
+                        <p class="help">{{ form.analysis_type.help_text }}</p>
+                    {% endif %}
+                    {% if form.analysis_type.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.analysis_type.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div>
+                    <label for="{{ form.images.id_for_label }}" class="required">{{ form.images.label }}:</label>
+                    {{ form.images }}
+                    {% if form.images.help_text %}
+                        <p class="help">{{ form.images.help_text }}</p>
+                    {% endif %}
+                    {% if form.images.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.images.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </fieldset>
+        
+        <div class="submit-row">
+            <input type="submit" value="📸 Upload Images" class="default" name="_save">
+            <a href="{% url 'admin:core_cameraimage_changelist' %}" class="button cancel-link">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<style>
+.bulk-upload-info {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.bulk-upload-info h3 {
+    color: #495057;
+    margin-top: 0;
+}
+
+.bulk-upload-info ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.bulk-upload-info li {
+    margin: 5px 0;
+    color: #6c757d;
+}
+
+#bulk-upload-form input[type="file"] {
+    padding: 10px;
+    border: 2px dashed #007cba;
+    border-radius: 8px;
+    background: #f8f9fa;
+    width: 100%;
+    font-size: 16px;
+}
+
+#bulk-upload-form input[type="file"]:hover {
+    border-color: #005a87;
+    background: #e9ecef;
+}
+
+.submit-row {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #dee2e6;
+}
+
+.submit-row input[type="submit"] {
+    background: #007cba;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.submit-row input[type="submit"]:hover {
+    background: #005a87;
+}
+
+.cancel-link {
+    background: #6c757d;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 16px;
+    display: inline-block;
+}
+
+.cancel-link:hover {
+    background: #545b62;
+    color: white;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.querySelector('input[type="file"]');
+    const form = document.getElementById('bulk-upload-form');
+    
+    // Add file selection feedback
+    fileInput.addEventListener('change', function() {
+        const files = this.files;
+        if (files.length > 0) {
+            const fileNames = Array.from(files).map(file => file.name).join(', ');
+            const feedback = document.createElement('div');
+            feedback.className = 'file-selection-feedback';
+            feedback.innerHTML = `
+                <p><strong>Selected ${files.length} file(s):</strong></p>
+                <p style="color: #6c757d; font-size: 14px;">${fileNames}</p>
+            `;
+            
+            // Remove existing feedback
+            const existingFeedback = document.querySelector('.file-selection-feedback');
+            if (existingFeedback) {
+                existingFeedback.remove();
+            }
+            
+            // Add new feedback
+            fileInput.parentNode.appendChild(feedback);
+        }
+    });
+    
+    // Add form submission feedback
+    form.addEventListener('submit', function() {
+        const submitBtn = document.querySelector('input[type="submit"]');
+        submitBtn.value = '📸 Uploading...';
+        submitBtn.disabled = true;
+    });
+});
+</script>
+{% endblock %}

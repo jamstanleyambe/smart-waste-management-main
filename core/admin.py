@@ -4,7 +4,7 @@ from django.contrib.admin import AdminSite
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LogoutView
-from django.urls import path
+from django.urls import path, reverse
 from .models import Bin, DumpingSpot, Truck, SensorData, Camera, CameraImage
 
 User = get_user_model()
@@ -286,6 +286,21 @@ class CameraImageAdmin(admin.ModelAdmin):
     search_fields = ['camera__name', 'camera__camera_id']
     readonly_fields = ['created_at', 'file_size_mb', 'dimensions', 'image_url', 'thumbnail_url', 'image_preview', 'thumbnail_preview']
     ordering = ['-created_at']
+    actions = ['bulk_upload_images']
+    
+    def get_form(self, request, obj=None, **kwargs):
+        """Use custom form for better image upload experience"""
+        # Only use custom form for bulk upload, not regular add/edit
+        if request.path.endswith('/bulk-upload/'):
+            from .forms import BulkImageUploadForm
+            return BulkImageUploadForm
+        return super().get_form(request, obj, **kwargs)
+    
+    def changelist_view(self, request, extra_context=None):
+        """Add bulk upload link to changelist"""
+        extra_context = extra_context or {}
+        extra_context['bulk_upload_url'] = reverse('admin:core_cameraimage_bulk_upload')
+        return super().changelist_view(request, extra_context=extra_context)
     
     fieldsets = (
         ('Image Upload', {
@@ -356,6 +371,57 @@ class CameraImageAdmin(admin.ModelAdmin):
         return 'No thumbnail available'
     thumbnail_preview.short_description = 'Thumbnail Preview'
     thumbnail_preview.allow_tags = True
+    
+    def bulk_upload_images(self, request, queryset):
+        """Custom admin action for bulk image upload"""
+        from django.http import HttpResponseRedirect
+        from django.urls import reverse
+        
+        # Redirect to the bulk upload page
+        return HttpResponseRedirect(reverse('admin:core_cameraimage_bulk_upload'))
+    
+    bulk_upload_images.short_description = "📸 Bulk Upload Images"
+    
+    def get_urls(self):
+        """Add custom URLs for bulk upload"""
+        from django.urls import path
+        urls = super().get_urls()
+        custom_urls = [
+            path('bulk-upload/', self.admin_site.admin_view(self.bulk_upload_view), name='core_cameraimage_bulk_upload'),
+        ]
+        return custom_urls + urls
+    
+    def bulk_upload_view(self, request):
+        """Custom view for bulk image upload"""
+        from django.shortcuts import render, redirect
+        from django.contrib import messages
+        from .forms import BulkImageUploadForm
+        
+        if request.method == 'POST':
+            form = BulkImageUploadForm(request.POST, request.FILES)
+            if form.is_valid():
+                try:
+                    created_images = form.save()
+                    messages.success(
+                        request, 
+                        f"✅ Successfully uploaded {len(created_images)} images! "
+                        f"All images have been processed and thumbnails created."
+                    )
+                    return redirect('admin:core_cameraimage_changelist')
+                except Exception as e:
+                    messages.error(request, f"❌ Error uploading images: {str(e)}")
+        else:
+            form = BulkImageUploadForm()
+        
+        context = {
+            'form': form,
+            'title': 'Bulk Image Upload',
+            'has_permission': True,
+            'site_title': self.admin_site.site_title,
+            'site_header': self.admin_site.site_header,
+        }
+        
+        return render(request, 'admin/core/cameraimage/bulk_upload.html', context)
 
 # Register models with custom admin site
 admin_site.register(Bin, BinAdmin)
