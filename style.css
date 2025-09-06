@@ -23,6 +23,64 @@ div.stAlert {
     margin-bottom: 10px;
 }
 
+/* Map container styling for larger, square map */
+div[data-testid="stVerticalBlock"] > div[data-testid="element-container"] {
+    width: 100% !important;
+}
+
+/* Folium map container styling */
+.folium-map {
+    height: 800px !important;
+    width: 100% !important;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-height: 800px;
+}
+
+/* Additional map styling for better appearance */
+div[data-testid="stVerticalBlock"] > div[data-testid="element-container"] > div {
+    width: 100% !important;
+}
+
+/* Make sure the map takes full width */
+.stApp > div {
+    max-width: 100% !important;
+}
+
+/* Map container specific styling */
+div[data-testid="stVerticalBlock"] {
+    width: 100% !important;
+}
+
+/* Ensure map iframe is properly sized */
+.folium-map iframe {
+    height: 800px !important;
+    width: 100% !important;
+    border: none;
+    border-radius: 10px;
+}
+
+/* Main content area styling */
+.main .block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    max-width: 100% !important;
+}
+
+/* Map container styling */
+.map-container {
+    width: 100% !important;
+    margin: 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Streamlit map container */
+div[data-testid="stVerticalBlock"] {
+    width: 100% !important;
+}
+
 /* Custom styles for the legend table (adjust as needed) */
 table {
     border-collapse: collapse;

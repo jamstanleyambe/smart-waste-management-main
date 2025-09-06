@@ -10,6 +10,14 @@ import pandas as pd
 import datetime as dt
 from dateutil import parser as date_parser
 
+# Configure Streamlit page
+st.set_page_config(
+    page_title="Smart Waste Management Dashboard",
+    page_icon="🗑️",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
 # Constants
 DOUALA5_CENTER = [4.0511, 9.7679]
 API_BASE_URL = "http://localhost:8000/api"
@@ -798,7 +806,9 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
         zoom_start=7,
         tiles='OpenStreetMap',
         control_scale=True,
-        prefer_canvas=True
+        prefer_canvas=True,
+        width='100%',
+        height='800px'
     )
     
     # Add truck markers
@@ -1967,7 +1977,11 @@ def main():
     else:
         main_map = create_map(bins, dumping_spots, trucks)
     
-    folium_static(main_map)
+    # Display map in a full-width container
+    with st.container():
+        st.markdown('<div class="map-container">', unsafe_allow_html=True)
+        folium_static(main_map, width=1200, height=800)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 
 
@@ -2268,7 +2282,12 @@ def main():
 
     # Create main map
     main_map = create_map(bins, dumping_spots, trucks, selected_bins)
-    folium_static(main_map)
+    
+    # Display map in a full-width container
+    with st.container():
+        st.markdown('<div class="map-container">', unsafe_allow_html=True)
+        folium_static(main_map, width=1200, height=800)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     # Add Legend Table
     st.subheader("Map Legend")
@@ -2401,7 +2420,12 @@ def main():
             highlight_item=None,  # No highlight for route calculation
             highlight_type=None
         )
-        folium_static(path_map)
+        
+        # Display route map in a full-width container
+        with st.container():
+            st.markdown('<div class="map-container">', unsafe_allow_html=True)
+            folium_static(path_map, width=1200, height=800)
+            st.markdown('</div>', unsafe_allow_html=True)
     elif calculate_route_button and not selected_truck:
         st.warning("Please select a truck to calculate a route.")
     elif calculate_route_button and not selected_bins:
