@@ -62,9 +62,56 @@ div[data-testid="stVerticalBlock"] {
 
 /* Main content area styling */
 .main .block-container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
     max-width: 100% !important;
+}
+
+/* Expand main content area */
+.main {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+}
+
+/* Header spacing */
+h1, h2, h3 {
+    margin-top: 2rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* Section spacing */
+div[data-testid="stVerticalBlock"] {
+    margin-bottom: 2rem !important;
+}
+
+/* Info boxes and alerts spacing */
+div[data-testid="stAlert"] {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* Add more spacing between major sections */
+hr {
+    margin: 3rem 0 !important;
+    border: none;
+    border-top: 2px solid #e0e0e0;
+}
+
+/* Expand sidebar spacing */
+.css-1d391kg {
+    padding-top: 2rem !important;
+}
+
+/* Better spacing for columns */
+.stColumns {
+    margin-bottom: 2rem !important;
+}
+
+/* Enhanced spacing for text elements */
+p, div {
+    margin-bottom: 1rem !important;
 }
 
 /* Map container styling */
