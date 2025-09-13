@@ -34,7 +34,7 @@ const char* ssid = "Orange-6B05";
 const char* password = "GbYMLNLq7h4";
 
 // Server Configuration
-const char* server_url = "http://192.168.1.116:8000";
+const char* server_url = "http://192.168.1.116:8000";  // Change to your Django server IP
 const char* upload_endpoint = "/api/esp32-cam-upload/";
 const char* camera_id = "ESP32_CAM_001";
 
