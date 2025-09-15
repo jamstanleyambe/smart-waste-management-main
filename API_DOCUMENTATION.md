@@ -114,32 +114,33 @@ GET /api/camera-images/
 - `date_from` - Filter from date (YYYY-MM-DD)
 - `date_to` - Filter to date (YYYY-MM-DD)
 
-**Response:**
+**Response (fields match `CameraImageSerializer`):**
 ```json
 [
   {
     "id": 1,
-    "camera": {
-      "id": 1,
-      "camera_id": "ESP32_CAM_001",
-      "camera_type": "ESP32-CAM",
-      "location": "Main Street",
-      "status": "active"
-    },
-    "image": "/media/camera_images/2025/09/06/image_001.jpg",
-    "thumbnail": "/media/camera_images/thumbnails/thumb_001.jpg",
+    "camera": 1,
+    "camera_name": "Camera ESP32_CAM_001",
+    "camera_type": "ESP32_CAM",
+    "image": "/media/camera_images/2025/09/15/image_ESP32_CAM_001_20250915_150109.jpg",
+    "image_url": "/media/camera_images/2025/09/15/image_ESP32_CAM_001_20250915_150109.jpg",
+    "thumbnail_url": "/media/camera_thumbnails/2025/09/15/thumb_image_ESP32_CAM_001_20250915_150109.jpg",
     "analysis_type": "WASTE_CLASSIFICATION",
+    "confidence_score": null,
+    "detected_objects": {},
+    "analysis_result": {},
     "metadata": {
-      "width": 640,
-      "height": 480,
-      "file_size": 12543
+      "file_size": 12847
     },
-    "created_at": "2025-09-06T10:30:00Z"
+    "is_analyzed": false,
+    "created_at": "2025-09-15T15:01:10Z",
+    "file_size_mb": 0.13,
+    "dimensions": "1600 x 1200"
   }
 ]
 ```
 
-### Upload New Image
+### Upload New Image (multipart form)
 ```http
 POST /api/camera-images/
 Content-Type: multipart/form-data
@@ -147,11 +148,10 @@ Content-Type: multipart/form-data
 
 **Form Data:**
 - `image` - Image file (JPEG/PNG)
-- `camera_id` - Camera identifier
-- `analysis_type` - Type of analysis
-- `location` - Optional location description
+- `X-Camera-ID` header can be provided instead of form field; backend links to the camera automatically
+- `analysis_type` - Optional analysis tag
 
-### ESP32-CAM Direct Upload
+### ESP32-CAM Direct Upload (raw JPEG body)
 ```http
 POST /api/esp32-cam-upload/
 Content-Type: image/jpeg
@@ -166,22 +166,18 @@ X-Analysis-Type: WASTE_CLASSIFICATION
 ```json
 {
   "id": 2,
-  "camera": {
-    "id": 1,
-    "camera_id": "ESP32_CAM_001",
-    "camera_type": "ESP32-CAM",
-    "location": "Auto-detected",
-    "status": "active"
-  },
-  "image": "/media/camera_images/2025/09/06/esp32_cam_001_20250906_103000.jpg",
-  "thumbnail": "/media/camera_images/thumbnails/thumb_esp32_cam_001_20250906_103000.jpg",
+  "camera": 1,
+  "camera_name": "Camera ESP32_CAM_001",
+  "camera_type": "ESP32_CAM",
+  "image": "/media/camera_images/2025/09/15/image_ESP32_CAM_001_20250915_150109.jpg",
+  "image_url": "/media/camera_images/2025/09/15/image_ESP32_CAM_001_20250915_150109.jpg",
+  "thumbnail_url": "/media/camera_thumbnails/2025/09/15/thumb_image_ESP32_CAM_001_20250915_150109.jpg",
   "analysis_type": "WASTE_CLASSIFICATION",
-  "metadata": {
-    "width": 640,
-    "height": 480,
-    "file_size": 12847
-  },
-  "created_at": "2025-09-06T10:30:00Z"
+  "metadata": { "file_size": 12847 },
+  "is_analyzed": false,
+  "created_at": "2025-09-15T15:01:10Z",
+  "file_size_mb": 0.13,
+  "dimensions": "1600 x 1200"
 }
 ```
 
@@ -525,7 +521,7 @@ curl -X GET http://localhost:8000/api/bin-data/ \
   -H "Accept: application/json"
 ```
 
-#### Upload Image
+#### Upload Image (ESP32-CAM raw)
 ```bash
 curl -X POST http://localhost:8000/api/esp32-cam-upload/ \
   -H "Content-Type: image/jpeg" \
@@ -533,6 +529,13 @@ curl -X POST http://localhost:8000/api/esp32-cam-upload/ \
   -H "X-Camera-Type: ESP32-CAM" \
   -H "X-Analysis-Type: WASTE_CLASSIFICATION" \
   --data-binary @image.jpg
+```
+
+#### Upload Image (multipart form)
+```bash
+curl -X POST http://localhost:8000/api/camera-images/ \
+  -H "X-Camera-ID: ESP32_CAM_001" \
+  -F image=@image.jpg
 ```
 
 #### Create New Bin

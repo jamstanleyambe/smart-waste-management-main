@@ -14,7 +14,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-your-secret-key-her
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,192.168.1.116').split(',')
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,192.168.1.116,192.168.43.159,192.168.1.121,Jams-MacBook-Pro.local,decrease-legends-failed-discrete.trycloudflare.com').split(',')
 
 # Application definition
 INSTALLED_APPS = [
@@ -87,7 +87,7 @@ LOGOUT_REDIRECT_URL = '/admin/login/'
 CSRF_COOKIE_SECURE = False  # Set to True in production with HTTPS
 CSRF_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SAMESITE = 'Lax'
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000', 'http://192.168.1.116:8000']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000', 'http://192.168.1.116:8000', 'http://192.168.43.159:8000', 'http://192.168.1.121:8000', 'http://Jams-MacBook-Pro.local:8000', 'https://decrease-legends-failed-discrete.trycloudflare.com']
 
 # Security Headers
 SECURE_BROWSER_XSS_FILTER = True

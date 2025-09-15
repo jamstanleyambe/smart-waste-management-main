@@ -161,9 +161,13 @@ config.jpeg_quality = 12;           // Medium quality
 ## 📱 Integration with Smart Waste System
 
 ### 1. Django Backend
-- Images are automatically uploaded to `/api/camera-images/`
-- Thumbnails are generated automatically
-- Images appear in the Streamlit gallery
+- Preferred endpoint for ESP32-CAM is raw JPEG upload: `/api/esp32-cam-upload/`
+- Headers to include:
+  - `X-Camera-ID: <your_camera_id>`
+  - `X-Camera-Type: ESP32-CAM`
+  - `Content-Type: image/jpeg`
+- Thumbnails are generated automatically (best-effort)
+- Images are stored under `/media/camera_images/YYYY/MM/DD/`
 
 ### 2. Bulk Upload Support
 - Multiple ESP32-CAMs can upload simultaneously
@@ -199,6 +203,43 @@ For technical support or questions:
 2. Verify hardware connections
 3. Test with simple WiFi connection first
 4. Ensure Django server is accessible
+5. Test endpoint with cURL from a laptop:
+```bash
+curl -X POST http://<server>:8000/api/esp32-cam-upload/ \
+  -H "Content-Type: image/jpeg" \
+  -H "X-Camera-ID: ESP32_CAM_001" \
+  --data-binary @image.jpg
+```
+
+## 🧩 Arduino Upload Snippet (Raw JPEG)
+```cpp
+// Assumes fb = esp_camera_fb_get(); already captured
+WiFiClient client;
+if (!client.connect(server_ip, 8000)) {
+  Serial.println("Connection failed");
+  return;
+}
+
+String path = "/api/esp32-cam-upload/";
+String host = String(server_ip) + ":8000";
+String cameraId = "ESP32_CAM_001";
+
+client.print(String("POST ") + path + " HTTP/1.1\r\n");
+client.print("Host: " + host + "\r\n");
+client.print("User-Agent: esp32-cam\r\n");
+client.print("X-Camera-ID: " + cameraId + "\r\n");
+client.print("X-Camera-Type: ESP32-CAM\r\n");
+client.print("Content-Type: image/jpeg\r\n");
+client.print(String("Content-Length: ") + fb->len + "\r\n");
+client.print("Connection: close\r\n\r\n");
+client.write(fb->buf, fb->len);
+client.flush();
+esp_camera_fb_return(fb);
+
+// Optional: read HTTP status
+String statusLine = client.readStringUntil('\n');
+Serial.println(statusLine);
+```
 
 ## 🔄 Updates
 
