@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view, throttle_classes, permission_cla
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
+from django.conf import settings
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
@@ -299,10 +300,7 @@ class CameraImageViewSet(viewsets.ModelViewSet):
             defaults={
                 'name': f'Camera {camera_id}',
                 'camera_type': camera_type,
-                'location': 'Unknown',
-                'latitude': 0.0,
-                'longitude': 0.0,
-                'is_active': True
+                'location': 'Unknown'
             }
         )
         
@@ -324,6 +322,12 @@ class CameraImageViewSet(viewsets.ModelViewSet):
 def esp32_cam_upload(request):
     """Custom endpoint for ESP32-CAM raw binary uploads"""
     try:
+        # Validate optional device token if configured
+        device_token = getattr(settings, 'UPLOAD_DEVICE_TOKEN', '')
+        if device_token:
+            provided = request.headers.get('X-Device-Token') or request.META.get('HTTP_X_DEVICE_TOKEN')
+            if provided != device_token:
+                return Response({'error': 'Invalid device token'}, status=status.HTTP_403_FORBIDDEN)
         # Get camera info from headers
         camera_id = request.META.get('HTTP_X_CAMERA_ID', 'ESP32_CAM_001')
         camera_type = request.META.get('HTTP_X_CAMERA_TYPE', 'ESP32-CAM')
@@ -335,10 +339,7 @@ def esp32_cam_upload(request):
             defaults={
                 'name': f'Camera {camera_id}',
                 'camera_type': camera_type,
-                'location': 'Unknown',
-                'latitude': 0.0,
-                'longitude': 0.0,
-                'is_active': True
+                'location': 'Unknown'
             }
         )
         

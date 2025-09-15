@@ -16,6 +16,9 @@ DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() == 'true'
 
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,192.168.1.116,192.168.43.159,192.168.1.121,Jams-MacBook-Pro.local,decrease-legends-failed-discrete.trycloudflare.com').split(',')
 
+# Optional device upload token for ESP32-CAM uploads
+UPLOAD_DEVICE_TOKEN = os.getenv('UPLOAD_DEVICE_TOKEN', '')
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
