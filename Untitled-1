@@ -1,0 +1,5 @@
+<form method="post" action="/admin/login/">
+    {% csrf_token %}
+    <!-- Other form fields -->
+    <button type="submit">Login</button>
+</form>

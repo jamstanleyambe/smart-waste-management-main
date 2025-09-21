@@ -1,0 +1,1 @@
+ALTER TABLE axes_accesslog ALTER COLUMN session_hash DROP NOT NULL;

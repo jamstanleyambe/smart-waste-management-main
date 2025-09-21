@@ -1821,9 +1821,9 @@ def main():
                     freshness_icon = "🔴"
                     freshness_text = "Stale"
                 
-                st.caption(f"{freshness_icon} Data freshness: {freshness_text} | 📅 Last updated: {current_time} | 🕒 API data: {time_diff:.1f} min ago")
+                st.markdown(f'<div style="font-size: 0.75em; color: #666; margin: 2px 0; padding: 2px 0;">{freshness_icon} Data freshness: {freshness_text} | 📅 Last updated: {current_time} | 🕒 API data: {time_diff:.1f} min ago</div>', unsafe_allow_html=True)
             except:
-                st.caption(f"📅 Last updated: {current_time}")
+                st.markdown(f'<div style="font-size: 0.75em; color: #666; margin: 2px 0; padding: 2px 0;">📅 Last updated: {current_time}</div>', unsafe_allow_html=True)
         else:
             st.caption(f"📅 Last updated: {current_time}")
     else:
@@ -1851,10 +1851,10 @@ def main():
         return
     
     # Default: Interactive Map
-    st.header("🗺️ Interactive Map")
+    st.markdown('<h2 style="margin: 8px 0; padding: 4px 0; font-size: 1.2em;">🗺️ Interactive Map</h2>', unsafe_allow_html=True)
     
     # Search and highlight item on the map
-    st.header("🔍 Search Item by ID on Map")
+    st.markdown('<h3 style="margin: 6px 0; padding: 2px 0; font-size: 1.1em;">🔍 Search Item by ID on Map</h3>', unsafe_allow_html=True)
     
     # Show search history if available
     if 'search_history' not in st.session_state:
@@ -1891,7 +1891,7 @@ def main():
     
     if map_search_id and (search_button or st.session_state.get('last_search_id') != map_search_id):
         # Always fetch fresh data when searching
-        st.info("🔄 Fetching fresh data from API...")
+        st.markdown('<div style="font-size: 0.8em; color: #1f77b4;">🔄 Fetching fresh data from API...</div>', unsafe_allow_html=True)
         
         if map_search_type == "Bin":
             # Fetch fresh bin data specifically for this search
@@ -1930,18 +1930,18 @@ def main():
             if map_search_type == "Bin":
                 last_updated = highlight_item.get('last_updated', 'Unknown')
                 fill_level = highlight_item.get('fill_level', 0)
-                st.success(f"✅ Fresh data fetched! Found {map_search_type}: {map_search_id}")
-                st.info(f"📊 Fill Level: {fill_level:.1f}% | 🕒 Last Updated: {last_updated}")
+                st.markdown(f'<div style="font-size: 0.8em; color: #28a745;">✅ Fresh data fetched! Found {map_search_type}: {map_search_id}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div style="font-size: 0.8em; color: #1f77b4;">📊 Fill Level: {fill_level:.1f}% | 🕒 Last Updated: {last_updated}</div>', unsafe_allow_html=True)
             elif map_search_type == "Truck":
                 last_updated = highlight_item.get('last_updated', 'Unknown')
                 status = highlight_item.get('status', 'Unknown')
                 fuel_level = highlight_item.get('fuel_level', 0)
-                st.success(f"✅ Fresh data fetched! Found {map_search_type}: {map_search_id}")
-                st.info(f"🚛 Status: {status} | ⛽ Fuel: {fuel_level:.1f}% | 🕒 Last Updated: {last_updated}")
+                st.markdown(f'<div style="font-size: 0.8em; color: #28a745;">✅ Fresh data fetched! Found {map_search_type}: {map_search_id}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div style="font-size: 0.8em; color: #1f77b4;">🚛 Status: {status} | ⛽ Fuel: {fuel_level:.1f}% | 🕒 Last Updated: {last_updated}</div>', unsafe_allow_html=True)
             else:
                 last_updated = highlight_item.get('last_updated', 'Unknown')
-                st.success(f"✅ Fresh data fetched! Found {map_search_type}: {map_search_id}")
-                st.info(f"🕒 Last Updated: {last_updated}")
+                st.markdown(f'<div style="font-size: 0.8em; color: #28a745;">✅ Fresh data fetched! Found {map_search_type}: {map_search_id}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div style="font-size: 0.8em; color: #1f77b4;">🕒 Last Updated: {last_updated}</div>', unsafe_allow_html=True)
     # Create main map, centering/highlighting if search is active
     if highlight_item:
         if map_search_type == "Bin":
@@ -1973,7 +1973,7 @@ def main():
         
         # Add smooth zoom animation to the highlighted item
         item_id = highlight_item.get('bin_id') or highlight_item.get('truck_id') or highlight_item.get('spot_id') or 'Unknown'
-        st.success(f"🎯 **{map_search_type} Found!** - {item_id} is now highlighted with a ⭐ star marker and zoomed for optimal visibility")
+        st.markdown(f'<div style="font-size: 0.8em; color: #28a745;">🎯 <strong>{map_search_type} Found!</strong> - {item_id} is now highlighted with a ⭐ star marker and zoomed for optimal visibility</div>', unsafe_allow_html=True)
     else:
         main_map = create_map(bins, dumping_spots, trucks)
     
