@@ -78,7 +78,15 @@ def bin_data(request):
 class DumpingSpotViewSet(viewsets.ModelViewSet):
     queryset = DumpingSpot.objects.all()
     serializer_class = DumpingSpotSerializer
-    permission_classes = [IsAuthenticated]
+    
+    def get_permissions(self):
+        """
+        Allow unauthenticated access for GET requests (dashboard access)
+        Require authentication for POST, PUT, DELETE operations
+        """
+        if self.action in ['list', 'retrieve']:
+            return []  # No permission required for read operations
+        return [IsAuthenticated()]  # Authentication required for create/update/delete operations
 
     def perform_create(self, serializer):
         serializer.save()

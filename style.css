@@ -62,17 +62,17 @@ div[data-testid="stVerticalBlock"] {
 
 /* Main content area styling - Expanded */
 .main .block-container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
     max-width: 100% !important;
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 /* Expand main content area */
 .main {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
     flex: 1 !important;
 }
 
@@ -89,8 +89,8 @@ div[data-testid="stVerticalBlock"] {
 
 /* Better spacing for the main content */
 div[data-testid="stAppViewContainer"] {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 /* Force main content to take more space */
@@ -108,15 +108,17 @@ section[data-testid="stSidebar"] {
 /* Ensure main content area is wide */
 div[data-testid="stAppViewContainer"] > div:first-child > div {
     max-width: 100% !important;
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 /* Enhanced title styling */
 h1 {
     font-size: 2.5rem !important;
-    margin-bottom: 2rem !important;
-    padding-bottom: 1rem !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
     border-bottom: 3px solid #1f77b4 !important;
     text-align: center !important;
     background: linear-gradient(135deg, #1f77b4, #2c5aa0) !important;

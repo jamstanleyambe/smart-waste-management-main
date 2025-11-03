@@ -804,7 +804,7 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
         control_scale=True,
         prefer_canvas=True,
         width='100%',
-        height='800px'
+        height='100%'
     )
     
     # Add truck markers
@@ -1730,6 +1730,22 @@ def main():
         border-radius: 12px !important;
         box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
         overflow: hidden !important;
+        width: 100% !important;
+        height: 900px !important;
+    }
+    
+    /* Map container specific styling */
+    .map-container {
+        width: 100% !important;
+        height: 900px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Ensure folium map fills container */
+    .folium-container .folium-map {
+        width: 100% !important;
+        height: 900px !important;
     }
     
     /* Smooth transitions for map elements */
@@ -2057,7 +2073,7 @@ def main():
     # Display map in a full-width container
     with st.container():
         st.markdown('<div class="map-container">', unsafe_allow_html=True)
-        folium_static(main_map, width=1200, height=800)
+        folium_static(main_map, width=1400, height=900)
         st.markdown('</div>', unsafe_allow_html=True)
 
 
@@ -2363,7 +2379,7 @@ def main():
     # Display map in a full-width container
     with st.container():
         st.markdown('<div class="map-container">', unsafe_allow_html=True)
-        folium_static(main_map, width=1200, height=800)
+        folium_static(main_map, width=1400, height=900)
         st.markdown('</div>', unsafe_allow_html=True)
 
     # Add Legend Table
@@ -2501,7 +2517,7 @@ def main():
         # Display route map in a full-width container
         with st.container():
             st.markdown('<div class="map-container">', unsafe_allow_html=True)
-            folium_static(path_map, width=1200, height=800)
+            folium_static(path_map, width=1400, height=900)
             st.markdown('</div>', unsafe_allow_html=True)
     elif calculate_route_button and not selected_truck:
         st.warning("Please select a truck to calculate a route.")
