@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit_autorefresh import st_autorefresh
 import folium
 from streamlit_folium import folium_static
 import requests
@@ -21,6 +22,10 @@ st.set_page_config(
 # Constants
 DOUALA5_CENTER = [4.0511, 9.7679]
 API_BASE_URL = "http://localhost:8000/api"
+LIVE_REFRESH_INTERVAL_MS = 500
+
+# Enable automatic reruns so the dashboard fetches fresh sensor data
+st_autorefresh(interval=LIVE_REFRESH_INTERVAL_MS, key="live_bin_data_refresh")
 
 # Inject custom CSS
 def local_css(file_name):
