@@ -1,9 +1,290 @@
-/* styles.css */
+:root {
+    --font-sans: "Inter", "Segoe UI", "SF Pro Display", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --color-surface: #f7f8fb;
+    --color-panel: #ffffff;
+    --color-muted: #94a3b8;
+    --color-text: #0f172a;
+    --color-accent: #0ea5e9;
+    --color-shadow: rgba(15, 23, 42, 0.08);
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 0.75rem;
+    --space-lg: 1rem;
+    --space-xl: 1.5rem;
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-pill: 999px;
+}
 
 body {
-    font-family: sans-serif;
+    font-family: var(--font-sans);
     background-color: #f0f2f6; /* Light gray background */
-    color: #303030; /* Dark gray text */
+    color: var(--color-text); /* Dark gray text */
+}
+
+/* Remove default Streamlit header/nav */
+header[data-testid="stHeader"],
+div[data-testid="stToolbar"],
+#MainMenu {
+    display: none !important;
+}
+
+footer {
+    visibility: hidden;
+}
+
+/* Sidebar navigation panel */
+section[data-testid="stSidebar"] {
+    background: var(--color-surface);
+}
+
+section[data-testid="stSidebar"] .nav-panel {
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+    margin-bottom: var(--space-md);
+}
+
+section[data-testid="stSidebar"] .nav-panel__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+section[data-testid="stSidebar"] .nav-panel__icon {
+    font-size: 1.4rem;
+}
+
+section[data-testid="stSidebar"] .nav-panel__header h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    color: var(--color-text);
+}
+
+section[data-testid="stSidebar"] .nav-panel__header p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+}
+
+section[data-testid="stSidebar"] [data-testid="stRadio"] > div[role="radiogroup"] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+section[data-testid="stSidebar"] [data-testid="stRadio"] label {
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm) var(--space-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: var(--color-panel);
+    cursor: pointer;
+    transition: border 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+section[data-testid="stSidebar"] [data-testid="stRadio"] label div[role="radio"] {
+    display: none;
+}
+
+section[data-testid="stSidebar"] [data-testid="stRadio"] label p {
+    margin: 0;
+    color: inherit;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+section[data-testid="stSidebar"] [data-testid="stRadio"] label:has(div[aria-checked="true"]) {
+    border-color: var(--color-text);
+    background: #0f172a;
+    color: #ffffff;
+}
+
+section[data-testid="stSidebar"] .nav-helper-inline {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    margin-bottom: var(--space-lg);
+    padding-top: var(--space-xs);
+}
+
+section[data-testid="stSidebar"] .sidebar-content {
+    gap: var(--space-xl) !important;
+}
+
+section[data-testid="stSidebar"] .sidebar-content > div {
+    margin-bottom: var(--space-md);
+}
+
+.section-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #edf2ff 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    margin: 0 0 1rem 0;
+}
+
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.68rem;
+    color: #64748b;
+    margin: 0;
+}
+
+.section-hero h2 {
+    margin: 0.15rem 0 0 0;
+    font-size: 1.6rem;
+    color: #0f172a;
+}
+
+.search-card {
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.07);
+    padding: 1.2rem 1.4rem 0.6rem 1.4rem;
+    margin-bottom: 0.2rem;
+}
+
+.search-card__header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-card__header h3 {
+    margin: 0.2rem 0 0;
+    font-size: 1.35rem !important;
+}
+
+.search-tip-pill {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    border-radius: 999px;
+    padding: 0.65rem 1rem;
+    background: rgba(14, 165, 233, 0.1);
+    border: 1px solid rgba(14, 165, 233, 0.35);
+    color: #0f172a;
+    font-size: 0.85rem;
+    line-height: 1.35;
+}
+
+.search-tip-pill span {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.search-tip-pill p {
+    margin: 0;
+}
+
+.search-control-row {
+    margin-top: 0.6rem;
+    padding: 0.5rem 0.25rem;
+    gap: var(--space-sm);
+}
+
+.search-control-row [data-testid="column"] {
+    margin-top: 0 !important;
+    padding-right: var(--space-sm);
+}
+
+.search-control-row .stSelectbox, 
+.search-control-row .stTextInput {
+    margin-bottom: 0 !important;
+}
+
+.search-control-row label {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.search-control-row [data-testid="stTextInput"] input,
+.search-control-row [data-testid="stSelectbox"] div[role="combobox"] {
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    padding: 0.55rem 0.95rem;
+    box-shadow: inset 0 2px 6px rgba(15, 23, 42, 0.05);
+}
+.stSelectbox div[data-baseweb="select-option"] {
+    padding: var(--space-sm) var(--space-lg) !important;
+}
+
+.stSelectbox div[data-baseweb="select"] {
+    min-height: 44px;
+}
+
+.stSidebar, section[data-testid="stSidebar"] .sidebar-content {
+    padding-right: 0.75rem !important;
+}
+
+.sidebar-content > div {
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    margin-bottom: var(--space-md);
+}
+
+.sidebar-content > div:last-child {
+    border-bottom: none;
+}
+
+.sidebar-content .route-card {
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    background: #ffffff;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+    margin-top: var(--space-md);
+}
+
+.route-card h3 {
+    margin-top: 0;
+    font-size: 1rem;
+    color: #0f172a;
+}
+
+.route-card .stSelectbox,
+.route-card .stMultiselect {
+    margin-bottom: var(--space-md) !important;
+}
+
+.route-card label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.search-control-row [data-testid="stTextInput"] input:focus,
+.search-control-row [data-testid="stSelectbox"] div[role="combobox"]:focus-within {
+    border-color: #0ea5e9;
+    box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
+}
+
+.search-control-row [data-testid="stButton"] button {
+    height: 46px;
+    border-radius: 999px;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.15);
+}
+
+.search-control-row [data-testid="column"]:nth-child(3) [data-testid="stButton"] button {
+    background: linear-gradient(135deg, #f43f5e, #fb7185);
+    color: white;
+}
+
+.search-control-row [data-testid="column"]:nth-child(4) [data-testid="stButton"] button {
+    background: white;
+    color: #0f172a;
+    border: 1px solid #cbd5f5;
+    box-shadow: none;
 }
 
 h1, h2, h3 {
@@ -30,11 +311,11 @@ div[data-testid="stVerticalBlock"] > div[data-testid="element-container"] {
 
 /* Folium map container styling */
 .folium-map {
-    height: 800px !important;
+    height: 65vh !important;
     width: 100% !important;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    min-height: 800px;
+    border-radius: 18px;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.18);
+    min-height: 720px;
 }
 
 /* Additional map styling for better appearance */
@@ -54,10 +335,10 @@ div[data-testid="stVerticalBlock"] {
 
 /* Ensure map iframe is properly sized */
 .folium-map iframe {
-    height: 800px !important;
+    height: 65vh !important;
     width: 100% !important;
     border: none;
-    border-radius: 10px;
+    border-radius: 18px;
 }
 
 /* Main content area styling - Expanded */
@@ -76,40 +357,86 @@ div[data-testid="stVerticalBlock"] {
     flex: 1 !important;
 }
 
-/* Make sidebar more compact */
-.css-1d391kg {
-    max-width: 250px !important;
-    min-width: 200px !important;
+/* Layout: sidebar 25%, main content 75% */
+div[data-testid="stAppViewContainer"] {
+    padding: 0 !important;
+    display: flex !important;
+    gap: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
 }
 
-/* Expand the main content area */
-.stApp > div:first-child {
+div[data-testid="stLayoutWrapper"] {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+}
+
+section[data-testid="stSidebar"] {
+    flex: 0 0 25% !important;
+    width: 25% !important;
+    max-width: 25% !important;
+    min-width: 25% !important;
+    padding: 0.5rem 1rem 0.5rem 1.5rem !important;
+    margin: 0 !important;
+}
+
+div[data-testid="stAppViewContainer"] > div:first-child {
+    flex: 1 1 75% !important;
+    width: 75% !important;
+    max-width: 75% !important;
+    padding: 0.5rem 1.5rem 0.5rem 0 !important;
+    margin: 0 !important;
+}
+
+.main, .main .block-container {
+    padding: 0 !important;
+    margin: 0 !important;
     max-width: 100% !important;
 }
 
-/* Better spacing for the main content */
-div[data-testid="stAppViewContainer"] {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+.stMainBlockContainer.block-container,
+.st-emotion-cache-zy6yx3.e4man114,
+.main .block-container > div:not(.stSidebar):not(.sidebar) {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0.5rem 0 !important;
 }
 
-/* Force main content to take more space */
-div[data-testid="stAppViewContainer"] > div:first-child {
-    flex: 1 !important;
-    max-width: calc(100% - 250px) !important;
-}
-
-/* Compact sidebar */
-section[data-testid="stSidebar"] {
-    max-width: 250px !important;
-    min-width: 200px !important;
-}
-
-/* Ensure main content area is wide */
 div[data-testid="stAppViewContainer"] > div:first-child > div {
     max-width: 100% !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+@media (max-width: 1024px) {
+    section[data-testid="stSidebar"],
+    div[data-testid="stAppViewContainer"] > div:first-child {
+        flex: 1 1 100% !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+        width: 100% !important;
+    }
+
+    div[data-testid="stAppViewContainer"] {
+        flex-direction: column !important;
+    }
+
+    section[data-testid="stSidebar"] {
+        padding: 0.5rem 1rem !important;
+    }
+
+    div[data-testid="stAppViewContainer"] > div:first-child {
+        padding: 0.5rem 1rem !important;
+    }
+
+    section[data-testid="stSidebar"] .nav-panel,
+    section[data-testid="stSidebar"] [data-baseweb="radio"] > div[role="radio"],
+    section[data-testid="stSidebar"] .nav-helper-card {
+        border-radius: var(--radius-sm);
+    }
 }
 
 /* Enhanced title styling */
@@ -143,10 +470,10 @@ h3 {
 /* Map container styling */
 .map-container {
     width: 100% !important;
-    margin: 0 auto;
-    border-radius: 10px;
+    margin: 0;
+    border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
 }
 
 /* Streamlit map container */
