@@ -1,5 +1,4 @@
 import streamlit as st
-import streamlit.components.v1 as components
 import folium
 from streamlit_folium import folium_static
 import requests
@@ -10,35 +9,8 @@ import altair as alt
 import pandas as pd
 import datetime as dt
 from dateutil import parser as date_parser
-
-try:
-    from streamlit_autorefresh import st_autorefresh
-except ImportError:  # pragma: no cover - fallback for environments missing extra dependency
-    def st_autorefresh(interval=1000, limit=None, key=None):
-        """Minimal JS-based fallback to keep the dashboard refreshing."""
-        if interval is None or interval <= 0:
-            return 0
-        refresh_key = key or f"auto_refresh_{interval}"
-        limit_js = "null" if limit is None else str(limit)
-        script = f"""
-        <script>
-        (function() {{
-            const storageKey = "st-autorefresh-count-" + {json.dumps(refresh_key)};
-            const limitValue = {limit_js};
-            const count = Number(window.sessionStorage.getItem(storageKey) || 0);
-            if (!limitValue || count < limitValue) {{
-                window.sessionStorage.setItem(storageKey, count + 1);
-                setTimeout(() => window.parent.location.reload(), {int(interval)});
-            }}
-        }})();
-        </script>
-        """
-        components.html(script, height=0, width=0)
-        state_key = "_autorefresh_missing_dependency_notice"
-        if not st.session_state.get(state_key):
-            st.caption("⚠️ Install `streamlit-autorefresh` for smoother live updates.")
-            st.session_state[state_key] = True
-        return 0
+from branca.element import MacroElement
+from jinja2 import Template
 
 # Configure Streamlit page
 st.set_page_config(
@@ -51,7 +23,137 @@ st.set_page_config(
 # Constants
 DOUALA5_CENTER = [4.0511, 9.7679]
 API_BASE_URL = "http://localhost:8000/api"
-LIVE_REFRESH_INTERVAL_MS = 500
+LIVE_REFRESH_INTERVAL_MS = 1000
+
+
+class LiveBinRefreshScript(MacroElement):
+    """
+    Injects JavaScript that periodically pulls latest bin data
+    and updates the Leaflet layer without forcing a Streamlit rerun.
+    """
+
+    def __init__(self, api_url: str, layer_name: str, interval_ms: int = 1000):
+        super().__init__()
+        self._name = "LiveBinRefreshScript"
+        self.api_url = api_url
+        self.layer_name = layer_name
+        self.interval_ms = interval_ms
+        self._template = Template(
+            """
+            {% macro script(this, kwargs) %}
+            (function() {
+                const API_URL = {{ this.api_url | tojson }};
+                const REFRESH_INTERVAL = {{ this.interval_ms }};
+                const binLayer = {{ this.layer_name }};
+                if (!binLayer) {
+                    console.warn("Live bin layer not found");
+                    return;
+                }
+
+                const formatNumber = (value, suffix = "%") => {
+                    if (value === null || value === undefined || value === "") {
+                        return "N/A";
+                    }
+                    const numeric = Number(value);
+                    if (Number.isNaN(numeric)) {
+                        return "N/A";
+                    }
+                    return numeric.toFixed(1) + suffix;
+                };
+
+                const safeText = (value) => value || "Unknown";
+
+                const computeColor = (fillLevel) => {
+                    if (fillLevel >= 100) return "#ef4444";
+                    if (fillLevel >= 80) return "#f97316";
+                    if (fillLevel >= 50) return "#facc15";
+                    return "#22c55e";
+                };
+
+                const buildPopup = (bin) => {
+                    const updated = bin.last_updated
+                        ? new Date(bin.last_updated).toLocaleString()
+                        : "Unknown";
+                    return `
+                        <div style="
+                            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                            color: #fff;
+                            padding: 14px;
+                            border-radius: 14px;
+                            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.35);
+                            min-width: 240px;
+                            border: 1px solid rgba(255,255,255,0.2);
+                        ">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                                <strong style="font-size:16px;">🗑️ ${safeText(bin.bin_id)}</strong>
+                                <span style="
+                                    background:${computeColor(Number(bin.fill_level || 0))};
+                                    padding:4px 10px;
+                                    border-radius:999px;
+                                    font-weight:700;
+                                ">${formatNumber(bin.fill_level)}</span>
+                            </div>
+                            <div style="font-size:13px; line-height:1.4;">
+                                <div>Organic: <strong>${formatNumber(bin.organic_percentage || 0)}</strong></div>
+                                <div>Plastic: <strong>${formatNumber(bin.plastic_percentage || 0)}</strong></div>
+                                <div>Metal: <strong>${formatNumber(bin.metal_percentage || 0)}</strong></div>
+                                <div style="margin-top:8px;font-size:12px;color:rgba(255,255,255,0.85);">
+                                    Updated: ${updated}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                };
+
+                const createMarker = (bin) => {
+                    const lat = Number(bin.latitude);
+                    const lng = Number(bin.longitude);
+                    if (Number.isNaN(lat) || Number.isNaN(lng)) {
+                        return null;
+                    }
+                    const fillLevel = Number(bin.fill_level ?? 0);
+                    const marker = L.circleMarker([lat, lng], {
+                        radius: fillLevel >= 100 ? 14 : 10,
+                        color: "#ffffff",
+                        weight: 2,
+                        fillColor: computeColor(fillLevel),
+                        fillOpacity: 0.95,
+                    });
+                    marker.bindPopup(buildPopup(bin));
+                    return marker;
+                };
+
+                const refreshBins = async () => {
+                    try {
+                        const response = await fetch(`${API_URL}?ts=${Date.now()}`, {
+                            cache: "no-store"
+                        });
+                        if (!response.ok) {
+                            return;
+                        }
+                        const payload = await response.json();
+                        if (!Array.isArray(payload)) {
+                            return;
+                        }
+                        binLayer.clearLayers();
+                        payload.forEach((bin) => {
+                            const marker = createMarker(bin);
+                            if (marker) {
+                                marker.addTo(binLayer);
+                            }
+                        });
+                    } catch (error) {
+                        console.warn("Live bin refresh failed", error);
+                    }
+                };
+
+                refreshBins();
+                setInterval(refreshBins, REFRESH_INTERVAL);
+            })();
+            {% endmacro %}
+            """
+        )
 
 # Inject custom CSS
 def local_css(file_name):
@@ -961,6 +1063,7 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
         ).add_to(m)
     
     # Add bin markers with different colors based on fill level
+    bin_layer = folium.FeatureGroup(name="Live Bins", show=True)
     for bin in bins:
         # Technical support bins: fill_level < 0 or > 100
         if bin['fill_level'] < 0 or bin['fill_level'] > 100:
@@ -1134,7 +1237,7 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
             [bin['latitude'], bin['longitude']],
             popup=folium.Popup(popup_content, max_width=320),
             icon=icon
-        ).add_to(m)
+        ).add_to(bin_layer)
 
         # Add enhanced bin ID label above the marker
         folium.Marker(
@@ -1144,7 +1247,15 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
                 icon_size=(28, 10),
                 icon_anchor=(14, 20)
             )
-        ).add_to(m)
+        ).add_to(bin_layer)
+
+    bin_layer.add_to(m)
+    live_bin_refresh = LiveBinRefreshScript(
+        api_url=f"{API_BASE_URL}/bin-data/",
+        layer_name=bin_layer.get_name(),
+        interval_ms=LIVE_REFRESH_INTERVAL_MS
+    )
+    m.get_root().add_child(live_bin_refresh)
 
     # Add dumping spot markers
     for spot in dumping_spots:
@@ -1751,24 +1862,6 @@ def main():
         """,
         unsafe_allow_html=True
     )
-
-    if "live_refresh_enabled" not in st.session_state:
-        st.session_state["live_refresh_enabled"] = True
-
-    st.sidebar.markdown('<div class="live-refresh-card">', unsafe_allow_html=True)
-    live_refresh_enabled = st.sidebar.checkbox(
-        "⚡ Live map refresh (0.5s)",
-        value=st.session_state["live_refresh_enabled"],
-        key="live_refresh_enabled",
-        help="Toggle off if you need to pause automatic reruns while interacting."
-    )
-
-    if live_refresh_enabled:
-        st.sidebar.caption("Live updates every 0.5s. Toggle off to freeze the screen temporarily.")
-        st_autorefresh(interval=LIVE_REFRESH_INTERVAL_MS, key="live_bin_data_refresh")
-    else:
-        st.sidebar.caption("Live refresh paused. Reactivate when you're done interacting.")
-    st.sidebar.markdown('</div>', unsafe_allow_html=True)
 
     # Add custom CSS for container margins and map enhancements
     st.markdown("""
