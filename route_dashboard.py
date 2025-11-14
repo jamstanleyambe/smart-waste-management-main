@@ -53,9 +53,6 @@ DOUALA5_CENTER = [4.0511, 9.7679]
 API_BASE_URL = "http://localhost:8000/api"
 LIVE_REFRESH_INTERVAL_MS = 500
 
-# Enable automatic reruns so the dashboard fetches fresh sensor data
-st_autorefresh(interval=LIVE_REFRESH_INTERVAL_MS, key="live_bin_data_refresh")
-
 # Inject custom CSS
 def local_css(file_name):
     with open(file_name) as f:
@@ -1754,7 +1751,25 @@ def main():
         """,
         unsafe_allow_html=True
     )
-    
+
+    if "live_refresh_enabled" not in st.session_state:
+        st.session_state["live_refresh_enabled"] = True
+
+    st.sidebar.markdown('<div class="live-refresh-card">', unsafe_allow_html=True)
+    live_refresh_enabled = st.sidebar.checkbox(
+        "⚡ Live map refresh (0.5s)",
+        value=st.session_state["live_refresh_enabled"],
+        key="live_refresh_enabled",
+        help="Toggle off if you need to pause automatic reruns while interacting."
+    )
+
+    if live_refresh_enabled:
+        st.sidebar.caption("Live updates every 0.5s. Toggle off to freeze the screen temporarily.")
+        st_autorefresh(interval=LIVE_REFRESH_INTERVAL_MS, key="live_bin_data_refresh")
+    else:
+        st.sidebar.caption("Live refresh paused. Reactivate when you're done interacting.")
+    st.sidebar.markdown('</div>', unsafe_allow_html=True)
+
     # Add custom CSS for container margins and map enhancements
     st.markdown("""
     <style>
