@@ -124,6 +124,13 @@ class LiveBinRefreshScript(MacroElement):
                     return marker;
                 };
 
+                const normalizePayload = (payload) => {
+                    if (Array.isArray(payload)) return payload;
+                    if (payload && Array.isArray(payload.results)) return payload.results;
+                    if (payload && Array.isArray(payload.data)) return payload.data;
+                    return [];
+                };
+
                 const refreshBins = async () => {
                     try {
                         const response = await fetch(`${API_URL}?ts=${Date.now()}`, {
@@ -133,11 +140,12 @@ class LiveBinRefreshScript(MacroElement):
                             return;
                         }
                         const payload = await response.json();
-                        if (!Array.isArray(payload)) {
+                        const bins = normalizePayload(payload);
+                        if (!bins.length) {
                             return;
                         }
                         binLayer.clearLayers();
-                        payload.forEach((bin) => {
+                        bins.forEach((bin) => {
                             const marker = createMarker(bin);
                             if (marker) {
                                 marker.addTo(binLayer);
