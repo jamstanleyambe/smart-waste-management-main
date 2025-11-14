@@ -23,7 +23,7 @@ st.set_page_config(
 # Constants
 DOUALA5_CENTER = [4.0511, 9.7679]
 API_BASE_URL = "http://localhost:8000/api"
-LIVE_REFRESH_INTERVAL_MS = 1000
+LIVE_REFRESH_INTERVAL_MS = 500
 
 
 class LiveBinRefreshScript(MacroElement):
