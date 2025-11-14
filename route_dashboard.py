@@ -1,5 +1,5 @@
 import streamlit as st
-from streamlit_autorefresh import st_autorefresh
+import streamlit.components.v1 as components
 import folium
 from streamlit_folium import folium_static
 import requests
@@ -10,6 +10,35 @@ import altair as alt
 import pandas as pd
 import datetime as dt
 from dateutil import parser as date_parser
+
+try:
+    from streamlit_autorefresh import st_autorefresh
+except ImportError:  # pragma: no cover - fallback for environments missing extra dependency
+    def st_autorefresh(interval=1000, limit=None, key=None):
+        """Minimal JS-based fallback to keep the dashboard refreshing."""
+        if interval is None or interval <= 0:
+            return 0
+        refresh_key = key or f"auto_refresh_{interval}"
+        limit_js = "null" if limit is None else str(limit)
+        script = f"""
+        <script>
+        (function() {{
+            const storageKey = "st-autorefresh-count-" + {json.dumps(refresh_key)};
+            const limitValue = {limit_js};
+            const count = Number(window.sessionStorage.getItem(storageKey) || 0);
+            if (!limitValue || count < limitValue) {{
+                window.sessionStorage.setItem(storageKey, count + 1);
+                setTimeout(() => window.parent.location.reload(), {int(interval)});
+            }}
+        }})();
+        </script>
+        """
+        components.html(script, height=0, width=0)
+        state_key = "_autorefresh_missing_dependency_notice"
+        if not st.session_state.get(state_key):
+            st.caption("⚠️ Install `streamlit-autorefresh` for smoother live updates.")
+            st.session_state[state_key] = True
+        return 0
 
 # Configure Streamlit page
 st.set_page_config(
