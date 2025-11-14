@@ -281,7 +281,7 @@ class CameraAdmin(admin.ModelAdmin):
 @admin.register(CameraImage)
 class CameraImageAdmin(admin.ModelAdmin):
     """Admin interface for CameraImage model with enhanced upload capabilities"""
-    list_display = ['id', 'camera', 'analysis_type', 'file_size_mb', 'dimensions', 'is_analyzed', 'created_at']
+    list_display = ['id', 'camera', 'thumb', 'analysis_type', 'file_size_mb', 'dimensions', 'is_analyzed', 'created_at']
     list_filter = ['camera', 'analysis_type', 'is_analyzed', 'created_at']
     search_fields = ['camera__name', 'camera__camera_id']
     readonly_fields = ['created_at', 'file_size_mb', 'dimensions', 'image_url', 'thumbnail_url', 'image_preview', 'thumbnail_preview']
@@ -371,6 +371,13 @@ class CameraImageAdmin(admin.ModelAdmin):
         return 'No thumbnail available'
     thumbnail_preview.short_description = 'Thumbnail Preview'
     thumbnail_preview.allow_tags = True
+
+    def thumb(self, obj):
+        url = obj.get_thumbnail_url()
+        if url:
+            return format_html('<img src="{}" style="max-width: 64px; max-height: 64px; border-radius: 4px;" />', url)
+        return '-'
+    thumb.short_description = 'Thumb'
     
     def bulk_upload_images(self, request, queryset):
         """Custom admin action for bulk image upload"""

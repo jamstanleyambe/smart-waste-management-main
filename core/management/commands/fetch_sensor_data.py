@@ -21,8 +21,8 @@ class Command(BaseCommand):
         parser.add_argument(
             '--api-url',
             type=str,
-            default='http://192.168.1.116:8000',
-            help='Base API URL (default: http://192.168.1.116:8000)'
+            default='http://localhost:8000',
+            help='Base API URL (default: http://localhost:8000)'
         )
         parser.add_argument(
             '--continuous',
@@ -66,7 +66,7 @@ class RealTimeSensorFetcher:
     Real-time sensor data fetcher that updates bin information
     """
     
-    def __init__(self, api_base_url="http://192.168.1.116:8000"):
+    def __init__(self, api_base_url="http://localhost:8000"):
         self.api_base_url = api_base_url
         self.sensor_data_url = f"{api_base_url}/api/sensor-data/"
         self.bin_data_url = f"{api_base_url}/api/bin-data/"

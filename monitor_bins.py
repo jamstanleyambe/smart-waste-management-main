@@ -15,7 +15,7 @@ def clear_screen():
     """Clear the terminal screen"""
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def fetch_bin_data(api_url="http://192.168.1.116:8000"):
+def fetch_bin_data(api_url="http://localhost:8000"):
     """Fetch current bin data"""
     try:
         response = requests.get(f"{api_url}/api/bin-data/", timeout=5)
@@ -26,7 +26,7 @@ def fetch_bin_data(api_url="http://192.168.1.116:8000"):
     except:
         return []
 
-def fetch_sensor_data(api_url="http://192.168.1.116:8000"):
+def fetch_sensor_data(api_url="http://localhost:8000"):
     """Fetch latest sensor data"""
     try:
         response = requests.get(f"{api_url}/api/sensor-data/", timeout=5)
@@ -106,7 +106,7 @@ def display_bin_status(bins, sensors):
 
 def main():
     """Main monitoring loop"""
-    api_url = "http://192.168.1.116:8000"
+    api_url = "http://localhost:8000"
     
     print("🚀 Starting Real-Time Bin Monitor...")
     print(f"📡 Connecting to: {api_url}")

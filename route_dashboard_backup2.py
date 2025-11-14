@@ -260,12 +260,12 @@ st.markdown("""
         padding: 0 !important;
     }
     
-    /* Layout: Sidebar 25%, Main Content 75% */
+    /* Layout: Sidebar 20%, Main Content 80% */
     .main .block-container {
         display: flex !important;
         flex-direction: row !important;
         gap: 0 !important;
-        padding: 0 !important;
+        padding: 1rem !important;
         max-width: 100vw !important;
         width: 100vw !important;
         margin: 0 !important;
@@ -276,10 +276,10 @@ st.markdown("""
     
     /* Sidebar for "Route through selected bins" - 20% width */
     .stSidebar, .sidebar .sidebar-content {
-        width: 25% !important;
-        min-width: 25% !important;
-        max-width: 25% !important;
-        flex: 0 0 25% !important;
+        width: 20% !important;
+        min-width: 20% !important;
+        max-width: 20% !important;
+        flex: 0 0 20% !important;
         padding: 0.5rem !important;
         margin-right: 0 !important;
         padding-right: 0 !important;
@@ -288,11 +288,11 @@ st.markdown("""
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
     }
     
-    /* Main content area - 75% width */
+    /* Main content area - 80% width */
     .main .block-container > div:not(.stSidebar):not(.sidebar) {
-        width: 75% !important;
+        width: 80% !important;
         flex: 1 !important;
-        max-width: 75% !important;
+        max-width: 80% !important;
         margin-left: 0 !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
@@ -346,12 +346,12 @@ st.markdown("""
         }
         
         .stSidebar, .sidebar .sidebar-content {
-            width: 25% !important;
-            min-width: 25% !important;
+            width: 20% !important;
+            min-width: 20% !important;
         }
         
         .main .block-container > div:not(.stSidebar):not(.sidebar) {
-            width: 75% !important;
+            width: 80% !important;
         }
         
         [class*="st-emotion-cache"] {
@@ -804,7 +804,7 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
         control_scale=True,
         prefer_canvas=True,
         width='100%',
-        height='800px'
+        height='100%'
     )
     
     # Add truck markers
@@ -1681,44 +1681,11 @@ def camera_gallery_section():
         st.info("💡 Make sure the Django backend is running and accessible")
 
 def main():
-    # Navigation system with enhanced styling and descriptions
-    st.sidebar.markdown("""
-        <div class="nav-panel nav-panel--simple">
-            <div class="nav-panel__header">
-                <span class="nav-panel__icon">🧭</span>
-                <div>
-                    <h3>Navigation</h3>
-                    <p>Pick a workspace to view.</p>
-                </div>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-    nav_options = {
-        "🗺️ Interactive Map": "Live situational awareness for bins, trucks, and dumping spots.",
-        "📊 Analytics Dashboard": "Key performance indicators and strategic trends.",
-        "🚛 Truck Management": "Fleet health, assignments, and live telemetry.",
-        "🗑️ Bin Management": "Capacity, classifications, and service priorities.",
-        "📈 Real-time Data": "Streaming metrics and on-the-minute updates.",
-        "📸 Camera Gallery": "ESP32-CAM intelligence and visual inspections."
-    }
-
-    selected = st.sidebar.radio(
+    # Navigation system
+    st.sidebar.header("🧭 Navigation")
+    selected = st.sidebar.selectbox(
         "Choose a section:",
-        options=list(nav_options.keys()),
-        key="navigation_selection"
-    )
-
-    if not selected:
-        selected = list(nav_options.keys())[0]
-
-    st.sidebar.markdown(
-        f"""
-        <div class="nav-helper-inline">
-            <span>{nav_options[selected]}</span>
-        </div>
-        """,
-        unsafe_allow_html=True
+        ["🗺️ Interactive Map", "📊 Analytics Dashboard", "🚛 Truck Management", "🗑️ Bin Management", "📈 Real-time Data", "📸 Camera Gallery"]
     )
     
     # Add custom CSS for container margins and map enhancements
@@ -1736,10 +1703,15 @@ def main():
     }
     
     /* Target the specific Streamlit container */
-    .st-emotion-cache-lxqt60.e1cbzgzq10,
+    .st-emotion-cache-lxqt60.e1cbzgzq10 {
+        margin-left: 50px !important;
+        margin-right: 50px !important;
+    }
+    
+    /* Alternative selector in case the exact class changes */
     .st-emotion-cache-lxqt60 {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
+        margin-left: 50px !important;
+        margin-right: 50px !important;
     }
     
     /* General container margin adjustment */
@@ -1758,6 +1730,22 @@ def main():
         border-radius: 12px !important;
         box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
         overflow: hidden !important;
+        width: 100% !important;
+        height: 900px !important;
+    }
+    
+    /* Map container specific styling */
+    .map-container {
+        width: 100% !important;
+        height: 900px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Ensure folium map fills container */
+    .folium-container .folium-map {
+        width: 100% !important;
+        height: 900px !important;
     }
     
     /* Smooth transitions for map elements */
@@ -1936,11 +1924,10 @@ def main():
         return
     
     # Default: Interactive Map
-    st.header("🗺️ Interactive Map")
+    st.markdown('<h2 style="margin: 8px 0; padding: 4px 0; font-size: 1.2em;">🗺️ Interactive Map</h2>', unsafe_allow_html=True)
     
     # Search and highlight item on the map
-    st.subheader("🔍 Search Item by ID on Map")
-    st.caption("Enter an ID below to highlight it with a ⭐ marker. Data refreshes with every lookup.")
+    st.markdown('<h3 style="margin: 6px 0; padding: 2px 0; font-size: 1.1em;">🔍 Search Item by ID on Map</h3>', unsafe_allow_html=True)
     
     # Show search history if available
     if 'search_history' not in st.session_state:
@@ -1952,20 +1939,22 @@ def main():
     # Placeholder for search results
     search_results_placeholder = st.empty()
     
-    # Create columns for search input and button - all in one line
-    with st.container():
-        st.markdown('<div class="search-control-row">', unsafe_allow_html=True)
-        col1, col2, col3, col4 = st.columns([1.5, 2, 1, 1], gap="small")
+    st.info("💡 **Search Tip**: Enter an ID below to find and highlight the item with a ⭐ star marker on the map! Data is automatically refreshed on each search.")
     
-        with col1:
-            map_search_type = st.selectbox("Select item type", ["Bin", "Truck", "Dumping Spot"], key="map_search_type")
-        with col2:
-            map_search_id = st.text_input("Enter ID", "", key="map_search_id", placeholder="BIN001, TRUCK01")
-        with col3:
-            search_button = st.button("🔍 Search", type="primary", use_container_width=True)
-        with col4:
-            refresh_button = st.button("🔄 Refresh", use_container_width=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+    # Create columns for search input and button - all in one line
+    col1, col2, col3, col4 = st.columns([1.5, 2, 1, 1])
+    
+    with col1:
+        map_search_type = st.selectbox("Select Item Type", ["Bin", "Truck", "Dumping Spot"], key="map_search_type")
+    
+    with col2:
+        map_search_id = st.text_input("Enter ID", "", key="map_search_id", placeholder="e.g., BIN001, TRUCK01")
+    
+    with col3:
+        search_button = st.button("🔍 Search", type="primary", use_container_width=True)
+    
+    with col4:
+        refresh_button = st.button("🔄 Refresh", use_container_width=True)
     
     highlight_item = None
     
@@ -2014,108 +2003,41 @@ def main():
         if not highlight_item:
             search_results_placeholder.warning(f"No {map_search_type.lower()} found with ID '{map_search_id}'")
         else:
+            # Show professional detailed info about the found item in the placeholder
             item_id = highlight_item.get('bin_id') or highlight_item.get('truck_id') or highlight_item.get('spot_id') or 'Unknown'
+            
             if map_search_type == "Bin":
                 last_updated = highlight_item.get('last_updated', 'Unknown')
                 fill_level = highlight_item.get('fill_level', 0)
-                st.session_state['floating_card_data'] = {
-                    "title": f"✅ Bin Found: {map_search_id}",
-                    "lines": [
-                        {"label": "📊 Fill Level", "value": f"{fill_level:.1f}%"},
-                        {"label": "🕒 Last Updated", "value": last_updated},
-                        {"label": "🎯 Map Highlight", "value": "Pinned with a ⭐ marker"}
-                    ],
-                    "key": f"{map_search_type}_{map_search_id}"
-                }
+                search_results_placeholder.markdown(f'''
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 12px 16px; border-radius: 8px; margin: 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <div style="color: white; font-weight: bold; font-size: 0.95em; margin-bottom: 6px;">✅ {map_search_type} Found: {map_search_id}</div>
+                        <div style="color: rgba(255,255,255,0.95); font-size: 0.85em; margin-bottom: 4px;">📊 Fill Level: {fill_level:.1f}%</div>
+                        <div style="color: rgba(255,255,255,0.95); font-size: 0.85em;">🕒 Last Updated: {last_updated}</div>
+                        <div style="color: rgba(255,255,255,0.9); font-size: 0.8em; margin-top: 6px; font-style: italic;">🎯 Highlighted on map with ⭐ marker</div>
+                    </div>
+                ''', unsafe_allow_html=True)
             elif map_search_type == "Truck":
                 last_updated = highlight_item.get('last_updated', 'Unknown')
                 status = highlight_item.get('status', 'Unknown')
                 fuel_level = highlight_item.get('fuel_level', 0)
-                st.session_state['floating_card_data'] = {
-                    "title": f"✅ Truck Found: {map_search_id}",
-                    "lines": [
-                        {"label": "🚛 Status", "value": status},
-                        {"label": "⛽ Fuel", "value": f"{fuel_level:.1f}%"},
-                        {"label": "🕒 Last Updated", "value": last_updated},
-                        {"label": "🎯 Map Highlight", "value": "Pinned with a ⭐ marker"}
-                    ],
-                    "key": f"{map_search_type}_{map_search_id}"
-                }
+                search_results_placeholder.markdown(f'''
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 12px 16px; border-radius: 8px; margin: 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <div style="color: white; font-weight: bold; font-size: 0.95em; margin-bottom: 6px;">✅ {map_search_type} Found: {map_search_id}</div>
+                        <div style="color: rgba(255,255,255,0.95); font-size: 0.85em; margin-bottom: 4px;">🚛 Status: {status} | ⛽ Fuel: {fuel_level:.1f}%</div>
+                        <div style="color: rgba(255,255,255,0.95); font-size: 0.85em; margin-bottom: 4px;">🕒 Last Updated: {last_updated}</div>
+                        <div style="color: rgba(255,255,255,0.9); font-size: 0.8em; margin-top: 6px; font-style: italic;">🎯 Highlighted on map with ⭐ marker</div>
+                    </div>
+                ''', unsafe_allow_html=True)
             else:
                 last_updated = highlight_item.get('last_updated', 'Unknown')
-                st.session_state['floating_card_data'] = {
-                    "title": f"✅ {map_search_type} Found: {map_search_id}",
-                    "lines": [
-                        {"label": "🕒 Last Updated", "value": last_updated},
-                        {"label": "🎯 Map Highlight", "value": "Pinned with a ⭐ marker"}
-                    ],
-                    "key": f"{map_search_type}_{map_search_id}"
-                }
-    # Floating detail card
-    floating_card = st.session_state.get('floating_card_data')
-    if floating_card:
-        st.markdown("""
-            <style>
-            .floating-card {
-                position: fixed;
-                bottom: 32px;
-                right: 32px;
-                width: min(420px, 90vw);
-                background: linear-gradient(160deg, #0f172a 0%, #1e3a8a 100%);
-                border-radius: 20px;
-                padding: 22px 24px 16px;
-                box-shadow: 0 25px 60px rgba(8, 25, 78, 0.45);
-                border: 1px solid rgba(59, 130, 246, 0.4);
-                z-index: 9999;
-            }
-            .floating-card h5 {
-                margin: 0 0 16px;
-                font-size: 1.1rem;
-                color: #f8fafc;
-                display: flex;
-                align-items: center;
-                gap: 0.6rem;
-            }
-            .floating-card .card-line {
-                display: flex;
-                justify-content: space-between;
-                font-size: 0.92rem;
-                margin-bottom: 10px;
-                background: rgba(15, 23, 42, 0.6);
-                padding: 12px 14px;
-                border-radius: 14px;
-                border: 1px solid rgba(99, 102, 241, 0.35);
-                color: #e2e8f0;
-            }
-            .floating-card .card-line span:first-child {
-                font-weight: 600;
-                color: #93c5fd;
-            }
-            .floating-card .stButton button {
-                width: 100%;
-                border-radius: 999px;
-                font-weight: 600;
-                background: #38bdf8;
-                color: #0f172a;
-                border: none;
-                margin-top: 6px;
-            }
-            </style>
-        """, unsafe_allow_html=True)
-
-        toast_container = st.empty()
-        with toast_container.form(key=f"floating_card_{floating_card['key']}"):
-            st.markdown("<div class='floating-card'>", unsafe_allow_html=True)
-            st.markdown(f"<h5>{floating_card['title']}</h5>", unsafe_allow_html=True)
-            for line in floating_card["lines"]:
-                st.markdown(f"<div class='card-line'><span>{line['label']}</span><span>{line['value']}</span></div>", unsafe_allow_html=True)
-            submitted = st.form_submit_button("OK")
-            st.markdown("</div>", unsafe_allow_html=True)
-            if submitted:
-                st.session_state['floating_card_data'] = None
-                st.session_state['clear_highlight'] = True
-                st.rerun()
-
+                search_results_placeholder.markdown(f'''
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 12px 16px; border-radius: 8px; margin: 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <div style="color: white; font-weight: bold; font-size: 0.95em; margin-bottom: 6px;">✅ {map_search_type} Found: {map_search_id}</div>
+                        <div style="color: rgba(255,255,255,0.95); font-size: 0.85em;">🕒 Last Updated: {last_updated}</div>
+                        <div style="color: rgba(255,255,255,0.9); font-size: 0.8em; margin-top: 6px; font-style: italic;">🎯 Highlighted on map with ⭐ marker</div>
+                    </div>
+                ''', unsafe_allow_html=True)
     # Create main map, centering/highlighting if search is active
     if highlight_item:
         if map_search_type == "Bin":
@@ -2151,7 +2073,7 @@ def main():
     # Display map in a full-width container
     with st.container():
         st.markdown('<div class="map-container">', unsafe_allow_html=True)
-        folium_static(main_map, width=1200, height=800)
+        folium_static(main_map, width=1400, height=900)
         st.markdown('</div>', unsafe_allow_html=True)
 
 
@@ -2430,8 +2352,7 @@ def main():
         st.success("All bins are operating within normal parameters. No technical support needed!")
 
     # Sidebar: Select a truck and bins to show shortest path
-    st.sidebar.markdown('<div class="route-card">', unsafe_allow_html=True)
-    st.sidebar.subheader("Route through selected bins")
+    st.sidebar.header("Route through selected bins")
     truck_options = {f"{t['truck_id']} (Driver: {t['driver_name']})": t for t in trucks}
     truck_options_list = list(truck_options.keys())
     selected_truck_label = st.sidebar.selectbox(
@@ -2451,7 +2372,6 @@ def main():
 
     # Button to trigger routing
     calculate_route_button = st.sidebar.button("Calculate Route")
-    st.sidebar.markdown('</div>', unsafe_allow_html=True)
 
     # Create main map
     main_map = create_map(bins, dumping_spots, trucks, selected_bins)
@@ -2459,7 +2379,7 @@ def main():
     # Display map in a full-width container
     with st.container():
         st.markdown('<div class="map-container">', unsafe_allow_html=True)
-        folium_static(main_map, width=1200, height=800)
+        folium_static(main_map, width=1400, height=900)
         st.markdown('</div>', unsafe_allow_html=True)
 
     # Add Legend Table
@@ -2597,7 +2517,7 @@ def main():
         # Display route map in a full-width container
         with st.container():
             st.markdown('<div class="map-container">', unsafe_allow_html=True)
-            folium_static(path_map, width=1200, height=800)
+            folium_static(path_map, width=1400, height=900)
             st.markdown('</div>', unsafe_allow_html=True)
     elif calculate_route_button and not selected_truck:
         st.warning("Please select a truck to calculate a route.")

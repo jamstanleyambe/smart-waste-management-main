@@ -60,7 +60,7 @@ GPIO0        →    Leave floating
 
 1. **ESP32-CAM connects to WiFi**
 2. **Captures image every 30 seconds**
-3. **Uploads to Django backend**
+3. **Uploads to Django backend** via `/api/esp32-cam-upload/` (raw JPEG)
 4. **Images appear in Streamlit gallery**
 5. **Thumbnails generated automatically**
 
@@ -80,6 +80,7 @@ GPIO0        →    Leave floating
 - Check server URL
 - Ensure Django server is running
 - Check network connectivity
+- Verify headers: `Content-Type: image/jpeg`, `X-Camera-ID`
 
 ## 📊 Expected Output
 
@@ -95,7 +96,7 @@ GPIO0        →    Leave floating
 
 📸 Starting image capture #1
 📊 Image captured: 1600x1200, 45678 bytes
-📤 Uploading image to: http://192.168.1.100:8000/api/camera-images/
+📤 Uploading image to: http://192.168.1.100:8000/api/esp32-cam-upload/
 📡 HTTP Response Code: 201
 ✅ Image uploaded successfully!
 ```
