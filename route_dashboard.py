@@ -9,6 +9,50 @@ import altair as alt
 import pandas as pd
 import datetime as dt
 from dateutil import parser as date_parser
+import os
+import polyline
+
+def get_google_maps_route(origin, destination, waypoints):
+    from dotenv import load_dotenv
+    load_dotenv()
+    api_key = os.getenv("GOOGLE_MAPS_API_KEY")
+    if not api_key:
+        return None, 0, 0, "Google Maps API Key not found in .env file."
+    
+    origin_str = f"{origin[0]},{origin[1]}"
+    destination_str = f"{destination[0]},{destination[1]}"
+    
+    waypoints_str = ""
+    if waypoints:
+        waypoints_str = "optimize:true|" + "|".join([f"{wp[0]},{wp[1]}" for wp in waypoints])
+        
+    url = f"https://maps.googleapis.com/maps/api/directions/json"
+    params = {
+        "origin": origin_str,
+        "destination": destination_str,
+        "waypoints": waypoints_str,
+        "key": api_key
+    }
+    
+    response = requests.get(url, params=params)
+    data = response.json()
+    
+    if data.get("status") != "OK":
+        error_message = data.get("error_message", data.get("status"))
+        return None, 0, 0, f"Google Maps API Error: {error_message}"
+        
+    route = data["routes"][0]
+    
+    total_distance_meters = sum([leg["distance"]["value"] for leg in route["legs"]])
+    total_duration_seconds = sum([leg["duration"]["value"] for leg in route["legs"]])
+        
+    total_distance_km = total_distance_meters / 1000.0
+    total_duration_mins = total_duration_seconds / 60.0
+    
+    encoded_polyline = route["overview_polyline"]["points"]
+    decoded_path = polyline.decode(encoded_polyline)
+    
+    return decoded_path, total_distance_km, total_duration_mins, None
 
 # Configure Streamlit page
 st.set_page_config(
@@ -37,714 +81,7 @@ local_css("style.css")
 # Call the function to inject JS (example)
 local_js("console.log('Hello from Streamlit JS!');")
 
-# Inject custom CSS for full-width layout and map styling
-st.markdown("""
-<style>
-    /* Global fix for all Streamlit elements to fit screen */
-    html, body {
-        width: 100% !important;
-        max-width: 100% !important;
-        overflow-x: hidden !important;
-    }
-    
-    /* Target the specific problematic element you mentioned */
-    .st-emotion-cache-6px8kg.e4man1110,
-    [class*="st-emotion-cache-6px8kg"] {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        box-sizing: border-box !important;
-        overflow: hidden !important;
-    }
-    
-    /* Additional selectors for the specific element */
-    .e4man1110,
-    [class*="e4man1110"] {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        box-sizing: border-box !important;
-        overflow: hidden !important;
-    }
-    
-    /* Force any element with 6px8kg in class to fit */
-    [class*="6px8kg"] {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        box-sizing: border-box !important;
-        overflow: hidden !important;
-    }
-    
-    /* Universal fix for all emotion cache elements */
-    [class*="st-emotion-cache"] {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Full-Width Layout - Remove All White Space */
-    .main .block-container {
-        padding: 1rem 0.5rem !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        width: 100% !important;
-    }
-    
-    /* Expand all content to full screen width */
-    .main .block-container > div {
-        max-width: 100% !important;
-        width: 100% !important;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-    
-    /* Force full width for all Streamlit elements */
-    .stMarkdown, .stHeader, .stSubheader, .stText, .stMap, .stDataFrame {
-        max-width: 100% !important;
-        width: 100% !important;
-    }
-    
-    /* Remove default Streamlit margins and padding */
-    .stMarkdown > div {
-        max-width: 100% !important;
-        width: 100% !important;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-    
-    /* Full-width map container */
-    .stMap {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Force map to span full width */
-    .stMap > div {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Map iframe full width */
-    .stMap iframe {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        border: none !important;
-    }
-    
-    /* Map container wrapper */
-    .stMap > div > div {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Force all map elements to full width */
-    .stMap * {
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Ensure main content area content spans end-to-end */
-    .main .block-container > div:not(.stSidebar):not(.sidebar) {
-        display: flex !important;
-        flex-direction: column !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        flex-grow: 1 !important;
-        flex-shrink: 0 !important;
-        position: relative !important;
-        left: 0 !important;
-        margin-left: 0 !important;
-        padding-left: 0 !important;
-    }
-    
-    /* Force sidebar and main content to touch */
-    .stSidebar, .sidebar .sidebar-content {
-        margin-right: 0 !important;
-        padding-right: 0 !important;
-        border-right: none !important;
-        outline: none !important;
-        box-shadow: none !important;
-    }
-    
-    .main .block-container > div:not(.stSidebar):not(.sidebar) {
-        margin-left: 0 !important;
-        padding-left: 0 !important;
-        border-left: none !important;
-        outline: none !important;
-        box-shadow: none !important;
-    }
-    
-    /* Eliminate ALL possible white space */
-    .main .block-container {
-        gap: 0 !important;
-        column-gap: 0 !important;
-        row-gap: 0 !important;
-    }
-    
-    /* Force containers to be absolutely adjacent */
-    .stSidebar, .sidebar .sidebar-content {
-        position: relative !important;
-        right: 0 !important;
-        z-index: 1 !important;
-    }
-    
-    .main .block-container > div:not(.stSidebar):not(.sidebar) {
-        position: relative !important;
-        left: 0 !important;
-        z-index: 1 !important;
-    }
-    
-    /* Remove any default browser spacing */
-    * {
-        box-sizing: border-box !important;
-    }
-    
-    /* Ensure no gaps in flexbox */
-    .main .block-container > * {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Force absolute adjacency with no white space */
-    .stSidebar, .sidebar .sidebar-content {
-        margin: 0 !important;
-        padding: 0.5rem 0.5rem 0.5rem 0.5rem !important;
-        padding-right: 0 !important;
-        margin-right: 0 !important;
-    }
-    
-    .main .block-container > div:not(.stSidebar):not(.sidebar) {
-        margin: 0 !important;
-        padding: 0 !important;
-        margin-left: 0 !important;
-        padding-left: 0 !important;
-    }
-    
-    /* Remove any remaining visual separators */
-    .stSidebar::after,
-    .sidebar .sidebar-content::after {
-        display: none !important;
-        content: none !important;
-    }
-    
-    .main .block-container > div:not(.stSidebar):not(.sidebar)::before {
-        display: none !important;
-        content: none !important;
-    }
-    
-    /* Force all direct children in main area to full width */
-    .main .block-container > div:not(.stSidebar):not(.sidebar) > * {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Ensure search section spans full width */
-    .main .block-container > div:not(.stSidebar):not(.sidebar) .stHorizontalBlock {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Layout: Sidebar 20%, Main Content 80% */
-    .main .block-container {
-        display: flex !important;
-        flex-direction: row !important;
-        gap: 0 !important;
-        padding: 1rem !important;
-        max-width: 100vw !important;
-        width: 100vw !important;
-        margin: 0 !important;
-        align-items: stretch !important;
-        justify-content: flex-start !important;
-        overflow: hidden !important;
-    }
-    
-    /* Sidebar for "Route through selected bins" - 20% width */
-    .stSidebar, .sidebar .sidebar-content {
-        width: 20% !important;
-        min-width: 20% !important;
-        max-width: 20% !important;
-        flex: 0 0 20% !important;
-        padding: 0.5rem !important;
-        margin-right: 0 !important;
-        padding-right: 0 !important;
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
-        border-radius: 8px !important;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
-    }
-    
-    /* Main content area - 80% width */
-    .main .block-container > div:not(.stSidebar):not(.sidebar) {
-        width: 80% !important;
-        flex: 1 !important;
-        max-width: 80% !important;
-        margin-left: 0 !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        margin-right: 0 !important;
-        border-left: none !important;
-    }
-    
-    /* Ensure the map takes full width of its container */
-    .stMap, .folium-map, .leaflet-container {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-    
-    /* Force main content to span end-to-end within its container */
-    .main .block-container > div:not(.stSidebar):not(.sidebar) > div {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Ensure all content inside main area spans full width */
-    .main .block-container > div:not(.stSidebar):not(.sidebar) .stMarkdown,
-    .main .block-container > div:not(.stSidebar):not(.sidebar) .stHeader,
-    .main .block-container > div:not(.stSidebar):not(.sidebar) .stSubheader,
-    .main .block-container > div:not(.stSidebar):not(.sidebar) .stText,
-    .main .block-container > div:not(.stSidebar):not(.sidebar) .stMap,
-    .main .block-container > div:not(.stSidebar):not(.sidebar) .stDataFrame {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Force all Streamlit widgets in main area to full width */
-    .main .block-container > div:not(.stSidebar):not(.sidebar) .stButton,
-    .main .block-container > div:not(.stSidebar):not(.sidebar) .stSelectbox,
-    .main .block-container > div:not(.stSidebar):not(.sidebar) .stTextInput,
-    .main .block-container > div:not(.stSidebar):not(.sidebar) .stNumberInput {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Responsive design for different screen sizes */
-    @media (max-width: 1200px) {
-        .main .block-container {
-            padding: 0.5rem !important;
-            flex-direction: row !important;
-            gap: 0 !important;
-        }
-        
-        .stSidebar, .sidebar .sidebar-content {
-            width: 20% !important;
-            min-width: 20% !important;
-        }
-        
-        .main .block-container > div:not(.stSidebar):not(.sidebar) {
-            width: 80% !important;
-        }
-        
-        [class*="st-emotion-cache"] {
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-    }
-    
-    @media (max-width: 768px) {
-        .main .block-container {
-            padding: 0.25rem !important;
-            flex-direction: column !important;
-            gap: 0.5rem !important;
-        }
-        
-        .stSidebar, .sidebar .sidebar-content {
-            width: 100% !important;
-            min-width: 100% !important;
-            max-width: 100% !important;
-            flex: none !important;
-        }
-        
-        .main .block-container > div:not(.stSidebar):not(.sidebar) {
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-        
-        .st-emotion-cache-6px8kg.e4man1110 {
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-        
-        /* Ensure mobile-friendly layout */
-        .stMarkdown, .stHeader, .stSubheader {
-            padding: 0.5rem !important;
-        }
-    }
-    
-    @media (max-width: 480px) {
-        .main .block-container {
-            padding: 0.1rem !important;
-            flex-direction: column !important;
-            gap: 0.25rem !important;
-        }
-        
-        .stSidebar, .sidebar .sidebar-content {
-            width: 100% !important;
-            min-width: 100% !important;
-            max-width: 100% !important;
-            flex: none !important;
-        }
-        
-        .main .block-container > div:not(.stSidebar):not(.sidebar) {
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-        
-        /* Extra small screen optimizations */
-        [class*="st-emotion-cache"] {
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-    }
-    
-    /* Target Folium map container for end-to-end span */
-    .folium-map.leaflet-container.leaflet-touch.leaflet-retina.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-    }
-    
-    /* Alternative Folium selectors for broader coverage */
-    .folium-map {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    .leaflet-container {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Force all Folium elements to full width */
-    .folium-map *, .leaflet-container * {
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Enhanced Folium map end-to-end span */
-    .folium-map.leaflet-container.leaflet-touch.leaflet-retina.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        position: relative !important;
-    }
-    
-    /* Force Folium map to use full viewport width */
-    .folium-map {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-    }
-    
-    /* Leaflet container full width */
-    .leaflet-container {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-    }
-    
-    /* Force all map elements to use full width */
-    .folium-map > div, .leaflet-container > div {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Map tiles full width */
-    .leaflet-tile-pane, .leaflet-overlay-pane, .leaflet-marker-pane {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-    
-    /* Target Streamlit element container for end-to-end span */
-    .stElementContainer.element-container.st-emotion-cache-1clwqzo.eertqu00 {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        position: relative !important;
-    }
-    
-    /* Alternative selectors for broader coverage */
-    .stElementContainer {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    .element-container {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    .st-emotion-cache-1clwqzo.eertqu00 {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Force all content inside to use full width */
-    .stElementContainer > div, .element-container > div {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Target specific container for end-to-end spread */
-    .st-emotion-cache-lxqt60.e1cbzgzq10 {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-    }
-    
-    /* Force all content inside to spread end-to-end */
-    .st-emotion-cache-lxqt60.e1cbzgzq10 > div {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Alternative selector in case class changes */
-    .st-emotion-cache-lxqt60 {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Target stMain container for smaller size with nice padding */
-    .stMain.st-emotion-cache-z4kicb.e1cbzgzq1 {
-        width: 90% !important;
-        max-width: 1200px !important;
-        margin: 0 auto !important;
-        padding: 2rem !important;
-        border-radius: 12px !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
-    }
-    
-    /* Force all content inside stMain to fit properly */
-    .stMain.st-emotion-cache-z4kicb.e1cbzgzq1 > div {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Universal fix for all Streamlit emotion cache elements to fit screen */
-    [class*="st-emotion-cache"] {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Specific fix for the problematic element you mentioned */
-    .st-emotion-cache-6px8kg.e4man1110 {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        box-sizing: border-box !important;
-        overflow: hidden !important;
-    }
-    
-    /* Force all Streamlit containers to use full width */
-    .stElementContainer, .element-container, .stBlock, .stHorizontalBlock {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Reduce margin and padding for specific Streamlit main container */
-    .stMain.st-emotion-cache-4rsbii.e4man111,
-    .st-emotion-cache-4rsbii.e4man111 {
-        margin: 30px !important;
-        padding: 20px !important;
-        margin-top: 30px !important;
-        margin-bottom: 30px !important;
-        margin-left: 30px !important;
-        margin-right: 30px !important;
-        padding-top: 20px !important;
-        padding-bottom: 20px !important;
-        padding-left: 20px !important;
-        padding-right: 20px !important;
-    }
-    
-    /* Target any element with the specific class combination */
-    [class*="4rsbii"][class*="e4man111"] {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Alternative selector for broader coverage */
-    .e4man111 {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Ensure all content inside Streamlit elements fits */
-    [class*="st-emotion-cache"] > div,
-    .stElementContainer > div,
-    .element-container > div {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Fix for any horizontally scrolling elements */
-    .stHorizontalBlock > div {
-        width: 100% !important;
-        max-width: 100% !important;
-        overflow-x: hidden !important;
-    }
-    
-        /* Ensure the main app container fits the screen */
-    .main .block-container {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 1rem !important;
-        margin: 0 !important;
-    }
-    
-    /* Prevent horizontal scrolling and ensure all content fits */
-    .main {
-        overflow-x: hidden !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-    
-    /* Force all Streamlit widgets to fit within screen bounds */
-    .stButton, .stSelectbox, .stTextInput, .stNumberInput {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Ensure search and control elements don't overflow */
-    .stHorizontalBlock {
-        width: 100% !important;
-        max-width: 100% !important;
-        overflow-x: hidden !important;
-    }
-    
-    /* Responsive design for mobile and tablet */
-    @media (max-width: 768px) {
-        .stMain.st-emotion-cache-z4kicb.e1cbzgzq1 {
-            width: 95% !important;
-            padding: 1rem !important;
-        }
-        
-        [class*="st-emotion-cache"] {
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-        
-        .st-emotion-cache-6px8kg.e4man1110 {
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-    }
-    
-    /* Extra small screens */
-    @media (max-width: 480px) {
-        .stMain.st-emotion-cache-z4kicb.e1cbzgzq1 {
-            width: 98% !important;
-            padding: 0.5rem !important;
-        }
-    }
-    
-    /* Alternative stMain selectors */
-    .stMain {
-        width: 90% !important;
-        max-width: 1200px !important;
-        margin: 0 auto !important;
-        padding: 2rem !important;
-        border-radius: 12px !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
-    }
-    
-    .st-emotion-cache-z4kicb.e1cbzgz1 {
-        width: 90% !important;
-        max-width: 1200px !important;
-        margin: 0 auto !important;
-        padding: 2rem !important;
-        border-radius: 12px !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
-    }
-    
-    /* Professional Form Styling */
-    .stSelectbox, .stTextInput, .stButton {
-        margin: 0.5rem 0 !important;
-        width: 100% !important;
-    }
-    
-    /* Additional overflow prevention */
-    .stMain, .stMain > div, .main .block-container, .main .block-container > div {
-        overflow-x: hidden !important;
-        box-sizing: border-box !important;
-    }
-    
-    .stMain * {
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-</style>
-""", unsafe_allow_html=True)
+
 
 def calculate_distance(lat1, lon1, lat2, lon2):
     """Calculate Euclidean distance between two points in kilometers"""
@@ -1878,9 +1215,27 @@ def main():
                     freshness_icon = "🔴"
                     freshness_text = "Stale"
                 
-                st.markdown(f'<div style="font-size: 0.75em; color: #666; margin: 2px 0; padding: 2px 0;">{freshness_icon} Data freshness: {freshness_text} | 📅 Last updated: {current_time} | 🕒 API data: {time_diff:.1f} min ago</div>', unsafe_allow_html=True)
+                pill_style = f"""
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 0;">
+                    <div style="display: inline-flex; align-items: center; background-color: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-radius: 20px; padding: 6px 14px; font-size: 0.8rem; font-weight: 500; color: #475569; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                        <span style="margin-right: 6px;">{freshness_icon}</span>
+                        <span style="margin-right: 10px;"><b>Status:</b> {freshness_text}</span>
+                        <span style="margin-right: 10px; color: #cbd5e1;">|</span>
+                        <span style="margin-right: 10px;">📅 {current_time}</span>
+                        <span style="margin-right: 10px; color: #cbd5e1;">|</span>
+                        <span>🕒 API: {time_diff:.1f} min ago</span>
+                    </div>
+                </div>
+                """
+                st.markdown(pill_style, unsafe_allow_html=True)
             except:
-                st.markdown(f'<div style="font-size: 0.75em; color: #666; margin: 2px 0; padding: 2px 0;">📅 Last updated: {current_time}</div>', unsafe_allow_html=True)
+                st.markdown(f"""
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 0;">
+                    <div style="display: inline-block; background-color: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-radius: 20px; padding: 6px 14px; font-size: 0.8rem; font-weight: 500; color: #475569;">
+                        📅 Last updated: {current_time}
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
         else:
             st.caption(f"📅 Last updated: {current_time}")
     else:
@@ -1908,37 +1263,36 @@ def main():
         return
     
     # Default: Interactive Map
-    st.markdown('<h2 style="margin: 8px 0; padding: 4px 0; font-size: 1.2em;">🗺️ Interactive Map</h2>', unsafe_allow_html=True)
+    st.header("🗺️ Interactive Map")
     
     # Search and highlight item on the map
-    st.markdown('<h3 style="margin: 6px 0; padding: 2px 0; font-size: 1.1em;">🔍 Search Item by ID on Map</h3>', unsafe_allow_html=True)
-    
-    # Show search history if available
-    if 'search_history' not in st.session_state:
-        st.session_state['search_history'] = []
-    
-    if st.session_state['search_history']:
-        st.info(f"💡 **Recent searches**: {', '.join(st.session_state['search_history'][-3:])}")
-    
-    # Placeholder for search results
-    search_results_placeholder = st.empty()
-    
-    st.info("💡 **Search Tip**: Enter an ID below to find and highlight the item with a ⭐ star marker on the map! Data is automatically refreshed on each search.")
-    
-    # Create columns for search input and button - all in one line
-    col1, col2, col3, col4 = st.columns([1.5, 2, 1, 1])
-    
-    with col1:
-        map_search_type = st.selectbox("Select Item Type", ["Bin", "Truck", "Dumping Spot"], key="map_search_type")
-    
-    with col2:
-        map_search_id = st.text_input("Enter ID", "", key="map_search_id", placeholder="e.g., BIN001, TRUCK01")
-    
-    with col3:
-        search_button = st.button("🔍 Search", type="primary", use_container_width=True)
-    
-    with col4:
-        refresh_button = st.button("🔄 Refresh", use_container_width=True)
+    with st.container(border=True):
+        st.markdown("##### 🔍 Search & Highlight Map Items")
+        
+        # Show search history if available
+        if 'search_history' not in st.session_state:
+            st.session_state['search_history'] = []
+        
+        if st.session_state['search_history']:
+            st.caption(f"💡 **Recent searches**: {', '.join(st.session_state['search_history'][-3:])}")
+        
+        # Create columns for search input and button - all in one line
+        col1, col2, col3, col4 = st.columns([1.5, 2, 1, 1], vertical_alignment="bottom")
+        
+        with col1:
+            map_search_type = st.selectbox("Select Item Type", ["Bin", "Truck", "Dumping Spot"], key="map_search_type")
+        
+        with col2:
+            map_search_id = st.text_input("Enter ID", "", key="map_search_id", placeholder="e.g., BIN001, TRUCK01")
+        
+        with col3:
+            search_button = st.button("🔍 Search", type="primary", use_container_width=True)
+        
+        with col4:
+            refresh_button = st.button("🔄 Refresh", use_container_width=True)
+            
+        # Placeholder for search results
+        search_results_placeholder = st.empty()
     
     highlight_item = None
     
@@ -1985,7 +1339,7 @@ def main():
                 st.session_state['search_history'] = st.session_state['search_history'][-10:]
         
         if not highlight_item:
-            search_results_placeholder.warning(f"No {map_search_type.lower()} found with ID '{map_search_id}'")
+            search_results_placeholder.error(f"❌ No {map_search_type.lower()} found with ID '{map_search_id}'")
         else:
             # Show professional detailed info about the found item in the placeholder
             item_id = highlight_item.get('bin_id') or highlight_item.get('truck_id') or highlight_item.get('spot_id') or 'Unknown'
@@ -1994,11 +1348,11 @@ def main():
                 last_updated = highlight_item.get('last_updated', 'Unknown')
                 fill_level = highlight_item.get('fill_level', 0)
                 search_results_placeholder.markdown(f'''
-                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 12px 16px; border-radius: 8px; margin: 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                        <div style="color: white; font-weight: bold; font-size: 0.95em; margin-bottom: 6px;">✅ {map_search_type} Found: {map_search_id}</div>
-                        <div style="color: rgba(255,255,255,0.95); font-size: 0.85em; margin-bottom: 4px;">📊 Fill Level: {fill_level:.1f}%</div>
-                        <div style="color: rgba(255,255,255,0.95); font-size: 0.85em;">🕒 Last Updated: {last_updated}</div>
-                        <div style="color: rgba(255,255,255,0.9); font-size: 0.8em; margin-top: 6px; font-style: italic;">🎯 Highlighted on map with ⭐ marker</div>
+                    <div style="background-color: #f8fafc; border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 6px; margin-top: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); border-right: 1px solid #e2e8f0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+                        <div style="color: #0f172a; font-weight: 600; font-size: 0.95em; margin-bottom: 6px;">✅ {map_search_type} Found: {map_search_id}</div>
+                        <div style="color: #475569; font-size: 0.85em; margin-bottom: 4px;">📊 Fill Level: {fill_level:.1f}%</div>
+                        <div style="color: #475569; font-size: 0.85em;">🕒 Last Updated: {last_updated}</div>
+                        <div style="color: #10b981; font-size: 0.8em; margin-top: 8px; font-weight: 500;">🎯 Highlighted on map with ⭐ marker</div>
                     </div>
                 ''', unsafe_allow_html=True)
             elif map_search_type == "Truck":
@@ -2006,20 +1360,20 @@ def main():
                 status = highlight_item.get('status', 'Unknown')
                 fuel_level = highlight_item.get('fuel_level', 0)
                 search_results_placeholder.markdown(f'''
-                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 12px 16px; border-radius: 8px; margin: 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                        <div style="color: white; font-weight: bold; font-size: 0.95em; margin-bottom: 6px;">✅ {map_search_type} Found: {map_search_id}</div>
-                        <div style="color: rgba(255,255,255,0.95); font-size: 0.85em; margin-bottom: 4px;">🚛 Status: {status} | ⛽ Fuel: {fuel_level:.1f}%</div>
-                        <div style="color: rgba(255,255,255,0.95); font-size: 0.85em; margin-bottom: 4px;">🕒 Last Updated: {last_updated}</div>
-                        <div style="color: rgba(255,255,255,0.9); font-size: 0.8em; margin-top: 6px; font-style: italic;">🎯 Highlighted on map with ⭐ marker</div>
+                    <div style="background-color: #f8fafc; border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 6px; margin-top: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); border-right: 1px solid #e2e8f0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+                        <div style="color: #0f172a; font-weight: 600; font-size: 0.95em; margin-bottom: 6px;">✅ {map_search_type} Found: {map_search_id}</div>
+                        <div style="color: #475569; font-size: 0.85em; margin-bottom: 4px;">🚛 Status: {status} | ⛽ Fuel: {fuel_level:.1f}%</div>
+                        <div style="color: #475569; font-size: 0.85em; margin-bottom: 4px;">🕒 Last Updated: {last_updated}</div>
+                        <div style="color: #10b981; font-size: 0.8em; margin-top: 8px; font-weight: 500;">🎯 Highlighted on map with ⭐ marker</div>
                     </div>
                 ''', unsafe_allow_html=True)
             else:
                 last_updated = highlight_item.get('last_updated', 'Unknown')
                 search_results_placeholder.markdown(f'''
-                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 12px 16px; border-radius: 8px; margin: 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                        <div style="color: white; font-weight: bold; font-size: 0.95em; margin-bottom: 6px;">✅ {map_search_type} Found: {map_search_id}</div>
-                        <div style="color: rgba(255,255,255,0.95); font-size: 0.85em;">🕒 Last Updated: {last_updated}</div>
-                        <div style="color: rgba(255,255,255,0.9); font-size: 0.8em; margin-top: 6px; font-style: italic;">🎯 Highlighted on map with ⭐ marker</div>
+                    <div style="background-color: #f8fafc; border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 6px; margin-top: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); border-right: 1px solid #e2e8f0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+                        <div style="color: #0f172a; font-weight: 600; font-size: 0.95em; margin-bottom: 6px;">✅ {map_search_type} Found: {map_search_id}</div>
+                        <div style="color: #475569; font-size: 0.85em;">🕒 Last Updated: {last_updated}</div>
+                        <div style="color: #10b981; font-size: 0.8em; margin-top: 8px; font-weight: 500;">🎯 Highlighted on map with ⭐ marker</div>
                     </div>
                 ''', unsafe_allow_html=True)
     # Create main map, centering/highlighting if search is active
@@ -2355,7 +1709,10 @@ def main():
     selected_bins = [bin_options[label] for label in selected_bin_labels]
 
     # Button to trigger routing
-    calculate_route_button = st.sidebar.button("Calculate Route")
+    smart_dispatch_button = st.sidebar.button("🤖 Smart Dispatch (Auto-Route)", type="primary", use_container_width=True)
+    st.sidebar.markdown("<br>", unsafe_allow_html=True)
+    st.sidebar.markdown("**Or manual routing:**")
+    calculate_route_button = st.sidebar.button("Calculate Route", use_container_width=True)
 
     # Create main map
     main_map = create_map(bins, dumping_spots, trucks, selected_bins)
@@ -2452,57 +1809,165 @@ def main():
     st.markdown(legend_html, unsafe_allow_html=True)
 
     # Routing logic triggered by button click
-    if calculate_route_button and selected_truck and selected_bins:
-        st.subheader("Calculated Route")
+    if smart_dispatch_button:
+        st.subheader("🤖 Smart Dispatch: Automated Route")
+        
+        # 1. Identify critical bins (>= 80% full)
+        critical_bins = [b for b in bins if b.get('fill_level', 0) >= 80]
+        
+        if not critical_bins:
+            st.success("✅ All bins are in good condition. No dispatch required at this time.")
+        elif not trucks:
+            st.error("❌ No trucks available for dispatch.")
+        else:
+            st.info(f"🚨 Identified **{len(critical_bins)} critical bin(s)** requiring immediate collection.")
+            
+            # 2. Find centroid of critical bins
+            avg_lat = sum(b['latitude'] for b in critical_bins) / len(critical_bins)
+            avg_lng = sum(b['longitude'] for b in critical_bins) / len(critical_bins)
+            
+            # 3. Find optimal truck (nearest to centroid)
+            best_truck = None
+            min_truck_dist = float('inf')
+            for t in trucks:
+                if t['status'] == 'ACTIVE':  # Prioritize active trucks
+                    dist = calculate_distance(avg_lat, avg_lng, t['current_latitude'], t['current_longitude'])
+                    if dist < min_truck_dist:
+                        min_truck_dist = dist
+                        best_truck = t
+            
+            # Fallback to any truck if no active ones
+            if not best_truck:
+                for t in trucks:
+                    dist = calculate_distance(avg_lat, avg_lng, t['current_latitude'], t['current_longitude'])
+                    if dist < min_truck_dist:
+                        min_truck_dist = dist
+                        best_truck = t
+                        
+            st.write(f"🚛 **Assigned Optimal Truck:** {best_truck['truck_id']} (Driver: {best_truck['driver_name']})")
+            
+            # 3.5. Limit to 25 waypoints due to Google Maps API restrictions
+            if len(critical_bins) > 25:
+                # Sort critical bins by distance to the assigned truck and keep the closest 25
+                critical_bins.sort(key=lambda b: calculate_distance(best_truck['current_latitude'], best_truck['current_longitude'], b['latitude'], b['longitude']))
+                critical_bins = critical_bins[:25]
+                st.warning("⚠️ **API Limit Reached:** Google Maps allows a maximum of 25 bins per route. The route has been optimized for the 25 closest critical bins.")
+            
+            # 4. Find nearest dumping spot to centroid
+            nearest_dumping_spot = None
+            if dumping_spots:
+                min_spot_dist = float('inf')
+                for spot in dumping_spots:
+                    dist = calculate_distance(avg_lat, avg_lng, spot['latitude'], spot['longitude'])
+                    if dist < min_spot_dist:
+                        min_spot_dist = dist
+                        nearest_dumping_spot = spot
+            
+            current_location = [best_truck['current_latitude'], best_truck['current_longitude']]
+            destination_coords = current_location
+            if nearest_dumping_spot:
+                destination_coords = [nearest_dumping_spot['latitude'], nearest_dumping_spot['longitude']]
+                
+            waypoint_coords = [[b['latitude'], b['longitude']] for b in critical_bins]
+            
+            with st.spinner("Calculating optimal automated route on Google Maps..."):
+                path, dist_km, duration_mins, error = get_google_maps_route(
+                    origin=current_location,
+                    destination=destination_coords,
+                    waypoints=waypoint_coords
+                )
+                
+            if error:
+                st.error(error)
+            else:
+                if nearest_dumping_spot:
+                    st.write(f"🏭 **Final Destination:** Dumping Spot {nearest_dumping_spot['spot_id']}")
+                    
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.metric("🚗 Driving Distance", f"{dist_km:.2f} km")
+                with col2:
+                    st.metric("⏳ Estimated Time", f"{duration_mins:.1f} mins")
+                    
+                # Display map
+                path_map = create_map(
+                    bins,
+                    dumping_spots,
+                    trucks,
+                    critical_bins,
+                    path,
+                    highlight_item=None,
+                    highlight_type=None
+                )
+                
+                with st.container():
+                    st.markdown('<div class="map-container">', unsafe_allow_html=True)
+                    folium_static(path_map, width=1200, height=800)
+                    st.markdown('</div>', unsafe_allow_html=True)
+                    
+    elif calculate_route_button and selected_truck and selected_bins:
+        st.subheader("📍 Calculated Real-World Route")
         # Start from the selected truck's location
         current_location = [selected_truck['current_latitude'], selected_truck['current_longitude']]
-        bins_to_visit = selected_bins[:]
-        path = [current_location]
-        total_distance = 0
-        # Calculate the route visiting all selected bins using Nearest Neighbor heuristic
-        while bins_to_visit:
-            nearest_bin = None
-            min_distance = float('inf')
-            for bin in bins_to_visit:
-                dist = calculate_distance(current_location[0], current_location[1], bin['latitude'], bin['longitude'])
-                if dist < min_distance:
-                    min_distance = dist
-                    nearest_bin = bin
-            if nearest_bin:
-                path.append([nearest_bin['latitude'], nearest_bin['longitude']])
-                total_distance += min_distance
-                current_location = [nearest_bin['latitude'], nearest_bin['longitude']]
-                bins_to_visit.remove(nearest_bin)
-        # After visiting all selected bins, find the nearest dumping spot
-        nearest_dumping_spot = None
-        min_distance_to_dumping_spot = float('inf')
-        if dumping_spots:
-            for spot in dumping_spots:
-                dist = calculate_distance(current_location[0], current_location[1], spot['latitude'], spot['longitude'])
-                if dist < min_distance_to_dumping_spot:
-                    min_distance_to_dumping_spot = dist
-                    nearest_dumping_spot = spot
-            if nearest_dumping_spot:
-                path.append([nearest_dumping_spot['latitude'], nearest_dumping_spot['longitude']])
-                total_distance += min_distance_to_dumping_spot
-                st.write(f"Ending at Dumping Spot: {nearest_dumping_spot['spot_id']}")
-        st.write(f"Total Route Distance (including dumping spot): {total_distance:.2f} km")
-        # Display map with the calculated path
-        path_map = create_map(
-            bins,
-            dumping_spots,
-            trucks,
-            selected_bins,
-            path,
-            highlight_item=None,  # No highlight for route calculation
-            highlight_type=None
-        )
         
-        # Display route map in a full-width container
-        with st.container():
-            st.markdown('<div class="map-container">', unsafe_allow_html=True)
-            folium_static(path_map, width=1200, height=800)
-            st.markdown('</div>', unsafe_allow_html=True)
+        # We need a destination. Let's find the nearest dumping spot to the LAST bin 
+        # using our fast Euclidean heuristic so we know where to send the truck finally.
+        nearest_dumping_spot = None
+        if dumping_spots and selected_bins:
+            last_bin = selected_bins[-1]
+            min_dist = float('inf')
+            for spot in dumping_spots:
+                dist = calculate_distance(last_bin['latitude'], last_bin['longitude'], spot['latitude'], spot['longitude'])
+                if dist < min_dist:
+                    min_dist = dist
+                    nearest_dumping_spot = spot
+        
+        destination_coords = current_location
+        if nearest_dumping_spot:
+            destination_coords = [nearest_dumping_spot['latitude'], nearest_dumping_spot['longitude']]
+            
+        # Limit to 25 waypoints due to Google Maps API restrictions
+        if len(selected_bins) > 25:
+            st.warning("⚠️ **API Limit Reached:** Google Maps allows a maximum of 25 bins per route. Only the first 25 bins selected will be routed.")
+            selected_bins = selected_bins[:25]
+            
+        waypoint_coords = [[b['latitude'], b['longitude']] for b in selected_bins]
+        
+        with st.spinner("Calculating optimal route on Google Maps..."):
+            path, dist_km, duration_mins, error = get_google_maps_route(
+                origin=current_location,
+                destination=destination_coords,
+                waypoints=waypoint_coords
+            )
+            
+        if error:
+            st.error(error)
+        else:
+            if nearest_dumping_spot:
+                st.write(f"**Final Destination:** Dumping Spot {nearest_dumping_spot['spot_id']}")
+                
+            col1, col2 = st.columns(2)
+            with col1:
+                st.metric("🚗 Driving Distance", f"{dist_km:.2f} km")
+            with col2:
+                st.metric("⏳ Estimated Time", f"{duration_mins:.1f} mins")
+                
+            # Display map with the calculated path
+            path_map = create_map(
+                bins,
+                dumping_spots,
+                trucks,
+                selected_bins,
+                path,
+                highlight_item=None,
+                highlight_type=None
+            )
+            
+            # Display route map in a full-width container
+            with st.container():
+                st.markdown('<div class="map-container">', unsafe_allow_html=True)
+                folium_static(path_map, width=1200, height=800)
+                st.markdown('</div>', unsafe_allow_html=True)
     elif calculate_route_button and not selected_truck:
         st.warning("Please select a truck to calculate a route.")
     elif calculate_route_button and not selected_bins:

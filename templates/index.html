@@ -4,37 +4,170 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waste Management Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            background-image: radial-gradient(circle at 15% 50%, rgba(37, 99, 235, 0.03), transparent 25%),
+                              radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.03), transparent 25%);
+            color: #334155;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e293b, #334155);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 16px;
+            box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
         .bin-card {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            animation: fadeIn 0.5s ease-out forwards;
         }
+
+        .bin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px 0 rgba(0, 0, 0, 0.1);
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-title {
+            color: #1e293b;
+            font-weight: 600;
+            font-size: 1.25rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .card-text {
+            color: #64748b;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Status Indicators */
         .bin-status {
-            font-weight: bold;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
+
         .bin-status.full {
-            color: #dc3545;
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
         }
+
         .bin-status.empty {
-            color: #28a745;
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        /* Form Styling */
+        .form-label {
+            color: #475569;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            background-color: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #334155;
+            border-radius: 8px;
+            padding: 10px 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .form-control:focus {
+            background-color: #ffffff;
+            border-color: #3b82f6;
+            color: #334155;
+            box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 12px 20px;
+            width: 100%;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary:hover, .btn-primary:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+        }
+
+        .card-header {
+            background: transparent;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 20px 24px;
+        }
+        
+        .card-header h5 {
+            color: #1e293b;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .card-body {
+            padding: 24px;
         }
     </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Waste Management Dashboard</h1>
+    <div class="container mt-5 mb-5">
+        <h1 class="mb-5">Waste Management Dashboard</h1>
         
-        <div class="row">
-            <div class="col-md-8">
-                <div id="bins-container" class="row">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div id="bins-container" class="row g-4">
                     <!-- Bins will be loaded here -->
                 </div>
             </div>
             
-            <div class="col-md-4">
-                <div class="card">
+            <div class="col-lg-4">
+                <div class="glass-card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Add New Bin</h5>
+                        <h5>Add New Bin</h5>
                     </div>
                     <div class="card-body">
                         <form id="add-bin-form">
@@ -47,10 +180,10 @@
                                 <input type="text" class="form-control" id="location" required>
                             </div>
                             <div class="mb-3">
-                                <label for="capacity" class="form-label">Capacity</label>
-                                <input type="number" class="form-control" id="capacity" required>
+                                <label for="capacity" class="form-label">Capacity (%)</label>
+                                <input type="number" class="form-control" id="capacity" min="0" max="100" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Add Bin</button>
+                            <button type="submit" class="btn-primary">Add Bin</button>
                         </form>
                     </div>
                 </div>
@@ -67,20 +200,35 @@
                 const container = document.getElementById('bins-container');
                 container.innerHTML = '';
                 
-                bins.forEach(bin => {
+                // Handle paginated responses if necessary
+                const data = Array.isArray(bins) ? bins : (bins.results || []);
+
+                data.forEach((bin, index) => {
                     const binElement = document.createElement('div');
                     binElement.className = 'col-md-6';
+                    // Stagger animation slightly for each bin
+                    binElement.style.animationDelay = `${index * 0.1}s`;
+                    
+                    const isFull = bin.capacity > 80;
+                    
                     binElement.innerHTML = `
-                        <div class="card bin-card">
+                        <div class="glass-card bin-card">
                             <div class="card-body">
                                 <h5 class="card-title">Bin ${bin.id}</h5>
-                                <p class="card-text">Location: ${bin.location}</p>
-                                <p class="card-text">Capacity: ${bin.capacity}%</p>
-                                <p class="card-text">
-                                    Status: <span class="bin-status ${bin.capacity > 80 ? 'full' : 'empty'}">
-                                        ${bin.capacity > 80 ? 'Full' : 'Empty'}
+                                <div class="card-text">
+                                    <span>Location</span> 
+                                    <strong>${bin.location}</strong>
+                                </div>
+                                <div class="card-text">
+                                    <span>Capacity</span> 
+                                    <strong>${bin.capacity}%</strong>
+                                </div>
+                                <div class="card-text mt-3 pt-2" style="border-top: 1px solid rgba(0,0,0,0.05);">
+                                    <span>Status</span>
+                                    <span class="bin-status ${isFull ? 'full' : 'empty'}">
+                                        ${isFull ? 'Full' : 'Available'}
                                     </span>
-                                </p>
+                                </div>
                             </div>
                         </div>
                     `;
@@ -95,6 +243,11 @@
         document.getElementById('add-bin-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             
+            const btn = e.target.querySelector('button');
+            const originalText = btn.textContent;
+            btn.textContent = 'Adding...';
+            btn.disabled = true;
+
             const binData = {
                 id: document.getElementById('bin-id').value,
                 location: document.getElementById('location').value,
@@ -111,13 +264,16 @@
                 });
 
                 if (response.ok) {
-                    loadBins();
+                    await loadBins();
                     e.target.reset();
                 } else {
                     console.error('Error adding bin:', await response.json());
                 }
             } catch (error) {
                 console.error('Error adding bin:', error);
+            } finally {
+                btn.textContent = originalText;
+                btn.disabled = false;
             }
         });
 

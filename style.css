@@ -1,172 +1,172 @@
-/* styles.css */
+/* Premium Light Theme & Glassmorphism for Smart Waste Management */
 
-body {
-    font-family: sans-serif;
-    background-color: #f0f2f6; /* Light gray background */
-    color: #303030; /* Dark gray text */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body, .stApp, [data-testid="stAppViewContainer"], .main {
+    background-color: #f8fafc !important;
+    color: #334155 !important;
+    margin: 0;
+    padding: 0;
 }
 
-h1, h2, h3 {
-    color: #1f77b4; /* Blue color for headers */
+h1, h2, h3, h4, h5, h6 {
+    color: #1e293b !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.5px;
 }
 
-/* Style for the dataframe tables */
-div.stDataFrame {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    overflow: hidden;
+/* Glassmorphism containers */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Style for map container */
-div.stAlert {
-    margin-top: 10px;
-    margin-bottom: 10px;
+.glass-panel:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px 0 rgba(0, 0, 0, 0.1);
 }
 
-/* Map container styling for larger, square map */
-div[data-testid="stVerticalBlock"] > div[data-testid="element-container"] {
-    width: 100% !important;
-}
+/* Streamlit specific overrides */
 
-/* Folium map container styling */
-.folium-map {
-    height: 800px !important;
-    width: 100% !important;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    min-height: 800px;
-}
-
-/* Additional map styling for better appearance */
-div[data-testid="stVerticalBlock"] > div[data-testid="element-container"] > div {
-    width: 100% !important;
-}
-
-/* Make sure the map takes full width */
-.stApp > div {
-    max-width: 100% !important;
-}
-
-/* Map container specific styling */
-div[data-testid="stVerticalBlock"] {
-    width: 100% !important;
-}
-
-/* Ensure map iframe is properly sized */
-.folium-map iframe {
-    height: 800px !important;
-    width: 100% !important;
-    border: none;
-    border-radius: 10px;
-}
-
-/* Main content area styling - Expanded */
+/* Main content area - explicitly NOT full width per user request */
 .main .block-container {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    max-width: 100% !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding: 2.5rem 1.5rem !important;
+    max-width: 1200px !important;
+    background-color: transparent !important;
+    margin: 0 auto;
 }
 
-/* Expand main content area */
-.main {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    flex: 1 !important;
-}
-
-/* Make sidebar more compact */
-.css-1d391kg {
-    max-width: 250px !important;
-    min-width: 200px !important;
-}
-
-/* Expand the main content area */
-.stApp > div:first-child {
-    max-width: 100% !important;
-}
-
-/* Better spacing for the main content */
-div[data-testid="stAppViewContainer"] {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
-
-/* Force main content to take more space */
-div[data-testid="stAppViewContainer"] > div:first-child {
-    flex: 1 !important;
-    max-width: calc(100% - 250px) !important;
-}
-
-/* Compact sidebar */
-section[data-testid="stSidebar"] {
-    max-width: 250px !important;
-    min-width: 200px !important;
-}
-
-/* Ensure main content area is wide */
-div[data-testid="stAppViewContainer"] > div:first-child > div {
-    max-width: 100% !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
-
-/* Enhanced title styling */
+/* Headings */
 h1 {
     font-size: 2.5rem !important;
-    margin-bottom: 0 !important;
-    margin-top: 0 !important;
-    padding-bottom: 0 !important;
-    padding-top: 0 !important;
-    border-bottom: 3px solid #1f77b4 !important;
-    text-align: center !important;
-    background: linear-gradient(135deg, #1f77b4, #2c5aa0) !important;
+    background: linear-gradient(135deg, #1e293b, #334155) !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     background-clip: text !important;
+    text-align: center;
+    margin-bottom: 2rem !important;
 }
 
-/* Better spacing for headers */
-h2 {
-    margin-top: 2rem !important;
-    margin-bottom: 1.5rem !important;
-    font-size: 1.8rem !important;
-}
-
-h3 {
-    margin-top: 1.5rem !important;
-    margin-bottom: 1rem !important;
-    font-size: 1.4rem !important;
-}
-
-/* Map container styling */
-.map-container {
-    width: 100% !important;
-    margin: 0 auto;
+/* Dataframes */
+div.stDataFrame {
+    border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
 }
 
-/* Streamlit map container */
-div[data-testid="stVerticalBlock"] {
+div[data-testid="stDataFrame"] > div {
+    background: transparent !important;
+}
+
+/* Map container styling - Fixed width/height */
+.map-container, .folium-map {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px 0 rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     width: 100% !important;
 }
 
-/* Custom styles for the legend table (adjust as needed) */
-table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
+/* Ensure map iframe renders correctly */
+.stMap iframe, .folium-map iframe {
+    width: 100% !important;
+    border: none;
+    border-radius: 12px;
 }
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+
+/* Sidebar styling */
+section[data-testid="stSidebar"] {
+    background-color: #ffffff !important;
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.02);
 }
-th {
-    background-color: #1f77b4;
-    color: white;
+
+/* Form Labels - Premium Typography */
+.stTextInput label, 
+.stNumberInput label, 
+.stSelectbox label {
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    color: #64748b !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 0.5rem !important;
+}
+
+/* Input fields - Restored borders and fixed height to prevent clipping */
+.stTextInput, .stNumberInput, .stSelectbox {
+    margin-bottom: 1.5rem !important;
+}
+
+.stTextInput input,
+.stNumberInput input,
+div[data-baseweb="select"] > div {
+    background-color: #ffffff !important;
+    color: #1e293b !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important;
+    height: auto !important;
+    min-height: 46px !important;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+div[data-baseweb="select"] span {
+    padding-bottom: 2px !important;
+    line-height: normal !important;
+}
+
+.stTextInput input:focus,
+.stNumberInput input:focus,
+div[data-baseweb="select"] > div:focus-within {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
+    transform: translateY(-1px);
+}
+
+/* Buttons - Full width in sidebar, better spacing */
+.stButton {
+    margin-top: 1rem !important;
+}
+
+.stButton > button {
+    background: linear-gradient(135deg, #2563eb, #3b82f6) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    padding: 0.6rem 1rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2) !important;
+    width: 100% !important;
+}
+
+.stButton > button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* Expander */
+.streamlit-expanderHeader {
+    background-color: #ffffff !important;
+    border-radius: 8px !important;
+    color: #334155 !important;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.streamlit-expanderContent {
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    border-top: none !important;
+    border-radius: 0 0 8px 8px !important;
+    background-color: #f8fafc !important;
 } 
