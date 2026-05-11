@@ -531,10 +531,11 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
             highlight_coords = [highlight_item['latitude'], highlight_item['longitude']]
             highlight_id = highlight_item['spot_id']
         
-                # Use existing bin data for popup but with star marker
+        # Use existing bin data for popup but with star marker
         if highlight_type == "Bin":
             # Get the existing bin data for popup
             bin_data = next((b for b in bins if b['bin_id'] == highlight_id), None)
+            if bin_data:
                 # Premium searched popup
                 star_popup_content = bin_popup_html(bin_data, is_searched=True)
             else:
