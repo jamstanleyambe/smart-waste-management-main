@@ -896,7 +896,7 @@ def display_live_search_result(map_search_type, map_search_id):
                 else:
                     bar_col = '#10b981'; status_label = 'GOOD';     status_bg = 'rgba(16,185,129,0.15)'
 
-                img_html = f'<img src="{img_url}" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;"/>' if img_url else ''
+                img_html = f'<div style="text-align:center;background:rgba(0,0,0,0.2);border-radius:8px;padding:8px;margin-bottom:16px;"><img src="{img_url}" style="max-width:100%;height:auto;max-height:400px;object-fit:contain;border-radius:6px;display:inline-block;box-shadow:0 4px 15px rgba(0,0,0,0.3);"/></div>' if img_url else ''
 
                 st.markdown(f'''
 <style>
