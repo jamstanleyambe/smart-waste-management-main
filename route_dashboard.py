@@ -877,7 +877,7 @@ def camera_gallery_section():
 
 @st.fragment
 def display_live_search_result(map_search_type, map_search_id):
-    """Displays a real-time updating card for the searched item without reloading the whole page."""
+    """Displays a real-time premium card for the searched item."""
     if map_search_type == "Bin":
         response = requests.get(f"{API_BASE_URL}/bin-data/?bin_id={map_search_id}")
         if response.status_code == 200:
@@ -887,22 +887,54 @@ def display_live_search_result(map_search_type, map_search_id):
             if item:
                 fill_level = item.get('fill_level', 0)
                 last_updated = item.get('last_updated', 'Unknown')
+                img_url = item.get('latest_image_url', '')
+
+                if fill_level >= 85:
+                    bar_col = '#ef4444'; status_label = 'CRITICAL'; status_bg = 'rgba(239,68,68,0.15)'
+                elif fill_level >= 65:
+                    bar_col = '#f59e0b'; status_label = 'WARNING';  status_bg = 'rgba(245,158,11,0.15)'
+                else:
+                    bar_col = '#10b981'; status_label = 'GOOD';     status_bg = 'rgba(16,185,129,0.15)'
+
+                img_html = f'<img src="{img_url}" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;"/>' if img_url else ''
+
                 st.markdown(f'''
-                    <div style="background-color: #f8fafc; border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 6px; margin-top: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); border-right: 1px solid #e2e8f0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
-                        <div style="color: #0f172a; font-weight: 600; font-size: 0.95em; margin-bottom: 6px;">
-                            ✅ {map_search_type} Found: {map_search_id} 
-                        </div>
-                        <div style="color: #475569; font-size: 0.85em; margin-bottom: 4px;">
-                            📊 Fill Level: <span style="font-size:1.4em; font-weight:bold; color:#10b981;">{fill_level:.1f}%</span>
-                        </div>
-                        <div style="color: #475569; font-size: 0.85em;">🕒 Last Updated: {str(last_updated)[:19].replace('T', ' ')}</div>
-                        <div style="color: #10b981; font-size: 0.8em; margin-top: 8px; font-weight: 500;">🎯 Highlighted on map with permanent label</div>
-                    </div>
-                ''', unsafe_allow_html=True)
-                
-                # Manual refresh button inside the fragment
-                if st.button(f"🔄 Pull Live Data from {map_search_id}", use_container_width=True):
-                    st.rerun() # This safely re-runs ONLY this fragment, not the whole map!
+<style>
+@keyframes slideIn{{from{{opacity:0;transform:translateY(-8px)}}to{{opacity:1;transform:translateY(0)}}}}
+@keyframes grow{{from{{width:0%}}to{{width:{fill_level:.1f}%}}}}
+</style>
+<div style="background:linear-gradient(135deg,#0f172a,#1e293b);border:1px solid rgba(255,255,255,.1);
+border-radius:14px;padding:16px;margin-top:10px;animation:slideIn .3s ease-out;
+box-shadow:0 8px 32px rgba(0,0,0,.4);">
+  {img_html}
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+    <div>
+      <div style="font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:2px;">SMART WASTE BIN</div>
+      <div style="font-size:16px;font-weight:800;color:#fff;">🗑️ {map_search_id}</div>
+    </div>
+    <div style="background:{status_bg};border:1px solid {bar_col};border-radius:20px;padding:4px 12px;
+                font-size:11px;font-weight:700;color:{bar_col};letter-spacing:1px;">{status_label}</div>
+  </div>
+  <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:12px;margin-bottom:10px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <span style="font-size:12px;color:rgba(255,255,255,.55);">Fill Level</span>
+      <span style="font-size:20px;font-weight:800;color:{bar_col};">{fill_level:.1f}%</span>
+    </div>
+    <div style="background:rgba(255,255,255,.1);border-radius:20px;height:8px;overflow:hidden;">
+      <div style="height:100%;width:{fill_level:.1f}%;background:linear-gradient(90deg,{bar_col},{bar_col}aa);
+                  border-radius:20px;animation:grow .8s ease-out;"></div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <span style="font-size:10px;color:rgba(255,255,255,.35);">🕐 UPDATED</span>
+    <span style="font-size:10px;color:rgba(255,255,255,.5);">{str(last_updated)[:19].replace("T"," ")}</span>
+    <span style="margin-left:auto;font-size:10px;color:#10b981;font-weight:600;">🎯 Highlighted on map</span>
+  </div>
+</div>''', unsafe_allow_html=True)
+
+                if st.button(f"🔄 Pull Live Data from {map_search_id}",
+                             use_container_width=True, type="primary"):
+                    st.rerun()
                 return
     st.info(f"Loading {map_search_type} data...")
 
@@ -1157,35 +1189,39 @@ def main():
     # Default: Interactive Map
     st.header("🗺️ Interactive Map")
     
-    # Search and highlight item on the map
-    with st.container(border=True):
-        st.markdown("##### 🔍 Search & Highlight Map Items")
-        
+    # ── Premium Search Panel ─────────────────────────────────────────
+    st.markdown("""
+<style>
+.search-panel{background:linear-gradient(135deg,#0f172a,#1e293b);border:1px solid rgba(255,255,255,.1);
+border-radius:16px;padding:20px 22px 16px;margin-bottom:16px;box-shadow:0 8px 32px rgba(0,0,0,.3);}
+.search-panel-title{font-size:13px;letter-spacing:2.5px;color:rgba(255,255,255,.4);font-weight:700;margin-bottom:4px;}
+.search-panel-heading{font-size:18px;font-weight:800;color:#fff;margin-bottom:0;}
+.search-history{font-size:11px;color:rgba(255,255,255,.35);margin-top:6px;letter-spacing:.3px;}
+</style>
+<div class="search-panel">
+  <div class="search-panel-title">SMART WASTE MANAGEMENT</div>
+  <div class="search-panel-heading">🔍 Search &amp; Highlight Map Items</div>
+</div>""", unsafe_allow_html=True)
+
+    with st.container():
         # Show search history if available
         if 'search_history' not in st.session_state:
             st.session_state['search_history'] = []
-        
+
         if st.session_state['search_history']:
-            st.caption(f"💡 **Recent searches**: {', '.join(st.session_state['search_history'][-3:])}")
-        
-        # Create columns for search input and button - all in one line
+            st.caption(f"🕐 Recent: {' · '.join(st.session_state['search_history'][-3:])}")
+
         col1, col2, col3, col4 = st.columns([1.5, 2, 1, 1], vertical_alignment="bottom")
-        
         with col1:
             map_search_type = st.selectbox("Select Item Type", ["Bin", "Truck", "Dumping Spot"], key="map_search_type")
-        
         with col2:
             map_search_id = st.text_input("Enter ID", "", key="map_search_id", placeholder="e.g., BIN001, TRUCK01")
-        
         with col3:
             search_button = st.button("🔍 Search", type="primary", use_container_width=True)
-        
         with col4:
             refresh_button = st.button("🔄 Refresh", use_container_width=True)
-            
-        # Placeholder for search results
-        search_results_placeholder = st.empty()
-    
+
+    search_results_placeholder = st.empty()
     highlight_item = None
     
     # Handle refresh all button
@@ -1233,34 +1269,41 @@ def main():
         if not highlight_item:
             search_results_placeholder.error(f"❌ No {map_search_type.lower()} found with ID '{map_search_id}'")
         else:
-            # Show professional detailed info about the found item in the placeholder
             item_id = highlight_item.get('bin_id') or highlight_item.get('truck_id') or highlight_item.get('spot_id') or 'Unknown'
-            
             if map_search_type == "Bin":
-                # Call the live fragment instead of static markdown
                 with search_results_placeholder:
                     display_live_search_result(map_search_type, map_search_id)
             elif map_search_type == "Truck":
                 last_updated = highlight_item.get('last_updated', 'Unknown')
                 status = highlight_item.get('status', 'Unknown')
                 fuel_level = highlight_item.get('fuel_level', 0)
+                fuel_col = '#ef4444' if fuel_level < 25 else '#f59e0b' if fuel_level < 50 else '#10b981'
                 search_results_placeholder.markdown(f'''
-                    <div style="background-color: #f8fafc; border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 6px; margin-top: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); border-right: 1px solid #e2e8f0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
-                        <div style="color: #0f172a; font-weight: 600; font-size: 0.95em; margin-bottom: 6px;">✅ {map_search_type} Found: {map_search_id}</div>
-                        <div style="color: #475569; font-size: 0.85em; margin-bottom: 4px;">🚛 Status: {status} | ⛽ Fuel: {fuel_level:.1f}%</div>
-                        <div style="color: #475569; font-size: 0.85em; margin-bottom: 4px;">🕒 Last Updated: {last_updated}</div>
-                        <div style="color: #10b981; font-size: 0.8em; margin-top: 8px; font-weight: 500;">🎯 Highlighted on map with ⭐ marker</div>
-                    </div>
-                ''', unsafe_allow_html=True)
+<div style="background:linear-gradient(135deg,#0f172a,#1e293b);border:1px solid rgba(255,255,255,.1);
+border-radius:14px;padding:16px;margin-top:10px;box-shadow:0 8px 32px rgba(0,0,0,.4);">
+  <div style="font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:4px;">WASTE TRUCK</div>
+  <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:12px;">🚛 {map_search_id}</div>
+  <div style="display:flex;gap:10px;margin-bottom:10px;">
+    <div style="flex:1;background:rgba(255,255,255,.06);border-radius:8px;padding:10px;text-align:center;">
+      <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:4px;">STATUS</div>
+      <div style="font-weight:700;color:#10b981;font-size:13px;">{status}</div>
+    </div>
+    <div style="flex:1;background:rgba(255,255,255,.06);border-radius:8px;padding:10px;text-align:center;">
+      <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:4px;">FUEL</div>
+      <div style="font-weight:700;color:{fuel_col};font-size:13px;">{fuel_level:.1f}%</div>
+    </div>
+  </div>
+  <div style="font-size:10px;color:rgba(255,255,255,.35);">🕐 {str(last_updated)[:19].replace("T"," ")} &nbsp;·&nbsp; 🎯 Highlighted on map</div>
+</div>''', unsafe_allow_html=True)
             else:
                 last_updated = highlight_item.get('last_updated', 'Unknown')
                 search_results_placeholder.markdown(f'''
-                    <div style="background-color: #f8fafc; border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 6px; margin-top: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); border-right: 1px solid #e2e8f0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
-                        <div style="color: #0f172a; font-weight: 600; font-size: 0.95em; margin-bottom: 6px;">✅ {map_search_type} Found: {map_search_id}</div>
-                        <div style="color: #475569; font-size: 0.85em;">🕒 Last Updated: {last_updated}</div>
-                        <div style="color: #10b981; font-size: 0.8em; margin-top: 8px; font-weight: 500;">🎯 Highlighted on map with ⭐ marker</div>
-                    </div>
-                ''', unsafe_allow_html=True)
+<div style="background:linear-gradient(135deg,#0f172a,#1e293b);border:1px solid rgba(255,255,255,.1);
+border-radius:14px;padding:16px;margin-top:10px;box-shadow:0 8px 32px rgba(0,0,0,.4);">
+  <div style="font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:4px;">DUMPING SPOT</div>
+  <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:12px;">🏭 {map_search_id}</div>
+  <div style="font-size:10px;color:rgba(255,255,255,.35);">🕐 {str(last_updated)[:19].replace("T"," ")} &nbsp;·&nbsp; 🎯 Highlighted on map</div>
+</div>''', unsafe_allow_html=True)
     # Create main map, centering/highlighting if search is active
     if highlight_item:
         if map_search_type == "Bin":
