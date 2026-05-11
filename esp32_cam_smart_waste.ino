@@ -4,18 +4,31 @@
  * Module: ESP32-CAM — Waste Dataset Capture
  * Board:  AI Thinker ESP32-CAM
  *
- * WHAT THIS DOES:
- *   1. Connects to WiFi and resolves Django server via mDNS
- *   2. Polls Django every 500ms for the current bin fill level
- *   3. When fill level changes by >= 1% since the last photo:
- *      → Captures a JPEG photo
- *      → Uploads it to Django tagged with bin_id + fill_level
- *   This builds a continuous visual dataset at every fill stage
- *   for waste segmentation / ML training.
+ * ── TRANSPORT PRIORITY ──────────────────────────────────────────────
+ * On startup the firmware waits 4 seconds for the Mac's
+ * serial_bridge.py to send "BRIDGE_READY".
  *
- * ENDPOINTS USED:
+ * USB MODE (bridge running):
+ *   - Fill level is read from Serial JSON sent by serial_bridge.py
+ *     (which already got it from the ultrasonic sensor bridge).
+ *   - OR the CAM polls Django via WiFi for fill level but uploads
+ *     images over WiFi (JPEG binary cannot go over serial text).
+ *   - The "USB mode" here means fill-level data flows over USB;
+ *     image uploads still use WiFi because JPEG is binary.
+ *
+ * WIFI MODE (no bridge, fallback):
+ *   - Polls Django GET /api/bin-data/ for fill level via WiFi.
+ *   - Uploads images via WiFi POST /api/esp32-cam-upload/.
+ *
+ * ── NOTE ON ESP32-CAM USB ────────────────────────────────────────────
+ * The AI Thinker ESP32-CAM does NOT have a native USB-Serial chip
+ * on the camera module itself — it uses an external FTDI/CH340 adapter.
+ * Because of this, GPIO0 must be connected to GND to flash, then
+ * disconnected to run.  Serial is available for debug output.
+ *
+ * ── ENDPOINTS USED ───────────────────────────────────────────────────
  *   GET  /api/bin-data/?bin_id=BIN001  → get current fill level
- *   POST /api/camera-images/           → upload photo + metadata
+ *   POST /api/esp32-cam-upload/        → upload photo + metadata
  *
  * ARDUINO IDE BOARD SETTINGS:
  *   Tools → Board    → AI Thinker ESP32-CAM
@@ -33,12 +46,12 @@
 // =====================================================================
 // SECTION 1: WIFI + SERVER SETTINGS
 // =====================================================================
-const char* WIFI_SSID     = "Orange-6B05";
-const char* WIFI_PASSWORD = "GbYMLNLq7h4";
-const char* MAC_HOSTNAME  = "Jams-MacBook-Pro.local";
+const char* WIFI_SSID       = "Orange-6B05";
+const char* WIFI_PASSWORD   = "GbYMLNLq7h4";
+const char* MAC_HOSTNAME    = "Jams-MacBook-Pro.local";
 const char* FILL_ENDPOINT   = "/api/bin-data/";
 const char* UPLOAD_ENDPOINT = "/api/esp32-cam-upload/";
-String SERVER_URL = "";  // Resolved from hostname at runtime
+String      SERVER_URL      = "";  // Resolved from hostname at runtime
 
 // =====================================================================
 // SECTION 2: BIN IDENTITY
@@ -50,7 +63,8 @@ const char* BIN_ID    = "BIN001";
 // SECTION 3: CAPTURE SETTINGS
 // =====================================================================
 const float          FILL_CHANGE_THRESHOLD = 1.0;   // Photo if fill changes >= 1%
-const unsigned long  POLL_INTERVAL         = 500;   // Poll Django every 500ms
+const unsigned long  POLL_INTERVAL         = 500;   // Poll for fill level every 500ms
+const unsigned long  USB_WAIT_MS           = 4000;  // Wait for bridge handshake
 
 // =====================================================================
 // CAMERA PIN DEFINITIONS (AI Thinker ESP32-CAM)
@@ -74,11 +88,25 @@ const unsigned long  POLL_INTERVAL         = 500;   // Poll Django every 500ms
 #define FLASH_PIN        4   // Built-in flash LED
 
 // =====================================================================
-// GLOBAL VARIABLES
+// GLOBAL STATE
 // =====================================================================
+bool          USB_MODE           = false;   // true = fill level arrives via Serial
 float         lastPhotoFillLevel = -999.0;  // -999 forces first photo on boot
 unsigned long lastPollTime       = 0;
 int           photoCount         = 0;
+
+// USB-mode: fill level sent by bridge via Serial JSON
+float usbFillLevel = -1.0;
+
+// =====================================================================
+// FORWARD DECLARATIONS
+// =====================================================================
+void  connectWiFi();
+float fetchFillLevelWiFi();
+float fetchFillLevelUSB();
+void  captureAndUpload(float fillLevel);
+bool  uploadImage(uint8_t* data, size_t len, float fillLevel);
+bool  initCamera();
 
 // =====================================================================
 // SETUP
@@ -90,46 +118,63 @@ void setup() {
   pinMode(FLASH_PIN, OUTPUT);
   digitalWrite(FLASH_PIN, LOW);
 
-  Serial.println("====================================");
-  Serial.println("  Smart Waste — ESP32-CAM Dataset  ");
-  Serial.println("  >>> CODE VERSION 2.0 <<<          ");
-  Serial.println("====================================");
-  Serial.print("[SYS] PSRAM: ");
+  Serial.println(F("===================================="));
+  Serial.println(F("  Smart Waste — ESP32-CAM Dataset  "));
+  Serial.println(F("  >>> CODE VERSION 3.0 <<<          "));
+  Serial.println(F("===================================="));
+  Serial.print(F("[SYS] PSRAM: "));
   Serial.println(psramFound() ? "FOUND" : "NOT FOUND");
-  Serial.print("Camera ID : "); Serial.println(CAMERA_ID);
-  Serial.print("Bin ID    : "); Serial.println(BIN_ID);
-  Serial.print("Threshold : "); Serial.print(FILL_CHANGE_THRESHOLD);
-  Serial.println("% change triggers photo");
+  Serial.print(F("Camera ID : ")); Serial.println(CAMERA_ID);
+  Serial.print(F("Bin ID    : ")); Serial.println(BIN_ID);
 
-  // Print available memory BEFORE camera init
-  Serial.print("[SYS] Free heap: "); Serial.println(ESP.getFreeHeap());
-  Serial.print("[SYS] Largest free block: "); Serial.println(ESP.getMaxAllocHeap());
-
-  // Initialize camera — MUST happen before WiFi to get DMA memory
+  // Initialize camera FIRST — must happen before WiFi to get DMA memory
   if (!initCamera()) {
-    Serial.println("[CAM] FATAL: Camera init failed!");
-    Serial.print("[SYS] Free heap after fail: "); Serial.println(ESP.getFreeHeap());
-    // Flash rapidly forever to signal hardware error
+    Serial.println(F("[CAM] FATAL: Camera init failed!"));
     while (true) {
       digitalWrite(FLASH_PIN, HIGH); delay(100);
       digitalWrite(FLASH_PIN, LOW);  delay(100);
     }
   }
-  Serial.println("[CAM] Camera ready.");
+  Serial.println(F("[CAM] Camera ready."));
 
-  // Connect to WiFi and resolve server
-  connectWiFi();
+  // ── USB handshake detection ──────────────────────────────────────
+  Serial.println(F("[USB] Waiting for serial_bridge.py handshake..."));
+  Serial.println(F("[USB] (Run:  python3 serial_bridge.py  on your Mac)"));
+  Serial.println(F("[USB] Waiting 4 seconds..."));
 
-  Serial.println("[SYS] Starting capture loop...");
+  unsigned long waitStart = millis();
+  while (millis() - waitStart < USB_WAIT_MS) {
+    if (Serial.available()) {
+      String incoming = Serial.readStringUntil('\n');
+      incoming.trim();
+      if (incoming == "BRIDGE_READY") {
+        USB_MODE = true;
+        break;
+      }
+    }
+    delay(50);
+  }
+
+  if (USB_MODE) {
+    Serial.println(F("[USB] ✅ Bridge detected! Running in USB+WiFi hybrid mode."));
+    Serial.println(F("[USB] Fill level → USB Serial | Images → WiFi"));
+    // Connect WiFi too — needed for image uploads even in USB mode
+    connectWiFi();
+  } else {
+    Serial.println(F("[WiFi] No bridge found — falling back to full WiFi mode."));
+    connectWiFi();
+  }
+
+  Serial.println(F("[SYS] Starting capture loop..."));
 }
 
 // =====================================================================
 // MAIN LOOP
 // =====================================================================
 void loop() {
-  // Reconnect WiFi if dropped
+  // Reconnect WiFi if dropped (needed for image uploads in both modes)
   if (WiFi.status() != WL_CONNECTED) {
-    Serial.println("[WiFi] Lost — reconnecting...");
+    Serial.println(F("[WiFi] Lost — reconnecting..."));
     connectWiFi();
   }
 
@@ -137,7 +182,19 @@ void loop() {
   if (millis() - lastPollTime >= POLL_INTERVAL) {
     lastPollTime = millis();
 
-    float currentFill = fetchFillLevel();
+    float currentFill;
+
+    if (USB_MODE) {
+      // In USB mode: read fill level sent by the bridge over Serial
+      // The bridge forwards JSON lines that start with '{'
+      currentFill = fetchFillLevelUSB();
+      if (currentFill < 0) {
+        // Bridge hasn't sent data yet — fall back to WiFi fetch
+        currentFill = fetchFillLevelWiFi();
+      }
+    } else {
+      currentFill = fetchFillLevelWiFi();
+    }
 
     if (currentFill < 0) {
       return;  // Fetch error — skip this cycle
@@ -145,73 +202,63 @@ void loop() {
 
     float change = abs(currentFill - lastPhotoFillLevel);
 
-    Serial.print("[FILL] ");
+    Serial.print(F("[FILL] "));
     Serial.print(currentFill, 1);
-    Serial.print("% | last photo: ");
+    Serial.print(F("% | last photo: "));
     Serial.print(lastPhotoFillLevel == -999.0 ? 0 : lastPhotoFillLevel, 1);
-    Serial.print("% | delta: ");
+    Serial.print(F("% | delta: "));
     Serial.print(change, 1);
-    Serial.println("%");
+    Serial.println(F("%"));
 
     if (change >= FILL_CHANGE_THRESHOLD) {
-      Serial.println("[CAM] Change detected — capturing photo...");
+      Serial.println(F("[CAM] Change detected — capturing photo..."));
       captureAndUpload(currentFill);
       lastPhotoFillLevel = currentFill;
     }
   }
-  // No delay() — loop is millis() driven
 }
 
 // =====================================================================
-// FUNCTION: Connect to WiFi + resolve Mac hostname via mDNS
+// FUNCTION: Get fill level from Serial (USB bridge mode)
+// Reads any JSON line printed by the ultrasonic sensor bridge
 // =====================================================================
-void connectWiFi() {
-  Serial.print("[WiFi] Connecting to ");
-  Serial.print(WIFI_SSID);
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+float fetchFillLevelUSB() {
+  while (Serial.available()) {
+    String line = Serial.readStringUntil('\n');
+    line.trim();
+    if (!line.startsWith("{")) continue;
 
-  int attempts = 0;
-  while (WiFi.status() != WL_CONNECTED && attempts < 40) {
-    delay(500);
-    Serial.print(".");
-    attempts++;
-  }
-  Serial.println();
+    DynamicJsonDocument doc(512);
+    DeserializationError err = deserializeJson(doc, line);
+    if (err) continue;
 
-  if (WiFi.status() == WL_CONNECTED) {
-    Serial.println("[WiFi] Connected!");
-    Serial.print("[WiFi] IP: "); Serial.println(WiFi.localIP());
-    Serial.print("[WiFi] Signal: "); Serial.print(WiFi.RSSI()); Serial.println(" dBm");
-
-    Serial.print("[mDNS] Resolving "); Serial.print(MAC_HOSTNAME); Serial.println("...");
-    IPAddress serverIP;
-    int resolved = WiFi.hostByName(MAC_HOSTNAME, serverIP);
-    if (resolved == 1) {
-      SERVER_URL = "http://" + serverIP.toString() + ":8000";
-      Serial.print("[mDNS] Resolved to: "); Serial.println(SERVER_URL);
-    } else {
-      SERVER_URL = "http://192.168.1.128:8000";
-      Serial.println("[mDNS] Could not resolve — using fallback IP.");
+    if (doc.containsKey("fill_level")) {
+      float fl = doc["fill_level"].as<float>();
+      Serial.print(F("[USB] Fill from bridge: ")); Serial.print(fl, 1); Serial.println(F("%"));
+      return fl;
     }
-  } else {
-    Serial.println("[WiFi] FAILED. Will retry next loop.");
   }
+  return -1.0;  // nothing available yet
 }
 
 // =====================================================================
-// FUNCTION: GET current fill level from Django
-// Returns fill level (0.0–100.0) or -1.0 on error
+// FUNCTION: GET fill level from Django via WiFi
 // =====================================================================
-float fetchFillLevel() {
+float fetchFillLevelWiFi() {
+  WiFiClient client;
   HTTPClient http;
   String url = SERVER_URL + String(FILL_ENDPOINT) + "?bin_id=" + String(BIN_ID);
-  http.begin(url);
-  http.setTimeout(2000);
+
+  Serial.print(F("[HTTP] Fetching fill: ")); Serial.println(url);
+
+  http.begin(client, url);
+  http.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS);
+  http.setTimeout(3000);
 
   int code = http.GET();
   if (code != 200) {
-    Serial.print("[HTTP] Fill fetch failed — code: ");
-    Serial.println(code);
+    Serial.print(F("[HTTP] Fill fetch failed — code: ")); Serial.println(code);
+    if (code > 0) Serial.println("[HTTP] Response: " + http.getString());
     http.end();
     return -1.0;
   }
@@ -233,8 +280,6 @@ float fetchFillLevel() {
     fillLevel = doc["fill_level"].as<float>();
   } else if (doc.containsKey("results") && doc["results"].size() > 0) {
     fillLevel = doc["results"][0]["fill_level"].as<float>();
-  } else {
-    Serial.println("[JSON] fill_level not found in response.");
   }
 
   return fillLevel;
@@ -244,7 +289,6 @@ float fetchFillLevel() {
 // FUNCTION: Capture photo + upload to Django
 // =====================================================================
 void captureAndUpload(float fillLevel) {
-  // Brief flash for better image in low-light bin interior
   digitalWrite(FLASH_PIN, HIGH);
   delay(150);
 
@@ -252,7 +296,7 @@ void captureAndUpload(float fillLevel) {
   digitalWrite(FLASH_PIN, LOW);
 
   if (!fb) {
-    Serial.println("[CAM] Capture failed — no frame buffer.");
+    Serial.println(F("[CAM] Capture failed — no frame buffer."));
     return;
   }
 
@@ -263,32 +307,32 @@ void captureAndUpload(float fillLevel) {
   bool ok = uploadImage(fb->buf, fb->len, fillLevel);
   esp_camera_fb_return(fb);
 
-  if (ok) {
-    Serial.println("[HTTP] Upload OK.");
-  } else {
-    Serial.println("[HTTP] Upload FAILED.");
-  }
+  Serial.println(ok ? F("[HTTP] Upload OK.") : F("[HTTP] Upload FAILED."));
 }
 
 // =====================================================================
-// FUNCTION: POST JPEG image to Django /api/camera-images/
-// Fill level is sent as HTTP header for dataset labeling
+// FUNCTION: POST JPEG image to Django
 // =====================================================================
 bool uploadImage(uint8_t* data, size_t len, float fillLevel) {
+  WiFiClient client;
   HTTPClient http;
   String url = SERVER_URL + String(UPLOAD_ENDPOINT);
-  http.begin(url);
-  http.setTimeout(10000);  // 10s — image payloads are larger
+
+  Serial.print(F("[HTTP] Uploading to: ")); Serial.println(url);
+
+  http.begin(client, url);
+  http.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS);
+  http.setTimeout(10000);
 
   http.addHeader("Content-Type", "image/jpeg");
   http.addHeader("X-Camera-ID",  CAMERA_ID);
   http.addHeader("X-Bin-ID",     BIN_ID);
 
-  // Tag every photo with the fill level at time of capture
   char fillStr[10];
   dtostrf(fillLevel, 1, 1, fillStr);
   http.addHeader("X-Fill-Level", String(fillStr));
 
+  Serial.println(F("[HTTP] Executing POST..."));
   int code = http.POST(data, len);
 
   if (code == 200 || code == 201) {
@@ -296,10 +340,42 @@ bool uploadImage(uint8_t* data, size_t len, float fillLevel) {
     return true;
   }
 
-  Serial.print("[HTTP] Upload code: "); Serial.println(code);
+  Serial.print(F("[HTTP] Upload code: ")); Serial.println(code);
   if (code > 0) Serial.println("[HTTP] Response: " + http.getString());
   http.end();
   return false;
+}
+
+// =====================================================================
+// FUNCTION: Connect to WiFi + resolve Mac via mDNS
+// =====================================================================
+void connectWiFi() {
+  Serial.print(F("[WiFi] Connecting to ")); Serial.print(WIFI_SSID);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+
+  int attempts = 0;
+  while (WiFi.status() != WL_CONNECTED && attempts < 40) {
+    delay(500); Serial.print("."); attempts++;
+  }
+  Serial.println();
+
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println(F("[WiFi] ✅ Connected!"));
+    Serial.print(F("[WiFi] IP: ")); Serial.println(WiFi.localIP());
+    Serial.print(F("[WiFi] Signal: ")); Serial.print(WiFi.RSSI()); Serial.println(F(" dBm"));
+
+    IPAddress serverIP;
+    Serial.print(F("[mDNS] Resolving ")); Serial.print(MAC_HOSTNAME); Serial.println(F("..."));
+    if (WiFi.hostByName(MAC_HOSTNAME, serverIP) == 1) {
+      SERVER_URL = "http://" + serverIP.toString() + ":8000";
+      Serial.print(F("[mDNS] ✅ Resolved: ")); Serial.println(SERVER_URL);
+    } else {
+      SERVER_URL = "http://192.168.43.148:8000";
+      Serial.println(F("[mDNS] ⚠️  Could not resolve — using fallback IP."));
+    }
+  } else {
+    Serial.println(F("[WiFi] ❌ FAILED to connect."));
+  }
 }
 
 // =====================================================================
@@ -325,8 +401,7 @@ bool initCamera() {
   config.pin_sscb_scl = SIOC_GPIO_NUM;
   config.pin_pwdn     = PWDN_GPIO_NUM;
   config.pin_reset    = RESET_GPIO_NUM;
-  // PSRAM detected → full JPEG quality
-  // No PSRAM   → grayscale + tiny frame to fit in internal DMA RAM
+
   if (psramFound()) {
     config.xclk_freq_hz = 20000000;
     config.pixel_format = PIXFORMAT_JPEG;
@@ -334,13 +409,12 @@ bool initCamera() {
     config.jpeg_quality = 10;
     config.fb_count     = 2;
   } else {
-    // Minimal config — internal RAM only, no PSRAM
-    config.xclk_freq_hz = 8000000;         // 8MHz — lowest stable XCLK
-    config.pixel_format = PIXFORMAT_JPEG;   // JPEG = compressed output, less RAM
+    config.xclk_freq_hz = 8000000;
+    config.pixel_format = PIXFORMAT_JPEG;
     config.frame_size   = FRAMESIZE_QQVGA;  // 160x120
-    config.jpeg_quality = 63;               // Max compression = smallest buffer
+    config.jpeg_quality = 63;
     config.fb_count     = 1;
-    config.fb_location  = CAMERA_FB_IN_DRAM; // Force internal RAM allocation
+    config.fb_location  = CAMERA_FB_IN_DRAM;
     config.grab_mode    = CAMERA_GRAB_LATEST;
   }
 
@@ -352,12 +426,12 @@ bool initCamera() {
 
   // Fine-tune sensor for bin interior
   sensor_t* s = esp_camera_sensor_get();
-  s->set_brightness(s,    1);  // Slightly brighter
-  s->set_saturation(s,   -1);  // Less saturation — better for waste classification
-  s->set_whitebal(s,      1);  // Auto white balance ON
-  s->set_awb_gain(s,      1);  // AWB gain ON
-  s->set_exposure_ctrl(s, 1);  // Auto exposure ON
-  s->set_gain_ctrl(s,     1);  // Auto gain ON
+  s->set_brightness(s,    1);
+  s->set_saturation(s,   -1);
+  s->set_whitebal(s,      1);
+  s->set_awb_gain(s,      1);
+  s->set_exposure_ctrl(s, 1);
+  s->set_gain_ctrl(s,     1);
 
   return true;
 }
