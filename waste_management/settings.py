@@ -14,7 +14,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-your-secret-key-her
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,192.168.1.116,192.168.43.159,192.168.1.121,Jams-MacBook-Pro.local,decrease-legends-failed-discrete.trycloudflare.com').split(',')
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,192.168.1.116,192.168.43.159,192.168.1.121,Jams-MacBook-Pro.local,decrease-legends-failed-discrete.trycloudflare.com,*').split(',')
 
 # Optional device upload token for ESP32-CAM uploads
 UPLOAD_DEVICE_TOKEN = os.getenv('UPLOAD_DEVICE_TOKEN', '')
@@ -95,7 +95,7 @@ CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000', 'http:
 # Security Headers
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
-X_FRAME_OPTIONS = 'DENY'
+X_FRAME_OPTIONS = 'SAMEORIGIN'  # Allow iframes from same origin (needed for map popups)
 SECURE_HSTS_SECONDS = 31536000  # 1 year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
@@ -120,11 +120,15 @@ AXES_VERBOSE = True
 # DEFENDER_USE_CACHE = True
 
 # CORS Settings
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://127.0.0.1:8000",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "http://localhost:8501",
+    "http://localhost:8502",
+    "http://localhost:8503",
 ]
 
 CORS_ALLOW_CREDENTIALS = True

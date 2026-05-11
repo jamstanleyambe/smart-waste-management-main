@@ -11,6 +11,7 @@ import datetime as dt
 from dateutil import parser as date_parser
 import os
 import polyline
+from streamlit_autorefresh import st_autorefresh
 
 def get_google_maps_route(origin, destination, waypoints):
     from dotenv import load_dotenv
@@ -398,7 +399,7 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
                     font-weight: bold;
                     font-size: 13px;
                     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-                ">{bin['fill_level']:.1f}%</span>
+                " id="fill-level">{bin['fill_level']:.1f}%</span>
             </div>
             
             <div style="
@@ -430,15 +431,53 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
                 padding-top: 8px;
                 border-top: 1px solid rgba(255,255,255,0.2);
             ">
-                📅 Updated: {bin['last_updated'][:16].replace('T', ' ')}
+                📅 Updated: <span id="last-updated">{bin['last_updated'][:16].replace('T', ' ')}</span>
             </div>
+            
+            <button onclick="updateData()" style="
+                width: 100%;
+                margin-top: 12px;
+                padding: 8px;
+                background-color: #f1c40f;
+                color: #2c3e50;
+                border: none;
+                border-radius: 6px;
+                font-weight: bold;
+                cursor: pointer;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            ">🔄 Pull Latest Data</button>
+            
+            <script>
+                function updateData() {{
+                    const btn = document.querySelector('button');
+                    btn.innerText = '🔄 Pulling...';
+                    fetch('http://localhost:8000/api/bin-data/?bin_id=' + '{bin["bin_id"]}')
+                    .then(r => r.json())
+                    .then(data => {{
+                        let b = (data.results && data.results.length > 0) ? data.results[0] : (data.length > 0 ? data[0] : data);
+                        if (b && b.fill_level !== undefined) {{
+                            document.getElementById('fill-level').innerText = parseFloat(b.fill_level).toFixed(1) + '%';
+                            if (b.last_updated) {{
+                                document.getElementById('last-updated').innerText = b.last_updated.substring(0,16).replace('T', ' ');
+                            }}
+                        }}
+                        btn.innerText = '✅ Updated!';
+                        setTimeout(() => btn.innerText = '🔄 Pull Latest Data', 2000);
+                    }}).catch(e => {{
+                        btn.innerText = '❌ Failed';
+                        setTimeout(() => btn.innerText = '🔄 Pull Latest Data', 2000);
+                    }});
+                }}
+            </script>
         </div>
         """
+        
+        iframe = folium.IFrame(html=popup_content, width=320, height=420)
         
         # Add marker to map
         folium.Marker(
             [bin['latitude'], bin['longitude']],
-            popup=folium.Popup(popup_content, max_width=320),
+            popup=folium.Popup(iframe, max_width=320),
             icon=icon
         ).add_to(m)
 
@@ -677,7 +716,7 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
                             min-width: 60px;
                             text-align: center;
                         ">FILL LEVEL</span>
-                        <span style="font-weight: bold; font-size: 14px;">{bin_data['fill_level']:.1f}%</span>
+                        <span id="star-fill" style="font-weight: bold; font-size: 14px;">{bin_data['fill_level']:.1f}%</span>
                     </div>
                     
                     <div style="
@@ -715,8 +754,44 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
                         padding-top: 8px;
                         border-top: 1px solid rgba(255,255,255,0.2);
                     ">
-                        Last updated: {bin_data.get('last_updated', 'Unknown')}
+                        Last updated: <span id="star-updated">{bin_data.get('last_updated', 'Unknown')[:16].replace('T', ' ')}</span>
                     </div>
+                    
+                    <button onclick="updateStarData()" style="
+                        width: 100%;
+                        margin-top: 12px;
+                        padding: 8px;
+                        background-color: #f1c40f;
+                        color: #2c3e50;
+                        border: none;
+                        border-radius: 6px;
+                        font-weight: bold;
+                        cursor: pointer;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+                    ">🔄 Pull Latest Data</button>
+                    
+                    <script>
+                        function updateStarData() {{
+                            const btn = document.querySelector('button');
+                            btn.innerText = '🔄 Pulling...';
+                            fetch('http://localhost:8000/api/bin-data/?bin_id=' + '{bin_data["bin_id"]}')
+                            .then(r => r.json())
+                            .then(data => {{
+                                let b = (data.results && data.results.length > 0) ? data.results[0] : (data.length > 0 ? data[0] : data);
+                                if (b && b.fill_level !== undefined) {{
+                                    document.getElementById('star-fill').innerText = parseFloat(b.fill_level).toFixed(1) + '%';
+                                    if (b.last_updated) {{
+                                        document.getElementById('star-updated').innerText = b.last_updated.substring(0,16).replace('T', ' ');
+                                    }}
+                                }}
+                                btn.innerText = '✅ Updated!';
+                                setTimeout(() => btn.innerText = '🔄 Pull Latest Data', 2000);
+                            }}).catch(e => {{
+                                btn.innerText = '❌ Failed';
+                                setTimeout(() => btn.innerText = '🔄 Pull Latest Data', 2000);
+                            }});
+                        }}
+                    </script>
                 </div>
                 """
             else:
@@ -727,12 +802,51 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
             star_popup_content = f"⭐ {highlight_type}: {highlight_id} (SEARCHED)"
         
         # Add the star marker with custom icon
-        folium.Marker(
-            highlight_coords,
-            popup=folium.Popup(star_popup_content, max_width=320),
-            icon=folium.Icon(color='red', icon='star', prefix='fa'),
-            tooltip=f"⭐ {highlight_type}: {highlight_id} (SEARCHED)"
-        ).add_to(m)
+        if highlight_type == "Bin" and 'bin_data' in locals() and bin_data:
+            iframe_star = folium.IFrame(html=star_popup_content, width=320, height=420)
+            folium.Marker(
+                highlight_coords,
+                popup=folium.Popup(iframe_star, max_width=320),
+                icon=folium.Icon(color='red', icon='star', prefix='fa'),
+                tooltip=f"⭐ {highlight_type}: {highlight_id} (SEARCHED)"
+            ).add_to(m)
+        else:
+            folium.Marker(
+                highlight_coords,
+                popup=folium.Popup(star_popup_content, max_width=320),
+                icon=folium.Icon(color='red', icon='star', prefix='fa'),
+                tooltip=f"⭐ {highlight_type}: {highlight_id} (SEARCHED)"
+            ).add_to(m)
+        
+        # Add a permanent data label next to the highlighted item
+        if highlight_type == "Bin" and bin_data:
+            highlight_label_html = f'''
+            <div style="
+                font-size: 14px;
+                font-weight: bold;
+                color: #2c3e50;
+                background: rgba(255, 255, 255, 0.95);
+                border: 3px solid #f1c40f;
+                border-radius: 8px;
+                padding: 6px 10px;
+                text-align: center;
+                white-space: nowrap;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+                transform: translate(20px, -20px);
+                font-family: Arial, sans-serif;
+            ">
+                <div style="color: #e74c3c; margin-bottom: 2px;">⭐ {bin_data["bin_id"]}</div>
+                <div style="font-size: 16px; color: #27ae60;">Fill: {bin_data["fill_level"]:.1f}%</div>
+            </div>
+            '''
+            folium.Marker(
+                highlight_coords,
+                icon=folium.DivIcon(
+                    html=highlight_label_html,
+                    icon_size=(120, 50),
+                    icon_anchor=(0, 0)
+                )
+            ).add_to(m)
         
         # Add a pulsing circle around the star marker for extra visibility
         folium.Circle(
@@ -1017,6 +1131,37 @@ def camera_gallery_section():
         st.error(f"❌ Error loading camera gallery: {str(e)}")
         st.info("💡 Make sure the Django backend is running and accessible")
 
+@st.fragment
+def display_live_search_result(map_search_type, map_search_id):
+    """Displays a real-time updating card for the searched item without reloading the whole page."""
+    if map_search_type == "Bin":
+        response = requests.get(f"{API_BASE_URL}/bin-data/?bin_id={map_search_id}")
+        if response.status_code == 200:
+            data = response.json()
+            items = data.get('results', data) if isinstance(data, dict) else data
+            item = items[0] if items else None
+            if item:
+                fill_level = item.get('fill_level', 0)
+                last_updated = item.get('last_updated', 'Unknown')
+                st.markdown(f'''
+                    <div style="background-color: #f8fafc; border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 6px; margin-top: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); border-right: 1px solid #e2e8f0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+                        <div style="color: #0f172a; font-weight: 600; font-size: 0.95em; margin-bottom: 6px;">
+                            ✅ {map_search_type} Found: {map_search_id} 
+                        </div>
+                        <div style="color: #475569; font-size: 0.85em; margin-bottom: 4px;">
+                            📊 Fill Level: <span style="font-size:1.4em; font-weight:bold; color:#10b981;">{fill_level:.1f}%</span>
+                        </div>
+                        <div style="color: #475569; font-size: 0.85em;">🕒 Last Updated: {str(last_updated)[:19].replace('T', ' ')}</div>
+                        <div style="color: #10b981; font-size: 0.8em; margin-top: 8px; font-weight: 500;">🎯 Highlighted on map with permanent label</div>
+                    </div>
+                ''', unsafe_allow_html=True)
+                
+                # Manual refresh button inside the fragment
+                if st.button(f"🔄 Pull Live Data from {map_search_id}", use_container_width=True):
+                    st.rerun() # This safely re-runs ONLY this fragment, not the whole map!
+                return
+    st.info(f"Loading {map_search_type} data...")
+
 def main():
     # Navigation system
     st.sidebar.header("🧭 Navigation")
@@ -1024,6 +1169,9 @@ def main():
         "Choose a section:",
         ["🗺️ Interactive Map", "📊 Analytics Dashboard", "🚛 Truck Management", "🗑️ Bin Management", "📈 Real-time Data", "📸 Camera Gallery"]
     )
+    
+    st.sidebar.markdown("---")
+    st.sidebar.info("💡 Map popups now auto-update in real-time (every 0.5s) when you click on a bin.")
     
     # Add custom CSS for container margins and map enhancements
     st.markdown("""
@@ -1345,16 +1493,9 @@ def main():
             item_id = highlight_item.get('bin_id') or highlight_item.get('truck_id') or highlight_item.get('spot_id') or 'Unknown'
             
             if map_search_type == "Bin":
-                last_updated = highlight_item.get('last_updated', 'Unknown')
-                fill_level = highlight_item.get('fill_level', 0)
-                search_results_placeholder.markdown(f'''
-                    <div style="background-color: #f8fafc; border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 6px; margin-top: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); border-right: 1px solid #e2e8f0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
-                        <div style="color: #0f172a; font-weight: 600; font-size: 0.95em; margin-bottom: 6px;">✅ {map_search_type} Found: {map_search_id}</div>
-                        <div style="color: #475569; font-size: 0.85em; margin-bottom: 4px;">📊 Fill Level: {fill_level:.1f}%</div>
-                        <div style="color: #475569; font-size: 0.85em;">🕒 Last Updated: {last_updated}</div>
-                        <div style="color: #10b981; font-size: 0.8em; margin-top: 8px; font-weight: 500;">🎯 Highlighted on map with ⭐ marker</div>
-                    </div>
-                ''', unsafe_allow_html=True)
+                # Call the live fragment instead of static markdown
+                with search_results_placeholder:
+                    display_live_search_result(map_search_type, map_search_id)
             elif map_search_type == "Truck":
                 last_updated = highlight_item.get('last_updated', 'Unknown')
                 status = highlight_item.get('status', 'Unknown')

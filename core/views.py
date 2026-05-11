@@ -32,10 +32,10 @@ class AnonBinRateThrottle(AnonRateThrottle):
 
 # Special rate limiting for sensor data (higher frequency)
 class SensorDataRateThrottle(UserRateThrottle):
-    rate = '1000/hour'  # Allow 1000 requests per hour for sensors
+    rate = '15000/hour'  # Allow high-frequency updates (approx 4/sec)
 
 class AnonSensorDataRateThrottle(AnonRateThrottle):
-    rate = '500/hour'   # Allow 500 requests per hour for anonymous sensors
+    rate = '15000/hour'   # Allow high-frequency updates (approx 4/sec)
 
 @api_view(['GET', 'POST'])
 @throttle_classes([BinRateThrottle, AnonBinRateThrottle])
@@ -44,6 +44,12 @@ def bin_data(request):
     if request.method == 'GET':
         try:
             bins = Bin.objects.all()
+            
+            # Filter by bin_id if provided in query params
+            bin_id = request.query_params.get('bin_id', None)
+            if bin_id:
+                bins = bins.filter(bin_id=bin_id)
+            
             serializer = BinSerializer(bins, many=True)
             
             # Log the request
@@ -336,10 +342,12 @@ def esp32_cam_upload(request):
             provided = request.headers.get('X-Device-Token') or request.META.get('HTTP_X_DEVICE_TOKEN')
             if provided != device_token:
                 return Response({'error': 'Invalid device token'}, status=status.HTTP_403_FORBIDDEN)
-        # Get camera info from headers
+        # Get camera info and bin context from headers
         camera_id = request.META.get('HTTP_X_CAMERA_ID', 'ESP32_CAM_001')
         camera_type = request.META.get('HTTP_X_CAMERA_TYPE', 'ESP32-CAM')
         analysis_type = request.META.get('HTTP_X_ANALYSIS_TYPE', 'WASTE_CLASSIFICATION')
+        bin_id = request.META.get('HTTP_X_BIN_ID', 'UNKNOWN')
+        fill_level = request.META.get('HTTP_X_FILL_LEVEL', 'UNKNOWN')
         
         # Create or get camera
         camera, created = Camera.objects.get_or_create(
@@ -376,7 +384,9 @@ def esp32_cam_upload(request):
                 'camera_id': camera_id,
                 'camera_type': camera_type,
                 'upload_method': 'ESP32-CAM',
-                'file_size': len(image_data)
+                'file_size': len(image_data),
+                'bin_id': bin_id,
+                'fill_level': fill_level
             }
         )
         
