@@ -719,6 +719,14 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
                         ">⭐ SEARCHED ITEM</div>
                     </div>
                     
+                    <!-- Latest Camera Image -->
+                    <div style="text-align: center; margin: 10px 0;">
+                        <img id="star-image" src="{bin_data.get('latest_image_url', '')}" 
+                             style="max-width: 100%; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); display: {'block' if bin_data.get('latest_image_url') else 'none'};" 
+                             alt="Latest Bin Photo" />
+                        {'<div style="font-size:10px; color:rgba(255,255,255,0.5); margin-top:4px;">📷 Latest capture</div>' if bin_data.get('latest_image_url') else ''}
+                    </div>
+                    
                     <div style="margin-bottom: 8px;">
                         <span style="
                             display: inline-block;
@@ -798,6 +806,13 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
                                     if (b.last_updated) {{
                                         document.getElementById('star-updated').innerText = b.last_updated.substring(0,16).replace('T', ' ');
                                     }}
+                                    if (b.latest_image_url) {{
+                                        let imgEl = document.getElementById('star-image');
+                                        if (imgEl) {{
+                                            imgEl.src = b.latest_image_url;
+                                            imgEl.style.display = 'block';
+                                        }}
+                                    }}
                                 }}
                                 btn.innerText = '✅ Updated!';
                                 setTimeout(() => btn.innerText = '🔄 Pull Latest Data', 2000);
@@ -818,7 +833,7 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
         
         # Add the star marker with custom icon
         if highlight_type == "Bin" and 'bin_data' in locals() and bin_data:
-            iframe_star = folium.IFrame(html=star_popup_content, width=320, height=420)
+            iframe_star = folium.IFrame(html=star_popup_content, width=320, height=600)
             folium.Marker(
                 highlight_coords,
                 popup=folium.Popup(iframe_star, max_width=320),
