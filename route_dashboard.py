@@ -379,6 +379,14 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
                 <span style="font-weight: bold; font-size: 14px;">{bin['bin_id']}</span>
             </div>
             
+            <!-- Latest Image Display -->
+            <div style="text-align: center; margin: 10px 0;">
+                <img id="latest-image" src="{bin.get('latest_image_url', '')}" 
+                     style="max-width: 100%; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); display: {'block' if bin.get('latest_image_url') else 'none'};" 
+                     alt="Latest Bin Status" />
+            </div>
+
+            
             <div style="margin-bottom: 8px;">
                 <span style="
                     display: inline-block;
@@ -460,6 +468,13 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
                             if (b.last_updated) {{
                                 document.getElementById('last-updated').innerText = b.last_updated.substring(0,16).replace('T', ' ');
                             }}
+                            if (b.latest_image_url) {{
+                                let imgEl = document.getElementById('latest-image');
+                                if (imgEl) {{
+                                    imgEl.src = b.latest_image_url;
+                                    imgEl.style.display = 'block';
+                                }}
+                            }}
                         }}
                         btn.innerText = '✅ Updated!';
                         setTimeout(() => btn.innerText = '🔄 Pull Latest Data', 2000);
@@ -472,7 +487,7 @@ def create_map(bins, dumping_spots, trucks, selected_bin=None, path=None, highli
         </div>
         """
         
-        iframe = folium.IFrame(html=popup_content, width=320, height=420)
+        iframe = folium.IFrame(html=popup_content, width=320, height=580)
         
         # Add marker to map
         folium.Marker(

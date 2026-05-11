@@ -50,7 +50,7 @@ def bin_data(request):
             if bin_id:
                 bins = bins.filter(bin_id=bin_id)
             
-            serializer = BinSerializer(bins, many=True)
+            serializer = BinSerializer(bins, many=True, context={'request': request})
             
             # Log the request
             user = request.user if request.user.is_authenticated else 'Anonymous'

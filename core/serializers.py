@@ -17,10 +17,23 @@ class RoleSerializer(serializers.ModelSerializer):
         return value.upper()
 
 class BinSerializer(serializers.ModelSerializer):
+    latest_image_url = serializers.SerializerMethodField()
+
     class Meta:
         model = Bin
         fields = '__all__'
         read_only_fields = ['last_updated']
+
+    def get_latest_image_url(self, obj):
+        from .models import CameraImage
+        # Find the most recent image where metadata contains this bin's ID
+        latest_image = CameraImage.objects.filter(metadata__bin_id=obj.bin_id).order_by('-created_at').first()
+        if latest_image and latest_image.image:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(latest_image.image.url)
+            return latest_image.image.url
+        return None
 
     def validate(self, data):
         """Validate that percentages sum to 100%"""
